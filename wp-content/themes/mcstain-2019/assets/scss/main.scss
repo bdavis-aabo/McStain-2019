@@ -1,0 +1,37 @@
+/*** Mixin and Style Dependencies ***/
+@import 'design';
+@import 'navigation';
+@import 'forms';
+
+
+/*** BEGIN MAIN STYLE SHEET ***/
+
+/*
+Extra small devices (portrait phones, less than 576px)
+No media query...Bootstrap default
+*/
+
+/*** SMALL DEVICES : Landscape phones, 576px + ***/
+@media (min-width: 576px){
+
+}
+
+/*** MEDIUM DEVICES : Tablets, 768px + ***/
+@media (min-width: 768px){
+
+}
+
+/*** LARGE DEVICES : Desktops, 992px and up ***
+@media (min-width: 992px){
+
+}
+
+/*** EXTRA LARGE DEVICES : Large Desktops, 1200px + ***/
+@media (min-width: 1200px){
+
+}
+
+
+/*
+:::::::::: CUSTOM MEDIA QUERIES IF NEEDED ::::::::::
+*/
