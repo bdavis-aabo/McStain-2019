@@ -25,28 +25,29 @@
 <body <?php body_class(); ?>>
 
   <header class="header">
-    <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
+    <nav class="navbar navbar-expand-xl fixed-top">
       <a class="navbar-brand" href="<?php bloginfo('url') ?>" title="<?php bloginfo('name') ?>">
         <img src="<?php bloginfo('template_directory') ?>/assets/images/mcstain-logo.svg" alt="<?php bloginfo('name') ?>" class="navbar-logo">
       </a>
 
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+        <span class="nav-iconbar"></span>
+        <span class="nav-iconbar"></span>
+        <span class="nav-iconbar"></span>
+        <span class="nav-iconbar"></span>
       </button>
 
-      <div class="collapse navbar-collapse" id="main-navbar">
-        <ul class="navbar-nav mr-auto navbar-right">
+      <div class="collapse navbar-collapse justify-content-end" id="main-navbar">
           <?php
             wp_nav_menu( array(
               'menu'            =>  'main_menu',
               'depth'           =>  2,
-              'container'       =>  'div',
-              'menu_class'      =>  'main-menu nav',
+              //'container'       =>  'div',
+              'menu_class'      =>  'main-menu navbar-nav',
               'fallback_cb'     => 'WP_Bootstrap_Navwalker::fallback',
               'walker'          => new WP_Bootstrap_Navwalker()
             ));
           ?>
-        </ul>
       </div>
     </nav>
   </header>
