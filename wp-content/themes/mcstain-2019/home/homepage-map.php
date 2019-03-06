@@ -10,8 +10,8 @@
         <div class="col-1">&nbsp;</div>
       </div>
     </div>
+  </section>
 
-    <div class="homepage-map" style="background: purple;">
-      Insert google map
-    </div>
+  <section class="homepage-map homepage-section" style="background: purple;">
+    Insert google map
   </section>

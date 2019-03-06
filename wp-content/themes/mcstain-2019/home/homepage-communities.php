@@ -15,7 +15,7 @@
         <span class="sr-only">Previous</span>
       </a>
       <a href="#community-slider" class="carousel-control next" role="button" data-slide="next">
-        <span class="carousel-control-prev-next" aria-hidden="true"></span>
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
       </a>
     </div>

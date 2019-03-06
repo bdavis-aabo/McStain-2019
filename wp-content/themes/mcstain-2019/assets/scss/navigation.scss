@@ -5,9 +5,9 @@ $bar-thickness:               2px;
 
 /*** NAVIGATION STYLES ***/
 .header {
-  .navbar { background: $blue; float: left; width: 100%; height: 100px; box-shadow: 0 2px 5px rgba(0,0,0,.25); transition: height 666ms ease-in-out; padding: 0;
+  .navbar { background: $blue; float: left; width: 100%; height: 80px; box-shadow: 0 2px 5px rgba(0,0,0,.25); transition: height 666ms ease-in-out; padding: 0;
     .navbar-brand { transition: transform 666ms ease-in-out; height: 100%;
-      .navbar-logo { width: 100%; transition: transform 666ms ease-in-out; }
+      .navbar-logo { width: 250px; transition: transform 666ms ease-in-out; transform: translateY(0); }
     }
     .navbar-toggler { background: transparent; border: none; border-radius: 0; cursor: pointer;
       width: $button-width; height: $button-height; position: absolute; right: 20px; top: 50%; transform: translateY(-50%) rotate(0deg);
@@ -29,10 +29,10 @@ $bar-thickness:               2px;
       }
     }
 
-    .navbar-nav { font-family: 'uni-book', sans-serif; text-transform: uppercase; font-size: 16px; font-weight: normal; background: $blue;
+    .navbar-nav { font-family: 'uni-book', sans-serif; text-transform: uppercase; font-size: 14px; font-weight: normal; background: $blue;
       .nav-item { transition: background 666ms ease-in-out;
-        .nav-link { color: $white;  transition: transform 666ms ease-in-out; padding: .25rem .75rem; }
-        &.realtorinfo-btn { background: $ltgreen; font-style: italic;
+        .nav-link { color: $white;  transition: transform 666ms ease-in-out; padding: .5rem .75rem; }
+        &.realtorinfo-btn { background: $ltgreen; font-family: $regular-italic, sans-serif;
           a {  }
           &:hover { background: shade($ltgreen, 15); }
         }
@@ -40,7 +40,7 @@ $bar-thickness:               2px;
         &.active,
         &.current-page-parent { background: shade($blue, 15); }
 
-        .dropdown-menu { border-radius: 0; border: none; padding-top: 0; padding-bottom: 0; margin: 0; background: $blue; font-size: 14px;
+        .dropdown-menu { border-radius: 0; border: none; padding-top: 0; padding-bottom: 0; margin: 0; background: $blue; font-size: 14px; display: block;
           .nav-item {
             .dropdown-item { color: $white; border-radius: none; padding: .5rem 2.5rem .5rem 1.25rem;
               &:hover { background: shade($blue, 15); }
@@ -50,9 +50,8 @@ $bar-thickness:               2px;
       }
     }
 
-
-    &.stuck { height: 75px;
-      .navbar-brand { transform: scale(.8) translate(-40px,-10px);
+    &.stuck { height: 60px;
+      .navbar-brand { transform: scale(.8) translate(-30px,-13px);
         .navbar-logo {  }
       }
       .navbar-nav {
@@ -86,15 +85,43 @@ No media query...Bootstrap default
 /*** MEDIUM DEVICES : Tablets, 768px + ***/
 @media (min-width: 768px){
   .header {
-    .navbar {
-      .navbar-nav { font-size: .75em; }
+    .navbar { height: 100px;
+      .navbar-nav { font-size: 1em;
+        .nav-item {
+          .nav-link { padding: .65rem .75rem; }
+          .dropdown-menu { font-size: 1.05em;
+            .nav-item {
+              .dropdown-item { padding: .65rem 2.5rem .65rem 1.5rem; }
+            }
+          }
+        }
+      }
+
+      .navbar-brand {
+        .navbar-logo { width: 300px; transform: translateY(0);}
+      }
+      &.stuck { height: 80px;
+        .navbar-brand {
+          .navbar-logo { transform: translateY(8px); }
+        }
+      }
     }
   }
 }
 
 /*** LARGE DEVICES : Desktops, 992px and up ***/
 @media (min-width: 992px){
-  //.dropdown:hover > .dropdown-menu { display: block; }
+
+  .header {
+    .navbar {
+      .navbar-nav { font-size: .85em;
+        .nav-item {
+          .dropdown-menu { display: none; }
+          &.dropdown:hover > .dropdown-menu { display: block; }
+        }
+      }
+    }
+  }
 
 }
 
@@ -107,16 +134,19 @@ No media query...Bootstrap default
       }
     }
     .navbar { padding: 0;
-      .navbar-nav { font-size: 14px;
+      .navbar-nav { //font-size: 14px;
         .nav-item {
           .nav-link { padding: .5rem 1.25rem; padding-left: 1.25rem; transform: translateY(50%); }
-          .dropdown-menu { box-shadow: 2px 2px 5px rgba(0,0,0,.25); }
+          .dropdown-menu { box-shadow: 2px 2px 5px rgba(0,0,0,.25); font-size: 1em; }
         }
       }
       &.stuck {
+        .navbar-brand { transform: scale(.8) translate(-30px,-16px);
+          .navbar-logo {  }
+        }
         .navbar-nav {
           .nav-item {
-            a { transform: translateY(25%); }
+            a { transform: translateY(35%); }
           }
         }
       }

@@ -24,6 +24,10 @@
       </div>
     </div>
   </div>
+
+  <button class="btn green-btn sidebar-btn lightbox-trigger base-contact">
+    <i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i> Give it a read
+  </button>
 </section>
 
 <section class="manifesto-slider homepage-section">

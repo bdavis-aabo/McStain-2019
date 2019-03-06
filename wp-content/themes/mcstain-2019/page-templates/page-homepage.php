@@ -23,11 +23,15 @@
         <div class="box-contents aqua-bg">
           <button class="btn aqua-btn btn-block lightbox-trigger base-contact">
             <span class="arrows"><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i></span>
-            <span class="text">First to know</span>
+            <span class="text">Who we are</span>
           </button>
         </div>
       </div>
     </div>
+
+    <button class="btn aqua-btn sidebar-btn lightbox-trigger base-contact">
+      <i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i> Who we are
+    </button>
   </section>
 
   <?php get_template_part('home/homepage-communities') ?>

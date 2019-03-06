@@ -5,9 +5,44 @@
 
 
 /*** BEGIN MAIN STYLE SHEET ***/
-.homepage-section {  position: relative;
-  .homepage-leftcolumn {  }
-  .section-title.orange-txt {  }
+.homepage-section { position: relative; margin: 1vh 0; width: 100%; float: left; background: pink; }
+
+.homepage-heroimage { position: relative; margin-top: 80px;
+  .homepage-heroimage-caption { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); text-align: center;
+      color: $white; text-shadow: 0 0 6px rgba(0,0,0,.3); width: 80vw;
+    .caption-title { margin: 0; font-size: 30px; }
+    .caption-content { font-size: 1em; line-height: 1.2em; margin-bottom: 10px; }
+  }
+}
+.homepage-content {
+  .homepage-leftcolumn {
+    p { margin-bottom: 2vh; }
+  }
+}
+.homepage-communities {
+  #community-slider {
+    .carousel-control { position: absolute; top: 50%; transform: translateY(-50%);
+      &.prev { left: 10px; }
+      &.next { right: 10px; }
+    }
+  }
+}
+.homepage-manifesto { }
+.manifesto-slider {
+  #manifesto-slider {
+    .carousel-indicators { margin-bottom: 0; bottom: 7px;
+      li { width: 10px; height: 10px; border-radius: 100%; }
+    }
+  }
+}
+.homepage-latestnews {
+  .news-article { margin-bottom: 2vh;
+    .article-title { font-family: 'uni-regular-italic', sans-serif; font-size: 1.75em; margin: 0; }
+    p { line-height: 1.7em; }
+    a { font-family: 'uni-regular-italic', sans-serif; color: $gray; text-decoration: underline;
+      &:hover { text-decoration: none; }
+    }
+  }
 }
 
 
@@ -21,22 +56,109 @@ No media query...Bootstrap default
 
 /*** SMALL DEVICES : Landscape phones, 576px + ***/
 @media (min-width: 576px){
+  .homepage-section { margin: 5vh 0; }
+
+  .homepage-heroimage { margin-top: 80px;
+    .homepage-heroimage-caption {
+      .caption-title { font-size: 3em; margin-bottom: 5px }
+      .caption-content { font-size: 1.3em; margin-bottom: 15px; }
+    }
+  }
+  .homepage-communities { }
+  .homepage-locations {
+    .homepage-leftcolumn {
+      .section-title { padding-right: 20%; }
+    }
+  }
+
 
 }
 
 /*** MEDIUM DEVICES : Tablets, 768px + ***/
 @media (min-width: 768px){
+  .homepage-section { margin: 2vh 0; }
 
+  .homepage-heroimage { margin-top: 100px;
+    .homepage-heroimage-caption {
+      .caption-title { font-size: 3em; }
+    }
+  }
+  #community-slider {
+    .carousel-control { position: absolute; top: 50%; transform: translateY(-50%);
+      &.prev { left: 10px; }
+      &.next { right: 10px; }
+    }
+  }
+  .homepage-locations {
+    .homepage-leftcolumn {
+      .section-title { padding-right: 10%; }
+    }
+  }
+
+
+  .homepage-manifesto { }
+  .manifesto-slider {
+    #manifesto-slider {
+      .carousel-indicators { margin-bottom: 0; bottom: 7px;
+        li { width: 12px; height: 12px; border-radius: 100%; }
+      }
+    }
+  }
 }
 
-/*** LARGE DEVICES : Desktops, 992px and up ***
+/*** LARGE DEVICES : Desktops, 992px and up ***/
 @media (min-width: 992px){
+  .homepage-section { margin: 4vh 0; }
 
+  .homepage-content {
+    .homepage-leftcolumn {
+      p { width: 90%; margin-bottom: 3vh; }
+    }
+  }
+  .homepage-communities { }
+  .homepage-locations {
+    .homepage-leftcolumn {
+      .section-title { padding-right: 25%; }
+    }
+  }
 }
 
 /*** EXTRA LARGE DEVICES : Large Desktops, 1200px + ***/
 @media (min-width: 1200px){
+  .homepage-section { position: relative; margin: 3vh 0;
+    .homepage-leftcolumn {  }
+    .section-title.orange-txt {  }
+  }
 
+  .homepage-heroimage { margin-top: 2vh;
+    .homepage-heroimage-caption { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); text-align: center; color: $white; text-shadow: 0 0 6px rgba(0,0,0,.3);
+      .caption-title { margin: 0 0 15px; font-size: 4em; }
+      .caption-content { font-size: 1.5em; margin-bottom: 20px; }
+    }
+  }
+  .homepage-communities { }
+  .homepage-locations {
+    .homepage-leftcolumn {
+      .section-title { padding-right: 5%; }
+    }
+  }
+  .homepage-manifesto { }
+  .manifesto-slider {
+    #manifesto-slider {
+      .carousel-indicators { margin-bottom: 0; bottom: 7px;
+        li { width: 14px; height: 14px; border-radius: 100%; }
+      }
+    }
+  }
+  .homepage-latestnews {
+    .news-article { margin-bottom: 2vh;
+      .article-title { font-family: 'uni-regular-italic', sans-serif; font-size: 1.75em; margin: 0; line-height: 1.7em; }
+      p { line-height: 1.7em; }
+      a { font-family: 'uni-regular-italic', sans-serif; color: $gray; text-decoration: underline;
+        &:hover { text-decoration: none; }
+      }
+    }
+  }
 }
 
 
