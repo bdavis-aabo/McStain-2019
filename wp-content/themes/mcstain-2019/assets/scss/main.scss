@@ -1,11 +1,13 @@
 /*** Mixin and Style Dependencies ***/
 @import 'design';
 @import 'navigation';
+@import 'cultivation';
 @import 'forms';
 
 
+
 /*** BEGIN MAIN STYLE SHEET ***/
-.homepage-section { position: relative; margin: 1vh 0; width: 100%; float: left; background: pink; }
+.homepage-section { position: relative; margin: 1vh 0; width: 100%; }
 
 .homepage-heroimage { position: relative; margin-top: 80px;
   .homepage-heroimage-caption { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); text-align: center;
@@ -21,7 +23,9 @@
 }
 .homepage-communities {
   #community-slider {
-    .carousel-control { position: absolute; top: 50%; transform: translateY(-50%);
+    .community-btn { position: absolute; left: 50%; top: 52%; transform: translate(-50%, -52%); font-family: 'uni-book', sans-serif; font-style: italic; display: none;
+      font-size: .95em; }
+    .carousel-control { position: absolute; top: 50%; transform: translateY(-50%); display: none;
       &.prev { left: 10px; }
       &.next { right: 10px; }
     }
@@ -45,6 +49,80 @@
   }
 }
 
+.news-section {
+  .news-leftcolumn,
+  .news-rightcolumn { height: 100%; }
+  .news-leftcolumn {
+    .news-article { margin-bottom: 30px; padding-bottom: 30px; border-bottom: 1px solid $ltgray;
+      .article-image { border: 1px solid $ltgray; padding: 4px; }
+      .article-contents {
+        .article-title { font-size: 1.25em; margin: 0 0 5px; line-height: 1em; font-family: 'uni-regular', sans-serif;
+          a { color: $ltgreen;
+            &:hover { color: $ltgray; }
+          }
+        }
+        .article-time { font-size: .9em; font-family: 'uni-regular-italic', sans-serif; }
+
+
+        .green-btn { font-size: .9em; font-family: 'uni-regular-italic', sans-serif; background: none; color: $green; }
+      }
+      h3 { font-size: 2em; margin: 0 0 12px; line-height: 1em;
+        a { color: $ltgreen;
+          &:hover { color: $ltgray; }
+        }
+      }
+      p { font-size: .9em; line-height: 1.6em; margin: 25px 0;
+        a { color: $ltgreen;
+          &:hover { color: $ltgray; }
+        }
+      }
+    }
+  }
+  .news-rightcolumn { border-left: 1px solid $ltgray;
+    .blog-sidebar { padding: 0 20px;
+      .blue-txt { font-size: 1.25em; color: $blue; margin: 0; border-bottom: 1px solid $ltgray; padding-bottom: 5px;
+        font-family: 'uni-regular', sans-serif; line-height: 1.1em;
+      }
+      ul { margin: 10px 0; padding: 0; list-style: none;
+        li { padding: 5px 0; font-size: .85em;
+          a { color: $gray;
+            &:hover { color: $ltgray; }
+          }
+        }
+      }
+    }
+  }
+}
+
+.footer { clear: both;
+  .footer-section { padding: 2vh 0;
+    &.footer-left { text-align: center;
+      .footer-logo { margin-bottom: 15px; }
+      .footer-social { list-style: none; margin: 20px auto 0; padding-left: 20px;
+        li { display: inline; padding: 0 15px 0 0; margin: 0;
+          a { color: $white; font-size: 1.5em;
+            &:hover { color: $ltgreen; }
+          }
+        }
+      }
+    }
+    &.footer-middle,
+    &.footer-right { font-size: 1.25em; line-height: 1.4em; text-align: center; font-family: 'uni-book', sans-serif;
+      strong { text-transform: uppercase; font-weight: normal; font-family: 'uni-bold', sans-serif; }
+    }
+    &.footer-middle {
+      .footer-menu { list-style: none; text-align: center; padding: 0;
+        li { padding: 5px 0; margin: 0;
+          a { color: $white;
+            &:hover { color: $ltgreen; }
+          }
+        }
+      }
+    }
+  }
+  .copyright { font-size: .8em; }
+}
+
 
 
 
@@ -64,7 +142,12 @@ No media query...Bootstrap default
       .caption-content { font-size: 1.3em; margin-bottom: 15px; }
     }
   }
-  .homepage-communities { }
+  .homepage-communities {
+    #community-slider {
+      .community-btn { display: block; }
+      .carousel-control { display: block; }
+    }
+  }
   .homepage-locations {
     .homepage-leftcolumn {
       .section-title { padding-right: 20%; }
@@ -94,8 +177,16 @@ No media query...Bootstrap default
       .section-title { padding-right: 10%; }
     }
   }
-
-
+  .homepage-communities {
+    #community-slider {
+      .carousel-control { position: absolute; top: 40%;
+        &.prev { left: 10px; }
+        &.next { right: 10px; }
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon { width: 48px; height: 48px; }
+      }
+    }
+  }
   .homepage-manifesto { }
   .manifesto-slider {
     #manifesto-slider {
@@ -104,6 +195,11 @@ No media query...Bootstrap default
       }
     }
   }
+
+
+
+
+
 }
 
 /*** LARGE DEVICES : Desktops, 992px and up ***/
@@ -121,6 +217,7 @@ No media query...Bootstrap default
       .section-title { padding-right: 25%; }
     }
   }
+
 }
 
 /*** EXTRA LARGE DEVICES : Large Desktops, 1200px + ***/
@@ -136,7 +233,11 @@ No media query...Bootstrap default
       .caption-content { font-size: 1.5em; margin-bottom: 20px; }
     }
   }
-  .homepage-communities { }
+  .homepage-communities {
+    #community-slider {
+      .community-btn { font-size: 1.1em; }
+    }
+  }
   .homepage-locations {
     .homepage-leftcolumn {
       .section-title { padding-right: 5%; }
@@ -156,6 +257,35 @@ No media query...Bootstrap default
       p { line-height: 1.7em; }
       a { font-family: 'uni-regular-italic', sans-serif; color: $gray; text-decoration: underline;
         &:hover { text-decoration: none; }
+      }
+    }
+  }
+
+  .footer { clear: both;
+    .footer-section { padding: 4vh 0;
+      &.footer-left { text-align: left;
+        .footer-logo { margin-bottom: 5px; width: 75%; }
+        .footer-social { list-style: none; margin: 20px auto 0; padding-left: 20px;
+          li { display: inline; padding: 0 15px 0 0; margin: 0;
+            a { color: $white; font-size: 1.5em;
+              &:hover { color: $ltgreen; }
+            }
+          }
+        }
+      }
+      &.footer-middle,
+      &.footer-right { font-size: 1em; line-height: 1.4em; text-align: left; font-family: 'uni-book', sans-serif;
+        .footer-contents { padding-top: 15px; }
+        strong { text-transform: uppercase; font-weight: normal; font-family: 'uni-bold', sans-serif; }
+      }
+      &.footer-middle {
+        .footer-menu { list-style: none; text-align: left; padding: 0;
+          li { padding: 5px 0; margin: 0;
+            a { color: $white;
+              &:hover { color: $ltgreen; }
+            }
+          }
+        }
       }
     }
   }

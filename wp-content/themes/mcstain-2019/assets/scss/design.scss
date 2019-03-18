@@ -20,6 +20,7 @@ $heading-scale:    6;
 
 /*** COLORS ***/
 $white:     #fff;
+$ltgray:    #ccc;
 $gray:      #343434;
 $medgray:   #9c9895;
 $black:     #000;
@@ -38,10 +39,14 @@ $brown:     #564438;
 .ltgreen-txt { color: $ltgreen; }
 .orange-txt  { color: $orange }
 
-a { cursor: pointer; }
+.blue-bg { background: $blue; color: $white; }
+
+a { cursor: pointer; transition: all 666ms ease-in-out;
+  &:hover { text-decoration: none; }
+}
 .btn { font-family: $bold-italic, sans-serif; font-style: normal; border-radius: 0; font-size: 1.1em; font-weight: normal;
   transition: background 666ms ease-in-out; border: none; cursor: pointer; padding: .375rem 1rem;
-  &.sidebar-btn { padding-left: 5vw; padding-right: 5vw; float: right; }
+  &.sidebar-btn { padding-left: 5vw; padding-right: 5vw; float: right; margin-bottom: 15px; }
   &:focus,
   &.focus { box-shadow: none !important; }
 }
@@ -98,7 +103,7 @@ a { cursor: pointer; }
 .vbottom   { align-items: flex-end; }
 
 /*** BASE/DEFAULT STYLES ***/
-body { font-family: 'uni-regular', sans-serif; font-size: $base-font-size; line-height: $line-height;
+body { font-family: 'uni-regular', sans-serif; font-size: $base-font-size; line-height: $line-height; overflow-x: hidden;
   -webkit-font-smooting: antialiased; -moz-osx-font-smoothing: grayscale;
   @include headings($base-font-size, $heading-scale);
   p { margin: 0 0 10px; }
@@ -153,6 +158,11 @@ body { font-family: 'uni-regular', sans-serif; font-size: $base-font-size; line-
   $base-font-size:  $base-font-size + 5;
   body { font-size: $base-font-size; line-height: $line-height + 11;
   @include headings($base-font-size, $heading-scale * 2);
+  }
+  .right-btn  {
+    .btn {
+      span { left: 10px; top: 10px; }
+    }
   }
 }
 

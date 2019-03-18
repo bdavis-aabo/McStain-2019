@@ -1,1 +1,260 @@
 /*** FORM STYLES ***/
+.email-lightbox { width: 100vw; height: 100vh; overflow-y: scroll; background: rgba(255,255,255,.95); position: fixed; top: 0; left: 0;
+  transform: translateY(-100%); transition: transform 666ms cubic-bezier(.215,.61,.355,1); -webkit-overflow-scrolling: touch; z-index: 1250;
+  .close-btn { position: absolute; right: 20px; top: 20px; transition: color 666ms ease-in-out; color: $medgray;
+    &:hover { color: $gray; }
+  }
+
+  .email-section-content { width: 90vw; height: 0; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+  transition: height 333ms cubic-bezier(.215,.61,.355,1);
+    .email-content { display: none;
+
+      &.form { display: block;
+        .form-introduction { color: $gray;
+          p { margin: 0; }
+        }
+        form { overflow: auto; }
+        p { font-family: 'uni-bold', sans-serif; font-size: $base-font-size * 1.25; margin: 0 10px;
+          &.normal-txt { font-family: 'uni-book', sans-serif; font-size: $base-font-size * 1.2; margin-bottom: 0; }
+        }
+        .form-list { font-size: $base-font-size * 1.2; margin: 12px 0 12px 10px; padding-left: 8px; list-style: none;
+          li { color: $gray;
+            &::before { content: '•'; color: $ltgreen; display: inline-block; width: 1em; margin-left: -1em; }
+            em { font-family: 'uni-bold', sans-serif; color: $ltgreen; }
+          }
+        }
+        .req { position: absolute; right: 0; font-size: $base-font-size * .95; }
+        .form-group { float: left; clear: both; width: 100%; margin-bottom: 0;
+          .form-control { margin-bottom: 10px; }
+          label { font-size: $base-font-size * 1.15; font-family: 'uni-bold', sans-serif; margin-bottom: 4px;
+            .red { color: $orange; }
+          }
+          input[type='text'],
+          input[type='email'],
+          select { border-radius: 0; border-color: $medgray; height: 40px !important; box-shadow: none; }
+          &.button-group { text-align: center;
+            .btn { font-weight: normal; font-family: 'uni-bold', sans-serif; font-size: $base-font-size * 1.35; padding-left: 25px; padding-right: 25px; }
+          }
+        }
+        .hidden-container { background: pink;
+          .hidden-fields { height: 0; float: left; clear: both; width: 100%; transition: height 666ms ease-in-out;
+            &.visible { height: auto; }
+          }
+        }
+
+        .floorplan-container {
+          .floorplan-item { margin: 15px 0; clear: both;
+            .floorplan-header { background: $blue; color: $white; width: 100%; position: relative;
+              &.gray-bg { background: $medgray;
+                .control {
+                  input {
+                    &:checked ~ .control__indicator { background: $aqua; }
+                  }
+                  &.control--radio {
+                    .control__indicator { background: $medgray; border-width: 2px; border-color: $white; }
+                  }
+                }
+              }
+              &.brown-bg { background: $brown;
+                .control {
+                  input {
+                    &:checked ~ .control__indicator { background: $aqua; }
+                  }
+                  &.control--radio {
+                    .control__indicator { background: $brown; border-width: 2px; border-color: $white; }
+                  }
+                }
+              }
+              .control { position: absolute; top: 5px; left: 5px;
+                input {
+                  &:checked ~ .control__indicator { background: $aqua; }
+                }
+                &.control--radio {
+                  .control__indicator { background: $blue; border-width: 2px; border-color: $white; }
+                }
+              }
+              .radio-information { padding: 12% 5px 0;
+                .model-name { font-size: 1.25em; color: $white; text-transform: uppercase; font-family: 'uni-regular', sans-serif;
+                  margin-bottom: 8px;
+                  span { text-transform: none; }
+                }
+                p { font-size: .95em; line-height: 1.2em; padding-bottom: 10px; margin-bottom: 0; margin-left: 0; }
+              }
+              .radio-right { position: absolute; right: 5px; top: 5px;
+                .model-lightbox { border: none; background: transparent; color: $white; font-family: 'uni-bold', sans-serif;
+                  font-style: italic;
+                }
+              }
+
+            }
+          }
+
+        }
+      }
+    }
+  }
+
+  &.box-open {
+    transform: none;
+    .email-section-content { height: 90vh; overflow-y: scroll;
+      &::-webkit-scrollbar { display: none; width: 0; background: transparent; }
+    }
+  }
+}
+
+.base-contactform { @include headings($base-font-size, $heading-scale * 1.2); }
+
+
+// Radio + Checkbox Styles
+.control { position: relative; display: inline-block; cursor: pointer; margin: 0 15px 0 0; padding-left: 35px;
+  input { position: absolute; z-index: 2; left: 4px; top: 5px; cursor: pointer; opacity: 0;
+    &:checked ~ .control__indicator { background: $ltgreen;
+      &:after { display: block; }
+    }
+    &:disabled ~ .control__indicator { pointer-events: none; opacity: .6; background: $white; }
+  }
+  .control__indicator { position: absolute; top: 5px; left: 0; width: 20px; height: 20px; background: $white; border: 1px solid $medgray;
+    transition: background 666ms cubic-bezier(.215,.61,.355,1);
+    &:after { position: absolute; display: none; content: ''; }
+  }
+  &.control--radio {
+    .control__indicator { border-radius: 50%; }
+  }
+  &:hover {
+    input ~ .control__indicator,
+    input:focus ~ .control__indicator { background: $ltgreen; }
+  }
+
+  &.control--checkbox {
+    .control__indicator { border-radius: none;
+      &:after { top: 3px; left: 6px; width: 5px; height: 10px; transform: rotate(45deg); border: solid $white; border-width: 0 2px 2px 0; }
+    }
+    input:disabled ~ .control__indicator:after { border-color: $ltgreen; }
+  }
+}
+
+/*
+Extra small devices (portrait phones, less than 544px)
+No media query since this is the default in Bootstrap because it is "mobile first"
+*/
+
+/* Small devices (landscape phones, 544px and up) */
+@media (min-width: 544px) {
+  .email-lightbox {
+    .email-section-content {
+      .email-content {
+        &.form {
+          .floorplan-container {
+            .floorplan-item {
+              .floorplan-header {
+                .radio-information { padding: 7% 5px 0;
+                  .model-name { font-size: 1.25em; margin-bottom: 8px; }
+                  p { font-size: .95em; line-height: 1.2em; padding-bottom: 10px; margin-bottom: 0; }
+                }
+                .radio-right { position: absolute; right: 5px; top: 5px;
+                  .model-lightbox { border: none; background: transparent; color: $white; font-family: 'uni-bold', sans-serif;
+                    font-style: italic;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Medium devices (tablets, 768px and up) The navbar toggle appears at this breakpoint */
+@media (min-width: 768px) {
+  .email-lightbox { overflow: hidden;
+    .email-section-content {
+      .email-content {
+        &.form { display: block;
+          p { font-family: 'uni-bold', sans-serif; font-size: $base-font-size * 1.5;
+            &.normal-txt { font-family: 'uni-book', sans-serif; font-size: $base-font-size * 1.2; margin-bottom: 0; }
+          }
+          .form-list { font-size: $base-font-size * 1.2; margin: 12px 0 12px 20px; list-style: none;
+            li { color: $gray;
+              &::before { content: '•'; color: $ltgreen; display: inline-block; width: 1em; margin-left: -1em; }
+              em { font-family: 'uni-bold', sans-serif; color: $ltgreen; }
+            }
+          }
+          .form-group {
+            .one-half { width: 48%; float: left;
+              &.last { float: right; }
+            }
+            .one-qtr { width: 48%; float: left;
+              &.last { float: right; }
+            }
+          &.check-group,
+          &.button-group { margin: 30px 0; }
+          }
+        }
+      }
+    }
+    &.box-open {
+      //.email-section-content { overflow-y: hidden; }
+    }
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  .email-lightbox {
+    .email-section-content {
+      .email-content {
+        &.form {
+          .floorplan-container {
+            .floorplan-item {
+              .floorplan-header {
+                .radio-information { padding: 4.5% 15px 0;
+                  .model-name { font-size: 1.25em; margin-bottom: 8px; }
+                  p { font-size: .95em; line-height: 1.2em; padding-bottom: 10px; margin-bottom: 0; }
+                }
+                .radio-right { position: absolute; right: 5px; top: 5px;
+                  .model-lightbox { border: none; background: transparent; color: $white; font-family: 'uni-bold', sans-serif;
+                    font-style: italic; font-size: 1.25em;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .email-lightbox {
+    .email-section-content {
+      .email-content {
+        .form-introduction {
+          p  { font-size: 24px;  margin-bottom: 1.5vh; }
+        }
+        &.form {
+          .floorplan-container {
+            .floorplan-item {
+              .floorplan-header { padding: 20px 30px 10px;
+                .control { top: 18px; left: 15px; }
+                .radio-information { padding: 0 15px 0;
+                  .model-name { font-size: 1.25em; margin-bottom: 8px; font-weight: 600 !important; }
+                  p { font-size: .95em; line-height: 1.2em; padding-bottom: 10px; margin-bottom: 0; }
+                }
+                .radio-right { position: absolute; right: 5px; top: 5px;
+                  .model-lightbox { border: none; background: transparent; color: $white; font-family: 'uni-bold', sans-serif;
+                    font-style: italic; font-size: 1.25em;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/* End */
