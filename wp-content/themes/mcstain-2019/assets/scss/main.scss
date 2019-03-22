@@ -31,7 +31,17 @@
     }
   }
 }
-.homepage-manifesto { }
+.homepage-manifesto {
+  .homepage-leftcolumn {
+    .manifesto-title { font-family: 'uni-bold', sans-serif; font-size: 2em;
+      span { border-bottom: 6px solid $black;
+        &.red-line { border-color: $red; }
+        &.aqua-line { border-color: $aqua; }
+        &.gold-line { border-color: $gold; }
+      }
+    }
+  }
+}
 .manifesto-slider {
   #manifesto-slider {
     .carousel-indicators { margin-bottom: 0; bottom: 7px;
@@ -264,7 +274,7 @@ No media query...Bootstrap default
 
 /*** EXTRA LARGE DEVICES : Large Desktops, 1200px + ***/
 @media (min-width: 1200px){
-  .homepage-section { position: relative; margin: 3vh 0;
+  .homepage-section { position: relative; margin: 5vh 0;
     .homepage-leftcolumn {  }
     .section-title.orange-txt {  }
   }

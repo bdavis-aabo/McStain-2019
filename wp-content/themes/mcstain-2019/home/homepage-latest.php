@@ -8,7 +8,7 @@
       <div class="row">
         <div class="col-12 col-md-11">
           <div class="homepage-leftcolumn">
-            <h1 class="section-title orange-txt">Recent news and coming soon&hellip;</h1>
+            <h2 class="section-title orange-txt">Recent news and coming soon&hellip;</h2>
           </div>
         </div>
         <div class="col-md-1">&nbsp;</div>
