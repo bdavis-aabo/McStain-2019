@@ -1,7 +1,7 @@
 $(document).ready(function(){
   //fix header to top on scroll
   $(window).scroll(function(){
-    if($(this).scrollTop() > 100){
+    if($(this).scrollTop() > 30){
       $('.navbar').addClass('stuck');
     } else {
       $('.navbar').removeClass('stuck');
@@ -33,11 +33,13 @@ $(document).ready(function(){
       $('.model-form').delay(500).show();
     } else if($(this).hasClass('design-btn')){
       $('.design-form').delay(500).show();
-    } else if($(this).hasClass('realtor-btn')){
-      $('.realtor-form').delay(500).show();
     } else if($(this).hasClass('amenities-btn')){
       $('.base-form').delay(500).show();
     }
+  });
+  $('.realtorinfo-btn a').click(function(){
+    displayLightbox();
+    $('.realtor-form').delay(500).show();
   });
 
   $('.close-btn').click(function(){
@@ -100,12 +102,8 @@ $(document).ready(function(){
 
   // Email Interest fields
   $('input.interest-check').change(function(){
+    $('.hidden-container').toggleClass('show');
     $('.hidden-fields').toggleClass('visible');
-    // if($('.hidden-fields').hasClass('visible')){
-    //   $('.hidden-fields').slideDown(500);
-    // } else {
-    //   $('.hidden-fields').slideUp(500);
-    // }
   });
 
   // Open lightbox form from url

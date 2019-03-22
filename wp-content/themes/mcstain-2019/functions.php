@@ -97,9 +97,43 @@ function create_community_slides(){
   ));
 }
 
+add_action('init','create_quickmoves');
+function create_quickmoves(){
+	register_post_type('quickmoves', array(
+		'label'				=>	__('Quick Move-Ins'),
+		'singular_label'	=>	__('Quick Move-In'),
+		'public'			=>	true,
+		'show_ui'			=>	true,
+		'capability_type'	=>	'post',
+		'hierarchical'		=>	true,
+		'rewrite'			=>	array('slug' => 'quick-moveins'),
+		'supports'			=>	array('title','author','excerpt','custom-fields','order','page-attributes','editor'),
+		'menu_position'		=>	21,
+		'menu_icon'			=>	'dashicons-admin-home',
+		'has_archive'		=>	true,
+	));
+}
+
+add_action('init','create_members');
+function create_members(){
+  register_post_type('team-members', array(
+    'label'             =>  __('Team Members'),
+    'singular_label'    =>  __('Team Member'),
+    'public'            =>  true,
+    'show_ui'           =>  true,
+    'capability_type'   =>  'post',
+    'hierarchical'      =>  true,
+    'rewrite'           =>  array('slug' => 'team-members'),
+    'supports'          =>  array('title','thumbnail','custom-fields','order','page-attributes','editor'),
+    'menu_position'     =>  22,
+    'menu_icon'         =>  'dashicons-businessman',
+    'has_archive'       =>  false
+  ));
+}
+
 add_action('init','create_manifestos');
 function create_manifestos(){
-  register_post_type('manifestos', array(
+  register_post_type('manifesto_messages', array(
     'label'             =>  __('Manifesto Messages'),
     'singular_label'    =>  __('Manifesto Message'),
     'public'            =>  true,
@@ -108,10 +142,39 @@ function create_manifestos(){
     'hierarchical'      =>  true,
     'rewrite'           =>  array('slug' => 'manifesto'),
     'supports'          =>  array('title','thumbnail','custom-fields','order','page-attributes','editor'),
-    'menu_position'     =>  20,
+    'menu_position'     =>  23,
     'menu_icon'         =>  'dashicons-megaphone',
     'has_archive'       =>  false
   ));
+}
+
+// Custom Taxonomy for Quick Move-in Homes
+add_action('init','location_taxonomies',0);
+function location_taxonomies(){
+  $_labels = array(
+		'name' 				=> 	_x('Locations', 'taxonomy general name'),
+		'singular_name'		=> 	_x('Location', 'taxonomy singular name'),
+		'search_items'		=>	__('Search Locations'),
+		'all_items'			=>	__('All Locations'),
+		'parent_item'		=>	__('Parent Location'),
+		'parent_item_colon'	=>	__('Parent Location:'),
+		'edit_item'			=>	__('Edit Location'),
+		'update_item'		=>	__('Update Location'),
+		'add_new_item'		=>	__('Add New Location'),
+		'new_item_name'		=>	__('New Location Name'),
+		'menu_name'			=>	__('Locations'),
+		);
+	$_args = array(
+		'hierarchical'		=>	true,
+		'labels'			=>	$_labels,
+		'show_ui'			=>	true,
+		'show_admin_column'	=>	true,
+		'update_count_callback' => '_update_post_term_count',
+		'query_var'			=>	true,
+		'rewrite'			=>	array('slug' => 'location'),
+		);
+
+	register_taxonomy('location', 'quickmoves', $_args);
 }
 
 // Add Widget Areas

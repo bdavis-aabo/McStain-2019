@@ -40,6 +40,7 @@ $brown:     #564438;
 .orange-txt  { color: $orange }
 
 .blue-bg { background: $blue; color: $white; }
+.gray-bg { background: $ltgray; }
 
 a { cursor: pointer; transition: all 666ms ease-in-out;
   &:hover { text-decoration: none; }
@@ -85,6 +86,7 @@ a { cursor: pointer; transition: all 666ms ease-in-out;
 }
 
 /*** ROW EQ HEIGHT ***/
+.clear { clear: both; }
 .row-eq-height {
   display: -webkit-box;
   display: -moz-box;

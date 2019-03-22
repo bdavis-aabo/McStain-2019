@@ -49,7 +49,40 @@
   }
 }
 
+/*** COMMUNITY PARENT PAGE STYLES ***/
+.communities-section { margin: 160px 0 0; }
+.community-information { margin: 5vh 0;
+  .left-column,
+  .right-column { height: 100%; }
+  .community-introduction {
+    h2 { font-size: 2.5em; margin: 0 0 10px; line-height: 1.3em;
+      a { color: $ltgreen; }
+    }
+  }
+  .community-details { padding: 10px;
+    .community-table { width: 100%;
+      tr {
+        td { font-size: .85em; line-height: 1.4em; padding: 8px; font-family: 'uni-book', sans-serif; width: 50%;
+          strong { text-transform: uppercase; font-family: 'uni-regular', sans-serif; font-size: .85em; }
+        }
+      }
+    }
+  }
+  .model-slider {
+    .carousel-indicators { bottom: -5px;
+      li { width: 14px; height: 14px; border-radius: 100%; margin-right: 4px; margin-left: 4px; }
+    }
+  }
+}
+
+
+/*** QMI STYLES ***/
+.inventory-section {
+  margin: 2vh 0;
+}
+
 .news-section {
+  .archive-title { font-size: 1.25em; font-family: 'uni-book', sans-serif; color: $ltgreen; }
   .news-leftcolumn,
   .news-rightcolumn { height: 100%; }
   .news-leftcolumn {
@@ -216,6 +249,15 @@ No media query...Bootstrap default
     .homepage-leftcolumn {
       .section-title { padding-right: 25%; }
     }
+  }
+
+  /*** COMMUNITY PARENT PAGE STYLES ***/
+  .communities-section { margin: 160px 0 0; }
+
+
+  /*** QMI STYLES ***/
+  .inventory-section {
+    margin: 4vh 0;
   }
 
 }

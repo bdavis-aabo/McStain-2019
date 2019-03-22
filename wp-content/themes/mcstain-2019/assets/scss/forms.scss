@@ -36,9 +36,10 @@
             .btn { font-weight: normal; font-family: 'uni-bold', sans-serif; font-size: $base-font-size * 1.35; padding-left: 25px; padding-right: 25px; }
           }
         }
-        .hidden-container { background: pink;
-          .hidden-fields { height: 0; float: left; clear: both; width: 100%; transition: height 666ms ease-in-out;
-            &.visible { height: auto; }
+        .hidden-container { overflow: hidden; float: left; width: 100%;
+          .hidden-fields { transform: translateY(-200px);  transition: transform 666ms ease-in-out;
+            transform-origin: top;
+            &.visible { transform: translateY(0); }
           }
         }
 
@@ -75,7 +76,7 @@
               }
               .radio-information { padding: 12% 5px 0;
                 .model-name { font-size: 1.25em; color: $white; text-transform: uppercase; font-family: 'uni-regular', sans-serif;
-                  margin-bottom: 8px;
+                  margin-bottom: 8px; line-height: 1em;
                   span { text-transform: none; }
                 }
                 p { font-size: .95em; line-height: 1.2em; padding-bottom: 10px; margin-bottom: 0; margin-left: 0; }

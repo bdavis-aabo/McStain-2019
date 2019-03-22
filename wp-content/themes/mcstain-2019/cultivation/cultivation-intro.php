@@ -1,4 +1,4 @@
-<?php $_galleryImages = get_field('community_slides'); $_size = 'full'; ?>
+<?php $_galleryImages = get_field('community_slides'); $_size = 'full'; $_logo = get_field('community_logo'); ?>
 <section class="community-introduction">
   <div class="container">
     <div class="row">
@@ -16,7 +16,7 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col">
-            <img src="<?php bloginfo('stylesheet_directory') ?>/assets/images/<?php echo $post->post_name ?>-logo.jpg" class="img-fluid"/>
+            <img src="<?php echo $_logo['url'] ?>" class="img-fluid" alt="<?php the_title() ?>" />
           </div>
           <div class="col">
             <?php if($_galleryImages): $_s = 0; ?>
@@ -42,7 +42,7 @@
       <div class="container-fluid">
         <div class="row row-eq-height">
         <div class="col-2">
-        <img src="<?php bloginfo('stylesheet_directory') ?>/assets/images/<?php echo $post->post_name ?>-logo.jpg" class="img-fluid"/>
+        <img src="<?php echo $_logo['url'] ?>" class="img-fluid" alt="<?php the_title() ?>" class="img-fluid" alt="<?php the_title() ?>" />
         </div>
 
         <div class="col-8">

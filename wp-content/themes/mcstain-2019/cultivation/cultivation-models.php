@@ -25,10 +25,14 @@ $_totalRows = count($_rows);
   <div class="mobile-models">
     <div class="container-fluid">
       <div class="row">
-        <?php while(have_rows('models')): the_row(); $_modelImage = get_sub_field('model_rendering');  ?>
+        <?php while(have_rows('models')): the_row();
+          $_modelImage = get_sub_field('model_rendering');
+          $_size = 'thumbnail';
+          $_thumb = $_modelImage['sizes'][$_size];
+        ?>
         <div class="col <?php if($_totalRows == $_m): echo 'col-6'; endif; ?>">
           <article class="model comm-model" data-target="<?php echo strtolower(get_sub_field('model_name')) ?>" style="margin-bottom: 20px;">
-            <img src="<?php echo $_modelImage['url'] ?>" alt="<?php echo $_modelImage['title'] ?>" class="img-fluid" />
+            <img src="<?php echo $_thumb; ?>" alt="<?php echo $_modelImage['title'] ?>" class="img-fluid" />
             <div class="overlay"><span><?php echo get_sub_field('model_name') ?></span></div>
           </article>
         </div>
@@ -46,10 +50,14 @@ $_totalRows = count($_rows);
   <div class="normal-models">
     <div class="container-fluid">
       <div class="row">
-        <?php if(have_rows('models')): while(have_rows('models')): the_row(); $_modelImage = get_sub_field('model_rendering'); ?>
+        <?php if(have_rows('models')): while(have_rows('models')): the_row();
+        $_modelImage = get_sub_field('model_rendering');
+        $_size = 'thumbnail';
+        $_thumb = $_modelImage['sizes'][$_size];
+        ?>
         <div class="col-6 col-sm-4 col-md-4 col-lg-2">
           <article class="model comm-model" data-target="<?php echo strtolower(get_sub_field('model_name')) ?>">
-            <img src="<?php echo $_modelImage['url'] ?>" alt="<?php echo $_modelImage['title'] ?>" class="img-fluid" />
+            <img src="<?php echo $_thumb ?>" alt="<?php echo $_modelImage['title'] ?>" class="img-fluid" />
             <div class="overlay"><span><?php echo get_sub_field('model_name') ?></span></div>
           </article>
         </div>

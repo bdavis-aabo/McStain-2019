@@ -6,6 +6,7 @@ $bar-thickness:               2px;
 /*** NAVIGATION STYLES ***/
 .header {
   .navbar { background: $blue; float: left; width: 100%; height: 80px; box-shadow: 0 2px 5px rgba(0,0,0,.25); transition: height 666ms ease-in-out; padding: 0;
+    //&.fixed-top { top: 30px; position: absolute; }
     .navbar-brand { transition: transform 666ms ease-in-out; height: 100%;
       .navbar-logo { width: 200px; transition: transform 666ms ease-in-out; transform: translateY(12%); }
     }

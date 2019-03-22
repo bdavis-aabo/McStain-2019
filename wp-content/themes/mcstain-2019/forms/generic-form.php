@@ -51,34 +51,36 @@
     </div>
   </div>
 
-  <div class="hidden-fields">
-    <div class="form-group">
-      <div class="one-half">
-        <label for="pricerange">What is your price range?<span class="red">*</span></label>
-        <select class="form-control" name="Questions[57478]">
-          <option>Select Your Price Range</option>
-          <option value="236750">$400 - $500k</option>
-          <option value="236751">$500 - $600k</option>
-          <option value="236752">$500 - $600k</option>
-          <option value="236753">$700k+</option>
-        </select>
+  <div class="hidden-container">
+    <div class="hidden-fields">
+      <div class="form-group">
+        <div class="one-half">
+          <label for="pricerange">What is your price range?<span class="red">*</span></label>
+          <select class="form-control" name="Questions[57478]">
+            <option>Select Your Price Range</option>
+            <option value="236750">$400 - $500k</option>
+            <option value="236751">$500 - $600k</option>
+            <option value="236752">$500 - $600k</option>
+            <option value="236753">$700k+</option>
+          </select>
+        </div>
+        <div class="one-half last">
+          <label for="Questions[Timeline]">When are you looking to purchase<span class="red">*</span></label>
+          <select class="form-control" name="Questions[Timeline]">
+            <option>Select Your Purchase Timeline</option>
+            <option value="236754">Less than 6 months</option>
+            <option value="236755">6 months - 1 year</option>
+            <option value="236756">1+ years</option>
+          </select>
+        </div>
       </div>
-      <div class="one-half last">
-        <label for="Questions[Timeline]">When are you looking to purchase<span class="red">*</span></label>
-        <select class="form-control" name="Questions[Timeline]">
-          <option>Select Your Purchase Timeline</option>
-          <option value="236754">Less than 6 months</option>
-          <option value="236755">6 months - 1 year</option>
-          <option value="236756">1+ years</option>
-        </select>
+      <div class="form-group">
+        <div class="one-half">
+          <label for="Phones[Home]">Phone Number<span class="red">*</span></label>
+          <input type="text" name="Phones[Home]" class="form-control" />
+        </div>
+        <div class="one-half last">&nbsp;</div>
       </div>
-    </div>
-    <div class="form-group">
-      <div class="one-half">
-        <label for="Phones[Home]">Phone Number<span class="red">*</span></label>
-        <input type="text" name="Phones[Home]" class="form-control" />
-      </div>
-      <div class="one-half last">&nbsp;</div>
     </div>
   </div>
 
