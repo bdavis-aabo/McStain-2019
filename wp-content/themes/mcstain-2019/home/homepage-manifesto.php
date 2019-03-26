@@ -39,6 +39,6 @@
 </section>
 <?php endwhile; endif; ?>
 
-<?php $_manifestoPage->reset_postdata(); ?>
+<?php wp_reset_query(); ?>
 
 <?php get_template_part('home/homepage-manifesto-slides') ?>

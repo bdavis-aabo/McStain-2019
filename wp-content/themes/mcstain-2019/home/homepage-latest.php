@@ -1,5 +1,14 @@
 <?php
-  //Query(ies) to pull in lastest news
+
+  $_posts = new WP_Query();
+  $_args = array(
+    'post_type' => 'post',
+    'post_status' => 'publish',
+    'posts_per_page' => 2,
+    'order' => 'asc/desc',
+    'orderby' => 'title'
+  );
+  $_posts->query($_args);
 ?>
 
   <section class="homepage-latestnews homepage-section">
@@ -15,40 +24,22 @@
       </div>
 
       <div class="row">
+      <?php while($_posts->have_posts()): $_posts->the_post(); ?>
         <div class="col-12 col-md-6">
-          <article class="news-article" id="post-ID">
+          <article class="news-article" id="post-<?php the_ID() ?>">
             <div class="row">
               <div class="col-12 col-xl-4">
-                <img src="https://placehold.it/400x325" alt="" class="aligncenter img-fluid" />
+                <?php echo get_the_post_thumbnail($post->ID, 'thumbnail', array('class' => 'img-fluid aligncenter')); ?>
               </div>
-
               <div class="col-12 col-xl-8">
-                <h1 class="article-title">McStain Manifesto</h1>
-
-                <p>Our mission from the beginning has been to go beyond quarterly reports to investors, market-share or margins of profit-well beyond. At McStain Neighborhoods we share in foundational beliefs that define who we are individually and collectively.</p>
-                <a href="">Read More...</a>
+                <h1 class="article-title"><a href="<?php the_permalink() ?>" title="<?php echo the_title() ?>"><?php the_title() ?></a></h1>
+                <p><?php echo wp_trim_words(get_the_content(), 60, '') ?></p>
+                <a href="<?php the_permalink() ?>" title="<?php echo the_title() ?>">Read More...</a>
               </div>
             </div>
-
           </article>
         </div>
-        <div class="col-12 col-md-6">
-          <article class="news-article" id="post-ID">
-            <div class="row">
-              <div class="col-12 col-xl-4">
-                <img src="https://placehold.it/400x325" alt="" class="aligncenter img-fluid" />
-              </div>
-
-              <div class="col-12 col-xl-8">
-                <h1 class="article-title">McStain Manifesto</h1>
-
-                <p>Our mission from the beginning has been to go beyond quarterly reports to investors, market-share or margins of profit-well beyond. At McStain Neighborhoods we share in foundational beliefs that define who we are individually and collectively.</p>
-                <a href="">Read More...</a>
-              </div>
-            </div>
-
-          </article>
-        </div>
+      <?php endwhile; $_posts->reset_postdata(); ?>
       </div>
 
     </div>

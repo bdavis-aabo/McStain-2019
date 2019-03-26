@@ -31,7 +31,8 @@
     }
   }
 }
-.homepage-manifesto {
+.homepage-map { float: left; width: 100%; border-top: 1px solid $ltgray; border-bottom: 1px solid $ltgray; margin-top: 0 !important; }
+.homepage-manifesto { clear: both;
   .homepage-leftcolumn {
     .manifesto-title { font-family: 'uni-bold', sans-serif; font-size: 2em;
       span { border-bottom: 6px solid $black;
@@ -51,7 +52,7 @@
 }
 .homepage-latestnews {
   .news-article { margin-bottom: 2vh;
-    .article-title { font-family: 'uni-regular-italic', sans-serif; font-size: 1.75em; margin: 0; }
+    .article-title { font-family: 'uni-regular-italic', sans-serif; font-size: 1.5em; line-height: 1.3em; margin: 0; }
     p { line-height: 1.7em; }
     a { font-family: 'uni-regular-italic', sans-serif; color: $gray; text-decoration: underline;
       &:hover { text-decoration: none; }
@@ -305,7 +306,11 @@ No media query...Bootstrap default
   }
   .homepage-latestnews {
     .news-article { margin-bottom: 2vh;
-      .article-title { font-family: 'uni-regular-italic', sans-serif; font-size: 1.75em; margin: 0; line-height: 1.7em; }
+      .article-title { font-size: 1.4em; margin: 0 0 8px; line-height: 1.3em;
+        a { text-decoration: none; font-family: 'uni-book', sans-serif;
+          &:hover { color: $ltgray; }
+        }
+      }
       p { line-height: 1.7em; }
       a { font-family: 'uni-regular-italic', sans-serif; color: $gray; text-decoration: underline;
         &:hover { text-decoration: none; }

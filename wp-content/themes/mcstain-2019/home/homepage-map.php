@@ -12,6 +12,6 @@
     </div>
   </section>
 
-  <section class="homepage-map homepage-section" style="background: purple;">
-    Insert google map
+  <section class="homepage-map homepage-section">
+    <?php echo do_shortcode('[wpgmza id="1"]') ?>
   </section>

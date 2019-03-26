@@ -2,10 +2,10 @@
 
 <?php if(is_home()): ?>
   <section class="homepage-section homepage-heroimage">
-    <img src="https://placehold.it/1600x650" class="img-fluid" alt="">
+    <img src="<?php bloginfo('template_directory') ?>/assets/images/blog-heroimage.jpg" class="img-fluid" alt="<?php the_title() ?>">
     <div class="homepage-heroimage-caption">
-      <h1 class="caption-title">Headline about News Section</h1>
-      <p class="caption-content">Subheadline Here.</p>
+      <h1 class="caption-title">Latest News & Events</h1>
+      <!-- <p class="caption-content">Subheadline Here.</p> -->
     </div>
   </section>
 

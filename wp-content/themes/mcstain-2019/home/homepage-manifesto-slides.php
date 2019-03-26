@@ -19,13 +19,13 @@
     <?php $_s++; endwhile; ?>
     </div>
 
-    <?php $_manifestoSlides->rewind_posts() ?>
+    <?php //$_manifestoSlides->rewind_posts() ?>
 
     <ol class="carousel-indicators">
     <?php $_i = 0; while($_manifestoSlides->have_posts()): $_manifestoSlides->the_post() ?>
       <li data-target="#manifesto-slider" data-slide-to="<?php echo $_i ?>" <?php if($_i == 0): ?>class="active"<?php endif; ?>></li>
-    <?php $_i++; endwhile; ?>
+    <?php $_i++; endwhile; wp_reset_query(); ?>
     </ol>
   </div>
 </section>
-<?php endif; $_manifestoSlides->reset_query(); ?>
+<?php endif;  ?>
