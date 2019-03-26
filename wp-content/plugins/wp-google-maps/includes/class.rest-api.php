@@ -39,6 +39,11 @@ class RestAPI extends Factory
 	 */
 	public function onRestAPIInit()
 	{
+		register_rest_route(RestAPI::NS, '/maps(\/\d+)?/', array(
+			'methods'				=> 'GET',
+			'callback'				=> array($this, 'maps')
+		));
+		
 		register_rest_route(RestAPI::NS, '/markers(\/\d+)?/', array(
 			'methods'				=> 'GET',
 			'callback'				=> array($this, 'markers')
@@ -56,6 +61,42 @@ class RestAPI extends Factory
 			'methods'				=> array('GET', 'POST'),
 			'callback'				=> array($this, 'datatables')
 		));
+	}
+	
+	public function maps($request)
+	{
+		global $wpdb;
+		global $WPGMZA_TABLE_NAME_MAPS;
+		
+		$route = $request->get_route();
+		
+		switch($_SERVER['REQUEST_METHOD'])
+		{
+			case 'GET':
+				if(preg_match('#/wpgmza/v1/markers/(\d+)#', $route, $m))
+				{
+					$map = Map::createInstance($m[1]);
+					return $map;
+				}
+				
+				$ids = $wpdb->get_col("SELECT id FROM $WPGMZA_TABLE_NAME_MAPS WHERE active=0");
+				
+				$result = array();
+				
+				if(empty($ids))
+					return $result;
+				
+				foreach($ids as $id)
+					$result[] = Map::createInstance($id);
+				
+				return $result;
+				
+				break;
+			
+			default:
+				return new \WP_Error('wpgmza_invalid_request_method', 'Invalid request method');
+				break;
+		}
 	}
 	
 	/**

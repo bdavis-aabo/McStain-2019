@@ -184,7 +184,7 @@ class Plugin extends Factory
 				'googleMapsAPIErrorDialog' => $googleMapsAPIErrorDialogHTML
 			),
 			
-			'resturl'				=> get_rest_url(null, 'wpgmza/v1'),
+			'resturl'				=> preg_replace('#/$#', '', get_rest_url(null, 'wpgmza/v1')),
 			'restnonce'				=> wp_create_nonce('wp_rest'),
 
 			'settings' 				=> $settings,
@@ -255,7 +255,7 @@ class Plugin extends Factory
 	 */
 	public function isUsingMinifiedScripts()
 	{
-		return empty($this->settings->developer_mode);
+		return $this->isInDeveloperMode();
 	}
 	
 	/**

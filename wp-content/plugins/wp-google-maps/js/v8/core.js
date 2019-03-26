@@ -542,6 +542,7 @@ jQuery(function($) {
 			return m[1];
 			
 		}
+		
 	};
 	
 	if(window.WPGMZA)
