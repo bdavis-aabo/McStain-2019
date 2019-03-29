@@ -40,8 +40,10 @@ $red:       #ed1c24;
 .ltgreen-txt { color: $ltgreen; }
 .orange-txt  { color: $orange }
 
-.blue-bg { background: $blue; color: $white; }
-.gray-bg { background: $ltgray; }
+.blue-bg   { background: $blue; color: $white; }
+.gray-bg   { background: $ltgray; }
+.yellow-bg { background: $yellow; }
+.red-bg    { background: $red; }
 
 a { cursor: pointer; transition: all 666ms ease-in-out;
   &:hover { text-decoration: none; }
@@ -65,6 +67,12 @@ a { cursor: pointer; transition: all 666ms ease-in-out;
   &:hover { background-position: -100% 0; color: $white; }
 }
 .orange-btn { color: $white; @include sliding-btn($orange);
+  &:hover { background-position: -100% 0; color: $white; }
+}
+.yellow-btn { color: $white; @include sliding-btn($yellow);
+  &:hover { background-position: -100% 0; color: $white; }
+}
+.red-btn { color: $white; @include sliding-btn($red);
   &:hover { background-position: -100% 0; color: $white; }
 }
 .right-btn  {
@@ -121,7 +129,7 @@ body { font-family: 'uni-regular', sans-serif; font-size: $base-font-size; line-
 }
 
 .nomobile { display: none; }
-.right-btn { width: 15vw; position: absolute; right: 20px; bottom: 10px;
+.right-btn { position: absolute; right: 0px; bottom: 10px;
   .box { position: relative; width: 100%;
     &:before { content: ''; display: block; padding-top: 100%; }
     .box-contents { position: absolute; top: 0; left: 0; bottom: 0; right: 0; }
@@ -152,8 +160,14 @@ body { font-family: 'uni-regular', sans-serif; font-size: $base-font-size; line-
   body { font-size: $base-font-size; line-height: $line-height + 8;
     @include headings($base-font-size, $heading-scale * 1.4);
   }
-  .nomobile { display: block; }
-  .sidebar-btn { display: none; }
+
+  .right-btn  { width: 15vw;
+    .btn {
+      span { left: 10px; top: 10px;
+        &.text { font-size: 1.3em; }
+      }
+    }
+  }
 }
 
 /* Extra large devices (large desktops, 1200px and up) */
@@ -162,11 +176,25 @@ body { font-family: 'uni-regular', sans-serif; font-size: $base-font-size; line-
   body { font-size: $base-font-size; line-height: $line-height + 11;
   @include headings($base-font-size, $heading-scale * 2);
   }
-  .right-btn  {
+  .mobile { display: none; }
+  .nomobile { display: block; }
+  .sidebar-btn { display: none; }
+  .right-btn  { width: 15vw;
     .btn {
-      span { left: 10px; top: 10px; }
+      span { left: 10px; top: 10px;
+        &.text { font-size: 1.3em; }
+      }
     }
   }
 }
-
 /* End */
+
+@media (min-width: 1599px){
+  .right-btn  {
+    .btn {
+      span {
+        &.text { font-size: 1.75em; }
+      }
+    }
+  }
+}

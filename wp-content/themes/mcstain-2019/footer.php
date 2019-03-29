@@ -44,10 +44,13 @@
       </div>
   </footer>
 
-  <?php if(is_page_template('page-templates/page-cultivation.php')):
+  <?php
+  if(is_page_template('page-templates/page-cultivation.php')):
     get_template_part('cultivation/cultivation-footer');
     get_template_part('cultivation/cultivation-lightbox');
-  endif; ?>
+  endif;
+    get_template_part('cultivation/cultivation-realtor');
+  ?>
 
 <?php wp_footer() ?>
 

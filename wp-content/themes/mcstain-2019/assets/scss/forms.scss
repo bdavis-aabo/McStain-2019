@@ -36,8 +36,8 @@
             .btn { font-weight: normal; font-family: 'uni-bold', sans-serif; font-size: $base-font-size * 1.35; padding-left: 25px; padding-right: 25px; }
           }
         }
-        .hidden-container { overflow: hidden; float: left; width: 100%;
-          .hidden-fields { transform: translateY(-200px);  transition: transform 666ms ease-in-out;
+        .hidden-container { overflow: hidden; float: left; width: 100%; margin-top: 25px;
+          .hidden-fields { transform: translateY(-230px);  transition: transform 666ms ease-in-out;
             transform-origin: top;
             &.visible { transform: translateY(0); }
           }

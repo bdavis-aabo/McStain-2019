@@ -106,6 +106,12 @@ $(document).ready(function(){
     $('.hidden-fields').toggleClass('visible');
   });
 
+  $('#manifesto-mobile-slider').carousel({
+    interval: 9500,
+    pause:    'hover',
+  });
+
+
   // Open lightbox form from url
   var urlSearch = window.location.search;
   if(urlSearch === '?contact'){

@@ -1,4 +1,4 @@
-<?php // Model Modals :) ?>
+<?php // Model Modals - Displays the floorplan lightbox. ?>
 <?php if(have_rows('models')): ?>
 <section class="cultivation-modals floorplan-mask">
   <?php while(have_rows('models')): the_row(); $_fpImage = get_sub_field('model_floorplan') ?>

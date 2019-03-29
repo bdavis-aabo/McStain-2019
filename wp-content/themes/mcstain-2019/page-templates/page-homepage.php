@@ -21,15 +21,15 @@
     <div class="right-btn nomobile">
       <div class="box">
         <div class="box-contents aqua-bg">
-          <button class="btn aqua-btn btn-block lightbox-trigger base-contact">
+          <a href="/about-us" class="btn aqua-btn btn-block">
             <span class="arrows"><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i></span>
             <span class="text">Who we are</span>
-          </button>
+          </a>
         </div>
       </div>
     </div>
 
-    <button class="btn aqua-btn sidebar-btn lightbox-trigger base-contact">
+    <button class="btn aqua-btn sidebar-btn">
       <i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i> Who we are
     </button>
   </section>

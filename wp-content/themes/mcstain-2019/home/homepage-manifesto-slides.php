@@ -19,7 +19,7 @@
     <?php $_s++; endwhile; ?>
     </div>
 
-    <?php //$_manifestoSlides->rewind_posts() ?>
+    <?php rewind_posts() ?>
 
     <ol class="carousel-indicators">
     <?php $_i = 0; while($_manifestoSlides->have_posts()): $_manifestoSlides->the_post() ?>

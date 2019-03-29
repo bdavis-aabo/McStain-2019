@@ -5,10 +5,10 @@ $bar-thickness:               2px;
 
 /*** NAVIGATION STYLES ***/
 .header {
-  .navbar { background: $blue; float: left; width: 100%; height: 80px; box-shadow: 0 2px 5px rgba(0,0,0,.25); transition: height 666ms ease-in-out; padding: 0;
+  .navbar { background: $blue; float: left; width: 100%; height: 60px; box-shadow: 0 2px 5px rgba(0,0,0,.25); transition: height 666ms ease-in-out; padding: 0;
     //&.fixed-top { top: 30px; position: absolute; }
     .navbar-brand { transition: transform 666ms ease-in-out; height: 100%;
-      .navbar-logo { width: 200px; transition: transform 666ms ease-in-out; transform: translateY(12%); }
+      .navbar-logo { width: 200px; transition: transform 666ms ease-in-out; transform: translateY(-5px); }
     }
     .navbar-toggler { background: transparent; border: none; border-radius: 0; cursor: pointer;
       width: $button-width; height: $button-height; position: absolute; right: 20px; top: 50%; transform: translateY(-50%) rotate(0deg);
@@ -46,13 +46,16 @@ $bar-thickness:               2px;
             .dropdown-item { color: $white; border-radius: none; padding: .5rem 2.5rem .5rem 1.25rem;
               &:hover { background: $blue; }
             }
+            &.active {
+              .dropdown-item { color: $ltgreen; background: $blue; }
+            }
           }
         }
       }
     }
 
-    &.stuck { height: 60px;
-      .navbar-brand { transform: scale(.8) translate(-15px,-10px);
+    &.stuck { height: 50px;
+      .navbar-brand { transform: scale(.8) translate(-15px,-3px);
         .navbar-logo {  }
       }
       .navbar-nav {
@@ -72,7 +75,6 @@ $bar-thickness:               2px;
 
 
 
-
 /*
 Extra small devices (portrait phones, less than 576px)
 No media query...Bootstrap default
@@ -80,13 +82,24 @@ No media query...Bootstrap default
 
 /*** SMALL DEVICES : Landscape phones, 576px + ***/
 @media (min-width: 576px){
-
+  .header {
+    .navbar {
+      .navbar-brand {
+        .navbar-logo { }
+      }
+    }
+    &.stuck {
+      .navbar-brand {
+        .navbar-logo {  }
+      }
+    }
+  }
 }
 
 /*** MEDIUM DEVICES : Tablets, 768px + ***/
 @media (min-width: 768px){
   .header {
-    .navbar { height: 100px;
+    .navbar { height: 70px;
       .navbar-nav { font-size: 1em;
         .nav-item {
           .nav-link { padding: .65rem .75rem; }
@@ -99,11 +112,11 @@ No media query...Bootstrap default
       }
 
       .navbar-brand {
-        .navbar-logo { width: 300px; transform: translateY(0);}
+        .navbar-logo { width: 225px; transform: translateY(0);}
       }
-      &.stuck { height: 60px;
+      &.stuck { height: 50px;
         .navbar-brand {
-          .navbar-logo { transform: translate(-30px,-10px) scale(.8); }
+          .navbar-logo { transform: translate(-10px,-10px) scale(.95); }
         }
       }
     }
@@ -112,7 +125,6 @@ No media query...Bootstrap default
 
 /*** LARGE DEVICES : Desktops, 992px and up ***/
 @media (min-width: 992px){
-
   .header {
     .navbar {
       .navbar-nav { font-size: .8em;
@@ -134,15 +146,18 @@ No media query...Bootstrap default
         .navbar-nav { height: 100%; }
       }
     }
-    .navbar { padding: 0;
+    .navbar { padding: 0; height: 90px;
       .navbar-nav {
         .nav-item {
-          .nav-link { padding: .5rem 1.25rem; padding-left: 1.25rem; transform: translateY(50%); }
+          .nav-link { padding: .5rem .75rem; transform: translateY(50%); }
           .dropdown-menu { box-shadow: 2px 2px 5px rgba(0,0,0,.25); font-size: 1em; display: none; }
         }
       }
-      &.stuck {
-        .navbar-brand { transform: scale(.8) translate(-30px,-6px);
+      .navbar-brand {
+        .navbar-logo { width: 275px; }
+      }
+      &.stuck { height: 60px;
+        .navbar-brand { transform: scale(.8) translate(-30px,-10px);
           .navbar-logo {  }
         }
         .navbar-nav {
@@ -153,7 +168,27 @@ No media query...Bootstrap default
       }
     }
   }
+}
 
+@media (min-width: 1599px){
+  .header {
+    .navbar {
+      .navbar-nav {
+        .nav-item {
+          .nav-link { padding: .5rem 1.25rem; }
+        }
+      }
+      .navbar-brand {
+        .navbar-logo { }
+      }
+
+      &.stuck {
+        .navbar-brand {
+          .navbar-logo { transform: scale(.9) translate(-10px,-5px);}
+        }
+      }
+    }
+  }
 }
 
 

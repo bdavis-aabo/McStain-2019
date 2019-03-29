@@ -4,7 +4,7 @@
     <!-- Wrapper for slides -->
     <div class="carousel-inner">
     <?php $_r = 0; while(have_rows('amenities')): the_row(); $_image = get_sub_field('amenities_image');?>
-      <?php if($_r == 0): ?>
+      <?php if($_r == 0): //comment out at launch ?>
       <div class="carousel-item <?php if($_r == 0): echo 'active'; endif; ?>">
         <picture>
           <source media="(max-width: 667px)" srcset="<?php echo $_image['sizes']['mobile_land'] ?>">

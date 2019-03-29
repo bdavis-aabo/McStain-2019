@@ -25,7 +25,7 @@
   <div class="right-btn nomobile">
     <div class="box">
       <div class="box-contents green-bg">
-        <a href="<?php the_permalink() ?>" class="btn green-btn btn-block lightbox-trigger base-contact">
+        <a href="<?php the_permalink() ?>" class="btn green-btn btn-block">
           <span class="arrows"><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i></span>
           <span class="text">Give it a read</span>
         </a>
@@ -33,7 +33,7 @@
     </div>
   </div>
 
-  <a href="<?php the_permalink() ?>" class="btn green-btn sidebar-btn lightbox-trigger base-contact">
+  <a href="<?php the_permalink() ?>" class="btn green-btn sidebar-btn">
     <i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i> Give it a read
   </a>
 </section>

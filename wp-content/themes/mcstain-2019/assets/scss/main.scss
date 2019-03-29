@@ -9,7 +9,7 @@
 /*** BEGIN MAIN STYLE SHEET ***/
 .homepage-section { position: relative; margin: 1vh 0; width: 100%; }
 
-.homepage-heroimage { position: relative; margin-top: 80px;
+.homepage-heroimage { position: relative; margin-top: 60px;
   .homepage-heroimage-caption { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); text-align: center;
       color: $white; text-shadow: 0 0 6px rgba(0,0,0,.3); width: 80vw;
     .caption-title { margin: 0; font-size: 30px; }
@@ -38,19 +38,19 @@
       span { border-bottom: 6px solid $black;
         &.red-line { border-color: $red; }
         &.aqua-line { border-color: $aqua; }
-        &.gold-line { border-color: $gold; }
+        &.yellow-line { border-color: $yellow; }
       }
     }
   }
 }
-.manifesto-slider {
+.manifesto-slider { float: left;
   #manifesto-slider {
     .carousel-indicators { margin-bottom: 0; bottom: 7px;
       li { width: 10px; height: 10px; border-radius: 100%; }
     }
   }
 }
-.homepage-latestnews {
+.homepage-latestnews { clear: both; float: left; width: 100%;
   .news-article { margin-bottom: 2vh;
     .article-title { font-family: 'uni-regular-italic', sans-serif; font-size: 1.5em; line-height: 1.3em; margin: 0; }
     p { line-height: 1.7em; }
@@ -85,6 +85,52 @@
     }
   }
 }
+/*** MANIFESTO PAGE ***/
+.manifesto-slides { clear: both; width: 100%; float: left; display: none;
+  .grid-container { display: grid;
+    &.grid-container--fit { grid-template-columns: repeat(auto-fit,minmax(100px,1fr));
+    }
+  }
+  #manifesto-tabs {
+    .nav-item { text-align: center;
+      .nav-link { font-size: 0.85em; line-height: 1.2em; color: $black; display: inline-block; vertical-align: middle; height: 100%; width: 100%; border: none; border-bottom: 6px solid $white;
+        border-radius: 0;
+        &.aqua-line:hover,
+        &.aqua-line.active    { border-color: $aqua; }
+        &.red-line:hover,
+        &.red-line.active     { border-color: $red; }
+        &.yellow-line:hover,
+        &.yellow-line.active   { border-color: $yellow; }
+      }
+    }
+  }
+  #manifesto-tabcontent {
+    .tab-pane {
+      .tab-container { position: relative;
+        .tab-contents { position: absolute; top: 20px; left: 750px; width: 430px;
+          p { font-size: .85em; line-height: 1.4em;
+            strong { font-family: 'uni-bold', sans-serif; }
+          }
+        }
+        .sidebar-btn { position: absolute; bottom: 0; right: 0; font-size: .95em; }
+      }
+    }
+  }
+}
+.manifesto-slides-mobile { float: left; width: 100%; margin: 3vh 0;
+  #manifesto-mobile-slider { padding-bottom: 30px;
+    .carousel-contents { padding: 3% 12.5%;
+      p { font-size: 1em; line-height: 1.4em; margin-bottom: 20px;
+        strong { font-family: 'uni-bold', sans-serif; }
+      }
+    }
+    .carousel-indicators { bottom: auto; top: 245px;
+      li { background: $white; width: 14px; height: 14px; border-radius: 100%; border: none;
+      }
+    }
+  }
+}
+
 
 
 /*** QMI STYLES ***/
@@ -142,11 +188,12 @@
   .footer-section { padding: 2vh 0;
     &.footer-left { text-align: center;
       .footer-logo { margin-bottom: 15px; }
-      .footer-social { list-style: none; margin: 20px auto 0; padding-left: 20px;
+      .footer-social { list-style: none; margin: 10px auto 0; padding-left: 0;
         li { display: inline; padding: 0 15px 0 0; margin: 0;
           a { color: $white; font-size: 1.5em;
             &:hover { color: $ltgreen; }
           }
+          &:last-child { padding-right: 0; }
         }
       }
     }
@@ -180,7 +227,7 @@ No media query...Bootstrap default
 @media (min-width: 576px){
   .homepage-section { margin: 5vh 0; }
 
-  .homepage-heroimage { margin-top: 80px;
+  .homepage-heroimage { //margin-top: 80px;
     .homepage-heroimage-caption {
       .caption-title { font-size: 3em; margin-bottom: 5px }
       .caption-content { font-size: 1.3em; margin-bottom: 15px; }
@@ -198,14 +245,30 @@ No media query...Bootstrap default
     }
   }
 
+  .manifesto-slides-mobile {
+    #manifesto-mobile-slider {
+      .carousel-indicators { bottom: auto; top: 450px; }
+    }
+  }
 
+  .footer {
+    .footer-section {
+      &.footer-left {
+        .footer-logo { transform: scale(.6); }
+      }
+      &.footer-middle,
+      &.footer-right { font-size: 1em; line-height: 1.4em; text-align: center; font-family: 'uni-book', sans-serif;
+        strong { text-transform: uppercase; font-weight: normal; font-family: 'uni-bold', sans-serif; }
+      }
+    }
+  }
 }
 
 /*** MEDIUM DEVICES : Tablets, 768px + ***/
 @media (min-width: 768px){
   .homepage-section { margin: 2vh 0; }
 
-  .homepage-heroimage { margin-top: 100px;
+  .homepage-heroimage { margin-top: 70px;
     .homepage-heroimage-caption {
       .caption-title { font-size: 3em; }
     }
@@ -240,7 +303,20 @@ No media query...Bootstrap default
     }
   }
 
+  .manifesto-slides-mobile {
+    #manifesto-mobile-slider {
+      .carousel-contents { padding: 3% 5%; }
+      .carousel-indicators { top: 515px; }
+    }
+  }
 
+  .footer {
+    .footer-section {
+      &.footer-left {
+        .footer-logo { transform: scale(1); }
+      }
+    }
+  }
 
 
 
@@ -264,6 +340,29 @@ No media query...Bootstrap default
 
   /*** COMMUNITY PARENT PAGE STYLES ***/
   .communities-section { margin: 160px 0 0; }
+
+  /*** MANIFESTO PAGE ***/
+  .manifesto-slides-mobile { display: none; }
+  .manifesto-slides { display: block;
+    #manifesto-tabs {
+      .nav-item { text-align: center;
+        .nav-link { font-size: 0.8em; line-height: 1.2em; }
+      }
+    }
+    #manifesto-tabcontent {
+      .tab-pane {
+        .tab-container { position: relative;
+          .tab-contents { position: absolute; top: 20px; left: 645px; width: 370px;
+            p { font-size: .85em; line-height: 1.4em;
+              strong { font-family: 'uni-bold', sans-serif; }
+            }
+          }
+          .box-contents { display: none; }
+          .right-btn { right: 0; bottom: 0; }
+        }
+      }
+    }
+  }
 
 
   /*** QMI STYLES ***/
@@ -318,6 +417,26 @@ No media query...Bootstrap default
     }
   }
 
+  /*** MANIFESTO PAGE ***/
+  .manifesto-slides {
+    #manifesto-tabs {
+      .nav-item {
+        .nav-link { font-size: 0.85em; line-height: 1.2em; padding: .5rem 1rem; }
+      }
+    }
+    #manifesto-tabcontent {
+      .tab-pane {
+        .tab-container {
+          .tab-contents { top: 20px; left: 750px; width: 430px;
+            p { font-size: .85em; line-height: 1.4em; }
+          }
+          .right-btn { right: 0; bottom: 0; }
+          .box-contents { display: block; }
+        }
+      }
+    }
+  }
+
   .footer { clear: both;
     .footer-section { padding: 4vh 0;
       &.footer-left { text-align: left;
@@ -352,3 +471,25 @@ No media query...Bootstrap default
 /*
 :::::::::: CUSTOM MEDIA QUERIES IF NEEDED ::::::::::
 */
+@media (min-width: 1599px){
+  /*** MANIFESTO PAGE ***/
+  .manifesto-slides { clear: both; width: 100%;
+    #manifesto-tabs {
+      .nav-item {
+        .nav-link { font-size: 0.95em; line-height: 1.2em; }
+      }
+    }
+    #manifesto-tabcontent {
+      .tab-pane {
+        .tab-container { position: relative;
+          .tab-contents { position: absolute; top: 20px; left: 1000px; width: 500px;
+            p { font-size: 1em; line-height: 1.5em; margin-bottom: 30px;
+              strong { font-family: 'uni-bold', sans-serif; }
+            }
+          }
+          .right-btn { right: 0; bottom: 0; }
+        }
+      }
+    }
+  }
+}
