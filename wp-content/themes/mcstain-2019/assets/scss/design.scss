@@ -41,6 +41,7 @@ $red:       #ed1c24;
 .orange-txt  { color: $orange }
 
 .blue-bg   { background: $blue; color: $white; }
+.ltgreen-bg { background: $ltgreen; color: $white;}
 .gray-bg   { background: $ltgray; }
 .yellow-bg { background: $yellow; }
 .red-bg    { background: $red; }
@@ -124,8 +125,10 @@ body { font-family: 'uni-regular', sans-serif; font-size: $base-font-size; line-
       &:hover { border-bottom-color: $white; }
     }
   }
+  strong { font-family: 'uni-bold', sans-serif; font-weight: normal; }
   /*** Images ***/
   img.aligncenter, .aligncenter { margin: 0 auto 20px; display: block; }
+
 }
 
 .nomobile { display: none; }

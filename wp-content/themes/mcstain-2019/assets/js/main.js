@@ -111,6 +111,13 @@ $(document).ready(function(){
     pause:    'hover',
   });
 
+  var navbarH = $('.navbar').height();
+  $('.blank-section').css('margin-top', (navbarH + 50) + 'px');
+
+  $(window).resize(function(){
+    var navbarH = $('.navbar').height();
+    $('.blank-section').css('margin-top', (navbarH + 50) + 'px');
+  });
 
   // Open lightbox form from url
   var urlSearch = window.location.search;

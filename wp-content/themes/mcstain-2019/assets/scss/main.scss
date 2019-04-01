@@ -131,7 +131,33 @@
   }
 }
 
-
+/*** contact us page ***/
+.blank-section {  }
+.contact-section {
+  .page-contents { padding-bottom: 3vh; }
+  .left-column-container {
+    p {
+      strong { font-size: 1.3em; }
+    }
+    .page-social {
+      .footer-social { list-style: none; margin: 10px auto 0; padding-left: 0;
+        li { display: inline; padding: 0 15px 0 0; margin: 0;
+          a { color: $gray; font-size: 1.5em;
+            &:hover { color: $ltgreen; }
+          }
+          &:last-child { padding-right: 0; }
+        }
+      }
+    }
+  }
+}
+.location-map-section {
+  .map-title { text-align: center;
+    h1 { font-size: 2em; margin: 0;
+      .arrows { font-size: .85em; padding-left: 25px; }
+    }
+  }
+}
 
 /*** QMI STYLES ***/
 .inventory-section {

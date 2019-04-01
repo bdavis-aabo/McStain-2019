@@ -6,13 +6,7 @@
             <a href="<?php bloginfo('url') ?>" title="<?php bloginfo('name') ?>">
               <img src="<?php bloginfo('template_directory') ?>/assets/images/mcstain-logo.svg" alt="<?php bloginfo('name') ?>" class="footer-logo img-fluid" />
             </a>
-            <ul class="footer-social">
-              <li><a href=""><i class="fab fa-facebook"></i></a></li>
-              <li><a href=""><i class="fab fa-twitter"></i></a></li>
-              <li><a href=""><i class="fab fa-linkedin"></i></a></li>
-              <li><a href=""><i class="fab fa-youtube"></i></a></li>
-              <li><a href=""><i class="fab fa-instagram"></i></a></li>
-            </ul>
+            <?php get_template_part('page/page-social') ?>
           </section>
         </div>
         <div class="col-12 col-md-4">

@@ -124,7 +124,7 @@ function create_members(){
     'capability_type'   =>  'post',
     'hierarchical'      =>  true,
     'rewrite'           =>  array('slug' => 'team-members'),
-    'supports'          =>  array('title','thumbnail','custom-fields','order','page-attributes','editor'),
+    'supports'          =>  array('title','thumbnail','custom-fields','order','page-attributes'),
     'menu_position'     =>  22,
     'menu_icon'         =>  'dashicons-businessman',
     'has_archive'       =>  false
@@ -192,6 +192,12 @@ function theme_widgets_init(){
     'after_widget'  =>  '</div>',
     'before_title'	=>	'<h3 class="blue-txt">',
 		'after_title'	  =>	'</h3>'
+  ));
+  register_sidebar(array(
+    'name'  =>  'Contact Address',
+    'id'    =>  'contact-address',
+    'before_widget' =>  '',
+    'after_widget'  =>  ''
   ));
 }
 add_action('widgets_init','theme_widgets_init');
