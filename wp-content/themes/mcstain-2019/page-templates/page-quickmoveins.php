@@ -3,7 +3,7 @@
 <?php get_header() ?>
 
   <section class="homepage-section homepage-heroimage">
-    <img src="https://placehold.it/1600x650" class="img-fluid" alt="">
+    <?php echo get_the_post_thumbnail($post->ID, 'full', array('class' => 'img-fluid aligncenter')); ?>
     <div class="homepage-heroimage-caption">
       <h1 class="caption-title">Quick Move-In Homes</h1>
       <p class="caption-content">New home inventory available now.</p>

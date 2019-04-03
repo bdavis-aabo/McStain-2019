@@ -152,17 +152,17 @@ function create_manifestos(){
 add_action('init','location_taxonomies',0);
 function location_taxonomies(){
   $_labels = array(
-		'name' 				=> 	_x('Locations', 'taxonomy general name'),
-		'singular_name'		=> 	_x('Location', 'taxonomy singular name'),
-		'search_items'		=>	__('Search Locations'),
-		'all_items'			=>	__('All Locations'),
-		'parent_item'		=>	__('Parent Location'),
-		'parent_item_colon'	=>	__('Parent Location:'),
-		'edit_item'			=>	__('Edit Location'),
-		'update_item'		=>	__('Update Location'),
-		'add_new_item'		=>	__('Add New Location'),
-		'new_item_name'		=>	__('New Location Name'),
-		'menu_name'			=>	__('Locations'),
+		'name' 				=> 	_x('Communities', 'taxonomy general name'),
+		'singular_name'		=> 	_x('Community', 'taxonomy singular name'),
+		'search_items'		=>	__('Search Communities'),
+		'all_items'			=>	__('All Communities'),
+		'parent_item'		=>	__('Parent Community'),
+		'parent_item_colon'	=>	__('Parent Community:'),
+		'edit_item'			=>	__('Edit Community'),
+		'update_item'		=>	__('Update Community'),
+		'add_new_item'		=>	__('Add New Community'),
+		'new_item_name'		=>	__('New Community Name'),
+		'menu_name'			=>	__('Communities'),
 		);
 	$_args = array(
 		'hierarchical'		=>	true,
@@ -171,10 +171,10 @@ function location_taxonomies(){
 		'show_admin_column'	=>	true,
 		'update_count_callback' => '_update_post_term_count',
 		'query_var'			=>	true,
-		'rewrite'			=>	array('slug' => 'location'),
+		'rewrite'			=>	array('slug' => 'community'),
 		);
 
-	register_taxonomy('location', 'quickmoves', $_args);
+	register_taxonomy('community', 'quickmoves', $_args);
 }
 
 // Add Widget Areas
@@ -201,3 +201,12 @@ function theme_widgets_init(){
   ));
 }
 add_action('widgets_init','theme_widgets_init');
+
+function get_id_by_slug($_pageSlug){
+  $page = get_page_by_path($_pageSlug);
+  if($page){
+    return $page->ID;
+  } else {
+    return null;
+  }
+}

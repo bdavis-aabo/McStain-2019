@@ -4,7 +4,6 @@
     $_designHero = get_field('design_hero');
     $_mport = get_field('design_mobile'); // mobile portrait
   ?>
-
   <div class="community-heroimage">
     <picture>
       <source media="(max-width: 375px)" srcset="<?php echo $_mport['url'] ?>">
@@ -14,7 +13,7 @@
   </div>
   <?php endif; ?>
 
-
+  <?php if(get_field('design_content') != ''): ?>
   <div class="community-design-container">
     <div class="container-fluid">
       <div class="row">
@@ -48,4 +47,5 @@
   <button class="btn green-btn sidebar-btn lightbox-trigger design-btn">
     <i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i> Wow inside
   </button>
+  <?php endif; ?>
 </section>

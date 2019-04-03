@@ -43,26 +43,9 @@
             </a>
           </div>
         </div>
-      <?php endwhile; rewind_posts(); ?>
+      <?php endwhile; ?>
       </div>
     </div>
-  </section>
-
-  <section class="member-mask">
-  <?php while($_teamMembers->have_posts()): $_teamMembers->the_post() ?>
-    <div class="teambio-lightbox" id="<?php echo $post->post_name . '-bio' ?>">
-      <div class="bio-top">
-        <div class="bio-photo"><img src="https://placehold.it/450x450" alt="" class="aligncenter" /></div>
-        <div class="bio-name">
-          <h1 class="ltgreen-txt"><?php the_title() ?></h1>
-          <span class="bio-title"><?php echo get_field('member_title') ?></span>
-        </div>
-      </div>
-      <div class="bio">
-        <?php echo get_field('member_bio') ?>
-      </div>
-    </div>
-  <?php endwhile ?>
   </section>
 
 <?php endif; wp_reset_query(); ?>

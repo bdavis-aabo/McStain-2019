@@ -26,7 +26,7 @@ $_c = 1;
             <?php the_content() ?>
           </div>
         </div>
-        <div class="col-md-3 col-lg-3">&nbsp;</div>
+        <div class="col-md-2 col-lg-3">&nbsp;</div>
       </div>
     </div>
   </section>
@@ -46,12 +46,12 @@ $_c = 1;
     $_models = get_field('models');
     //$_post = $post->post_name;
   ?>
-  <section class="community-information <?php echo $_post.'-section' ?>">
+  <section class="community-information <?php echo $post->post_name.'-section' ?>">
     <div class="container">
       <?php get_template_part('community/community-intro'); ?>
 
       <div class="row row-eq-height">
-        <div class="col-8">
+        <div class="col-12 col-md-7 col-lg-8">
           <div class="model-slider left-column">
             <div id="model-slider-<?php echo $post->post_name ?>" class="carousel slide" data-ride="carousel">
               <div class="carousel-inner">
@@ -75,7 +75,7 @@ $_c = 1;
         </div>
 
 
-        <div class="col-4 <?php if($_c % 2 == 0): echo 'order-first'; endif; ?>">
+        <div class="col-12 col-md-5 col-lg-4 <?php if($_c % 2 == 0): echo 'order-first'; endif; ?>">
           <div class="model-details right-column">
             <div class="community-logo">
               <a href="<?php echo get_field('community_link') ?>">

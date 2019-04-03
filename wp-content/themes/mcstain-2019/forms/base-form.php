@@ -9,15 +9,20 @@
       $_projectID = '9883'; break;
     case 'Harvest Ridge':
       $_projectID = '9877'; break;
+    case 'Painted Prairie':
+      $_projectID = 'xxxx'; break;
   }
 ?>
 
 <form id="base-form" name="base-form" action="https://app.lassocrm.com/registrant_signup/" method="post">
 <div class="email-form base-contactform">
   <h1 class="aqua-txt"><?php the_title() ?></h1>
-  <img src="<?php bloginfo('stylesheet_directory') ?>/assets/images/leaf.png" />
-  <p>I want to be the first to know about McStain at <?php echo $_community ?>.<br />
-    Please keep me informed&hellip;and excited.</p>
+  <img src="<?php bloginfo('stylesheet_directory') ?>/assets/images/leaf.png" class="alignleft" />
+  <?php if(!is_page('quick-move-in-homes')): ?>
+    <p>I want to be the first to know about McStain at <?php echo $_community ?>.<br />Please keep me informed&hellip;and excited.</p>
+  <?php elseif(is_page('quick-move-in-homes')): ?>
+    <p>I would like to know more about quick move-in homes from McStain</p>
+  <?php endif; ?>
   <span class="req">*Required Fields</span>
 
   <input type="hidden" name="LassoUID" value="zFht#iXi[2" />
@@ -89,7 +94,7 @@
       </div>
     </div>
   </div>
-  
+
   <div class="form-group button-group">
     <input type="submit" class="btn ltgreen-btn" value="Submit">
   </div>

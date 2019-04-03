@@ -65,6 +65,7 @@
 .community-information { margin: 5vh 0;
   .left-column,
   .right-column { height: 100%; }
+  .community-logo { display: none; }
   .community-introduction {
     h2 { font-size: 2.5em; margin: 0 0 10px; line-height: 1.3em;
       a { color: $ltgreen; }
@@ -73,14 +74,14 @@
   .community-details { padding: 10px;
     .community-table { width: 100%;
       tr {
-        td { font-size: .85em; line-height: 1.4em; padding: 8px; font-family: 'uni-book', sans-serif; width: 50%;
+        td { font-size: 1em; line-height: 1.4em; padding: 8px; font-family: 'uni-book', sans-serif; width: 50%;
           strong { text-transform: uppercase; font-family: 'uni-regular', sans-serif; font-size: .85em; }
         }
       }
     }
   }
   .model-slider {
-    .carousel-indicators { bottom: -5px;
+    .carousel-indicators { bottom: 5px; margin: 0;
       li { width: 14px; height: 14px; border-radius: 100%; margin-right: 4px; margin-left: 4px; }
     }
   }
@@ -129,6 +130,65 @@
       }
     }
   }
+}
+// Manifesto Lightboxes
+.manifesto-lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,.95); transform: translateY(-100%);
+  transition: transform 666ms cubic-bezier(.215,.61,.355,1); cursor: pointer; z-index: 1201;
+  .close-btn { position: absolute; right: 20px; top: 20px; transition: color 666ms ease-in-out; color: $medgray;
+    &:hover { color: $gray; }
+  }
+  .manifesto-box { width: 90vw; height: 0; overflow: hidden; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+    transition: height 333ms cubic-bezier(.215,.61,.355,1);
+    .manifesto-content { 
+      .lightbox-columns { width: 100%; float: left;
+        .lightbox-left { float: left; width: 30%;
+          .page-social {
+            .footer-social { list-style: none; margin: 10px auto 0; padding-left: 0;
+              li { display: inline; padding: 0 15px 0 0; margin: 0;
+                a { color: $gray; font-size: 1.5em;
+                  &:hover { color: $ltgreen; }
+                }
+                &:last-child { padding-right: 0; }
+              }
+            }
+          }
+        }
+        .lightbox-right { float: right; width: 68%; }
+      }
+      .wpgmza_map { background: pink; }
+    }
+  }
+
+  &.open { transform: translateY(0);
+    .manifesto-box {
+      &.show-man { height: 90vh; overflow-y: scroll;
+        &::-webkit-scrollbar { display: none; width: 0; background: transparent; }
+      }
+    }
+  }
+}
+
+/*** about us page ***/
+.members-section { padding-bottom: 3vh;
+  .team-member { margin-bottom: 30px; }
+}
+.members-lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,.8); transform: translateY(100%);
+  transition: transform 666ms cubic-bezier(.215,.61,.355,1); cursor: pointer; z-index: 1201;
+  .teambio-lightbox { position: fixed; left: 50%; top: 50%; width: 90vw; transform: translate(-50%,-50%); background: $white; padding: 15px; opacity: 0; display: none;
+    transition: opacity 666ms ease-in-out;
+    .close-btn { color: $medgray; position: absolute; right: 8px; top: 0; font-size: 1.2em; }
+    .bio-top {
+      .bio-photo {  }
+      .bio-name  {
+        h1 { font-size: 2.5em; line-height: 1em; margin-bottom: 15px; }
+        p  { font-size: .9em; margin: 0 0 5px; }
+      }
+
+    }
+    &.show-bio { opacity: 1; display: block; }
+  }
+
+  &.open { transform: translateY(0); }
 }
 
 /*** contact us page ***/
@@ -329,6 +389,20 @@ No media query...Bootstrap default
     }
   }
 
+  /*** COMMUNITY PARENT PAGE STYLES ***/
+  .community-information { margin: 5vh 0;
+    .community-logo { display: block; }
+    .community-details { padding: 10px;
+      .community-table { width: 100%;
+        tr {
+          td { font-size: .85em; line-height: 1.4em; padding: 5px; font-family: 'uni-book', sans-serif; width: 50%;
+            strong { text-transform: uppercase; font-family: 'uni-regular', sans-serif; font-size: .85em; }
+          }
+        }
+      }
+    }
+  }
+
   .manifesto-slides-mobile {
     #manifesto-mobile-slider {
       .carousel-contents { padding: 3% 5%; }
@@ -390,10 +464,61 @@ No media query...Bootstrap default
     }
   }
 
+  .community-information { margin: 5vh 0;
+    .left-column,
+    .right-column { height: 100%; }
+    .community-introduction {
+      h2 { font-size: 2.5em; margin: 0 0 10px; line-height: 1.3em;
+        a { color: $ltgreen; }
+      }
+    }
+    .community-details { padding: 10px;
+      .community-table { width: 100%;
+        tr {
+          td { font-size: .85em; line-height: 1.4em; padding: 8px; font-family: 'uni-book', sans-serif; width: 50%;
+            strong { text-transform: uppercase; font-family: 'uni-regular', sans-serif; font-size: .85em; }
+          }
+        }
+      }
+    }
+    .model-slider {
+      .carousel-indicators { bottom: -5px;
+        li { width: 14px; height: 14px; border-radius: 100%; margin-right: 4px; margin-left: 4px; }
+      }
+    }
+  }
+
+  /*** about us page ***/
+  .members-section { padding-bottom: 3vh;
+    .team-member { margin-bottom: 30px; }
+  }
+  .members-lightbox {
+    .teambio-lightbox { width: 65vw;
+      .bio-top { float: left; width: 100%;
+        .bio-photo { float: left; width: 25%; }
+        .bio-name  { float: left; width: 70%; margin-left: 30px;
+          h1 { font-size: 2.5em; line-height: 1em; margin-bottom: 15px; }
+          p  { font-size: .9em; margin: 0 0 5px; }
+        }
+
+      }
+      &.show-bio { opacity: 1; display: block; }
+    }
+    &.open { transform: translateY(0); }
+  }
+
 
   /*** QMI STYLES ***/
-  .inventory-section {
-    margin: 4vh 0;
+  .inventory-section { margin: 4vh 0;
+    .qmi-home { font-family: 'uni-regular', sans-serif; text-align: center;
+      .home-name { color: $ltgreen; font-size: 1.75em; font-family: 'uni-book',sans-serif; line-height: 1.3em; margin: 0 0 8px; text-align: left; }
+      .address-price { text-align: left; display: block;
+        strong { font-family: 'uni-bold', sans-serif; color: $ltgreen; }
+      }
+      p { margin: 0 0 20px; line-height: 1.35em; text-align: left; }
+      .builder-btn { margin: 10px auto; font-size: .9em; text-transform: uppercase; padding: 10px 25px; }
+    }
+    .gray-line { border-bottom: 2px solid $ltgray; margin: 45px 0 10px; }
   }
 
 }

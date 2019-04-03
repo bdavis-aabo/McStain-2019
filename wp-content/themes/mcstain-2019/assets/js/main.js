@@ -56,17 +56,59 @@ $(document).ready(function(){
         closeModel();
       } else {
         closeLightbox();
+        closeMember();
+        closeManifesto();
       }
     }
   });
   // end Email Lightbox Functions
+
+  // Team Member Functions
+  function displayMember(){
+    $('.members-lightbox').addClass('open');
+    $('body,html').css('overflow','hidden');
+  }
+  function closeMember(){
+    $('.members-lightbox').removeClass('open');
+    $('.body,html').css('overflow','auto');
+    $('.teambio-lightbox').removeClass('show-bio');
+  }
+  $('.team-lightbox-trigger').click(function(){
+    var team = $(this).attr('data-target');
+    displayMember();
+    $(team).addClass('show-bio');
+  });
+  $('.teambio-lightbox .close-btn').click(function(){
+    closeMember();
+    $(this).parent('.teambio-lightbox').removeClass('show-bio');
+  });
+
+  // Manifesto Lightboxes
+  function displayManifesto(){
+    $('.manifesto-lightbox').addClass('open');
+    $('.body,html').css('overflow','hidden');
+  }
+  function closeManifesto(){
+    $('.manifesto-lightbox').removeClass('open');
+    $('.body,html').css('overflow','auto');
+    $('.manifesto-box').removeClass('show-man');
+  }
+  $('.manifesto-trigger').click(function(){
+    var man = $(this).attr('data-target');
+    console.log(man);
+    displayManifesto();
+    $('#'+man).addClass('show-man');
+  });
+  $('.close-btn').click(function(){
+    closeManifesto();
+    $('.body,html').css('overflow','auto');
+  });
 
   // Modal Lightbox Functions
   function displayModel(){
     $('.floorplan-mask').addClass('open');
     $('body,html').css('overflow','hidden');
   }
-
   function closeModel(){
     $('.floorplan-mask').removeClass('open');
     $('.floorplan-lightbox').hide();

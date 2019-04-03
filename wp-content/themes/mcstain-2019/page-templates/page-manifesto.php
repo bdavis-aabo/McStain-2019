@@ -21,17 +21,17 @@
     <div class="right-btn nomobile">
       <div class="box">
         <div class="box-contents green-bg">
-          <button class="btn green-btn btn-block lightbox-trigger base-contact">
+          <a href="/contact-us" class="btn green-btn btn-block">
             <span class="arrows"><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i></span>
             <span class="text">Contact us</span>
-          </button>
+          </a>
         </div>
       </div>
     </div>
 
-    <button class="btn green-btn sidebar-btn lightbox-trigger base-contact">
+    <a href="/contact-us" class="btn green-btn sidebar-btn">
       <i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i> Contact us
-    </button>
+    </a>
   </section>
 
   <?php if(is_page('mcstain-manifesto')): get_template_part('manifesto/manifesto-slides'); endif; ?>

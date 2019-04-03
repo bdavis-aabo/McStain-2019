@@ -9,6 +9,7 @@ $_totalRows = count($_rows);
 
 ?>
 
+<?php if(get_field('models_content') != ''): ?>
 <section class="community-models">
   <div class="container">
     <div class="row">
@@ -81,3 +82,4 @@ $_totalRows = count($_rows);
 
   <button class="btn gold-btn sidebar-btn model-btn lightbox-trigger"><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i> See more</button>
 </section>
+<?php endif; ?>

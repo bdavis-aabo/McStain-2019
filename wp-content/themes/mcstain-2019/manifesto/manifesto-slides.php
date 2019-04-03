@@ -34,14 +34,14 @@ $_manifestoSlides->query($_args);
           <div class="right-btn nomobile">
             <div class="box">
               <div class="box-contents <?php echo get_field('manifesto_button_color') ?>-bg">
-                <button class="btn <?php echo get_field('manifesto_button_color') ?>-btn btn-block lightbox-trigger" data-target="<?php echo $post->post_name ?>">
+                <button class="btn <?php echo get_field('manifesto_button_color') ?>-btn btn-block manifesto-trigger" data-target="<?php echo $post->post_name ?>">
                   <span class="arrows"><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i></span>
                   <span class="text"><?php echo get_field('manifesto_button_text') ?></span>
                 </button>
               </div>
             </div>
           </div>
-          <button class="btn <?php echo get_field('manifesto_button_color') ?>-btn sidebar-btn lightbox-trigger base-contact" data-target="<?php echo $post->post_name ?>">
+          <button class="btn <?php echo get_field('manifesto_button_color') ?>-btn sidebar-btn manifesto-trigger" data-target="<?php echo $post->post_name ?>">
             <i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i> <?php echo get_field('manifesto_button_text') ?>
           </button>
         </div>
@@ -57,12 +57,8 @@ $_manifestoSlides->query($_args);
       <?php while($_manifestoSlides->have_posts()): $_manifestoSlides->the_post(); $_slideImage = get_field('manifesto_main_mobile'); ?>
         <div class="carousel-item <?php if($_s == 0): echo 'active'; endif; ?>">
           <img src="<?php echo $_slideImage['url'] ?>" class="img-fluid" alt="">
-          <div class="carousel-contents"><?php the_content() ?>
-
-
-
-          </div>
-          <button class="btn <?php echo get_field('manifesto_button_color') ?>-btn sidebar-btn lightbox-trigger base-contact" data-target="<?php echo $post->post_name ?>">
+          <div class="carousel-contents"><?php the_content() ?></div>
+          <button class="btn <?php echo get_field('manifesto_button_color') ?>-btn sidebar-btn manifesto-trigger" data-target="<?php echo $post->post_name ?>">
             <i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i> <?php echo get_field('manifesto_button_text') ?>
           </button>
         </div>

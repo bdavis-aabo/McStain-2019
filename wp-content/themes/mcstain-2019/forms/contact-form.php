@@ -3,7 +3,7 @@
     '9882'  =>  'West Grange',
     '9883'  =>  'Lost Creek Farm',
     '9877'  =>  'Harvest Ridge',
-    ''  =>  'Painted Prarie'
+    'xxxx'  =>  'Painted Prarie'
   );
 ?>
 

@@ -1,38 +1,77 @@
+<?php
+  //query to get communities listed by menu_order
+  $_communityParent = get_id_by_slug('communities');
+  $_communities = new WP_Query();
+  $_args = array(
+    'post_type' => 'page',
+    'post_status' => 'publish',
+    'order' => 'asc',
+    'orderby' => 'menu_order',
+    'post_parent' =>  $_communityParent,
+    'post__not_in'  =>  array(160)
+  );
+  $_communities->query($_args);
+?>
 
-<?php //query to get communities listed by menu_order ?>
-
-  <section class="inventory-section">
+  <?php while($_communities->have_posts()): $_communities->the_post(); $_logo = get_field('community_logo'); ?>
+  <section class="inventory-section <?php echo $post->post_name.'-inventory' ?>">
     <div class="container">
       <div class="row">
         <div class="col-2">
           <div class="community-logo">
-            <img src="https://placehold.it/350x350" class="img-fluid" alt="" />
+            <img src="<?php echo $_logo['url'] ?>" class="img-fluid" alt="<?php the_title() ?>" />
           </div>
         </div>
         <div class="col-10">
           <div class="community-details">
             <p>
-              <strong>Community Name</strong><br/>
-              Location: Address, City, Zip<br/>
-              Phone Number: 303-123-4567
+              <strong><?php the_title() ?></strong><br/>
+              <?php echo get_field('community_address') ?>
             </p>
           </div>
         </div>
       </div>
 
-      <?php //get available inventory (or) print message "nothing available" ?>
+      <?php
+        //get available inventory (or) print message "nothing available"
+        $_args = array(
+          'post_type'       =>  'quickmoves',
+          'community'         =>  $post->post_name,
+          'orderby'         =>  'menu_order',
+          'order'           =>  'ASC',
+          'posts_per_page'  =>  4,
+          'hide_empty'      =>  1
+        );
+        $_quickmoves = new WP_Query($_args);
+      ?>
+
+      <?php if($_quickmoves->have_posts()): ?>
       <div class="row row-eq-height">
-        <div class="col-3">
-          <div class="qmi-home">qmi home inventory</div>
+        <?php while($_quickmoves->have_posts()): $_quickmoves->the_post(); $_homeImage = get_field('qmi_image'); ?>
+        <div class="col-4">
+          <div class="qmi-home">
+            <img src="<?php //echo $_homeImage['url'] ?>https://placehold.it/450x450" class="aligncenter img-fluid" />
+            <h2 class="home-name"><?php echo get_field('qmi_floorplan') ?></h2>
+            <span class="address-price"><?php echo get_field('qmi_address') ?> | <strong><?php echo '$' . get_field('qmi_price') ?></strong></span>
+            <p><?php echo get_field('qmi_available') ?></p>
+
+            <p class="details">
+            <?php echo get_field('qmi_square_footage') . ' sq ft | ' . get_field('qmi_bedrooms') . ' beds | ' . get_field('qmi_bathrooms') . ' bath<br/>' .
+								get_field('qmi_garage') ?>
+            </p>
+						<button class="builder-btn ltgreen-btn lightbox-trigger base-contact">Contact Us</button>
+          </div>
         </div>
-        <div class="col-3">
-          <div class="qmi-home">qmi home inventory</div>
+        <?php endwhile; ?>
+      </div>
+      <?php else: ?>
+      <div class="row">
+        <div class="col-12">
+          There are no quick move-in inventory homes currently available in this community.
         </div>
-        <div class="col-3">
-          <div class="qmi-home">qmi home inventory</div>
-        </div>
-        <div class="col-3">
-          <div class="qmi-home">qmi home inventory</div>
-        </div>
+      </div>
+      <?php endif; rewind_posts(); ?>
+      <div class="gray-line"></div>
     </div>
   </section>
+<?php endwhile; wp_reset_query(); ?>

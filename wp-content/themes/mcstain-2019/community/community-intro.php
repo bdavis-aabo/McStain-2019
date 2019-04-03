@@ -10,7 +10,7 @@ $_slides->query($_args);
 ?>
 
       <div class="row">
-        <div class="col-8">
+        <div class="col-12 col-lg-8">
           <div class="community-introduction">
           <?php while($_slides->have_posts()): $_slides->the_post(); ?>
             <h2 class="ltgreen-txt"><a href="<?php echo get_field('community_link') ?>"><?php the_title() ?></a></h2>
