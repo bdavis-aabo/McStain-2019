@@ -3,6 +3,7 @@
 @import 'navigation';
 @import 'cultivation';
 @import 'forms';
+@import 'maps';
 
 
 
@@ -139,7 +140,7 @@
   }
   .manifesto-box { width: 90vw; height: 0; overflow: hidden; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
     transition: height 333ms cubic-bezier(.215,.61,.355,1);
-    .manifesto-content { 
+    .manifesto-content {
       .lightbox-columns { width: 100%; float: left;
         .lightbox-left { float: left; width: 30%;
           .page-social {

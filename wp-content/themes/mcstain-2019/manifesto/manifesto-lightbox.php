@@ -19,7 +19,7 @@ $_manifestoSlides->query($_args);
   <div class="manifesto-box" id="<?php echo $post->post_name ?>">
     <div class="manifesto-content <?php echo $post->post_name.'-contents' ?>">
     <?php if($post->post_name == 'excite'): ?>
-      <h1 class="ltgreen-txt"><?php echo get_field('manifesto_lightbox_title') ?></h1>
+      <h1 class="blue-txt"><?php echo get_field('manifesto_lightbox_title') ?></h1>
       <?php get_template_part('manifesto/manifesto-excite') ?>
     <?php elseif($post->post_name == 'place'): ?>
       <h1 class="ltgreen-txt"><?php echo get_field('manifesto_lightbox_title') ?></h1>
