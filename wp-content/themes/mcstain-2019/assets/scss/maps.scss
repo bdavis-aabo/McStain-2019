@@ -1,12 +1,12 @@
 .gm-style {
-  .gm-style-iw-c { border-radius: 0; }
+  .gm-style-iw-c { border-radius: 0; padding: 0; }
 }
 
 .wpgmza_markerbox {
-  img { float: left !important; margin: 0 0 0 20px; width: 50%; height: 50%; }
+  img { float: left !important; margin: 0 0 0 20px !important; width: 49% !important; height: 49% !important; }
   .wpgmza_infowindow_title,
   .wpgmza_infowindow_address { display: none; }
-  .wpgmza_infowindow_description { font-size: 1.1em;
-    strong { text-transform: uppercase; display: block; }
+  .wpgmza_infowindow_description { font-size: 1.25em;
+    strong { text-transform: uppercase; display: block; margin-top: 15px; font-size: .95em; }
   }
 }
