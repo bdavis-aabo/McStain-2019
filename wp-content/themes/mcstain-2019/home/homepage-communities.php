@@ -17,7 +17,7 @@
       <?php while($_communities->have_posts()): $_communities->the_post();
         $_slideImage = get_the_post_thumbnail_url(get_the_ID(), 'full');
         $_slideMobile = get_field('community_mobile_image');
-        if($_slideImage != ''): ?>
+        if($_slideImage != ''):
       ?>
         <div class="carousel-item <?php if($_s == 0): echo 'active'; endif; ?>">
             <picture>
@@ -28,7 +28,8 @@
               Tell me more
             </a>
         </div>
-      <?php endif; $_s++; endwhile; ?>
+      <?php endif;
+        $_s++; endwhile; ?>
       </div>
 
       <a href="#community-slider" class="carousel-control prev" role="button" data-slide="prev">
