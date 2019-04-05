@@ -44,7 +44,6 @@ $_c = 1;
     $_logo = get_field('community_logo');
     $_details = get_field('community_details');
     $_models = get_field('models');
-    //$_post = $post->post_name;
   ?>
   <section class="community-information <?php echo $post->post_name.'-section' ?>">
     <div class="container">
@@ -56,6 +55,8 @@ $_c = 1;
             <img src="<?php bloginfo('template_directory') ?>/assets/images/comm-page-hr.jpg" alt="<?php the_title() ?>" class="img-fluid" />
           <?php elseif($post->post_name == 'painted-prairie'): ?>
             <img src="<?php bloginfo('template_directory') ?>/assets/images/comm-page-pp.jpg" alt="<?php the_title() ?>" class="img-fluid" />
+          <?php elseif($post->post_name == 'arras-park'): ?>
+            <img src="<?php bloginfo('template_directory') ?>/assets/images/comm-page-ap.jpg" alt="<?php the_title() ?>" class="img-fluid" />
           <?php else: ?>
             <div id="model-slider-<?php echo $post->post_name ?>" class="carousel slide" data-ride="carousel">
               <div class="carousel-inner">
