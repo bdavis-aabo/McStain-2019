@@ -12,7 +12,7 @@
 
 <?php if($_communities->have_posts()): ?>
 <section class="community-manifesto-section">
-  <div class="excite-contents">
+  <div class="excite-container">
     <ul class="excite-list">
     <?php while($_communities->have_posts()): $_communities->the_post() ?>
       <li class="excite-item">

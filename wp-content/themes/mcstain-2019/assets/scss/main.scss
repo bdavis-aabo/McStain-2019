@@ -156,7 +156,26 @@
         }
         .lightbox-right { float: right; width: 68%; }
       }
-      .wpgmza_map { background: pink; }
+      .excite-container { width: 60vw; margin: 0 auto;
+        .excite-list { margin: 0; padding: 0; list-style: none;
+          .excite-item { padding: 25px 30px; border-bottom: 1px solid $medgray;
+            background: -moz-linear-gradient(top, rgba(0,0,0,0) 0%, $ltgray 100%); /* FF3.6-15 */
+            background: -webkit-linear-gradient(top, rgba(0,0,0,0) 0%, $ltgray 100%); /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, $ltgray 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a6000000',GradientType=0 ); /* IE6-9 */
+            transition: opacity 666ms ease-in-out;
+            a { color: $gray;
+              h1 { font-size: 2em; line-height: 1.25em; margin: 0 0 20px;
+                em { font-style: normal; font-family: 'uni-bold', sans-serif; }
+              }
+              p { font-size: 1.1em; margin-bottom: 0; }
+
+            }
+            &:last-child { border-bottom: none; }
+            &:hover { opacity: .85 }
+          }
+        }
+      }
     }
   }
 

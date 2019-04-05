@@ -5,8 +5,8 @@
   <section class="homepage-section homepage-heroimage">
     <?php echo get_the_post_thumbnail($post->ID, 'full', array('class' => 'img-fluid aligncenter')); ?>
     <div class="homepage-heroimage-caption">
-      <h1 class="caption-title">Quick Move-In Homes</h1>
-      <p class="caption-content">New home inventory available now.</p>
+      <h1 class="caption-title">It's time to get excited...RIGHT NOW!</h1>
+      <p class="caption-content">Presenting McStain's Quick Move-in Homes.</p>
     </div>
   </section>
 
