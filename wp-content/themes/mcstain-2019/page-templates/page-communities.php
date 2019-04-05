@@ -49,10 +49,14 @@ $_c = 1;
   <section class="community-information <?php echo $post->post_name.'-section' ?>">
     <div class="container">
       <?php get_template_part('community/community-intro'); ?>
-
       <div class="row row-eq-height">
         <div class="col-12 col-md-7 col-lg-8">
           <div class="model-slider left-column">
+          <?php if($post->post_name == 'harvest-ridge'): ?>
+            <img src="<?php bloginfo('template_directory') ?>/assets/images/comm-page-hr.jpg" alt="<?php the_title() ?>" class="img-fluid" />
+          <?php elseif($post->post_name == 'painted-prairie'): ?>
+            <img src="<?php bloginfo('template_directory') ?>/assets/images/comm-page-pp.jpg" alt="<?php the_title() ?>" class="img-fluid" />
+          <?php else: ?>
             <div id="model-slider-<?php echo $post->post_name ?>" class="carousel slide" data-ride="carousel">
               <div class="carousel-inner">
                 <?php
@@ -71,6 +75,7 @@ $_c = 1;
               <?php $_i++; endforeach; ?>
               </ol>
             </div>
+          <?php endif; ?>
           </div>
         </div>
 
