@@ -18,16 +18,16 @@ $_manifestoSlides->query($_args);
   <?php while($_manifestoSlides->have_posts()): $_manifestoSlides->the_post() ?>
   <div class="manifesto-box" id="<?php echo $post->post_name ?>">
     <div class="manifesto-content <?php echo $post->post_name.'-contents' ?>">
-    <?php if($post->post_name == 'excite'): ?>
+    <?php if($post->post_name == 'excite'):     //links to communities ?>
       <h1 class="blue-txt"><?php echo get_field('manifesto_lightbox_title') ?></h1>
       <?php get_template_part('manifesto/manifesto-excite') ?>
-    <?php elseif($post->post_name == 'place'): ?>
+    <?php elseif($post->post_name == 'place'):  //communities list ?>
       <h1 class="ltgreen-txt"><?php echo get_field('manifesto_lightbox_title') ?></h1>
       <?php get_template_part('manifesto/manifesto-place') ?>
-    <?php elseif($post->post_name == 'right'): ?>
+    <?php elseif($post->post_name == 'right'):  //testimonials ?>
       <h1 class="ltgreen-txt"><?php echo get_field('manifesto_lightbox_title') ?></h1>
       <?php get_template_part('manifesto/manifesto-right') ?>
-    <?php elseif($post->post_name == 'home'): ?>
+    <?php elseif($post->post_name == 'home'):   //map ?>
       <h1 class="ltgreen-txt"><?php echo get_field('manifesto_lightbox_title') ?></h1>
       <?php echo do_shortcode('[wpgmza id="1"]');
     else:
