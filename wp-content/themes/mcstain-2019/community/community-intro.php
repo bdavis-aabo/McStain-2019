@@ -7,8 +7,6 @@ $_args = array(
   'name' =>  $post->post_name
 );
 $_slides->query($_args);
-
-var_dump($_args);
 ?>
 
       <div class="row">
