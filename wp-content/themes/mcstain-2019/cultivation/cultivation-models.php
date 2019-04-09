@@ -66,7 +66,7 @@ $_totalRows = count($_rows);
 
         <div class="col-6 col-sm-4 col-md-4 col-lg-2 right-btn">
           <article class="model">
-            <button class="gold-btn btn btn-block model-btn lightbox-trigger">
+            <button class="gold-btn btn btn-block model-btn cult-trigger">
               <span class="arrows"><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i></span>
               <span class="text"> See More</span>
             </button>
@@ -80,6 +80,6 @@ $_totalRows = count($_rows);
 
 
 
-  <button class="btn gold-btn sidebar-btn model-btn lightbox-trigger"><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i> See more</button>
+  <button class="btn gold-btn sidebar-btn model-btn cult-trigger"><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i> See more</button>
 </section>
 <?php endif; ?>

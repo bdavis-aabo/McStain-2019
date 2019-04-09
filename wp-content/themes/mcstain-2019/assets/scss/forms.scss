@@ -1,5 +1,6 @@
 /*** FORM STYLES ***/
-.email-lightbox { width: 100vw; height: 100vh; overflow-y: scroll; background: rgba(255,255,255,.95); position: fixed; top: 0; left: 0;
+.email-lightbox,
+.cultivation-lightbox { width: 100vw; height: 100vh; overflow-y: scroll; background: rgba(255,255,255,.95); position: fixed; top: 0; left: 0;
   transform: translateY(-100%); transition: transform 666ms cubic-bezier(.215,.61,.355,1); -webkit-overflow-scrolling: touch; z-index: 1250;
   .close-btn { position: absolute; right: 20px; top: 20px; transition: color 666ms ease-in-out; color: $medgray;
     &:hover { color: $gray; }
@@ -74,7 +75,7 @@
                   .control__indicator { background: $blue; border-width: 2px; border-color: $white; }
                 }
               }
-              .radio-information { padding: 12% 5px 0;
+              .radio-information { padding: 8px 0 15px 36px;
                 .model-name { font-size: 1.25em; color: $white; text-transform: uppercase; font-family: 'uni-regular', sans-serif;
                   margin-bottom: 8px; line-height: 1em;
                   span { text-transform: none; }

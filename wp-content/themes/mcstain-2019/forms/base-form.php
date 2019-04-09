@@ -1,5 +1,6 @@
 <?php
   $_community = ucwords(str_replace('-', ' ', $post->post_name));
+  $_communityUrl = $post->post_name;
   $_projectID = '';
 
   switch($_community){
@@ -28,7 +29,10 @@
   <input type="hidden" name="LassoUID" value="zFht#iXi[2" />
   <input type="hidden" name="ClientID" value="1591" />
   <input type="hidden" name="ProjectID" value="<?php echo $_projectID ?>" />
-  <input type="hidden" name="SignupThankyouLink" value="https://www.mcstain.com/our-neighborhoods/west-grange/thank-you" />
+
+  <?php if($_communityUrl != ''): ?>
+    <input type="hidden" name="SignupThankyouLink" value="https://www.mcstain.com/our-neighborhoods/<?php echo $_communityUrl ?>/thank-you" />
+  <?php endif; ?>
 
   <input type="hidden" name="Questions[57337]" value="" id="model-interested" />
   <input type="hidden" name="community" value="<?php echo $_community ?>" />

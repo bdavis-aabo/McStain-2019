@@ -1,4 +1,4 @@
-<section class="email-section email-lightbox">
+<section class="email-section cultivation-lightbox">
   <div class="email-section-header">
     <a class="close close-btn"><i class="fa fa-times"></i></a>
   </div>

@@ -17,7 +17,6 @@ $(document).ready(function(){
     $('.email-lightbox').addClass('box-open');
     $('body,html').css('overflow','hidden');
   }
-
   function closeLightbox(){
     $('.email-lightbox').removeClass('box-open');
     $('.email-content').hide();
@@ -29,14 +28,30 @@ $(document).ready(function(){
     displayLightbox();
     if($(this).hasClass('base-contact')){
       $('.base-form').delay(500).show();
-    } else if($(this).hasClass('model-btn')){
-      $('.model-form').delay(500).show();
-    } else if($(this).hasClass('design-btn')){
-      $('.design-form').delay(500).show();
     } else if($(this).hasClass('amenities-btn')){
       $('.base-form').delay(500).show();
     }
   });
+
+  function displayCultivation(){
+    $('.cultivation-lightbox').addClass('box-open');
+    $('body,html').css('overflow','hidden');
+  }
+  function closeCultivation(){
+    $('.cultivation-lightbox').removeClass('box-open');
+    $('.email-content').hide();
+    $('body,html').css('overflow','auto');
+  }
+  $('.cult-trigger').click(function(){
+    displayCultivation();
+    if($(this).hasClass('model-btn')){
+      $('.model-form').delay(500).show();
+    } else if($(this).hasClass('design-btn')){
+      $('.design-form').delay(500).show();
+    }
+  });
+
+
   $('.realtorinfo-btn a').click(function(){
     displayLightbox();
     $('.realtor-form').delay(500).show();
@@ -47,6 +62,7 @@ $(document).ready(function(){
       closeModel();
     } else {
       closeLightbox();
+      closeCultivation();
     }
   });
 
@@ -58,6 +74,7 @@ $(document).ready(function(){
         closeLightbox();
         closeMember();
         closeManifesto();
+        closeCultivation();
       }
     }
   });

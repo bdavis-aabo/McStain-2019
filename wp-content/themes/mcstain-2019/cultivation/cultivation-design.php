@@ -32,7 +32,7 @@
           <div class="community-design-content right-btn">
             <div class="box">
               <div class="box-contents green-bg">
-                <button class="btn green-btn btn-block lightbox-trigger design-btn">
+                <button class="btn green-btn btn-block cult-trigger design-btn">
                   <span class="arrows"><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i></span>
                   <span class="text">Wow inside</span>
                 </button>
@@ -44,7 +44,7 @@
     </div>
   </div>
 
-  <button class="btn green-btn sidebar-btn lightbox-trigger design-btn">
+  <button class="btn green-btn sidebar-btn cult-trigger design-btn">
     <i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i> Wow inside
   </button>
   <?php endif; ?>

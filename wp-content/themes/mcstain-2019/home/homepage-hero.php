@@ -4,6 +4,6 @@
       <h1 class="caption-title">It's time to get excited.</h1>
       <p class="caption-content">About your new home that looks and feels<br/>perfect and performs brilliantly.</p>
 
-      <button class="home-btn green-btn btn">What excites you?</button>
+      <button class="home-btn green-btn btn manifesto-trigger" data-target="excite">What excites you?</button>
     </div>
   </section>

@@ -39,14 +39,16 @@
   </footer>
 
   <?php
+  if(is_page('about-us')): get_template_part('page/page-teamlightbox'); endif;
+  if(is_page('mcstain-manifesto') || is_page('welcome-to-mcstain-neighborhoods')): get_template_part('manifesto/manifesto-lightbox'); endif;
+
   if(is_page_template('page-templates/page-cultivation.php')):
     get_template_part('cultivation/cultivation-footer');
     get_template_part('cultivation/cultivation-lightbox');
   endif;
     get_template_part('cultivation/cultivation-realtor');
 
-  if(is_page('about-us')): get_template_part('page/page-teamlightbox'); endif;
-  if(is_page('mcstain-manifesto')): get_template_part('manifesto/manifesto-lightbox'); endif; 
+
   ?>
 
 <?php wp_footer() ?>

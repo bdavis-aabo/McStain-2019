@@ -14,8 +14,17 @@
 <section class="manifesto-slider homepage-section">
   <div id="manifesto-slider" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner">
-    <?php $_s = 0; while($_manifestoSlides->have_posts()): $_manifestoSlides->the_post(); $_slideImage = get_field('manifesto_home_slide'); ?>
-      <div class="carousel-item <?php if($_s == 0): echo 'active'; endif; ?>"><img src="<?php echo $_slideImage['url'] ?>" class="img-fluid" alt=""></div>
+    <?php $_s = 0; while($_manifestoSlides->have_posts()): $_manifestoSlides->the_post();
+      $_slideImage = get_field('manifesto_home_slide');
+      $_smallSlideImage = get_field('manifesto_mobile_slide');
+    ?>
+      <div class="carousel-item <?php if($_s == 0): echo 'active'; endif; ?>">
+        <picture>
+          <source media="(max-width: 375px)" srcset="<?php echo $_smallSlideImage['url'] ?>">
+          <img src="<?php echo $_slideImage['url'] ?>" class="img-fluid" alt="<?php the_title() ?>">
+        </picture>
+
+      </div>
     <?php $_s++; endwhile; ?>
     </div>
 
