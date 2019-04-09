@@ -11,7 +11,7 @@
     case 'Harvest Ridge':
       $_projectID = '9877'; break;
     case 'Painted Prairie':
-      $_projectID = 'xxxx'; break;
+      $_projectID = '10512'; break;
   }
 ?>
 

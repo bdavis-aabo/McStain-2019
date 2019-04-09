@@ -32,7 +32,7 @@
     }
   }
 }
-.homepage-map { float: left; width: 100%; border-top: 1px solid $ltgray; border-bottom: 1px solid $ltgray; margin-top: 0 !important; }
+.homepage-map { float: left; width: 100%; border-top: 1px solid $ltgray; border-bottom: 1px solid $ltgray; margin-top: 0 !important; margin-bottom: 45px; }
 .homepage-manifesto { clear: both;
   .homepage-leftcolumn {
     .manifesto-title { font-family: 'uni-bold', sans-serif; font-size: 2em;
@@ -132,6 +132,7 @@
     }
   }
 }
+
 // Manifesto Lightboxes
 .manifesto-lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,.95); transform: translateY(-100%);
   transition: transform 666ms cubic-bezier(.215,.61,.355,1); cursor: pointer; z-index: 1201;
@@ -142,7 +143,7 @@
     transition: height 333ms cubic-bezier(.215,.61,.355,1);
     .manifesto-content {
       .lightbox-columns { width: 100%; float: left;
-        .lightbox-left { float: left; width: 30%;
+        .lightbox-left { float: left; width: 100%; margin-bottom: 45px; 
           .page-social {
             .footer-social { list-style: none; margin: 10px auto 0; padding-left: 0;
               li { display: inline; padding: 0 15px 0 0; margin: 0;
@@ -154,9 +155,9 @@
             }
           }
         }
-        .lightbox-right { float: right; width: 68%; }
+        .lightbox-right { float: right; width: 100%; }
       }
-      .excite-container { width: 60vw; margin: 0 auto;
+      .excite-container { width: 80vw; margin: 0 auto;
         .excite-list { margin: 0; padding: 0; list-style: none;
           .excite-item { padding: 25px 30px; border-bottom: 1px solid $medgray;
             background: -moz-linear-gradient(top, rgba(0,0,0,0) 0%, $ltgray 100%); /* FF3.6-15 */
@@ -445,6 +446,18 @@ No media query...Bootstrap default
       .carousel-indicators { top: 515px; }
     }
   }
+  .manifesto-lightbox {
+    .manifesto-box {
+      .manifesto-content {
+        .excite-container { width: 60vw; }
+        .lightbox-columns {
+          .lightbox-left { width: 30%; }
+          .lightbox-right { width: 68%; }
+        }
+      }
+    }
+  }
+
 
   .footer {
     .footer-section {
@@ -614,7 +627,7 @@ No media query...Bootstrap default
     #manifesto-tabcontent {
       .tab-pane {
         .tab-container {
-          .tab-contents { top: 20px; left: 750px; width: 430px;
+          .tab-contents { top: 20px; left: auto; right: 30px; width: 430px;
             p { font-size: .85em; line-height: 1.4em; }
           }
           .right-btn { right: 0; bottom: 0; }

@@ -15,9 +15,11 @@
   <div class="excite-container">
     <ul class="excite-list">
     <?php while($_communities->have_posts()): $_communities->the_post() ?>
+      <?php if($post->post_name != 'arras-park'): ?>
       <li class="excite-item">
         <a href="<?php echo get_field('community_link') ?>" title="<?php the_title() ?>"><?php echo get_field('community_description') ?></a>
       </li>
+      <?php endif; ?>
     <?php endwhile; ?>
     </ul>
   </div>

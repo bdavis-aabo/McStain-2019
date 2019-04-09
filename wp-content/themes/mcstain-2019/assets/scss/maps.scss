@@ -1,6 +1,10 @@
+
+
+
 .gm-style {
   .gm-style-iw-c { border-radius: 0; padding: 0; }
 }
+.wpgmza_map { height: 400px !important; }
 
 .wpgmza_markerbox {
   img { float: left !important; margin: 0 0 0 20px !important; width: 49% !important; height: 49% !important; }
@@ -9,4 +13,9 @@
   .wpgmza_infowindow_description { font-size: 1.25em;
     strong { text-transform: uppercase; display: block; margin-top: 15px; font-size: .95em; }
   }
+}
+
+/*** LARGE DEVICES : Desktops, 992px and up ***/
+@media (min-width: 992px){
+  .wpgmza_map { height: 650px !important; }
 }
