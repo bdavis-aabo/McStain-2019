@@ -107,7 +107,7 @@ function create_quickmoves(){
 		'capability_type'	=>	'post',
 		'hierarchical'		=>	true,
 		'rewrite'			=>	array('slug' => 'quick-moveins'),
-		'supports'			=>	array('title','author','excerpt','custom-fields','order','page-attributes','editor'),
+		'supports'			=>	array('title','author','custom-fields','order','page-attributes'),
 		'menu_position'		=>	21,
 		'menu_icon'			=>	'dashicons-admin-home',
 		'has_archive'		=>	true,

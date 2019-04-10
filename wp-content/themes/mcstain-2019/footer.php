@@ -47,9 +47,9 @@
     get_template_part('cultivation/cultivation-lightbox');
   endif;
     get_template_part('cultivation/cultivation-realtor');
-
-
   ?>
+
+  <?php //edits by Jay ?>
 
 <?php wp_footer() ?>
 

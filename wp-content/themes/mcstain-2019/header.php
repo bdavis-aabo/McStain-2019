@@ -20,6 +20,8 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 
+  <?php //edits by Jay ?>
+
 <?php wp_head() ?>
 </head>
 <body <?php body_class(); ?>>

@@ -135,13 +135,16 @@
 
 // Manifesto Lightboxes
 .manifesto-lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,.95); transform: translateY(-100%);
-  transition: transform 666ms cubic-bezier(.215,.61,.355,1); cursor: pointer; z-index: 1201;
-  .close-btn { position: absolute; right: 20px; top: 20px; transition: color 666ms ease-in-out; color: $medgray;
-    &:hover { color: $gray; }
+  transition: transform 666ms cubic-bezier(.215,.61,.355,1); z-index: 1201;
+  .email-section-header { height: 60px;
+    .close-btn { position: absolute; right: 20px; top: 20px; transition: color 666ms ease-in-out; color: $medgray;
+      &:hover { color: $gray; }
+    }
   }
   .manifesto-box { width: 90vw; height: 0; overflow: hidden; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
     transition: height 333ms cubic-bezier(.215,.61,.355,1);
     .manifesto-content {
+      &.excite-contents { margin-top: 60px; }
       .lightbox-columns { width: 100%; float: left;
         .lightbox-left { float: left; width: 100%; margin-bottom: 45px;
           .page-social {
@@ -157,16 +160,16 @@
         }
         .lightbox-right { float: right; width: 100%; }
       }
-      .excite-container { width: 80vw; margin: 0 auto;
+      .excite-container { width: 95vw; margin: 30px auto;
         .excite-list { margin: 0; padding: 0; list-style: none;
-          .excite-item { padding: 25px 30px; border-bottom: 1px solid $medgray;
+          .excite-item { padding: 25px 15px; border-bottom: 1px solid $medgray;
             background: -moz-linear-gradient(top, rgba(0,0,0,0) 0%, $ltgray 100%); /* FF3.6-15 */
             background: -webkit-linear-gradient(top, rgba(0,0,0,0) 0%, $ltgray 100%); /* Chrome10-25,Safari5.1-6 */
             background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, $ltgray 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
             filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a6000000',GradientType=0 ); /* IE6-9 */
             transition: opacity 666ms ease-in-out;
             a { color: $gray;
-              h1 { font-size: 2em; line-height: 1.25em; margin: 0 0 20px;
+              h1 { font-size: 1.25em; line-height: 1.25em; margin: 0 0 20px;
                 em { font-style: normal; font-family: 'uni-bold', sans-serif; }
               }
               p { font-size: 1.1em; margin-bottom: 0; }
@@ -193,7 +196,7 @@
           }
         }
       }
-      .testimonial-container { 
+      .testimonial-container {
         .testimonial-inner {
           .testimonials { list-style: none;
             li { padding: 10px 0; margin: 0;

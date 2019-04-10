@@ -153,7 +153,7 @@ $(document).ready(function(){
       $('.base-form #model-interested').val(model);
     }
     closeModel();
-    displayLightbox();
+    displayCultivation();
     $('.model-form').delay(500).show();
 
   });

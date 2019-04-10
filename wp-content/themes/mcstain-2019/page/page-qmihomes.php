@@ -17,12 +17,12 @@
   <section class="inventory-section <?php echo $post->post_name.'-inventory' ?>">
     <div class="container">
       <div class="row">
-        <div class="col-2">
+        <div class="col-4 col-md-2">
           <div class="community-logo">
             <img src="<?php echo $_logo['url'] ?>" class="img-fluid" alt="<?php the_title() ?>" />
           </div>
         </div>
-        <div class="col-10">
+        <div class="col-8 col-md-10">
           <div class="community-details">
             <p>
               <strong><?php the_title() ?></strong><br/>
@@ -48,9 +48,9 @@
       <?php if($_quickmoves->have_posts()): ?>
       <div class="row row-eq-height">
         <?php while($_quickmoves->have_posts()): $_quickmoves->the_post(); $_homeImage = get_field('qmi_image'); ?>
-        <div class="col-4">
+        <div class="col-12 col-md-4">
           <div class="qmi-home">
-            <img src="<?php //echo $_homeImage['url'] ?>https://placehold.it/450x450" class="aligncenter img-fluid" />
+            <img src="<?php echo $_homeImage['url'] ?>" class="aligncenter img-fluid" />
             <h2 class="home-name"><?php echo get_field('qmi_floorplan') ?></h2>
             <span class="address-price"><?php echo get_field('qmi_address') ?> | <strong><?php echo '$' . get_field('qmi_price') ?></strong></span>
             <p><?php echo get_field('qmi_available') ?></p>
