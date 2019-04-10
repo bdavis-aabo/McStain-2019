@@ -148,6 +148,23 @@ function create_manifestos(){
   ));
 }
 
+add_action('init','create_testimonials');
+function create_testimonials(){
+  register_post_type('testimonials', array(
+    'label'             =>  __('Testimonials'),
+    'singular_label'    =>  __('Testimonial'),
+    'public'            =>  true,
+    'show_ui'           =>  true,
+    'capability_type'   =>  'post',
+    'hierarchical'      =>  true,
+    'rewrite'           =>  array('slug' => 'testimonial'),
+    'supports'          =>  array('title','order','page-attributes','editor'),
+    'menu_position'     =>  24,
+    'menu_icon'         =>  'dashicons-format-quote',
+    'has_archive'       =>  false
+  ));
+}
+
 // Custom Taxonomy for Quick Move-in Homes
 add_action('init','location_taxonomies',0);
 function location_taxonomies(){

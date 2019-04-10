@@ -1,7 +1,7 @@
 <?php get_header() ?>
 
   <section class="homepage-section homepage-heroimage">
-    <?php echo get_the_post_thumbnail($post->ID, 'full', array('class' => 'img-fluid article-image')) ?>
+    <?php echo get_the_post_thumbnail($post->ID, 'full', array('class' => 'img-fluid aligncenter article-image')) ?>
     <div class="homepage-heroimage-caption">
       <h1 class="caption-title"><?php the_title() ?></h1>
       <p class="caption-content">
