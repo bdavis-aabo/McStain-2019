@@ -79,8 +79,8 @@
 }
 .floorplan-mask { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1260; background: rgba(0,0,0,.85); transform: translateY(-100%);
   transition: transform 666ms cubic-bezier(.215,.61,.355,1);
-  .floorplan-lightbox { position: absolute; width: 85vw; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    background: $white; opacity: 1; display: none;
+  .floorplan-lightbox { position: absolute; width: 85vw; max-height: 95vh; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    background: $white; opacity: 1; display: none; overflow-y: scroll;
     .close-btn { position: absolute; right: 5px; top: 5px; }
     .right-btn { float: right; bottom: 0; right: 0; position: absolute; }
   }
