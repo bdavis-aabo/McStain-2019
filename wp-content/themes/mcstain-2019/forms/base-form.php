@@ -15,7 +15,7 @@
   }
 ?>
 
-<form id="base-form" name="base-form" action="https://app.lassocrm.com/registrant_signup/test" method="post">
+<form id="base-form" name="base-form" action="https://app.lassocrm.com/registrant_signup" method="post">
 <div class="email-form base-contactform">
   <h1 class="aqua-txt"><?php the_title() ?></h1>
   <img src="<?php bloginfo('stylesheet_directory') ?>/assets/images/leaf.png" class="alignleft" />
