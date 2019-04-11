@@ -5,6 +5,7 @@ wp-content/backup/*
 wp-content/cache/*
 wp-content/upgrade/*
 wp-content/uploads/*
+_email-images/*
 
 config.codekit3
 sitemap.*
