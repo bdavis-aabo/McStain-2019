@@ -211,7 +211,8 @@
 
   &.open { transform: translateY(0);
     .manifesto-box {
-      &.show-man { height: 90vh; overflow-y: scroll;
+      &.show-man { height: 80vh; overflow-y: scroll;
+        &#excite {  }
         &::-webkit-scrollbar { display: none; width: 0; background: transparent; }
       }
     }
