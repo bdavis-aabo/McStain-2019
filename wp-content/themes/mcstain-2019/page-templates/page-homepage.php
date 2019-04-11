@@ -29,9 +29,9 @@
       </div>
     </div>
 
-    <button class="btn aqua-btn sidebar-btn">
+    <a href="/about-us" class="btn aqua-btn sidebar-btn">
       <i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i> Who we are
-    </button>
+    </a>
   </section>
 
   <?php get_template_part('home/homepage-communities') ?>
