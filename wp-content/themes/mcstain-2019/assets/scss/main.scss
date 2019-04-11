@@ -489,7 +489,9 @@ No media query...Bootstrap default
 
   .homepage-content {
     .homepage-leftcolumn {
-      p { width: 90%; margin-bottom: 3vh; }
+      p { width: 90%; margin-bottom: 3vh;
+        a { color: $ltgreen; }
+      }
     }
   }
   .homepage-communities { }
