@@ -8,7 +8,7 @@
 
 
 /*** BEGIN MAIN STYLE SHEET ***/
-.homepage-section { position: relative; margin: 1vh 0; width: 100%; }
+.homepage-section { position: relative; margin: 1vh 0; width: 100%; float: left; }
 
 .homepage-heroimage { position: relative; margin-top: 60px;
   .homepage-heroimage-caption { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); text-align: center;
@@ -179,16 +179,17 @@
             &:hover { opacity: .85 }
           }
         }
-        &.place-container { width: 70vw; overflow: auto;
+        &.place-container { overflow: auto;
           .community-information { clear: both; float: left; width: 100%;
-            .left-column { float: left; width: 28%; }
-            .right-column { float: right; width: 70%;
+            .left-column { }
+            .right-column {
               .community-introduction {
                 h2 { margin: 30px 0 15px; }
                 p  { padding-right: 30px; margin-bottom: 30px; }
               }
               .community-details {
                 .community-table {
+                  &.desktop-table { display: none; }
                   td { width: 25%; }
                 }
               }
@@ -461,7 +462,28 @@ No media query...Bootstrap default
   .manifesto-lightbox {
     .manifesto-box {
       .manifesto-content {
-        .excite-container { width: 60vw; }
+        .excite-container { width: 60vw;
+
+          &.place-container { width: 70vw; overflow: auto;
+            .community-information { clear: both; float: left; width: 100%;
+              .left-column { float: left; width: 28%; }
+              .right-column { float: right; width: 70%;
+                .community-introduction {
+                  h2 { margin: 30px 0 15px; }
+                  p  { padding-right: 30px; margin-bottom: 30px; }
+                }
+                .community-details {
+                  .community-table {
+                    &.mobile-table { display: none; }
+                    &.desktop-table { display: block; }
+                    td { width: 25%; }
+                  }
+                }
+              }
+            }
+
+          }
+        }
         .lightbox-columns {
           .lightbox-left { width: 30%; }
           .lightbox-right { width: 68%; }

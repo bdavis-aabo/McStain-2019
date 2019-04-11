@@ -15,7 +15,7 @@
         h1 { font-family: 'uni-light', sans-serif;
           em { font-style: normal; font-family: 'uni-bold', sans-serif; }
         }
-        h2 { font-size: 1.5em; color: #242424; }
+        h2 { font-size: 1.5em; line-height: 1.5em; color: #242424; }
       }
       h3.community-title { font-family: 'uni-book', sans-serif; font-weight: normal; }
       .community-scroller { margin-bottom: 3vh;
@@ -81,7 +81,7 @@
   transition: transform 666ms cubic-bezier(.215,.61,.355,1);
   .floorplan-lightbox { position: absolute; width: 85vw; top: 50%; left: 50%; transform: translate(-50%, -50%);
     background: $white; opacity: 1; display: none;
-    .close-btn { position: absolute; right: 5px; bottom: 5px; }
+    .close-btn { position: absolute; right: 5px; top: 5px; }
     .right-btn { float: right; bottom: 0; right: 0; position: absolute; }
   }
   &.open { transform: translateY(0); }

@@ -33,7 +33,13 @@ $_c = 1;
 
         <?php if($_details): ?>
         <div class="community-details gray-bg">
-          <table class="community-table">
+          <table class="community-table mobile-table">
+            <tr><td><strong>Location:</strong><br/><?php echo $_details['community_location'] ?></td></tr>
+            <tr><td><strong>Square Footage*:</strong><br/><?php echo $_details['community_square_footage'] ?></td></tr>
+            <tr><td><strong>Starting At:</strong><br/><?php echo $_details['community_price'] ?></td></tr>
+            <tr><td><strong>Home Style:</strong><br/><?php echo $_details['community_style'] ?></td></tr>
+          </table>
+          <table class="community-table desktop-table">
             <tr>
               <td><strong>Location:</strong><br/><?php echo $_details['community_location'] ?></td>
               <td><strong>Square Footage*:</strong><br/><?php echo $_details['community_square_footage'] ?></td>
