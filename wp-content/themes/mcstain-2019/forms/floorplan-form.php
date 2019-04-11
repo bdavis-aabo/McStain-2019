@@ -23,9 +23,6 @@
 
 <div class="email-form">
   <form id="floorplan-form" name="floorplan-form" action="https://app.lassocrm.com/registrant_signup/" method="post">
-    <!-- <input type="hidden" name="LassoUID" value="zFht#iXi[2" />
-    <input type="hidden" name="ClientID" value="1591" />
-    <input type="hidden" name="ProjectID" value="<?php //echo $_projectID ?>" /> -->
 
 
     <div class="floorplan-container">

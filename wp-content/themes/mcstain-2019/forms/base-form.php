@@ -31,7 +31,7 @@
   <input type="hidden" name="ProjectID" value="<?php echo $_projectID ?>" />
 
   <?php if($_communityUrl != ''): ?>
-    <input type="hidden" name="SignupThankyouLink" value="https://www.mcstain.com/our-neighborhoods/<?php echo $_communityUrl ?>/thank-you" />
+    <input type="hidden" name="SignupThankyouLink" value="<?php bloginfo('url') ?>/contact-us/thank-you?community=<?php echo $_communityUrl ?>" />
   <?php endif; ?>
 
   <input type="hidden" name="Questions[57337]" value="" id="model-interested" />
