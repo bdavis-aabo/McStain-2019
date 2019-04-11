@@ -15,7 +15,7 @@
   }
 ?>
 
-<form id="base-form" name="base-form" action="https://app.lassocrm.com/registrant_signup/" method="post">
+<form id="base-form" name="base-form" action="https://app.lassocrm.com/registrant_signup/test" method="post">
 <div class="email-form base-contactform">
   <h1 class="aqua-txt"><?php the_title() ?></h1>
   <img src="<?php bloginfo('stylesheet_directory') ?>/assets/images/leaf.png" class="alignleft" />
@@ -81,7 +81,7 @@
         </div>
         <div class="one-half last">
           <label for="Questions[Timeline]">When are you looking to purchase<span class="red">*</span></label>
-          <select class="form-control" name="Questions[Timeline]">
+          <select class="form-control" name="Questions[57479]">
             <option>Select Your Purchase Timeline</option>
             <option value="236754">Less than 6 months</option>
             <option value="236755">6 months - 1 year</option>
