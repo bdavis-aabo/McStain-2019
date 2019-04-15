@@ -262,7 +262,7 @@
     }
   }
 }
-.location-map-section {
+.location-map-section { clear: both;
   .map-title { text-align: center;
     h1 { font-size: 2em; margin: 0;
       .arrows { font-size: .85em; padding-left: 25px; }
