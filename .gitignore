@@ -27,6 +27,8 @@ wp-trackback.php
 xmlrpc.php
 wp-config.php
 
+wp-content/themes/mcstain-2019/assets/_inc/ga.php
+
 # Hidden system files
 *.DS_Store
 *[Tt]humbs.db
