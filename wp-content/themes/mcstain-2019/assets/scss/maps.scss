@@ -13,7 +13,9 @@
   .wpgmza_infowindow_description { font-size: 1.25em;
     strong { text-transform: uppercase; display: block; margin-top: 15px; font-size: .95em; }
   }
-  a { font-size: 1.25em; color: $ltgreen !important; text-transform: uppercase; }
+  a { font-size: 1.15em; color: $ltgreen !important; text-transform: uppercase;
+    strong { color: $ltgreen !important; }
+  }
 }
 
 /*** LARGE DEVICES : Desktops, 992px and up ***/
