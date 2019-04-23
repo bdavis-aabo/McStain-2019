@@ -1,19 +1,3 @@
-<?php
-  $_community = ucwords(str_replace('-', ' ', $post->post_name));
-  $_projectID = '';
-
-  switch($_community){
-    case 'West Grange':
-      $_projectID = '9882'; break;
-    case 'Lost Creek Farm':
-      $_projectID = '9883'; break;
-    case 'Harvest Ridge':
-      $_projectID = '9877'; break;
-    case 'Painted Prairie':
-      $_projectID = '10512'; break;
-  }
-?>
-
 <div class="email-form base-contactform">
   <h1 class="ltgreen-txt">Welcome to the McStain REALTOR&reg; Information Center</h1>
 
@@ -38,7 +22,7 @@
 
     <input type="hidden" name="LassoUID" value="zFht#iXi[2" />
     <input type="hidden" name="ClientID" value="1591" />
-    <input type="hidden" name="ProjectID" value="<?php echo $_projectID ?>" />
+    <input type="hidden" name="ProjectID" value="9968" />
     <input type="hidden" name="SignupThankyouLink" value="<?php bloginfo('url') ?>/contact-us/thank-you?form=realtor" />
 
     <div class="form-group">
