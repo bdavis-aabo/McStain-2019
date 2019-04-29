@@ -98,6 +98,16 @@ class Plugin extends Factory
 			
 		if($this->settings->engine == 'open-layers')
 			require_once(plugin_dir_path(__FILE__) . 'open-layers/class.nominatim-geocode-cache.php');
+	
+		if($this->settings->wpgmza_settings_marker_pull == '1' && !file_exists(wpgmza_return_marker_path()))
+		{
+			$this->settings->wpgmza_settings_marker_pull = '0';
+			
+			add_action('admin_notices', function() {
+				echo '<div class="error"><p>' . __('<strong>WP Google Maps:</strong> Cannot find the specified XML folder. This has been switched back to the Database method in Maps -> Settings -> Advanced', 'wp-google-maps') . '</p></div>';
+			});
+		}
+
 	}
 	
 	public function __set($name, $value)

@@ -259,6 +259,15 @@ jQuery(function($) {
 			img.src = src;
 		},
 		
+		decodeEntities: function(input)
+		{
+			return input.replace(/&(nbsp|amp|quot|lt|gt);/g, function(m, e) {
+				return m[e];
+			}).replace(/&#(\d+);/gi, function(m, e) {
+				return String.fromCharCode(parseInt(e, 10));
+			});
+		},
+		
 		/**
 		 * Returns true if developer mode is set or if developer mode cookie is set
 		 * @method isDeveloperMode
@@ -5826,7 +5835,7 @@ jQuery(function($) {
 			this.enableTrafficLayer(true);
 		if(this.settings.transport == 1)
 			this.enablePublicTransportLayer(true);
-		this.showPointsOfInterest(this.settings.show_points_of_interest);
+		this.showPointsOfInterest(this.settings.show_point_of_interest);
 		
 		// Move the loading wheel into the map element (it has to live outside in the HTML file because it'll be overwritten by Google otherwise)
 		$(this.engineElement).append($(this.element).find(".wpgmza-loader"));
@@ -5846,6 +5855,24 @@ jQuery(function($) {
 				lat: parseFloat(clone.center.lat),
 				lng: parseFloat(clone.center.lng)
 			};
+		
+		if(this.settings.hide_point_of_interest == "1")
+		{
+			var noPoi = {
+				featureType: "poi",
+				elementType: "labels",
+				stylers: [
+					{
+						visibility: "off"
+					}
+				]
+			};
+			
+			if(!clone.styles)
+				clone.styles = [];
+			
+			clone.styles.push(noPoi);
+		}
 		
 		this.googleMap.setOptions(clone);
 	}
@@ -8917,7 +8944,7 @@ jQuery(function($) {
 	$(document).ready(function(event) {
 		
 		$("[data-wpgmza-admin-marker-datatable]").each(function(index, el) {
-			new WPGMZA.AdminMarkerDataTable(el);
+			WPGMZA.adminMarkerDataTable = new WPGMZA.AdminMarkerDataTable(el);
 		});
 		
 	});

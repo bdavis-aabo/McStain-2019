@@ -52,4 +52,7 @@
           ?>
       </div>
     </nav>
+<!-- Segment Pixel - RET - McStain Neighborhoods - Colorado - DO NOT MODIFY -->
+<script src="https://secure.adnxs.com/seg?add=16984879&t=1" type="text/javascript"></script>
+<!-- End of Segment Pixel -->
   </header>

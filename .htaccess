@@ -1,3 +1,11 @@
+#RewriteEngine On
+#RewriteBase /
+#RewriteCond %{HTTP_HOST} !^mcstain.com$ [NC]
+#RewriteRule ^(.*)$ http://mcstain.com/$1 [L,R=301]
+#
+#RewriteEngine On
+#RewriteCond %{HTTPS} !=on
+#RewriteRule ^(.*)$ https://${HTTP_HOST}%{REQUEST_URI} [L,R=301,NE]
 
 # BEGIN WordPress
 <IfModule mod_rewrite.c>
@@ -10,3 +18,7 @@ RewriteRule . /index.php [L]
 </IfModule>
 
 # END WordPress
+
+
+# Redirect
+Redirect 301 /our-neighborhoods /communities

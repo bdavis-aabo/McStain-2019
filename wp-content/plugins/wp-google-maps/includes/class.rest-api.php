@@ -45,7 +45,7 @@ class RestAPI extends Factory
 		));
 		
 		register_rest_route(RestAPI::NS, '/markers(\/\d+)?/', array(
-			'methods'				=> 'GET',
+			'methods'				=> array('GET'),
 			'callback'				=> array($this, 'markers')
 		));
 		
@@ -99,6 +99,22 @@ class RestAPI extends Factory
 		}
 	}
 	
+	protected function sanitizeFieldNames($fields, $table)
+	{
+		global $wpdb;
+		
+		$whitelist = $wpdb->get_col("SHOW COLUMNS FROM $table");
+		$result = array();
+		
+		foreach($fields as $name)
+		{
+			if(array_search($name, $whitelist) !== false)
+				$result[] = $name;
+		}
+		
+		return $result;
+	}
+	
 	/**
 	 * Callback for the /markers REST API route.
 	 * @param \WP_REST_Request The REST request.
@@ -127,6 +143,9 @@ class RestAPI extends Factory
 				else if(!empty($_GET['fields']))
 					$fields = $_GET['fields'];
 				
+				if(!empty($fields))
+					$fields = $this->sanitizeFieldNames($fields, $wpgmza_tblname);
+				
 				if(!empty($_GET['filter']))
 				{
 					$filteringParameters = json_decode( stripslashes($_GET['filter']) );
@@ -140,17 +159,15 @@ class RestAPI extends Factory
 				}
 				else if(!empty($fields))
 				{
-					//$placeholders = array_fill(0, count($fields), '%s');
-					//$placeholders = implode(',', $placeholders);
+					$query = new Query();
 					
-					foreach($fields as $key => $value)
-						$fields[$key] = '`' . preg_replace('/[a-z_]/i', '', $value) . '`';
+					$query->type = "SELECT";
+					$query->table = $wpgmza_tblname;
+					$query->fields = $fields;
 					
-					$imploded = implode(',', $fields);
+					$qstr = $query->build();
 					
-					$stmt = $wpdb->prepare("SELECT $imploded FROM $wpgmza_tblname");
-					
-					$results = $wpdb->get_results($stmt);
+					$results = $wpdb->get_results($qstr);
 				}
 				else if(!$fields)
 				{
