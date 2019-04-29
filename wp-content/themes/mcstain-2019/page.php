@@ -5,7 +5,7 @@
   <section class="manifesto-heroimage homepage-heroimage">
     <?php echo get_the_post_thumbnail($post->ID, 'full', array('class' => 'img-fluid aligncenter')); ?>
     <div class="homepage-heroimage-caption">
-      <h1 class="caption-title">Thank You</h1>
+      <?php if(is_page('thank-you')): ?><h1 class="caption-title">Thank You</h1><?php endif; ?>
       <!-- <p class="caption-content">Subheadline Here.</p> -->
     </div>
   </section>

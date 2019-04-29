@@ -165,6 +165,11 @@ $(document).ready(function(){
     $('.hidden-fields').toggleClass('visible');
   });
 
+  $('.project-select').change(function(){
+    var project = $(this).val();
+    $('input#ProjectID').val(project);
+  });
+
   $('#manifesto-mobile-slider').carousel({
     interval: 9500,
     pause:    'hover',
