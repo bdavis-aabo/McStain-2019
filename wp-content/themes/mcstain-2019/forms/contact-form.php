@@ -11,7 +11,7 @@
   <input type="hidden" name="Questions[57337]" val="" id="model-interested" />
   <input type="hidden" name="LassoUID" value="zFht#iXi[2" />
   <input type="hidden" name="ClientID" value="1591" />
-  <input type="hidden" name="ProjectID" value="" />
+  <input type="hidden" name="ProjectID" id="ProjectID" value="1234" />
   <input type="hidden" name="SignupThankyouLink" value="<?php bloginfo('url') ?>/contact-us/thank-you?form=contact_us" />
 
   <div class="form-group">
@@ -44,7 +44,7 @@
   <div class="form-group">
     <div class="one-full">
       <label for="ProjectID">I am interested in a new home in:</label>
-      <select name="ProjectID" class="custom-select form-control">
+      <select name="project-select" class="project-select custom-select form-control">
         <option selected disabled></option>
       <?php foreach($_communities as $k=>$v): ?>
         <option value="<?php echo $k ?>"><?php echo $v ?></option>
