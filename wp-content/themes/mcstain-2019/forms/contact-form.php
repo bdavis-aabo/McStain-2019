@@ -3,7 +3,8 @@
     '9882'  =>  'West Grange',
     '9883'  =>  'Lost Creek Farm',
     '9877'  =>  'Harvest Ridge',
-    '10512'  =>  'Painted Prarie'
+    '10512' =>  'Painted Prarie',
+    '10702'  =>  'Future Communities',
   );
 ?>
 
@@ -11,7 +12,7 @@
   <input type="hidden" name="Questions[57337]" val="" id="model-interested" />
   <input type="hidden" name="LassoUID" value="zFht#iXi[2" />
   <input type="hidden" name="ClientID" value="1591" />
-  <input type="hidden" name="ProjectID" id="ProjectID" value="1234" />
+  <input type="hidden" name="ProjectID" id="ProjectID" value="9968" />
   <input type="hidden" name="SignupThankyouLink" value="<?php bloginfo('url') ?>/contact-us/thank-you?form=contact_us" />
 
   <div class="form-group">
