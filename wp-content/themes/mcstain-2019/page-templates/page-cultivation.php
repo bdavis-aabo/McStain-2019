@@ -14,6 +14,9 @@
 
     <?php get_template_part('cultivation/cultivation-intro') ?>
     <?php get_template_part('cultivation/cultivation-models') ?>
+
+    <?php if(get_field('cultivation_map_url') != ''): get_template_part('cultivation/cultivation-sitemap'); endif; ?>
+
     <?php get_template_part('cultivation/cultivation-design') ?>
 
     <?php if(have_rows('amenities')): ?>

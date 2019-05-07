@@ -21,7 +21,6 @@ $_totalRows = count($_rows);
     </div>
   </div>
 
-
   <!-- mobile models -->
   <div class="mobile-models">
     <div class="container-fluid">
@@ -45,7 +44,6 @@ $_totalRows = count($_rows);
   </div>
   <?php //endif; ?>
   <!-- /end mobile models -->
-
 
   <!-- normal models -->
   <div class="normal-models">
@@ -75,10 +73,7 @@ $_totalRows = count($_rows);
       </div>
     </div>
   </div>
-
   <!-- /end normal models -->
-
-
 
   <button class="btn gold-btn sidebar-btn model-btn cult-trigger"><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i> See more</button>
 </section>
