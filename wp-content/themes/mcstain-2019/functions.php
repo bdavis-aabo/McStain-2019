@@ -91,11 +91,40 @@ function create_community_slides(){
     'hierarchical'      =>  true,
     'rewrite'           =>  array('slug' => 'community-slide'),
     'supports'          =>  array('title','thumbnail','custom-fields','order','page-attributes','editor'),
-    'menu_position'     =>  20,
+    'menu_position'     =>  19,
     'menu_icon'         =>  'dashicons-admin-home',
     'has_archive'       =>  false
   ));
 }
+
+add_action('init','create_floorplans');
+function create_floorplans(){
+  register_post_type('floorplans', array(
+    'label'           =>  __('Floorplans'),
+    'singular_label'  =>  __('Floorplan'),
+    'public'         =>  true,
+    'show_ui'         =>  true,
+    'capability_type' =>  'post',
+    'hierarchical'    =>  true,
+    'rewrite'         =>  array('slug' => 'community/%community%/floorplans'),
+    'supports'        =>  array('title','author','custom-fields','order','page-attributes'),
+    'menu_position'   =>  20,
+    'menu_icon'       =>  'dashicons-admin-home',
+    'has_archive'     =>  false
+  ));
+}
+
+function floorplan_post_link($post_link, $id = 0){
+  $post = get_post($id);
+  if(is_object($post)){
+    $terms = wp_get_object_terms($post->ID, 'community');
+    if($terms){
+      return str_replace('%community%', $terms[0]->slug, $post_link);
+    }
+  }
+  return $post_link;
+}
+add_filter('post_type_link','floorplan_post_link');
 
 add_action('init','create_quickmoves');
 function create_quickmoves(){
@@ -191,7 +220,7 @@ function location_taxonomies(){
 		'rewrite'			=>	array('slug' => 'community'),
 		);
 
-	register_taxonomy('community', 'quickmoves', $_args);
+	register_taxonomy('community', array('floorplans','quickmoves'), $_args);
 }
 
 // Add Widget Areas

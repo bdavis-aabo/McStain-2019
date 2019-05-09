@@ -3,7 +3,6 @@
 .community-button    { height: 100%; }
 .community-button    { background: $gold; }
 
-
 .community-container {
   section { padding: 5vh 0 0; background: $white; float: left; width: 100%;
     &.community-heroimage { margin-top: 0; padding: 0;
@@ -48,8 +47,6 @@
       }
       //.btn { display: block; width: 100%; height: 100%; }
     } //end community-models
-
-
     &.community-design {
       .community-design-content { margin: 5vh 0; width: 100%;
         .btn-block { display: none; }
@@ -73,10 +70,10 @@
         }
       }
     } //end community-amenities
-    &.community-closing {
-    }
+    &.community-closing {  }
   }
 }
+
 .floorplan-mask { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 1260; background: rgba(0,0,0,.85); transform: translateY(-100%);
   transition: transform 666ms cubic-bezier(.215,.61,.355,1);
   .floorplan-lightbox { position: absolute; width: 85vw; max-height: 95vh; top: 50%; left: 50%; transform: translate(-50%, -50%);
@@ -90,6 +87,19 @@
 .cultivation-sitemap {
   .sitemap-iframe { display: none; }
   .sitemap-button { text-align: center; }
+}
+
+.floorplan-information { padding-top: 80px;
+  .floorplan-left { margin-bottom: 3vh;
+    .floorplan-title { margin-bottom: 5px; }
+    .floorplan-community { font-size: 2em; margin-bottom: 8px; }
+    p { line-height: 1.8em; }
+    .floorplan-details { margin: 1rem 0;
+      li { padding: 5px 0; }
+    }
+  }
+  .floorplan-right  { }
+  .floorplan-images { margin: 3vh 0; }
 }
 
 /* Small devices (landscape phones, 544px and up) */
@@ -108,6 +118,19 @@
   }
   .floorplan-mask {
     .floorplan-lightbox { width: 55vw; }
+  }
+
+  .floorplan-information { padding-top: 100px;
+    .floorplan-left { margin-bottom: 3vh;
+      .floorplan-title { margin-bottom: 5px; }
+      .floorplan-community { font-size: 2em; margin-bottom: 8px; }
+      p { line-height: 1.8em; }
+      .floorplan-details { margin: 1rem 0;
+        li { padding: 5px 0; }
+      }
+    }
+    .floorplan-right  { margin-top: 20px; }
+    .floorplan-images { margin: 3vh 0; }
   }
 }
 
