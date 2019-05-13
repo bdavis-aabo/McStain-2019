@@ -5,8 +5,8 @@
     'post_type' => 'post',
     'post_status' => 'publish',
     'posts_per_page' => 2,
-    'order' => 'asc/desc',
-    'orderby' => 'title'
+    'order' => 'DESC',
+    'orderby' => 'date'
   );
   $_posts->query($_args);
 ?>
