@@ -28,7 +28,7 @@
 
   <input type="hidden" name="LassoUID" value="zFht#iXi[2" />
   <input type="hidden" name="ClientID" value="1591" />
-  <input type="hidden" name="ProjectID" value="<?php echo $_projectID ?>" />
+  <input type="hidden" name="ProjectID" value="<?php if($_projectID != ''): echo $_projectID; else: echo '10711'; endif; ?>" />
 
   <?php if($_communityUrl != ''): ?>
     <input type="hidden" name="SignupThankyouLink" value="<?php bloginfo('url') ?>/contact-us/thank-you?community=<?php echo $_communityUrl ?>" />
