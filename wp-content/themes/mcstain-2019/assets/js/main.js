@@ -51,6 +51,10 @@ $(document).ready(function(){
     }
   });
 
+  $('.floorplan-trigger').click(function(){
+    displayCultivation();
+    $('.floorplan-form').delay(500).show();
+  });
 
   $('.realtorinfo-btn a').click(function(){
     displayLightbox();

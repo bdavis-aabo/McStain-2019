@@ -45,6 +45,8 @@
   if(is_page_template('page-templates/page-cultivation.php')):
     get_template_part('cultivation/cultivation-footer');
     get_template_part('cultivation/cultivation-lightbox');
+  elseif(is_singular('floorplans')):
+    get_template_part('cultivation/cultivation-floorplan-lightbox');
   endif;
     get_template_part('cultivation/cultivation-realtor');
   ?>

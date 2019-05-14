@@ -17,9 +17,14 @@
   <section class="floorplan-information">
     <div class="container">
       <div class="row">
-        <div class="col-12 col-md-5">
+        <div class="col-12">
+          <h1 class="floorplan-title"><?php the_title() ?></h1>
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-md-4">
           <div class="floorplan-left">
-            <h1 class="floorplan-title"><?php the_title() ?></h1>
             <h2 class="floorplan-community"><?php echo $_cat ?></h2>
 
             <?php if(have_rows('floorplan_details')): the_row(); ?>
@@ -31,14 +36,14 @@
               <li>From <strong>$<?php echo get_sub_field('starting_price') ?></strong><br/>
             </ul>
             <p>
-              <button class="btn green-btn">
+              <button class="btn green-btn floorplan-trigger">
                 <i class="fas fa-chevron-right"></i><i class="fas fa-chevron-right"></i> Request Floorplan Brochure
               </button>
             </p>
             <?php endif; ?>
           </div>
         </div>
-        <div class="col-12 col-md-7">
+        <div class="col-12 col-md-8">
           <div class="floorplan-right">
             <?php if(get_field('floorplan_elevations') != ''): $_elevations = get_field('floorplan_elevations'); ?>
             <div id="elevation-carousel" class="carousel slide" data-ride="carousel">
@@ -47,25 +52,42 @@
                 <div class="carousel-item <?php if($_s == 0): echo 'active'; endif; ?>">
                   <img src="<?php echo $_elevation['url'] ?>" alt="<?php the_title() ?>" class="img-fluid" />
                 </div>
-
                 <?php $_s++; endforeach; ?>
               </div>
-
             </div>
-
-
             <?php endif; ?>
           </div>
         </div>
       </div>
 
+      <?php if(get_field('floorplan_images')): $_floorplanImages = get_field('floorplan_images'); $_t = 0; $_c = 0; ?>
       <div class="row">
         <div class="col-12">
           <div class="floorplan-images">
-            insert floorplans here
+            <ul class="nav nav-pills floorplan-tabs" role="tablist">
+              <?php foreach($_floorplanImages as $_image): $_tabLink = strtolower(str_replace(' ','-',$_image['title'])); ?>
+                <li class="nav-item">
+                  <a href="#<?php echo $_tabLink ?>" class="nav-link <?php if($_t == 0): echo 'active'; endif; ?>" id="<?php echo $_tabLink.'-tab' ?>" role="tab" aria-controls="<?php echo $_tablink.'-tab' ?>" data-toggle="tab">
+                    <?php echo $_image['title'] ?>
+                  </a>
+                </li>
+              <?php $_t++; endforeach; ?>
+            </ul>
+            <div class="tab-content" id="floorplan-tabcontent">
+
+              <?php foreach($_floorplanImages as $_image): $_tabLink = strtolower(str_replace(' ','-',$_image['title'])); ?>
+                <div class="tab-pane fade <?php if($_c == 0): echo 'show active'; endif; ?>" id="<?php echo $_tabLink ?>">
+                  <div class="col-8 offset-2">
+                    <p class="floorplan-name"><?php the_title(); echo ' | ' . $_image['title'] ?></p>
+                    <img src="<?php echo $_image['url'] ?>" alt="<?php echo $_image['title'] ?>" class="img-fluid aligncenter" />
+                  </div>
+                </div>
+              <?php $_c++; endforeach; ?>
+            </div>
           </div>
         </div>
       </div>
+      <?php endif; ?>
     </div>
   </section>
   <?php endwhile; endif; ?>

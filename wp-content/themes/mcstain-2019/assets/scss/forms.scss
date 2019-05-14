@@ -94,6 +94,9 @@
         }
       }
     }
+      &.floorplan-section-content { width: 40vw;
+        .floorplan-form-title { font-size: 3em; }
+      }
   }
 
   &.box-open {
@@ -103,6 +106,8 @@
     }
   }
 }
+
+
 
 .base-contactform { @include headings($base-font-size, $heading-scale * 1.2); }
 
