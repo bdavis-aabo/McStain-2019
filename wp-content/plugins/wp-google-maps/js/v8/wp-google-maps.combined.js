@@ -80,6 +80,15 @@ jQuery(function($) {
 			
 		},
 		
+		extend: function(child, parent) {
+			
+			var constructor = child;
+			
+			child.prototype = Object.create(parent.prototype);
+			child.prototype.constructor = constructor;
+			
+		},
+		
 		/**
 		 * Generates and returns a GUID
 		 * @method guid
@@ -2009,7 +2018,7 @@ jQuery(function($) {
 			this.south = southWest.lat;
 			this.north = northEast.lat;
 			this.west = southWest.lng;
-			this.east = southWest.lng;
+			this.east = northEast.lng;
 		}
 	}
 	
@@ -2070,6 +2079,8 @@ jQuery(function($) {
 		if(arguments.length >= 3)
 			y = arg;
 		
+		console.log(x, y);
+		
 		var southWest = new WPGMZA.LatLng(this.south, this.west);
 		var northEast = new WPGMZA.LatLng(this.north, this.east);
 		
@@ -2092,7 +2103,7 @@ jQuery(function($) {
 		this.west = southWest.lng;
 		this.east = northEast.lng;
 		
-		//console.log("Extended", temp, "to", this.toString());
+		// console.log("Extended", temp, "to", this.toString());
 	}
 	
 	WPGMZA.LatLngBounds.prototype.contains = function(latLng)
@@ -2111,10 +2122,7 @@ jQuery(function($) {
 		if(this.west < this.east)
 			return (latLng.lng >= this.west && latLng.lng <= this.east);
 		
-		if(this.west < this.east)
-			return (latLng.lng >= this.west || this.lng <= this.east);
-		
-		return (latLng.lng <= this.west || this.lng >= this.east);
+		return (latLng.lng <= this.west || latLng.lng >= this.east);
 	}
 	
 	WPGMZA.LatLngBounds.prototype.toString = function()
@@ -2400,6 +2408,11 @@ jQuery(function($) {
 		});
 	}
 	
+	WPGMZA.MapSettingsPage.createInstance = function()
+	{
+		return new WPGMZA.MapSettingsPage();
+	}
+	
 	/**
 	 * Updates engine specific controls, hiding irrelevant controls (eg Google controls when OpenLayers is the selected engine) and showing relevant controls.
 	 * @method
@@ -2447,13 +2460,31 @@ jQuery(function($) {
 			$("#wpgmza_gdpr_override_notice_text").hide("slow");
 		}
 	}
+
+	/**
+	 * Flushes the geocode cache
+	 */
+	WPGMZA.MapSettingsPage.prototype.flushGeocodeCache = function()
+	{
+		var OLGeocoder = new WPGMZA.OLGeocoder();
+		OLGeocoder.clearCache(function(response){
+			jQuery('#wpgmza_flush_cache_btn').removeAttr('disabled');
+		});
+	}
 	
 	jQuery(function($) {
 		
 		if(!window.location.href.match(/wp-google-maps-menu-settings/))
 			return;
 		
-		WPGMZA.mapSettingsPage = new WPGMZA.MapSettingsPage();
+		WPGMZA.mapSettingsPage = WPGMZA.MapSettingsPage.createInstance();
+
+		jQuery(document).ready(function(){
+			jQuery('#wpgmza_flush_cache_btn').on('click', function(){
+				jQuery(this).attr('disabled', 'disabled');
+				WPGMZA.mapSettingsPage.flushGeocodeCache();
+			});
+		});
 		
 	});
 	
@@ -2745,6 +2776,7 @@ jQuery(function($) {
 	
 	WPGMZA.Map.prototype = Object.create(WPGMZA.EventDispatcher.prototype);
 	WPGMZA.Map.prototype.constructor = WPGMZA.Map;
+	WPGMZA.Map.nightTimeThemeData = [{"elementType":"geometry","stylers":[{"color":"#242f3e"}]},{"elementType":"labels.text.fill","stylers":[{"color":"#746855"}]},{"elementType":"labels.text.stroke","stylers":[{"color":"#242f3e"}]},{"featureType":"administrative.locality","elementType":"labels.text.fill","stylers":[{"color":"#d59563"}]},{"featureType":"landscape","elementType":"geometry.fill","stylers":[{"color":"#575663"}]},{"featureType":"poi","elementType":"labels.text.fill","stylers":[{"color":"#d59563"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#263c3f"}]},{"featureType":"poi.park","elementType":"labels.text.fill","stylers":[{"color":"#6b9a76"}]},{"featureType":"road","elementType":"geometry","stylers":[{"color":"#38414e"}]},{"featureType":"road","elementType":"geometry.stroke","stylers":[{"color":"#212a37"}]},{"featureType":"road","elementType":"labels.text.fill","stylers":[{"color":"#9ca5b3"}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"color":"#746855"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#80823e"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#1f2835"}]},{"featureType":"road.highway","elementType":"labels.text.fill","stylers":[{"color":"#f3d19c"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#2f3948"}]},{"featureType":"transit.station","elementType":"labels.text.fill","stylers":[{"color":"#d59563"}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#17263c"}]},{"featureType":"water","elementType":"geometry.fill","stylers":[{"color":"#1b737a"}]},{"featureType":"water","elementType":"labels.text.fill","stylers":[{"color":"#515c6d"}]},{"featureType":"water","elementType":"labels.text.stroke","stylers":[{"color":"#17263c"}]}];
 	
 	/**
 	 * Returns the contructor to be used by createInstance, depending on the selected maps engine.
@@ -3610,6 +3642,10 @@ jQuery(function($) {
 			console.warn("Cannot open infowindow for marker with no map");
 			return;
 		}
+		
+		// NB: This is a workaround for "undefined" in InfoWindows (basic only) on map edit page
+		if(WPGMZA.currentPage == "map-edit" && !WPGMZA.pro_version)
+			return;
 		
 		if(this.map.lastInteractedMarker)
 			this.map.lastInteractedMarker.infoWindow.close();
@@ -4550,10 +4586,16 @@ jQuery(function($) {
 	 */
 	WPGMZA.ModernStoreLocator.createInstance = function(map_id)
 	{
-		if(WPGMZA.settings.engine == "google-maps")
-			return new WPGMZA.GoogleModernStoreLocator(map_id);
-		else
-			return new WPGMZA.OLModernStoreLocator(map_id);
+		switch(WPGMZA.settings.engine)
+		{
+			case "open-layers":
+				return new WPGMZA.OLModernStoreLocator(map_id);
+				break;
+			
+			default:
+				return new WPGMZA.GoogleModernStoreLocator(map_id);
+				break;
+		}
 	}
 	
 });
@@ -4864,10 +4906,21 @@ jQuery(function($) {
 		
 		if(!params.error)
 			params.error = function(xhr, status, message) {
+				if(status == "abort")
+					return;	// Don't report abort, let it happen silently
+				
 				throw new Error(message);
 			}
 		
 		return $.ajax(WPGMZA.RestAPI.URL + route, params);
+	}
+	
+	var nativeCallFunction = WPGMZA.RestAPI.call;
+	WPGMZA.RestAPI.call = function()
+	{
+		console.warn("WPGMZA.RestAPI.call was called statically, did you mean to call the function on WPGMZA.restAPI?");
+		
+		nativeCallFunction.apply(this, arguments);
 	}
 	
 });
@@ -5632,6 +5685,11 @@ jQuery(function($) {
 			return;
 		
 		this.googleInfoWindow = new google.maps.InfoWindow();
+		
+		google.maps.event.addListener(this.googleInfoWindow, "domready", function(event) {
+			self.trigger("domready");
+		});
+		
 		google.maps.event.addListener(this.googleInfoWindow, "closeclick", function(event) {
 			self.mapObject.map.trigger("infowindowclose");
 		});
@@ -7150,7 +7208,7 @@ jQuery(function($) {
 		};
 		
 		if(options.componentRestrictions && options.componentRestrictions.country)
-			data.countryCodes = options.componentRestrictions.country;
+			data.countrycodes = options.componentRestrictions.country;
 		
 		$.ajax("https://nominatim.openstreetmap.org/search/", {
 			data: data,
@@ -7180,6 +7238,25 @@ jQuery(function($) {
 				response: JSON.stringify(response)
 			},
 			method: "POST"
+		});
+	}
+
+	/**
+	 * @function clearCache
+	 * @access protected
+	 * @summary Clears the Nomanatim geocode cache
+	 * @returns {void}
+	 */
+	WPGMZA.OLGeocoder.prototype.clearCache = function(callback)
+	{
+		$.ajax(WPGMZA.ajaxurl, {
+			data: {
+				action: "wpgmza_clear_nominatim_cache"
+			},
+			method: "POST",
+			success: function(response){
+				callback(response);
+			}
 		});
 	}
 	
@@ -7339,6 +7416,7 @@ jQuery(function($) {
 		$(this.element).show();
 		
 		this.trigger("infowindowopen");
+		this.trigger("domready");
 	}
 	
 	WPGMZA.OLInfoWindow.prototype.close = function(event)

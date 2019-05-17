@@ -22,7 +22,7 @@ jQuery(function($) {
 			this.south = southWest.lat;
 			this.north = northEast.lat;
 			this.west = southWest.lng;
-			this.east = southWest.lng;
+			this.east = northEast.lng;
 		}
 	}
 	
@@ -83,6 +83,8 @@ jQuery(function($) {
 		if(arguments.length >= 3)
 			y = arg;
 		
+		console.log(x, y);
+		
 		var southWest = new WPGMZA.LatLng(this.south, this.west);
 		var northEast = new WPGMZA.LatLng(this.north, this.east);
 		
@@ -105,7 +107,7 @@ jQuery(function($) {
 		this.west = southWest.lng;
 		this.east = northEast.lng;
 		
-		//console.log("Extended", temp, "to", this.toString());
+		// console.log("Extended", temp, "to", this.toString());
 	}
 	
 	WPGMZA.LatLngBounds.prototype.contains = function(latLng)
@@ -124,10 +126,7 @@ jQuery(function($) {
 		if(this.west < this.east)
 			return (latLng.lng >= this.west && latLng.lng <= this.east);
 		
-		if(this.west < this.east)
-			return (latLng.lng >= this.west || this.lng <= this.east);
-		
-		return (latLng.lng <= this.west || this.lng >= this.east);
+		return (latLng.lng <= this.west || latLng.lng >= this.east);
 	}
 	
 	WPGMZA.LatLngBounds.prototype.toString = function()
