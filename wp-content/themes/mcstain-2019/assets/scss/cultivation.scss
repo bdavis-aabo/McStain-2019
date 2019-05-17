@@ -100,9 +100,9 @@
   }
   .floorplan-right  { }
   .floorplan-images { margin: 3vh 0; text-align: center;
-    .floorplan-tabs { display: inline-block; padding: 0; margin: 15px auto; zoom: 1; *display: inline;
+    .floorplan-tabs { display: inline-block; padding: 0; margin: 15px auto; zoom: 1; *display: inline; font-size: .8em;
       .nav-item { display: inline-block;
-        .nav-link { border-radius: 0; background: $green; color: $white;
+        .nav-link { border-radius: 0; background: $green; color: $white; margin-bottom: 3px;
           &.active { background: tint($green,50); color: $white; }
         }
       }

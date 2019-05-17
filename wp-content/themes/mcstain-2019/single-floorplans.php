@@ -30,9 +30,18 @@
             <?php if(have_rows('floorplan_details')): the_row(); ?>
             <?php echo get_sub_field('description') ?>
             <ul class="floorplan-details">
+              <li><strong><?php echo get_sub_field('square_footage') ?> Sq. Ft. Finished Above Ground</strong></li>
+              <?php if(get_sub_field('square_footage_partial_basement') != ''): ?>
+                <li><strong><?php echo get_sub_field('square_footage_partial_basement') ?> Sq. Ft. Partial Basement</strong></li>
+              <?php endif; if(get_sub_field('square_footage_unfinished_basement') != ''): ?>
+                <li><strong><?php echo get_sub_field('square_footage_unfinished_basement') ?> Sq. Ft. Unfinished Basement</strong></li>
+              <?php endif; if(get_sub_field('square_footage_total') != ''): ?>
+                <li><strong><?php echo get_sub_field('square_footage_total') ?> Sq. Ft. Total</strong></li>
+              <?php endif; ?>
               <li><?php echo get_sub_field('bedrooms') ?> <strong>Bedrooms</strong></li>
               <li><?php echo get_sub_field('bathrooms') ?> <strong>Bathrooms</strong><br/>
-              <li>Starting at <strong><?php echo get_sub_field('square_footage') ?> sq. ft.</strong></li>
+
+              <li><?php echo get_sub_field('garage') ?> car garage</li>
               <li>From <strong>$<?php echo get_sub_field('starting_price') ?></strong><br/>
             </ul>
             <p>
