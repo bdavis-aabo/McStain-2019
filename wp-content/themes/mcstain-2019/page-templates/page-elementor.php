@@ -6,7 +6,7 @@
     <?php echo get_the_post_thumbnail($post->ID, 'full', array('class' => 'img-fluid aligncenter')); ?>
   </section>
 
-  <section class="homepage-content homepage-section manifesto-section">
+  <section class="homepage-content homepage-section elementor-section">
     <div class="container">
       <div class="row">
         <div class="col-12">
