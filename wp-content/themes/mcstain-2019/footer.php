@@ -32,7 +32,7 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-12">
-            <p class="copyright">&copy; <?php echo date('Y').' '; bloginfo('name'); ?>. All rights reserved.</p>
+            <p class="copyright">&copy; <?php echo date('Y').' '; bloginfo('name'); ?>. All rights reserved. <a href="/privacy-policy" title="Privacy Policy">Privacy Policy</a></p>
           </div>
         </div>
       </div>
