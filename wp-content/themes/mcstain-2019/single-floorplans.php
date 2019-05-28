@@ -41,7 +41,7 @@
               <li><?php echo get_sub_field('bedrooms') ?> <strong>Bedrooms</strong></li>
               <li><?php echo get_sub_field('bathrooms') ?> <strong>Bathrooms</strong><br/>
 
-              <li><?php echo get_sub_field('garage') ?> car garage</li>
+              <li><?php echo get_sub_field('garage') ?> <strong>Car Garage</strong></li>
               <li>From <strong>$<?php echo get_sub_field('starting_price') ?></strong><br/>
             </ul>
             <p>
