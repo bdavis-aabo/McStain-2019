@@ -6,6 +6,7 @@ wp-content/cache/*
 wp-content/upgrade/*
 wp-content/uploads/*
 _email-images/*
+_floorplan-pdf/*
 
 config.codekit3
 sitemap.*
