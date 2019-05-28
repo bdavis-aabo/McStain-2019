@@ -1,5 +1,13 @@
 <?php // Default Page Template ?>
 
+<?php
+  $_form = $_GET['form'];
+  $_model = $_GET['model'];
+  var_dump($_model);
+
+?>
+
+
 <?php get_header() ?>
 
   <section class="manifesto-heroimage homepage-heroimage">
@@ -18,6 +26,10 @@
             <?php while(have_posts()): the_post() ?>
               <?php the_content() ?>
             <?php endwhile; ?>
+
+            <?php if($_model): ?>
+            <p class="download-link">Download your copy of the <a href="<?php bloginfo('url') ?>/_floorplan-pdf/<?php echo $_model.'-brochure.pdf' ?>" target="_blank"><?php echo ucfirst($_model) ?> Floorplan Brochure</a>.</p>
+            <?php endif; ?>
           </div>
         </div>
       </div>
