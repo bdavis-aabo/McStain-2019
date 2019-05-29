@@ -63,12 +63,12 @@
             <h2 class="model-name"><?php echo $_modelShortName . ' - <span>' . $_modelElevation . '</span>'; ?></h2>
             <?php echo get_sub_field('model_description') ?>
           </div>
-          <div class="radio-right">
+          <!-- <div class="radio-right">
             <button type="button" class="comm-model model-lightbox no-button" data-target="<?php echo strtolower($_modelShortName); ?>">
               <span class="arrows"><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i></span>
               <span class="text"> View floorplan</span>
             </button>
-          </div>
+          </div> -->
         </div>
         <div class="floorplan-image">
           <img src="<?php echo $_modelFormImage['url'] ?>" alt="<?php echo get_sub_field('model_name') ?>" class="img-fluid aligncenter" />
