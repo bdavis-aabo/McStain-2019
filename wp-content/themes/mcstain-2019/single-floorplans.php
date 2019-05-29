@@ -60,6 +60,7 @@
                 <?php $_s = 0; foreach($_elevations as $_elevation): ?>
                 <div class="carousel-item <?php if($_s == 0): echo 'active'; endif; ?>">
                   <img src="<?php echo $_elevation['url'] ?>" alt="<?php the_title() ?>" class="img-fluid" />
+                  <p class="elevation-caption"><?php echo $_elevation['title'] ?></p>
                 </div>
                 <?php $_s++; endforeach; ?>
               </div>
@@ -94,11 +95,16 @@
               <?php $_c++; endforeach; ?>
             </div>
           </div>
+
+          <?php social_warfare() ?>
         </div>
       </div>
       <?php endif; ?>
     </div>
   </section>
+
+
+
   <?php endwhile; endif; ?>
 
 <?php get_footer() ?>

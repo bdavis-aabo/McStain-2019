@@ -5,7 +5,6 @@ $_path = $_url['path'];
 $_segmentUrl = explode('/',$_path);
 
 $_community = ucwords(str_replace('-', ' ', $_segmentUrl[2]));
-
   switch($_community){
     case 'West Grange':
       $_projectID = '9882'; break;
@@ -17,7 +16,7 @@ $_community = ucwords(str_replace('-', ' ', $_segmentUrl[2]));
       $_projectID = '10512'; break;
   }
 
-  $_floorplan = $_segmentUrl[4];
+  $_floorplan = substr($_segmentUrl[4],0,-5);
 ?>
 
 <h2 class="floorplan-form-title">Please send me a free brochure for the <?php echo ucwords($_floorplan) . ' at ' . $_community ?></h2>
@@ -27,7 +26,7 @@ $_community = ucwords(str_replace('-', ' ', $_segmentUrl[2]));
   <input type="hidden" name="LassoUID" value="zFht#iXi[2" />
   <input type="hidden" name="ClientID" value="1591" />
   <input type="hidden" name="ProjectID" id="ProjectID" value="<?php echo $_projectID ?>" />
-  <input type="hidden" name="SignupThankyouLink" value="<?php bloginfo('url') ?>/contact-us/thank-you?form=contact_us" />
+  <input type="hidden" name="SignupThankyouLink" value="<?php bloginfo('url') ?>/contact-us/thank-you?form=floorplan&model=<?php echo $_floorplan ?>" />
 
   <div class="form-group">
     <div class="one-full">

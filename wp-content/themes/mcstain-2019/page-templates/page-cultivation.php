@@ -13,7 +13,7 @@
     </section>
 
     <?php get_template_part('cultivation/cultivation-intro') ?>
-    <?php get_template_part('cultivation/cultivation-models') ?>
+    <?php get_template_part('cultivation/cultivation-models_new') ?>
 
     <?php if(get_field('cultivation_map_url') != ''): get_template_part('cultivation/cultivation-sitemap'); endif; ?>
 
