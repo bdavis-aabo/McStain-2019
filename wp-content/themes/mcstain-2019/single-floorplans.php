@@ -88,7 +88,7 @@
               <?php foreach($_floorplanImages as $_image): $_tabLink = strtolower(str_replace(' ','-',$_image['title'])); ?>
                 <div class="tab-pane fade <?php if($_c == 0): echo 'show active'; endif; ?>" id="<?php echo $_tabLink ?>">
                   <div class="col-8 offset-2">
-                    <p class="floorplan-name"><?php the_title(); echo ' | ' . $_image['title'] ?></p>
+                    <p class="floorplan-name"><?php the_title(); echo ' | ' . $_image['title'] ?><br/><?php echo $_image['caption'] ?></p>
                     <img src="<?php echo $_image['url'] ?>" alt="<?php echo $_image['title'] ?>" class="img-fluid aligncenter" />
                   </div>
                 </div>
