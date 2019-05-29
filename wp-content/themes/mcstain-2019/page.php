@@ -30,15 +30,15 @@
             <?php if($_community): ?>
             <p class="download-link">Download the floorplan brochures of your choice below:</p>
             <ul class="brochure-list">
-              <?php if($_community = 'lostcreekfarm'): ?>
+              <?php if($_community == 'lostcreekfarm'): ?>
                 <li><a target="_blank" class="btn green-btn" href="<?php bloginfo('url') ?>/_floorplan-pdf/<?php echo $_community ?>/myriad-brochure.pdf">Myriad</a></li>
                 <li><a target="_blank" class="btn green-btn" href="<?php bloginfo('url') ?>/_floorplan-pdf/<?php echo $_community ?>/perspective-brochure.pdf">Perspective</a></li>
                 <li><a target="_blank" class="btn green-btn" href="<?php bloginfo('url') ?>/_floorplan-pdf/<?php echo $_community ?>/scene-brochure.pdf">Scene</a></li>
                 <li><a target="_blank" class="btn green-btn" href="<?php bloginfo('url') ?>/_floorplan-pdf/<?php echo $_community ?>/panorama-brochure.pdf">Panorama</a></li>
                 <li><a target="_blank" class="btn green-btn" href="<?php bloginfo('url') ?>/_floorplan-pdf/<?php echo $_community ?>/aspect-brochure.pdf">Aspect</a></li>
-              <?php elseif($_community = 'westgrange'): ?>
+              <?php elseif($_community == 'westgrange'): ?>
                 <li><a target="_blank" class="btn green-btn" href="<?php bloginfo('url') ?>/_floorplan-pdf/<?php echo $_community ?>/concerto-brochure.pdf">Concerto</a></li>
-                <li><a target="_blank" class="btn green-btn" href="<?php bloginfo('url') ?>/_floorplan-pdf/<?php echo $_community ?>/interlude-brochure.pdf">Interlud</a></li>
+                <li><a target="_blank" class="btn green-btn" href="<?php bloginfo('url') ?>/_floorplan-pdf/<?php echo $_community ?>/interlude-brochure.pdf">Interlude</a></li>
                 <li><a target="_blank" class="btn green-btn" href="<?php bloginfo('url') ?>/_floorplan-pdf/<?php echo $_community ?>/virtuoso-brochure.pdf">Virtuoso</a></li>
                 <li><a target="_blank" class="btn green-btn" href="<?php bloginfo('url') ?>/_floorplan-pdf/<?php echo $_community ?>/harmony-brochure.pdf">Harmony</a></li>
                 <li><a target="_blank" class="btn green-btn" href="<?php bloginfo('url') ?>/_floorplan-pdf/<?php echo $_community ?>/serenade-brochure.pdf">Serenade</a></li>
