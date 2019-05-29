@@ -30,18 +30,17 @@
             <?php if(have_rows('floorplan_details')): the_row(); ?>
             <?php echo get_sub_field('description') ?>
             <ul class="floorplan-details">
-              <li><strong><?php echo get_sub_field('square_footage') ?> Sq. Ft. Finished Above Ground</strong></li>
+              <li><strong><?php echo get_sub_field('square_footage') ?></strong> Sq. Ft. Finished Above Ground</li>
               <?php if(get_sub_field('square_footage_partial_basement') != ''): ?>
-                <li><strong><?php echo get_sub_field('square_footage_partial_basement') ?> Sq. Ft. Partial Basement</strong></li>
+                <li><strong><?php echo get_sub_field('square_footage_partial_basement') ?></strong> Sq. Ft. Partial Finished Basement</li>
               <?php endif; if(get_sub_field('square_footage_unfinished_basement') != ''): ?>
-                <li><strong><?php echo get_sub_field('square_footage_unfinished_basement') ?> Sq. Ft. Unfinished Basement</strong></li>
+                <li><strong><?php echo get_sub_field('square_footage_unfinished_basement') ?></strong> Sq. Ft. Unfinished Basement</li>
               <?php endif; if(get_sub_field('square_footage_total') != ''): ?>
-                <li><strong><?php echo get_sub_field('square_footage_total') ?> Sq. Ft. Total</strong></li>
+                <li><strong><?php echo get_sub_field('square_footage_total') ?></strong> Sq. Ft. Total</li>
               <?php endif; ?>
-              <li><?php echo get_sub_field('bedrooms') ?> <strong>Bedrooms</strong></li>
-              <li><?php echo get_sub_field('bathrooms') ?> <strong>Bathrooms</strong><br/>
-
-              <li><?php echo get_sub_field('garage') ?> <strong>Car Garage</strong></li>
+              <li><strong><?php echo get_sub_field('bedrooms') ?> </strong>Bedrooms</li>
+              <li><strong><?php echo get_sub_field('bathrooms') ?> </strong>Bathrooms</li>
+              <li><strong><?php echo get_sub_field('garage') ?> </strong>Car Garage</li>
               <li>From <strong>$<?php echo get_sub_field('starting_price') ?></strong><br/>
             </ul>
             <p>
