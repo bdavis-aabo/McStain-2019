@@ -89,6 +89,12 @@
   .sitemap-button { text-align: center; }
 }
 
+.brochure-list { list-style: none; margin: 20px; padding-left: 0; text-align: center;
+  li { display: inline;
+    .btn { display: inline-block; min-width: 125px; margin: 0 5px; }
+  }
+}
+
 .floorplan-information { padding-top: 80px;
   .floorplan-title { margin-bottom: 5px; }
   .floorplan-left { margin-bottom: 3vh;
