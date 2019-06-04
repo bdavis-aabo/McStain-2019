@@ -27,7 +27,7 @@
               <?php the_content() ?>
             <?php endwhile; ?>
 
-            <?php if($_community): ?>
+            <?php if($_community != ''): ?>
             <p class="download-link">Download the floorplan brochures of your choice below:</p>
             <ul class="brochure-list">
               <?php if($_community == 'lostcreekfarm'): ?>

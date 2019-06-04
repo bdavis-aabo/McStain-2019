@@ -14,7 +14,7 @@
       $_projectID = '10512'; break;
   }
 ?>
-
+base form
 <form id="base-form" name="base-form" action="https://app.lassocrm.com/registrant_signup/" method="post">
 <div class="email-form base-contactform">
   <h1 class="aqua-txt"><?php the_title() ?></h1>
@@ -31,7 +31,7 @@
   <input type="hidden" name="ProjectID" value="<?php if($_projectID != ''): echo $_projectID; else: echo '10711'; endif; ?>" />
 
   <?php if($_communityUrl != ''): ?>
-    <input type="hidden" name="SignupThankyouLink" value="<?php bloginfo('url') ?>/contact-us/thank-you?community=<?php echo $_communityUrl ?>" />
+    <input type="hidden" name="SignupThankyouLink" value="<?php bloginfo('url') ?>/contact-us/thank-you" />
   <?php endif; ?>
 
   <input type="hidden" name="Questions[57337]" value="" id="model-interested" />
