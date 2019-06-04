@@ -14,7 +14,7 @@
       $_projectID = '10512'; break;
   }
 ?>
-base form
+
 <form id="base-form" name="base-form" action="https://app.lassocrm.com/registrant_signup/" method="post">
 <div class="email-form base-contactform">
   <h1 class="aqua-txt"><?php the_title() ?></h1>
