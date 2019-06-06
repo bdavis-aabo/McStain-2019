@@ -11,6 +11,8 @@
       $_projectID = '9877'; break;
     case 'Painted Prairie':
       $_projectID = '10512'; break;
+    case 'Arras Park':
+      $_projectID = '10724'; break;
   }
 ?>
 

@@ -116,7 +116,6 @@ $(document).ready(function(){
   }
   $('.manifesto-trigger').click(function(){
     var man = $(this).attr('data-target');
-    console.log(man);
     displayManifesto();
     $('#'+man).addClass('show-man');
   });
@@ -194,4 +193,10 @@ $(document).ready(function(){
     $('.base-form').delay(500).show();
   }
 
+  //QMI FUNCTIONS
+  $('.qmi-trigger').click(function(){
+    var comm = $(this).attr('data-comm');
+    //var model = $(this).attr('data-model');
+    $('input[name="ProjectID"]').val(comm);
+  });
 });

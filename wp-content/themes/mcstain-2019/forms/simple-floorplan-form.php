@@ -15,6 +15,8 @@ $_community = ucwords(str_replace('-', ' ', $_segmentUrl[2]));
       $_projectID = '9877'; break;
     case 'Painted Prairie':
       $_projectID = '10512'; break;
+    case 'Arras Park':
+      $_projectID = '10724'; break;
   }
 
   $_floorplan = substr($_segmentUrl[4],0,-5);

@@ -12,6 +12,8 @@
       $_projectID = '9877'; break;
     case 'Painted Prairie':
       $_projectID = '10512'; break;
+    case 'Arras Park':
+      $_projectID = '10724'; break;
   }
 ?>
 
@@ -28,7 +30,7 @@
 
   <input type="hidden" name="LassoUID" value="zFht#iXi[2" />
   <input type="hidden" name="ClientID" value="1591" />
-  <input type="hidden" name="ProjectID" value="<?php if($_projectID != ''): echo $_projectID; else: echo '10711'; endif; ?>" />
+  <input type="hidden" name="ProjectID" value="<?php if($_projectID != ''): echo $_projectID; else: echo '10702'; endif; ?>" />
 
   <?php if($_communityUrl != ''): ?>
     <input type="hidden" name="SignupThankyouLink" value="<?php bloginfo('url') ?>/contact-us/thank-you" />

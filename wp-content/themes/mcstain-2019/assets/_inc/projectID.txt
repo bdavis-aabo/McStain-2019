@@ -1,0 +1,9 @@
+Lasso ProjectID's
+
+9882:   West Grange
+9883:   Lost Creek Farm
+10512:  Painted Prairie
+10702:  Future Communities
+10711:  Unspecified
+10724:  Arras Park
+10732:  Realtors

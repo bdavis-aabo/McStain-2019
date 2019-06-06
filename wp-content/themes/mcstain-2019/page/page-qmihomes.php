@@ -43,6 +43,19 @@
           'hide_empty'      =>  1
         );
         $_quickmoves = new WP_Query($_args);
+        $_community = ucwords(str_replace('-', ' ',$post->post_name));
+          switch($_community){
+            case '':
+            $_projectID = '9882'; break;
+            case 'Lost Creek Farm':
+            $_projectID = '9883'; break;
+            case 'Harvest Ridge':
+            $_projectID = '9877'; break;
+            case 'Painted Prairie':
+            $_projectID = '10512'; break;
+            case 'Arras Park':
+            $_projectID = '10724'; break;
+          }
       ?>
 
       <?php if($_quickmoves->have_posts()): ?>
@@ -59,7 +72,7 @@
             <?php echo get_field('qmi_square_footage') . ' sq ft | ' . get_field('qmi_bedrooms') . ' beds | ' . get_field('qmi_bathrooms') . ' bath<br/>' .
 								get_field('qmi_garage') ?>
             </p>
-						<button class="builder-btn ltgreen-btn lightbox-trigger base-contact">Contact Us</button>
+						<button class="builder-btn ltgreen-btn lightbox-trigger base-contact qmi-trigger" data-comm="<?php echo $_projectID ?>" data-model="<?php echo strtolower(get_field('qmi_floorplan')) ?>">Contact Us</button>
           </div>
         </div>
         <?php endwhile; ?>
