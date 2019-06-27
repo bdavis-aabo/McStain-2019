@@ -53,11 +53,19 @@
               <?php echo get_field('community_address') ?>
             </div>
             <?php endif; ?>
-
           </div>
         </div>
       </div>
+    </section>
 
+    <section class="community-map">
+      <?php
+      if($post->post_name == 'lost-creek-farm'): 
+        echo do_shortcode('[wpgmza id="2"]');
+      elseif($post->post_name = 'west-grange'):
+        echo do_shortcode('[wpgmza id="3"]');
+      endif;
+      ?>
     </section>
 
   </div>
