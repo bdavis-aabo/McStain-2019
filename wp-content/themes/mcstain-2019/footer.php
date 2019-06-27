@@ -32,7 +32,10 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-12">
-            <p class="copyright">&copy; <?php echo date('Y').' '; bloginfo('name'); ?>. All rights reserved. <a href="/privacy-policy" title="Privacy Policy">Privacy Policy</a></p>
+            <p class="copyright">
+              &copy; <?php echo date('Y').' '; bloginfo('name'); ?>. All rights reserved. <a href="/privacy-policy" title="Privacy Policy">Privacy Policy</a><br/>
+              All pricing, product specifications and landscaping subject to change without notice.
+            </p>
           </div>
         </div>
       </div>
@@ -80,12 +83,6 @@
   });
 </script>
 <?php wp_footer() ?>
-
-
-
-
-
-
 
 </body>
 </html>

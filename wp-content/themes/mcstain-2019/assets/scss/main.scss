@@ -32,7 +32,9 @@
     }
   }
 }
-.homepage-map { float: left; width: 100%; border-top: 1px solid $ltgray; border-bottom: 1px solid $ltgray; margin-top: 0 !important; margin-bottom: 45px; }
+.homepage-map { float: left; width: 100%; border-top: 1px solid $ltgray; border-bottom: 1px solid $ltgray; margin-top: 0 !important; margin-bottom: 45px;
+  &.community-map { margin-bottom: 0; }
+}
 .homepage-manifesto { clear: both;
   .homepage-leftcolumn {
     .manifesto-title { font-family: 'uni-bold', sans-serif; font-size: 2em;
@@ -61,7 +63,7 @@
   }
 }
 
-.elementor-section { padding-top: 50px; 
+.elementor-section { padding-top: 50px;
 
 }
 
@@ -353,7 +355,9 @@
       }
     }
   }
-  .copyright { font-size: .8em; }
+  .copyright { font-size: .8em; line-height: 1.3em; margin: 30px 0;
+    a { color: $ltgreen; }
+  }
 }
 
 
