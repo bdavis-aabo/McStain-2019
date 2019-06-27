@@ -5,12 +5,6 @@
       <div class="col-12 col-sm-12 col-md-10 col-lg-10">
         <div class="community-details">
           <?php the_content() ?>
-
-          <?php if(get_field('community_address') != ''): ?>
-          <div class="community-address">
-            <?php echo ucwords(str_replace('-', ' ', $post->post_name)); ?> is located at:<br />
-            <?php echo get_field('community_address') ?></div>
-        <?php endif; ?>
         </div>
       </div>
       <div class="col-md-3 col-lg-3">&nbsp;</div>

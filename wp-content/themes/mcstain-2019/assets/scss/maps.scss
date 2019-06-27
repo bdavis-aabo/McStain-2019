@@ -8,10 +8,10 @@
 
 .wpgmza_markerbox {
   img { float: left !important; margin: 0 0 0 20px !important; width: 49% !important; height: 49% !important; }
-  .wpgmza_infowindow_title,
-  .wpgmza_infowindow_address { display: none; }
+  .wpgmza_infowindow_title { text-transform: uppercase; font-size: 1.25em; }
+  .wpgmza_infowindow_address { font-size: 1.1em; }
   .wpgmza_infowindow_description { font-size: 1.25em;
-    strong { text-transform: uppercase; display: block; margin-top: 15px; font-size: .95em; }
+    strong { text-transform: uppercase; display: block; margin-top: 8px; font-size: .95em; }
   }
   a { font-size: 1.15em; color: $ltgreen !important; text-transform: uppercase;
     strong { color: $ltgreen !important; }

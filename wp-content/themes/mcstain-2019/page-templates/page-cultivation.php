@@ -46,6 +46,14 @@
               <h3 class="closing-title green-txt">There's much more to get you excited.</h3>
             <?php endif; ?>
             <p><a class="content-link lightbox-trigger base-contact">I want to stay in touch and be among the first to know about <?php the_title() ?>.</a></p>
+
+            <?php if(get_field('community_address') != ''): ?>
+            <div class="community-address">
+              <?php echo ucwords(str_replace('-', ' ', $post->post_name)); ?> is located at:<br />
+              <?php echo get_field('community_address') ?>
+            </div>
+            <?php endif; ?>
+
           </div>
         </div>
       </div>
