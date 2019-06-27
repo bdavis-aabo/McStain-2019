@@ -166,23 +166,17 @@
         }
         .lightbox-right { float: right; width: 100%; }
       }
-      .excite-container { width: 95vw; margin: 30px auto;
+      .excite-container { margin: 30px auto; overflow: hidden;
         .excite-list { margin: 0; padding: 0; list-style: none;
-          .excite-item { padding: 25px 15px; border-bottom: 1px solid $medgray;
-            background: -moz-linear-gradient(top, rgba(0,0,0,0) 0%, $ltgray 100%); /* FF3.6-15 */
-            background: -webkit-linear-gradient(top, rgba(0,0,0,0) 0%, $ltgray 100%); /* Chrome10-25,Safari5.1-6 */
-            background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, $ltgray 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a6000000',GradientType=0 ); /* IE6-9 */
-            transition: opacity 666ms ease-in-out;
-            a { color: $gray;
+          .excite-btn { padding: 15px; border: 1px solid $white; background: $white; transition: border 666ms ease-in-out;
+            &:hover { border: 1px solid $medgray; }
+            //.excite-image { float: left; width: 35%; }
+            .excite-description { //float: left; width: 60%;
               h1 { font-size: 1.25em; line-height: 1.25em; margin: 0 0 20px;
                 em { font-style: normal; font-family: 'uni-bold', sans-serif; }
               }
               p { font-size: 1.1em; margin-bottom: 0; }
-
             }
-            &:last-child { border-bottom: none; }
-            &:hover { opacity: .85 }
           }
         }
         &.place-container { overflow: auto;
@@ -369,6 +363,29 @@ Extra small devices (portrait phones, less than 576px)
 No media query...Bootstrap default
 */
 
+/* iPhone X Landscape */
+// @media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape){
+//   .manifesto-lightbox {
+//     .manifesto-box {
+//       .manifesto-content { background: pink;
+//         .excite-container { width: 100%;
+//           .excite-list {
+//             .excite-btn {
+//               .excite-image { float: left; width: 35%; }
+//               .excite-description { float: left; width: 60%;
+//                 h1 { font-size: 1em; line-height: 1.25em; margin: 0 0 20px;
+//                   em { font-style: normal; font-family: 'uni-bold', sans-serif; }
+//                 }
+//                 p { font-size: 1.1em; margin-bottom: 0; }
+//               }
+//             }
+//           }
+//         }
+//       }
+//     }
+//   }
+// }
+
 /*** SMALL DEVICES : Landscape phones, 576px + ***/
 @media (min-width: 576px){
   .homepage-section { margin: 5vh 0; }
@@ -405,6 +422,27 @@ No media query...Bootstrap default
       &.footer-middle,
       &.footer-right { font-size: 1em; line-height: 1.4em; text-align: center; font-family: 'uni-book', sans-serif;
         strong { text-transform: uppercase; font-weight: normal; font-family: 'uni-bold', sans-serif; }
+      }
+    }
+  }
+  .manifesto-lightbox {
+    .manifesto-box {
+      .manifesto-content {
+        .excite-container { width: 85vw;
+          .excite-list {
+            .excite-btn {
+              .excite-image { float: left; width: 35%; margin-right: 20px;
+                .aligncenter { margin-bottom: 0; }
+              }
+              .excite-description { float: left; width: 60%;
+                h1 { font-size: 1em; line-height: 1.25em; margin: 0 0 20px;
+                  em { font-style: normal; font-family: 'uni-bold', sans-serif; }
+                }
+                p { font-size: 1em; margin-bottom: 0; }
+              }
+            }
+          }
+        }
       }
     }
   }
@@ -472,7 +510,7 @@ No media query...Bootstrap default
   .manifesto-lightbox {
     .manifesto-box {
       .manifesto-content {
-        .excite-container { width: 60vw;
+        .excite-container { width: 100%;
 
           &.place-container { width: 70vw; overflow: auto;
             .community-information { clear: both; float: left; width: 100%;
@@ -678,6 +716,27 @@ No media query...Bootstrap default
           }
           .right-btn { right: 0; bottom: 0; }
           .box-contents { display: block; }
+        }
+      }
+    }
+  }
+
+  .manifesto-lightbox {
+    .manifesto-box {
+      .manifesto-content {
+        .excite-container { width: 65vw;
+          .excite-list { margin: 0; padding: 0; list-style: none;
+            .excite-btn { padding: 15px; border: 1px solid $white; background: $white; transition: border 666ms ease-in-out;
+              &:hover { border: 1px solid $medgray; }
+              .excite-image { width: 35%; }
+              .excite-description { width: 60%;
+                h1 { font-size: 1.25em; line-height: 1.25em; margin: 0 0 20px;
+                  em { font-style: normal; font-family: 'uni-bold', sans-serif; }
+                }
+                p { font-size: 1.1em; margin-bottom: 0; }
+              }
+            }
+          }
         }
       }
     }
