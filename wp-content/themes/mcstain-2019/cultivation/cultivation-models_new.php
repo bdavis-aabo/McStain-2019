@@ -77,7 +77,7 @@ $_floorplans->query($_args);
 
         <div class="col-6 col-sm-4 col-md-4 col-lg-2 right-btn">
           <article class="model">
-            <button class="gold-btn btn btn-block model-btn cult-trigger">
+            <button class="gold-btn btn btn-block model-btn" onclick="window.location.href = '/communities/<?php echo $post->post_name ?>/<?php echo $post->post_name ?>-photo-gallery';" target="_blank">
               <span class="arrows"><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i></span>
               <span class="text"> See More</span>
             </button>

@@ -10,6 +10,7 @@
     }
 
     &.community-introduction {
+      &.community-photogallery { margin-top: 4.25vh; }
       .community-details {
         h1 { font-family: 'uni-light', sans-serif;
           em { font-style: normal; font-family: 'uni-bold', sans-serif; }
@@ -71,6 +72,15 @@
       }
     } //end community-amenities
     &.community-closing {  }
+  }
+}
+
+.envirabox-is-open {
+  .envirabox-bg { opacity: .85; background: $black; }
+}
+.envirabox-slide {
+  .envirabox-image-wrap {
+    img { background: $white !important; padding: 12px !important; box-shadow: 0 0 10px rgba(0,0,0,.3); }
   }
 }
 
