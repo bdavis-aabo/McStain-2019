@@ -16,7 +16,9 @@
         </div>
         <div class="row">
           <div class="col-12">
-            <?php echo do_shortcode('[envira-gallery slug="'.$post->post_name.'"]') ?>
+            <?php if(do_shortcode('[envira-gallery slug="'.$post->post_name.'"]') != ''):
+              echo do_shortcode('[envira-gallery slug="'.$post->post_name.'"]');
+            endif; ?>
           </div>
         </div>
       </div>
