@@ -1325,7 +1325,7 @@ msgid "No Envira galleries found in trash."
 msgstr ""
 
 #: ../src/Frontend/Shortcode.php:256
-msgid "Please save or publish this Envira Gallery."
+msgid "Photo gallery coming soon..."
 msgstr ""
 
 #: ../src/Functions/ajax.php:1167, ../src/Functions/ajax.php:1170
