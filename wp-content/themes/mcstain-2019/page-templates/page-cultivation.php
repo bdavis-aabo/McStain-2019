@@ -62,10 +62,8 @@
       <?php
       if($post->post_name == 'lost-creek-farm'):
         echo do_shortcode('[wpgmza id="2"]');
-      elseif($post->post_name = 'west-grange'):
+      elseif($post->post_name == 'west-grange'):
         echo do_shortcode('[wpgmza id="3"]');
-      else:
-        echo '';
       endif;
       ?>
     </section>
