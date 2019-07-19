@@ -59,6 +59,9 @@ a { cursor: pointer; transition: all 666ms ease-in-out;
 .aqua-btn   { color: $white; @include sliding-btn($aqua);
   &:hover { background-position: -100% 0; color: $white; }
 }
+.dkblue-btn { color: $white; @include sliding-btn($blue);
+  &:hover { background-position: -100% 0; color: $white; }
+}
 .gold-btn   { color: $white; @include sliding-btn($gold);
   &:hover { background-position: -100% 0; color: $white; }
 }

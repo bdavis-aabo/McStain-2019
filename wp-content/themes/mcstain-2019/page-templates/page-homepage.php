@@ -18,22 +18,17 @@
       </div>
     </div>
 
-<?php /* commented out until team page is built
+<?php // commented out until team page is built ?>
     <div class="right-btn nomobile">
-      <div class="box">
-        <div class="box-contents aqua-bg">
-          <a href="/about-us" class="btn aqua-btn btn-block">
-            <span class="arrows"><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i></span>
-            <span class="text">Who we are</span>
-          </a>
-        </div>
-      </div>
+      <a href="/mcstain-manifesto" title="BeWell House, exclusively by McStain Neighborhoods">
+        <img src="<?php bloginfo('template_directory') ?>/assets/images/bewell-btn.jpg" class="img-fluid" />
+      </a>
     </div>
 
-    <a href="/about-us" class="btn aqua-btn sidebar-btn">
-      <i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i> Who we are
+    <a href="/mcstain-manifesto" title="BeWell House, exclusively by McStain Neighborhoods" class="sidebar-btn">
+      <img src="<?php bloginfo('template_directory') ?>/assets/images/bewell-btn-mobile.jpg" class="img-fluid aligncenter" />
     </a>
-*/ ?>
+
   </section>
 
   <?php get_template_part('home/homepage-communities') ?>
