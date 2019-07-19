@@ -2,7 +2,6 @@
   $_communities = array(
     '9882'  =>  'West Grange',
     '9883'  =>  'Lost Creek Farm',
-    '9877'  =>  'Harvest Ridge',
     '10512' =>  'Painted Prarie',
     '10724' => 'Arras Park',
     //'10702'  =>  'Future Communities',
