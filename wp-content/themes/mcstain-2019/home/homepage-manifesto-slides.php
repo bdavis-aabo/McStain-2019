@@ -21,7 +21,7 @@
       <div class="carousel-item <?php if($_s == 0): echo 'active'; endif; ?>">
         <picture>
           <source media="(max-width: 375px)" srcset="<?php echo $_smallSlideImage['url'] ?>">
-          <img src="<?php echo $_slideImage['url'] ?>" class="img-fluid" alt="<?php the_title() ?>">
+          <img src="<?php echo $_slideImage['url'] ?>" class="img-fluid aligncenter" alt="<?php the_title() ?>">
         </picture>
 
       </div>

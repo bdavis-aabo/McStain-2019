@@ -21,7 +21,7 @@
 <?php // commented out until team page is built ?>
     <div class="right-btn nomobile">
       <a href="/mcstain-manifesto#manifesto-tabs" title="BeWell House, exclusively by McStain Neighborhoods">
-        <img src="<?php bloginfo('template_directory') ?>/assets/images/bewell-btn.jpg" class="img-fluid" />
+        <img src="<?php bloginfo('template_directory') ?>/assets/images/bewell-btn.jpg" class="img-fluid alignright" />
       </a>
     </div>
 

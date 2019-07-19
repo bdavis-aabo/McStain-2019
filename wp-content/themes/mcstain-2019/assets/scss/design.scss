@@ -132,7 +132,7 @@ body { font-family: 'uni-regular', sans-serif; font-size: $base-font-size; line-
   strong { font-family: 'uni-bold', sans-serif; font-weight: normal; }
   /*** Images ***/
   img.aligncenter, .aligncenter { margin: 0 auto 20px; display: block; }
-
+  img.alignright, .alighright { float: right; }
 }
 
 .nomobile { display: none; }
