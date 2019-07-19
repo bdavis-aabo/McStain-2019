@@ -20,12 +20,12 @@
 
 <?php // commented out until team page is built ?>
     <div class="right-btn nomobile">
-      <a href="/mcstain-manifesto" title="BeWell House, exclusively by McStain Neighborhoods">
+      <a href="/mcstain-manifesto#manifesto-tabs" title="BeWell House, exclusively by McStain Neighborhoods">
         <img src="<?php bloginfo('template_directory') ?>/assets/images/bewell-btn.jpg" class="img-fluid" />
       </a>
     </div>
 
-    <a href="/mcstain-manifesto" title="BeWell House, exclusively by McStain Neighborhoods" class="sidebar-btn">
+    <a href="/mcstain-manifesto#manifesto-tabs" title="BeWell House, exclusively by McStain Neighborhoods" class="sidebar-btn">
       <img src="<?php bloginfo('template_directory') ?>/assets/images/bewell-btn-mobile.jpg" class="img-fluid aligncenter" />
     </a>
 
