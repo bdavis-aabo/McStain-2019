@@ -1,0 +1,207 @@
+/*** DESIGN STYLES ***/
+@import 'bourbon/bourbon';
+@import 'mixins';
+
+/*** FONTS ***/
+@include font-face('uni-light','../fonts/uni-light');
+@include font-face('uni-book', '../fonts/uni-book');
+@include font-face('uni-regular','../fonts/uni-regular');
+@include font-face('uni-regular-italic','../fonts/uni-regular-italic');
+@include font-face('uni-bold', '../fonts/uni-bold');
+@include font-face('uni-bold-italic','../fonts/uni-bold-italic');
+
+$bold-italic:     'uni-bold-italic';
+$regular-italic:  'uni-regular-italic';
+
+
+$base-font-size:   14px;
+$line-height:      21px;
+$heading-scale:    6;
+
+/*** COLORS ***/
+$white:     #fff;
+$ltgray:    #ccc;
+$gray:      #343434;
+$medgray:   #9c9895;
+$black:     #000;
+$aqua:      #0084b5;
+$blue:      #3d5161;
+$yellow:    #e7b809;
+$gold:      #d0990f;
+$green:     #4f7728;
+$ltgreen:   #8ea044;
+$orange:    #bb611a;
+$brown:     #564438;
+$red:       #ed1c24;
+
+.aqua-txt    { color: $aqua }
+.blue-txt    { color: $blue; }
+.gold-txt    { color: $gold }
+.green-txt   { color: $green }
+.ltgreen-txt { color: $ltgreen; }
+.orange-txt  { color: $orange }
+
+.blue-bg   { background: $blue; color: $white; }
+.ltgreen-bg { background: $ltgreen; color: $white;}
+.gray-bg   { background: $ltgray; }
+.yellow-bg { background: $yellow; }
+.red-bg    { background: $red; }
+
+a { cursor: pointer; transition: all 666ms ease-in-out;
+  &:hover { text-decoration: none; }
+}
+.btn { font-family: $bold-italic, sans-serif; font-style: normal; border-radius: 0; font-size: 1.1em; font-weight: normal;
+  transition: background 666ms ease-in-out; border: none; cursor: pointer; padding: .375rem 1rem;
+  &.sidebar-btn { padding-left: 5vw; padding-right: 5vw; float: right; margin-bottom: 15px; }
+  &:focus,
+  &.focus { box-shadow: none !important; }
+}
+.aqua-btn   { color: $white; @include sliding-btn($aqua);
+  &:hover { background-position: -100% 0; color: $white; }
+}
+.dkblue-btn { color: $white; @include sliding-btn($blue);
+  &:hover { background-position: -100% 0; color: $white; }
+}
+.gold-btn   { color: $white; @include sliding-btn($gold);
+  &:hover { background-position: -100% 0; color: $white; }
+}
+.green-btn  { color: $white; @include sliding-btn($green);
+  &:hover { background-position: -100% 0; color: $white; }
+}
+.ltgreen-btn { color: $white; @include sliding-btn($ltgreen);
+  &:hover { background-position: -100% 0; color: $white; }
+}
+.orange-btn { color: $white; @include sliding-btn($orange);
+  &:hover { background-position: -100% 0; color: $white; }
+}
+.yellow-btn { color: $white; @include sliding-btn($yellow);
+  &:hover { background-position: -100% 0; color: $white; }
+}
+.red-btn { color: $white; @include sliding-btn($red);
+  &:hover { background-position: -100% 0; color: $white; }
+}
+.right-btn  {
+  .btn { display: inline-block; width: 100%; height: 100%; padding: 5%; word-wrap: break-word; white-space: normal; position: relative;
+    span { position: absolute; line-height: 1.1em;
+    &.arrows { top: 10px; left: 10px; font-size: 1.4em; }
+    &.text   { top: 45px; left: 10px; font-size: 1.6em; text-align: left; }
+    }
+  }
+}
+.blue-cta { display: inline-block; padding: 5px 25px; color: $white; @include sliding-btn($aqua);
+  &:hover { background-position: -100% 0; color: $white; }
+}
+
+.realtor-btn { position: absolute; right: 0; top: 0; width: 10vw; display: inline-block; word-wrap: break-word; white-space: normal; text-align: left;
+  height: 100%; font-size: 1.1em; line-height: 1.1em;
+  span { position: absolute; top: 10px; left: 8px;
+    em { text-transform: uppercase; }
+  }
+}
+
+/*** ROW EQ HEIGHT ***/
+.clear { clear: both; }
+.row-eq-height {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+
+  -webkit-box-lines: multiple;
+  -moz-box-lines: multiple;
+  -o-box-lines: multiple;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+.vcenter 	 { display: flex; align-items: center; }
+.vbottom   { align-items: flex-end; }
+
+/*** BASE/DEFAULT STYLES ***/
+body { font-family: 'uni-regular', sans-serif; font-size: $base-font-size; line-height: $line-height; overflow-x: hidden;
+  -webkit-font-smooting: antialiased; -moz-osx-font-smoothing: grayscale;
+  @include headings($base-font-size, $heading-scale);
+  p { margin: 0 0 10px; }
+  a {
+    &.content-link { color: $black !important; text-decoration: none; border-bottom: 2px solid $gray;
+      transition: all 666ms ease-in-out; font-style: italic; font-family: 'uni-bold', sans-serif;
+      &:hover { border-bottom-color: $white; }
+    }
+  }
+  strong { font-family: 'uni-bold', sans-serif; font-weight: normal; }
+  /*** Images ***/
+  img.aligncenter, .aligncenter { margin: 0 auto 20px; display: block; }
+  img.alignright, .alighright { float: right; }
+}
+
+.nomobile { display: none; }
+.right-btn { position: absolute; right: 0px; bottom: 10px;
+  .box { position: relative; width: 100%;
+    &:before { content: ''; display: block; padding-top: 100%; }
+    .box-contents { position: absolute; top: 0; left: 0; bottom: 0; right: 0; }
+  }
+}
+
+/* Small devices (landscape phones, 544px and up) */
+@media (min-width: 544px) {
+  $base-font-size:  $base-font-size + 2;
+  body { font-size: $base-font-size; line-height: $line-height + 2;
+  @include headings($base-font-size, $heading-scale * 1.15);
+
+  }
+}
+
+/* Medium devices (tablets, 768px and up) The navbar toggle appears at this breakpoint */
+@media (min-width: 768px) {
+  $base-font-size:  $base-font-size + 3;
+  body { font-size: $base-font-size; line-height: $line-height + 6;
+  @include headings($base-font-size, $heading-scale * 1.2);
+  }
+
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  $base-font-size:  $base-font-size + 4;
+  body { font-size: $base-font-size; line-height: $line-height + 8;
+    @include headings($base-font-size, $heading-scale * 1.4);
+  }
+
+  .right-btn  { width: 15vw;
+    .btn {
+      span { left: 10px; top: 10px;
+        &.text { font-size: 1.3em; }
+      }
+    }
+  }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  $base-font-size:  $base-font-size + 5;
+  body { font-size: $base-font-size; line-height: $line-height + 11;
+  @include headings($base-font-size, $heading-scale * 2);
+  }
+  .mobile { display: none; }
+  .nomobile { display: block; }
+  .sidebar-btn { display: none; }
+  .right-btn  { width: 15vw;
+    .btn {
+      span { left: 10px; top: 10px;
+        &.text { font-size: 1.3em; }
+      }
+    }
+  }
+}
+/* End */
+
+@media (min-width: 1599px){
+  .right-btn  {
+    .btn {
+      span {
+        &.text { font-size: 1.5em; }
+      }
+    }
+  }
+}

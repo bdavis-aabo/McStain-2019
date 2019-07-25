@@ -1,0 +1,144 @@
+/*** Mixin and Style Dependencies ***/
+@import 'design';
+@import 'navigation';
+@import 'cultivation';
+@import 'forms';
+@import 'maps';
+
+.homepage-latestnews {
+  .news-article { border-bottom: 1px solid $ltgray; padding-bottom: 2vh;
+    .article-title { font-size: 1.5em; margin-bottom: 12px;
+      a { color: $ltgreen; }
+    }
+    .aligncenter { margin-bottom: 0; }
+  }
+}
+
+/*
+Extra small devices (portrait phones, less than 576px)
+No media query...Bootstrap default
+*/
+
+/*** SMALL DEVICES : Landscape phones, 576px + ***/
+@media (min-width: 576px){
+
+}
+
+/*** MEDIUM DEVICES : Tablets, 768px + ***/
+@media (min-width: 768px){
+  .community-container {
+    section.community-design {
+      .community-design-content { padding-bottom: 0;
+        h1,
+        p { padding-left: 0; }
+        p:last-child { margin-bottom: 0; }
+      }
+    }
+    //.community-container section.community-design .community-design-content h1, .community-container section.community-design .community-design-content p
+  }
+}
+
+/*** LARGE DEVICES : Desktops, 992px and up ***/
+@media (min-width: 992px){
+  .community-container {
+    section.community-amenities {
+      .amenities-slider {
+        .carousel {
+          .carousel-inner {
+            .carousel-item {
+              .carousel-caption { width: 100%; }
+            }
+          }
+        }
+      }
+    }
+  }
+  .inventory-section {
+    .qmi-home { margin-bottom: 2.5vh; }
+  }
+}
+
+/*** EXTRA LARGE DEVICES : Large Desktops, 1200px + ***/
+@media (min-width: 1200px){
+
+  .manifesto-slides {
+    #manifesto-tabs {
+      .nav-item {
+        .nav-link { font-size: .8em; line-height: 1.3em; padding: .5rem; }
+      }
+    }
+    #manifesto-tabcontent {
+      .tab-pane {
+        .tab-container {
+          .tab-contents { top: 20px; right: 15px;
+            p { font-size: .8em; }
+
+
+          }
+          .right-btn { display: none; }
+          .sidebar-btn { display: block; }
+        }
+      }
+    }
+  }
+}
+
+
+/*
+:::::::::: CUSTOM MEDIA QUERIES IF NEEDED ::::::::::
+*/
+@media (min-width: 1599px){
+  .header {
+    .navbar { max-width: 1600px; margin: 0 auto; }
+  }
+  .homepage-heroimage { margin: 0 auto; max-width: 1600px; float: none; }
+
+  .homepage-content,
+  .homepage-manifesto,
+  .community-design {
+    .right-btn { position: relative; height: 100%; width: auto;
+      .box { position: absolute; bottom: 0; left: 0; }
+    }
+  }
+
+  .community-container {
+    section.community-introduction {
+      .community-scroller { margin-top: 3vh;  }
+    }
+    section.community-heroimage { max-width: 1600px; margin: 0 auto; float: none; }
+    section.community-design {
+      .community-heroimage { max-width: 1600px; margin: 0 auto; }
+    }
+    section.community-amenities {
+      .amenities-slider { max-width: 1600px; margin: 3vh auto; }
+    }
+    section.community-map { max-width: 1600px; margin: 0 auto; float: none; overflow: auto; }
+  }
+  .manifesto-slider {
+    #manifesto-slider {
+      .carousel-indicators { bottom: 40px; }
+    }
+  }
+  .manifesto-slides {
+    #manifesto-tabs {
+      .nav-item {
+        .nav-link { font-size: .9em; }
+      }
+    }
+    #manifesto-tabcontent {
+      .tab-pane {
+        .tab-container {
+          .tab-contents {
+            p { font-size: .9em; }
+          }
+          .right-btn { display: block; }
+          .sidebar-btn { display: none; }
+        }
+
+      }
+    }
+  }
+  .location-map-section { max-width: 1600px; margin: 0 auto; }
+
+  footer { max-width: 1600px; margin: 0 auto; }
+}

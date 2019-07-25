@@ -1,0 +1,197 @@
+/*** navicon ***/
+$button-width:                24px;
+$button-height:               18px;
+$bar-thickness:               2px;
+
+/*** NAVIGATION STYLES ***/
+.header {
+  .navbar { background: $blue; float: left; width: 100%; height: 60px; box-shadow: 0 2px 5px rgba(0,0,0,.25); transition: height 666ms ease-in-out; padding: 0;
+    //&.fixed-top { top: 30px; position: absolute; }
+    .navbar-brand { transition: transform 666ms ease-in-out; height: 100%;
+      .navbar-logo { width: 200px; transition: transform 666ms ease-in-out; transform: translateY(-5px); }
+    }
+    .navbar-toggler { background: transparent; border: none; border-radius: 0; cursor: pointer;
+      width: $button-width; height: $button-height; position: absolute; right: 20px; top: 50%; transform: translateY(-50%) rotate(0deg);
+      &:focus { outline: 0; }
+      .nav-iconbar { display: block; position: absolute; height: $bar-thickness; width: 100%; background: $white; opacity: 1; left: 0; top: 0;
+        transform: rotate(0deg); transition: 0.25s ease-in-out;
+        &:nth-child(1) { top: 0; }
+        &:nth-child(2),
+        &:nth-child(3) { top: 9px; }
+        &:nth-child(4) { top: 18px; }
+      }
+      &.open {
+        .nav-iconbar {
+          &:nth-child(1) { top: 12px; opacity: 0; }
+          &:nth-child(2) { transform: rotate(-45deg); transition-delay: .3s; }
+          &:nth-child(3) { transform: rotate(45deg); transition-delay: .3s; }
+          &:nth-child(4) { top: 12px; opacity: 0; }
+        }
+      }
+    }
+
+    .navbar-nav { font-family: 'uni-book', sans-serif; text-transform: uppercase; font-size: 14px; font-weight: normal; background: $blue;
+      .nav-item { transition: background 666ms ease-in-out;
+        .nav-link { color: $white;  transition: transform 666ms ease-in-out; padding: .5rem .75rem; }
+        &.realtorinfo-btn { background: $ltgreen; font-family: $regular-italic, sans-serif;
+          a {  }
+          &:hover { background: shade($ltgreen, 15); }
+        }
+        &:hover,
+        &.active,
+        &.current-page-parent { background: shade($blue, 15); }
+
+        .dropdown-menu { border-radius: 0; border: none; padding-top: 0; padding-bottom: 0; margin: 0; background: shade($blue, 15); font-size: 14px; display: block;
+          .nav-item {
+            .dropdown-item { color: $white; border-radius: none; padding: .5rem 2.5rem .5rem 1.25rem;
+              &:hover { background: $blue; }
+            }
+            &.active {
+              .dropdown-item { color: $ltgreen; background: $blue; }
+            }
+          }
+        }
+      }
+    }
+
+    &.stuck { height: 50px;
+      .navbar-brand { transform: scale(.8) translate(-15px,-3px);
+        .navbar-logo {  }
+      }
+      .navbar-nav {
+        .nav-item {
+          a { }
+          .dropdown-menu {
+            .nav-item {
+              .dropdown-item { transform: none; }
+            }
+          }
+        }
+      }
+    }
+  } //end .navbar
+}
+
+
+
+
+/*
+Extra small devices (portrait phones, less than 576px)
+No media query...Bootstrap default
+*/
+
+/*** SMALL DEVICES : Landscape phones, 576px + ***/
+@media (min-width: 576px){
+  .header {
+    .navbar {
+      .navbar-brand {
+        .navbar-logo { }
+      }
+    }
+    &.stuck {
+      .navbar-brand {
+        .navbar-logo {  }
+      }
+    }
+  }
+}
+
+/*** MEDIUM DEVICES : Tablets, 768px + ***/
+@media (min-width: 768px){
+  .header {
+    .navbar { height: 70px;
+      .navbar-nav { font-size: 1em;
+        .nav-item {
+          .nav-link { padding: .65rem .75rem; }
+          .dropdown-menu { font-size: 1.05em;
+            .nav-item {
+              .dropdown-item { padding: .65rem 2.5rem .65rem 1.5rem; }
+            }
+          }
+        }
+      }
+
+      .navbar-brand {
+        .navbar-logo { width: 225px; transform: translateY(0);}
+      }
+      &.stuck { height: 50px;
+        .navbar-brand {
+          .navbar-logo { transform: translate(-10px,-10px) scale(.95); }
+        }
+      }
+    }
+  }
+}
+
+/*** LARGE DEVICES : Desktops, 992px and up ***/
+@media (min-width: 992px){
+  .header {
+    .navbar {
+      .navbar-nav { font-size: .8em;
+        .nav-item {
+          .dropdown-menu {  }
+          &.dropdown:hover > .dropdown-menu { display: block; }
+        }
+      }
+    }
+  }
+
+}
+
+/*** EXTRA LARGE DEVICES : Large Desktops, 1200px + ***/
+@media (min-width: 1200px){
+  .header {
+    #main-navbar { height: 100%;
+      .menu-main_menu-container { height: 100%;
+        .navbar-nav { height: 100%; }
+      }
+    }
+    .navbar { padding: 0; height: 90px;
+      .navbar-nav {
+        .nav-item {
+          .nav-link { padding: .5rem .75rem; transform: translateY(50%); }
+          .dropdown-menu { box-shadow: 2px 2px 5px rgba(0,0,0,.25); font-size: 1em; display: none; }
+        }
+      }
+      .navbar-brand {
+        .navbar-logo { width: 275px; }
+      }
+      &.stuck { height: 60px;
+        .navbar-brand { transform: scale(.8) translate(-30px,-10px);
+          .navbar-logo {  }
+        }
+        .navbar-nav {
+          .nav-item {
+            a { transform: translateY(12%); }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 1599px){
+  .header {
+    .navbar {
+      .navbar-nav {
+        .nav-item {
+          .nav-link { padding: .5rem 1.25rem; }
+        }
+      }
+      .navbar-brand {
+        .navbar-logo { }
+      }
+
+      &.stuck {
+        .navbar-brand {
+          .navbar-logo { transform: scale(.9) translate(-10px,-5px);}
+        }
+      }
+    }
+  }
+}
+
+
+/*
+:::::::::: CUSTOM MEDIA QUERIES IF NEEDED ::::::::::
+*/
