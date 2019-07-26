@@ -79,7 +79,7 @@ $_floorplans->query($_args);
           <article class="model">
             <button class="gold-btn btn btn-block model-btn" onclick="window.location.href = '/communities/<?php echo $post->post_name ?>/<?php echo $post->post_name ?>-gallery';" target="_blank">
               <span class="arrows"><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i></span>
-              <span class="text"> See More</span>
+              <span class="text"> Photo Gallery</span>
             </button>
           </article>
         </div>
@@ -88,6 +88,6 @@ $_floorplans->query($_args);
   </div>
   <!-- /end normal models -->
 
-  <button class="btn gold-btn sidebar-btn model-btn" onclick="window.location.href = '/communities/<?php echo $post->post_name ?>/<?php echo $post->post_name ?>-gallery';" target="_blank"><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i> See more</button>
+  <button class="btn gold-btn sidebar-btn model-btn" onclick="window.location.href = '/communities/<?php echo $post->post_name ?>/<?php echo $post->post_name ?>-gallery';" target="_blank"><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i> Photo Gallery</button>
 </section>
 <?php endif; ?>
