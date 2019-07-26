@@ -31,17 +31,13 @@
           <div class="right-btn nomobile">
             <div class="box">
               <div class="box-contents green-bg">
-                <a href="<?php the_permalink() ?>" class="btn green-btn btn-block">
+                <button class="btn green-btn btn-block cult-trigger design-btn">
                   <span class="arrows"><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i></span>
-                  <span class="text">Give it a read</span>
-                </a>
+                  <span class="text">Wow inside</span>
+                </button>
               </div>
             </div>
           </div>
-
-          <a href="<?php the_permalink() ?>" class="btn green-btn sidebar-btn">
-            <i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i> Give it a read
-          </a>
         </div>
 
         <!-- <div class="col-md-3">

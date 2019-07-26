@@ -60,7 +60,19 @@ No media query...Bootstrap default
 
 /*** EXTRA LARGE DEVICES : Large Desktops, 1200px + ***/
 @media (min-width: 1200px){
-
+  .community-container {
+    section.community-introduction {
+      .community-scroller { margin-top: 3vh;  }
+    }
+  }
+  .homepage-content,
+  .homepage-manifesto,
+  .community-design {
+    .right-btn { position: relative; height: 100%; width: auto;
+      .box { position: absolute; bottom: 0; left: 0; }
+    }
+  }
+  
   .manifesto-slides {
     #manifesto-tabs {
       .nav-item {
@@ -93,13 +105,7 @@ No media query...Bootstrap default
   }
   .homepage-heroimage { margin: 0 auto; max-width: 1600px; float: none; }
 
-  .homepage-content,
-  .homepage-manifesto,
-  .community-design {
-    .right-btn { position: relative; height: 100%; width: auto;
-      .box { position: absolute; bottom: 0; left: 0; }
-    }
-  }
+
 
   .community-container {
     section.community-introduction {
