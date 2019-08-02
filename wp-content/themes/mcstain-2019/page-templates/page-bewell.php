@@ -30,7 +30,7 @@
                 <div class="box-contents green-bg">
                   <a href="<?php bloginfo('template_directory') ?>/assets/images/bewell-flier.pdf" class="btn green-btn btn-block">
                     <span class="arrows"><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i></span>
-                    <span class="text">Download BeWell Flier</span>
+                    <span class="text">Download<br/>BeWell Flier</span>
                   </a>
                 </div>
               </div>
