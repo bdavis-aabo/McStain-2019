@@ -14,6 +14,28 @@
   }
 }
 
+.bewell-section {
+  .bewell-headline { margin-bottom: 2.5vh;
+    h1 { color: $green; font-size: 3.75em; margin: 0; }
+    h3 { font-family: 'uni-bold', sans-serif; font-size: 2em; margin: 0 0 10px; }
+  }
+  .bewell-leftcolumn { font-size: 1.2em; line-height: 1.65em;
+    strong { font-family: 'uni-bold', sans-serif; font-weight: normal; }
+  }
+  .bewell-bottomsection {
+    h2 { color: $green; font-size: 3em; margin-bottom: 1vh; }
+  }
+  .accordion {
+
+  }
+  .card { border: none; background: transparent; border-radius: 0;
+    .card-header { padding: 12px 0; border: none; background: none; border-radius: 0;
+      h5 { font-size: 1.25em; text-transform: uppercase; font-family: 'uni-bold', sans-serif; color: $green; background: transparent; border: none !important; margin: 0; cursor: pointer; }
+    }
+    .card-body { padding: 1.25rem 0; }
+  }
+}
+
 /*
 Extra small devices (portrait phones, less than 576px)
 No media query...Bootstrap default
@@ -72,7 +94,7 @@ No media query...Bootstrap default
       .box { position: absolute; bottom: 0; left: 0; }
     }
   }
-  
+
   .manifesto-slides {
     #manifesto-tabs {
       .nav-item {

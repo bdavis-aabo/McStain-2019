@@ -26,7 +26,13 @@
           <div class="community-details">
             <p>
               <strong><?php the_title() ?></strong><br/>
-              <?php echo get_field('community_address') ?>
+              <?php
+              if(get_field('community_address') != ''):
+                echo get_field('community_address');
+              else:
+                if($post->post_name == 'painted-prairie'): echo 'Homes Available December 2019'; endif;
+              endif;
+              ?>
             </p>
           </div>
         </div>
