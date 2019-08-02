@@ -199,4 +199,10 @@ $(document).ready(function(){
     //var model = $(this).attr('data-model');
     $('input[name="ProjectID"]').val(comm);
   });
+
+  $('.card-toggle').click(function(){
+    $(this).toggleClass('open');
+    $('.card-toggle').not(this).removeClass('open');
+  });
+
 });

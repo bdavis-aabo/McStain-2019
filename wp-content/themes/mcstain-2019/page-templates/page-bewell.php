@@ -24,6 +24,21 @@
         <div class="col-12 col-md-4">
           <div class="bewell-rightcolumn">
             <img src="<?php echo $_graphic['url'] ?>" alt="<?php echo the_title() ?>" class="img-fluid aligncenter" />
+
+            <div class="right-btn nomobile">
+              <div class="box">
+                <div class="box-contents green-bg">
+                  <a href="<?php bloginfo('template_directory') ?>/assets/images/bewell-flier.pdf" class="btn green-btn btn-block">
+                    <span class="arrows"><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i></span>
+                    <span class="text">Download BeWell Flier</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <a href="<?php bloginfo('template_directory') ?>/assets/images/bewell-flier.pdf" class="btn green-btn sidebar-btn">
+              <i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i> Download BeWell Flier
+            </a>
           </div>
         </div>
       </div>
@@ -38,9 +53,10 @@
             <?php while(have_rows('bewell_features')): the_row(); ?>
             <div class="card">
               <div class="card-header" id="<?php echo 'heading'.$_c ?>">
-                <h5 class="<?php if($_c == 1): echo 'open'; endif; ?>" data-toggle="collapse" data-target="#<?php echo 'collapse'.$_c ?>"
+
+                <h5 class="card-toggle <?php if($_c == 1): echo 'open'; endif; ?>" data-toggle="collapse" data-target="#<?php echo 'collapse'.$_c ?>"
                     aria-expanded="<?php if($_c == 1): echo 'true'; else: echo 'false'; endif; ?>" aria-controls="<?php echo 'collapse'.$_c; ?>">
-                      <?php echo get_sub_field('feature_title') ?>
+                      <span class="indicator <?php if($_c == 1): echo 'active'; endif; ?>"><i class="fas fa-plus"></i></span> <?php echo get_sub_field('feature_title') ?>
                 </h5>
               </div>
               <div id="<?php echo 'collapse'.$_c ?>" class="collapse <?php if($_c == 1): ?>show<?php endif; ?>" aria-labelledby="<?php echo 'heading'.$_c ?>" data-parent="#feature-accordion">

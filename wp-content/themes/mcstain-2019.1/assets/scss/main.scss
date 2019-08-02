@@ -14,7 +14,7 @@
   }
 }
 
-.bewell-section {
+.bewell-section { margin-top: 0;
   .bewell-headline { margin-bottom: 2.5vh;
     h1 { color: $green; font-size: 3.75em; margin: 0; }
     h3 { font-family: 'uni-bold', sans-serif; font-size: 2em; margin: 0 0 10px; }
@@ -22,17 +22,28 @@
   .bewell-leftcolumn { font-size: 1.2em; line-height: 1.65em;
     strong { font-family: 'uni-bold', sans-serif; font-weight: normal; }
   }
-  .bewell-bottomsection {
+  .bewell-rightcolumn { float: left; width: 100%; height: 100%; position: relative;
+    .right-btn { width: 80%; height: 80%; position: absolute; top: 60%; right: 0;
+      .box { bottom: 50%; right: 0; }
+    }
+  }
+  .bewell-bottomsection { margin-top: 3vh;
     h2 { color: $green; font-size: 3em; margin-bottom: 1vh; }
   }
-  .accordion {
-
-  }
-  .card { border: none; background: transparent; border-radius: 0;
-    .card-header { padding: 12px 0; border: none; background: none; border-radius: 0;
-      h5 { font-size: 1.25em; text-transform: uppercase; font-family: 'uni-bold', sans-serif; color: $green; background: transparent; border: none !important; margin: 0; cursor: pointer; }
+  .card { border-radius: 0;
+    .card-header { padding: 15px; border-radius: 0;
+      .card-toggle { font-size: 1.25em; text-transform: uppercase; font-family: 'uni-bold', sans-serif; color: $green; margin: 0; cursor: pointer;
+        .indicator { margin-right: 20px;
+          .fa-plus { color: $white; text-shadow: 0 0 1px $green, 0 0 1px $green; transition: transform .5s ease-in-out; }
+        }
+        &.open {
+          .indicator {
+            .fa-plus { transform: rotate(45deg); }
+          }
+        }
+      }
     }
-    .card-body { padding: 1.25rem 0; }
+    .card-body { padding: 1.25rem; }
   }
 }
 
