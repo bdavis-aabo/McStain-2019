@@ -15,21 +15,20 @@
 
   <?php if(get_field('design_content') != ''): ?>
   <div class="community-design-container">
-    <div class="container-fluid">
+    <div class="container">
       <div class="row">
-        <div class="col-lg-10">
-          <div class="container">
-            <div class="row">
-              <div class="col-lg-11 offset-lg-1">
-                <div class="community-design-content">
-                  <?php echo get_field('design_content'); ?>
-                </div>
-              </div>
-            </div>
+        <div class="col-12 col-md-9">
+          <div class="community-design-content">
+            <?php echo get_field('design_content'); ?>
+
+            <button class="btn green-btn sidebar-btn cult-trigger design-btn">
+              <i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i> Wow inside
+            </button>
           </div>
         </div>
-        <div class="col-md-3 col-lg-2 nomobile">
-          <div class="community-design-content right-btn">
+
+        <div class="col-md-3">
+          <div class="right-btn nomobile">
             <div class="box">
               <div class="box-contents green-bg">
                 <button class="btn green-btn btn-block cult-trigger design-btn">
@@ -40,12 +39,25 @@
             </div>
           </div>
         </div>
+
+        <!-- <div class="col-md-3">
+          <div class="right-btn nomobile">
+            <div class="box">
+              <div class="box-contents green-bg">
+                <button class="btn green-btn btn-block cult-trigger design-btn">
+                  <span class="arrows"><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i></span>
+                  <span class="text">Wow inside</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div> -->
+
+
       </div>
     </div>
   </div>
 
-  <button class="btn green-btn sidebar-btn cult-trigger design-btn">
-    <i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i> Wow inside
-  </button>
+
   <?php endif; ?>
 </section>

@@ -156,6 +156,9 @@ No media query...Bootstrap default
   }
   .homepage-heroimage { margin: 0 auto; max-width: 1600px; float: none; }
 
+  .homepage-communities {
+    #community-slider { max-width: 1600px; margin: 0 auto; }
+  }
 
 
   .community-container {
@@ -164,7 +167,7 @@ No media query...Bootstrap default
     }
     section.community-heroimage { max-width: 1600px; margin: 0 auto; float: none; }
     section.community-design {
-      .community-heroimage { max-width: 1600px; margin: 0 auto; }
+      .community-carousel { max-width: 1600px; margin: 0 auto; }
     }
     section.community-amenities {
       .amenities-slider { max-width: 1600px; margin: 3vh auto; }

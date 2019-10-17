@@ -46,14 +46,17 @@ $(document).ready(function(){
     displayCultivation();
     if($(this).hasClass('model-btn')){
       $('.model-form').delay(500).show();
-    } else if($(this).hasClass('design-btn')){
-      $('.design-form').delay(500).show();
     }
   });
 
   $('.floorplan-trigger').click(function(){
     displayCultivation();
     $('.floorplan-form').delay(500).show();
+  });
+
+  $('.design-trigger').click(function(){
+    displayCultivation();
+    $('.design-form').delay(500).show();
   });
 
   $('.realtorinfo-btn a').click(function(){
@@ -192,6 +195,7 @@ $(document).ready(function(){
     displayLightbox();
     $('.base-form').delay(500).show();
   }
+
 
   //QMI FUNCTIONS
   $('.qmi-trigger').click(function(){

@@ -49,6 +49,16 @@
       //.btn { display: block; width: 100%; height: 100%; }
     } //end community-models
     &.community-design {
+      #desktop-carousel { display: none; }
+      #mobile-carousel  { display: block; }
+
+      .community-carousel {
+        .design-caption { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); width: 98vw;
+          text-align: center; color: $white; text-shadow: 0 0 8px rgba(0,0,0,.85);
+          .design-title { font-size: 3em; margin-bottom: 0; }
+          .design-subtitle { font-family: 'uni-bold'; font-size: 1.5em; }
+        }
+      }
       .community-design-content { margin: 5vh 0; width: 100%;
         .btn-block { display: none; }
       }
@@ -187,6 +197,14 @@
         }
       }
       &.community-design {
+        #desktop-carousel { display: block; }
+        #mobile-carousel  { display: none; }
+        .community-carousel {
+          .design-caption {
+            .design-title { font-size: 3.75em; margin-bottom: 10px; }
+            .design-subtitle { font-size: 2em; }
+          }
+        }
         .community-design-container {
           .row:before,
           .row:after { display: block; }
@@ -317,6 +335,12 @@
         .community-scroller { margin-bottom: 0; }
       }
       &.community-design {
+        .community-carousel {
+          .design-caption {
+            .design-title { font-size: 6em; margin-bottom: 30px; }
+            .design-subtitle { font-size: 3em; }
+          }
+        }
           .nomobile { display: block; }
           .sidebar-btn { display: none !important; }
           .community-design-content {
