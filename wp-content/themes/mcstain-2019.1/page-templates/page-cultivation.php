@@ -25,7 +25,11 @@
         <div class="row row-eq-height">
           <div class="col-lg-10 col-md-10 col-sm-12">
             <div class="amenities-container">
+              <?php if(is_page('painted-prairie')): ?>
+              <h1 class="amenities-title orange-txt">Fresh. Urban living.</h1>
+              <?php else: ?>
               <h1 class="amenities-title orange-txt">You're going places</h1>
+              <?php endif; ?>
             </div>
           </div>
         </div>
