@@ -40,11 +40,7 @@
       <div class="container">
         <div class="row">
           <div class="col-12">
-            <?php if(is_page('painted-prairie')): ?>
-              <h3 class="closing-title green-txt">Coming soon...and now is your best opportunity.</h3>
-            <?php else: ?>
-              <h3 class="closing-title green-txt">There's much more to get you excited.</h3>
-            <?php endif; ?>
+            <h3 class="closing-title green-txt">There's much more to get you excited.</h3>
             <p><a class="content-link lightbox-trigger base-contact">I want to stay in touch and be among the first to know about <?php the_title() ?>.</a></p>
 
             <?php if(get_field('community_address') != ''): ?>
