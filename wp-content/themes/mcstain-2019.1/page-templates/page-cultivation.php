@@ -60,6 +60,8 @@
         echo do_shortcode('[wpgmza id="2"]');
       elseif($post->post_name == 'west-grange'):
         echo do_shortcode('[wpgmza id="3"]');
+      elseif($post->post_name == 'painted-prairie'):
+        echo do_shortcode('[wpgmza id="4"]');
       endif;
       ?>
     </section>
