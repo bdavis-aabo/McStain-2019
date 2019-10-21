@@ -84,5 +84,13 @@
 </script>
 <?php wp_footer() ?>
 
+
+<script src="https://www.google.com/recaptcha/api.js?render=6Lf2wb4UAAAAAB76Wxx4Fy0VYsaEmlCvr8we_1uD"></script>
+<script>
+  grecaptcha.ready(function(){
+    grecaptcha.execute('6Lf2wb4UAAAAAB76Wxx4Fy0VYsaEmlCvr8we_1uD', {action: 'email'}).then(function(token){ /* */ });
+  });
+</script>
+
 </body>
 </html>
