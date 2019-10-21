@@ -34,7 +34,7 @@
           <div class="col-12">
             <p class="copyright">
               &copy; <?php echo date('Y').' '; bloginfo('name'); ?>. All rights reserved. <a href="/privacy-policy" title="Privacy Policy">Privacy Policy</a></p>
-            <p class="copyright">Artist renderings may not be to scale and homes may not be built as shown. McStain Neighborhoods reserves the right to change plans, elevations, specifications, materials, and pricing without prior notice. Your individual contract supersedes all features listed here and may differ in final details, specifications and finishes. McStain Neighborhoods® is a registered trademark of McStain Constructors LLC.   
+            <p class="copyright">Artist renderings may not be to scale and homes may not be built as shown. McStain Neighborhoods reserves the right to change plans, elevations, specifications, materials, and pricing without prior notice. Your individual contract supersedes all features listed here and may differ in final details, specifications and finishes. McStain Neighborhoods® is a registered trademark of McStain Constructors LLC.
             </p>
           </div>
         </div>
@@ -83,6 +83,13 @@
   });
 </script>
 <?php wp_footer() ?>
+
+<script src="https://www.google.com/recaptcha/api.js?render=6Lf2wb4UAAAAAB76Wxx4Fy0VYsaEmlCvr8we_1uD"></script>
+<script>
+  grecaptcha.ready(function(){
+    grecaptcha.execute('6Lf2wb4UAAAAAB76Wxx4Fy0VYsaEmlCvr8we_1uD', {action: 'email'}).then(function(token){ /* */ });
+  });
+</script>
 
 </body>
 </html>
