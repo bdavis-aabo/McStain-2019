@@ -94,9 +94,9 @@
         }
       }
     }
-      &.floorplan-section-content { width: 40vw;
-        .floorplan-form-title { font-size: 3em; }
-      }
+    &.floorplan-section-content { width: 90vw;
+      .floorplan-form-title { font-size: 3em; }
+    }
   }
 
   &.box-open {
@@ -106,7 +106,6 @@
     }
   }
 }
-
 
 
 .base-contactform { @include headings($base-font-size, $heading-scale * 1.2); }
@@ -279,7 +278,15 @@ No media query since this is the default in Bootstrap because it is "mobile firs
       }
     }
   }
+  .email-lightbox,
+  .cultivation-lightbox {
+    .email-section-content {
+      &.floorplan-section-content { width: 40vw; }
+    }
+  }
 }
+
+
 
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
