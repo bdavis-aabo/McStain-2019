@@ -38,26 +38,30 @@ function wpt_register_js(){
     wp_deregister_script('jquery');
   }
 
-	wp_register_script('jquery', '//code.jquery.com/jquery-3.3.1.slim.min.js', 'jquery', '', true);
-  wp_register_script('jquery.popper.min', '//cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js', 'jquery', '', true);
-	wp_register_script('jquery.bootstrap.min', '//stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js', 'jquery', '', true);
-	wp_register_script('jquery.extras.min', get_template_directory_uri() . '/assets/js/main.min.js', 'jquery', '', true);
-
 	if(!is_admin()){
-	  wp_enqueue_script('jquery');
-    wp_enqueue_script('jquery.popper.min');
-    wp_enqueue_script('jquery.bootstrap.min');
-    wp_enqueue_script('jquery.extras.min');
+	  wp_enqueue_script('jquery', '//code.jquery.com/jquery-3.3.1.slim.min.js', 'jquery', '', true);
+    wp_enqueue_script('jquery.popper.min', '//cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js', 'jquery', '', true);
+    wp_enqueue_script('jquery.bootstrap.min', '//stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js', 'jquery', '', true);
+    wp_enqueue_script(
+      'jquery.extras.min',
+      get_template_directory_uri() . '/assets/js/main.min.js',
+      array(),
+      filemtime(get_template_directory().'/assets/js/main.min.js'),
+      true
+    );
   }
 }
 
 function wpt_register_css(){
-  wp_register_style('bootstrap.min', '//stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css');
-  wp_register_style('fontawesome.min', '//use.fontawesome.com/releases/v5.6.3/css/all.css');
-  wp_register_style('main.min', get_template_directory_uri() . '/assets/css/main.min.css');
-  wp_enqueue_style('bootstrap.min');
-  wp_enqueue_style('fontawesome.min');
-  wp_enqueue_style('main.min');
+  wp_enqueue_style('bootstrap.min', '//stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css');
+  wp_enqueue_style('fontawesome.min', '//use.fontawesome.com/releases/v5.6.3/css/all.css');
+  wp_enqueue_style(
+    'main.min',
+    get_template_directory_uri() . '/assets/css/main.min.css',
+    array(),
+    filemtime(get_template_directory().'/assets/css/main.min.css'),
+    'all'
+  );
 }
 add_action('init','wpt_register_js');
 add_action('wp_enqueue_scripts', 'wpt_register_css');
@@ -72,7 +76,7 @@ function add_responsive_class($content){
   $imgs = $document->getElementsByTagName('img');
   foreach($imgs as $img){
     $existing_class = $img->getAttribute('class');
-    $img->setAttribute('class', 'img-responsive ' . $existing_class);
+    $img->setAttribute('class', 'img-fluid ' . $existing_class);
   }
   $html = $document->saveHTML();
 	return $html;

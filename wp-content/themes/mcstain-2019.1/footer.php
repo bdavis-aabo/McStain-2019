@@ -46,7 +46,7 @@
   if(is_page('mcstain-manifesto') || is_page('welcome-to-mcstain-neighborhoods')): get_template_part('manifesto/manifesto-lightbox'); endif;
 
   if(is_page_template('page-templates/page-cultivation.php')):
-    get_template_part('cultivation/cultivation-footer');
+    //get_template_part('cultivation/cultivation-footer');
     get_template_part('cultivation/cultivation-design-lightbox');
   elseif(is_singular('floorplans')):
     get_template_part('cultivation/cultivation-floorplan-lightbox');
