@@ -24,6 +24,8 @@ $_community = ucwords(str_replace('-', ' ', $_segmentUrl[2]));
 
 <h2 class="floorplan-form-title">Please send me a more information about the design suites at <?php echo $_community ?></h2>
 
+<img src="<?php bloginfo('stylesheet_directory') ?>/assets/images/designsuite_form-image.jpg" alt="<?php echo $_community . ' design suites'; ?>" class="img-fluid aligncenter" />
+
 <form id="contact-form" name="contact-form" action="https://app.lassocrm.com/registrant_signup/" method="post">
   <input type="hidden" name="Questions[57337]" val="" id="model-interested" />
   <input type="hidden" name="LassoUID" value="zFht#iXi[2" />
