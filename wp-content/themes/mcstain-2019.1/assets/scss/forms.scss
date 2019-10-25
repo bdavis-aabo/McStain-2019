@@ -24,7 +24,7 @@
             em { font-family: 'uni-bold', sans-serif; color: $ltgreen; }
           }
         }
-        .req { position: absolute; right: 0; font-size: $base-font-size * .95; }
+        .req { float: right; position: initial; font-size: $base-font-size * .95; }
         .form-group { float: left; clear: both; width: 100%; margin-bottom: 0;
           .form-control { margin-bottom: 10px; }
           label { font-size: $base-font-size * 1.15; font-family: 'uni-bold', sans-serif; margin-bottom: 4px;
@@ -94,9 +94,9 @@
         }
       }
     }
-    &.floorplan-section-content { width: 90vw;
-      .floorplan-form-title { font-size: 3em; }
-    }
+      &.floorplan-section-content { width: 100vw; padding: 0 2.5vw;
+        .floorplan-form-title { font-size: 3em; }
+      }
   }
 
   &.box-open {
@@ -106,6 +106,7 @@
     }
   }
 }
+
 
 
 .base-contactform { @include headings($base-font-size, $heading-scale * 1.2); }
@@ -281,12 +282,10 @@ No media query since this is the default in Bootstrap because it is "mobile firs
   .email-lightbox,
   .cultivation-lightbox {
     .email-section-content {
-      &.floorplan-section-content { width: 40vw; }
+      &.floorplan-section-content { padding: 0 30vw; }
     }
   }
 }
-
-
 
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
