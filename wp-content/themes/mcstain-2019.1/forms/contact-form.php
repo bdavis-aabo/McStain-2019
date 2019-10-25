@@ -1,9 +1,9 @@
 <?php
   $_communities = array(
-    '9882'  =>  'West Grange',
-    '9883'  =>  'Lost Creek Farm',
-    '10512' =>  'Painted Prairie',
-    '10724' => 'Arras Park',
+    '9882'  =>  'West Grange - Longmont',
+    '9883'  =>  'Lost Creek Farm - Erie',
+    '10512' =>  'Painted Prairie - Aurora',
+    '10724' => 'Arras Park - Thornton',
     //'10702'  =>  'Future Communities',
   );
 
