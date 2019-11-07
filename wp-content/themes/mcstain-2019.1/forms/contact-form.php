@@ -6,7 +6,6 @@
     '10724' => 'Arras Park - Thornton',
     //'10702'  =>  'Future Communities',
   );
-
   $_commSelect = $_GET['comm'];
 ?>
 
