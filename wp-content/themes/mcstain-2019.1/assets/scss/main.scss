@@ -5,6 +5,8 @@
 @import 'forms';
 @import 'maps';
 
+.alignleft { float: left; margin-right: 15px; }
+
 .homepage-latestnews {
   .news-article { border-bottom: 1px solid $ltgray; padding-bottom: 2vh;
     .article-title { font-size: 1.5em; margin-bottom: 12px;

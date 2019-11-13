@@ -90,7 +90,6 @@
 
             }
           }
-
         }
       }
     }
@@ -109,7 +108,15 @@
 
 
 
-.base-contactform { @include headings($base-font-size, $heading-scale * 1.2); }
+.base-contactform { @include headings($base-font-size, $heading-scale * 1.2);
+  #contact-form { padding: 5vh 10vw; }
+}
+.realtor-contact  {
+  #contact-form { padding: 5vh 10vw;
+    select { width: 100%; font-family: 'uni-book'; text-transform: uppercase; font-size: 16.1px; color: #212529; background: $white;
+      border-radius: 0; border: 1px solid $medgray; }
+  }
+}
 
 .form-group { float: left; clear: both; width: 100%; margin-bottom: 0;
   .form-control { margin-bottom: 10px; }
@@ -127,13 +134,18 @@
   }
 }
 #contact-form {
-  .form-group { margin-bottom: 15px;
+  .form-group { margin-bottom: 5px;
     .form-control { font-size: 1rem; }
     label { text-transform: uppercase; font-family: 'uni-book', sans-serif; }
     &.button-group { text-align: left; }
     textarea { height: 125px; resize: none; }
   }
+  p { display: none; }
+  .check-group {
+    p { display: block; }
+  }
 }
+.wpcf7-response-output { clear: both; margin-top: 20px; float: left; width: 100%; }
 
 // Radio + Checkbox Styles
 .control { position: relative; display: inline-block; cursor: pointer; margin: 0 15px 0 0; padding-left: 35px;

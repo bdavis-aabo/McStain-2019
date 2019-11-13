@@ -59,7 +59,6 @@
     <div class="one-full">
       <label for="Message">Message</label>
       <textarea name="Message" class="form-control"></textarea>
-
       <span class="req">*Required Fields</span>
     </div>
   </div>

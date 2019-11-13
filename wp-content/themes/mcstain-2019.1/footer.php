@@ -54,36 +54,40 @@
     get_template_part('cultivation/cultivation-realtor');
   ?>
 
-  <?php //edits by Jay ?>
-<script>
-  window.addEventListener('load', function(){
-    if(window.location.pathname == "/contact-us/thank-you/"){
-      if(document.referrer == "https://mcstain.com/communities/west-grange/"){
-        gtag('event', 'submit', {
-          'event_category' : 'form',
-          'event_label' : 'west grange'
-        });
-      }else if(document.referrer == "https://mcstain.com/contact-us/"){
-        gtag('event', 'submit', {
-          'event_category' : 'form',
-          'event_label' : 'contact us'
-        });
-      }else if(document.referrer == "https://mcstain.com/communities/painted-prairie/"){
-        gtag('event', 'submit', {
-          'event_category' : 'form',
-          'event_label' : 'painted prairie'
-        });
-      }else if(document.referrer == "https://mcstain.com/communities/lost-creek-farm/"){
-        gtag('event', 'submit', {
-          'event_category' : 'form',
-          'event_label' : 'lost creek farm'
-        });
-      }
-    }
-  });
-</script>
+
 <?php wp_footer() ?>
 
+<?php /* email redirect */ ?>
+
+
+<?php //edits by Jay ?>
+<script>
+window.addEventListener('load', function(){
+  if(window.location.pathname == "/contact-us/thank-you/"){
+    if(document.referrer == "https://mcstain.com/communities/west-grange/"){
+      gtag('event', 'submit', {
+        'event_category' : 'form',
+        'event_label' : 'west grange'
+      });
+    }else if(document.referrer == "https://mcstain.com/contact-us/"){
+      gtag('event', 'submit', {
+        'event_category' : 'form',
+        'event_label' : 'contact us'
+      });
+    }else if(document.referrer == "https://mcstain.com/communities/painted-prairie/"){
+      gtag('event', 'submit', {
+        'event_category' : 'form',
+        'event_label' : 'painted prairie'
+      });
+    }else if(document.referrer == "https://mcstain.com/communities/lost-creek-farm/"){
+      gtag('event', 'submit', {
+        'event_category' : 'form',
+        'event_label' : 'lost creek farm'
+      });
+    }
+  }
+});
+</script>
 
 <script src="https://www.google.com/recaptcha/api.js?render=6Lf2wb4UAAAAAB76Wxx4Fy0VYsaEmlCvr8we_1uD"></script>
 <script>
