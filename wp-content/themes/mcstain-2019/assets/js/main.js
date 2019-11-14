@@ -209,4 +209,45 @@ $(document).ready(function(){
     $('.card-toggle').not(this).removeClass('open');
   });
 
+  //Forward to Thank You Page
+  var formUrlArray = window.location.pathname.split('/');
+  var formComm = formUrlArray[2];
+  var formType = formUrlArray[3];
+
+  document.addEventListener('wpcf7mailsent', function(event){
+    if(formType === 'floorplans'){
+      if(formComm === 'lost-creek-farm'){
+        location = 'https://mcstain.com/contact-us/thank-you?form=floorplan&community=lost-creek-farm';
+      } else if(formComm === 'west-grange'){
+        location = 'https://mcstain.com/contact-us/thank-you?form=floorplan&community=west-grange';
+      } else if(formComm === 'painted-prairie'){
+        location = 'https://mcstain.com/contact-us/thank-you?form=floorplan&community=painted-prairie';
+      } else if(formComm === 'arras-park'){
+        location = 'https://mcstain.com/contact-us/thank-you?form=floorplan&community=arras-park';
+      }
+    } else if( '1706' === event.detail.contactFormId){
+      location = 'https://mcstain.com/contact-us/thank-you?form=design&community=lost-creek-farm';
+    } else if( '1707' === event.detail.contactFormId){
+      location = 'https://mcstain.com/contact-us/thank-you?form=design&community=painted-prairie';
+    } else if( '1312' === event.detail.contactFormId){
+      location = 'https://mcstain.com/contact-us/thank-you?form=design&community=west-grange';
+    } else {
+      location = 'https://mcstain.com/contact-us/thank-you';
+    }
+  },false);
+
+  // if(formType === 'floorplans'){
+  //   if(formComm === 'west-grange'){
+  //     console.log('west grange floorplans');
+  //   } else if(formComm === 'lost-creek-farm'){
+  //     console.log('lcf floorplans');
+  //   } else if(formComm === 'painted-prairie'){
+  //     console.log('pp floorplans');
+  //   }
+  // }
+
+
+
+
+
 });
