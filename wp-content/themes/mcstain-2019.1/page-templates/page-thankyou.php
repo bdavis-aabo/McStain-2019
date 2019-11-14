@@ -3,6 +3,7 @@
 <?php
   $_form = $_GET['form'];
   $_community = $_GET['community'];
+  $_community = str_replace('-','',$_community);
   //var_dump($_model);
 
 ?>
