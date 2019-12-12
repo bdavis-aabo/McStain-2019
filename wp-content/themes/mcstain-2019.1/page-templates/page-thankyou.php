@@ -52,15 +52,21 @@
             </ul>
             <?php elseif($_form == 'design'): ?>
             <p class="download-link">Download the design suite brochure(s) of your choice below:</p>
-            <ul class="brochure-list">
-              <li><a href="<?php bloginfo('url') ?>/_design-pdf/traditional-brochure.pdf" target="_blank" class="btn green-btn">Traditional</a></li>
-              <li><a href="<?php bloginfo('url') ?>/_design-pdf/modern-brochure.pdf" target="_blank" class="btn green-btn">Modern</a></li>
-              <li><a href="<?php bloginfo('url') ?>/_design-pdf/fusion-brochure.pdf" target="_blank" class="btn green-btn">Fusion</a></li>
-              <!--
-              <li><a href="" target="_blank" class="btn green-btn"></a></li>
-              <li><a href="" target="_blank" class="btn green-btn"></a></li>
-              -->
-            </ul>
+              <?php if($_community == 'westgrange'): ?>
+                <ul class="brochure-list" id="<?php echo $_community.'-design-list' ?>">
+                  <li><a href="<?php bloginfo('url') ?>/_design-pdf/west-grange/wg_transitional-brochure.pdf" target="_blank" class="btn green-btn">Transitional</a></li>
+                  <li><a href="<?php bloginfo('url') ?>/_design-pdf/west-grange/wg_modern-brochure.pdf" target="_blank" class="btn green-btn">Modern</a></li>
+                  <li><a href="<?php bloginfo('url') ?>/_design-pdf/west-grange/wg_classic-brochure.pdf" target="_blank" class="btn green-btn">Classic</a></li>
+                  <li><a href="<?php bloginfo('url') ?>/_design-pdf/west-grange/wg_farmhouse-brochure.pdf" target="_blank" class="btn green-btn">Farmhouse</a></li>
+                  <li><a href="<?php bloginfo('url') ?>/_design-pdf/west-grange/wg_boho-brochure.pdf" target="_blank" class="btn green-btn">BOHO Chic</a></li>
+                </ul>
+              <?php else: ?>
+                <ul class="brochure-list">
+                  <li><a href="<?php bloginfo('url') ?>/_design-pdf/traditional-brochure.pdf" target="_blank" class="btn green-btn">Traditional</a></li>
+                  <li><a href="<?php bloginfo('url') ?>/_design-pdf/modern-brochure.pdf" target="_blank" class="btn green-btn">Modern</a></li>
+                  <li><a href="<?php bloginfo('url') ?>/_design-pdf/fusion-brochure.pdf" target="_blank" class="btn green-btn">Fusion</a></li>
+                </ul>
+              <?php endif; ?>
             <?php endif; ?>
 
           </div>
