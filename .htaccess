@@ -22,3 +22,4 @@ RewriteRule . /index.php [L]
 
 # Redirect
 Redirect 301 /our-neighborhoods /communities
+Redirect 301 /bewell /mcstain-manifesto#manifesto-tabcontent
