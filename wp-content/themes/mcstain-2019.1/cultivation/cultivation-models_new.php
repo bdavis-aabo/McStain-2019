@@ -61,6 +61,16 @@ $_floorplans->query($_args);
   <div class="normal-models">
     <div class="container-fluid">
       <div class="row">
+        <?php if(is_page('painted-prairie')): ?>
+        <div class="col-6 col-sm-4 col-md-4 col-lg-2 right-btn">
+          <article class="model">
+            <button class="green-btn btn btn-block model-btn" onclick="window.location.href = '/painted-prairie/floorplan-configurator';">
+              <span class="arrows"><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i></span>
+              <span class="text"> You gotta see it<br/>to believe it...</span>
+            </button>
+          </article>
+        </div>
+        <?php endif; ?>
         <?php while($_floorplans->have_posts()): $_floorplans->the_post(); $_galleryImages = get_field('floorplan_elevations');
           $_galleryImage = $_galleryImages[0];
           $_floorplanName = substr($post->post_name, 0, -5);
@@ -89,5 +99,19 @@ $_floorplans->query($_args);
   <!-- /end normal models -->
 
   <button class="btn gold-btn sidebar-btn model-btn" onclick="window.location.href = '/communities/<?php echo $post->post_name ?>/<?php echo $post->post_name ?>-gallery';" target="_blank"><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i> Photo Gallery</button>
+</section>
+<?php endif; ?>
+
+<?php if(get_field('model_configurator') != ''): ?>
+<section class="community-models">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 col-md-10 col-sm-12">
+        <div class="community-models-content">
+          <?php echo get_field('model_configurator') ?>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 <?php endif; ?>
