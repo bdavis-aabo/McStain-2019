@@ -1,13 +1,13 @@
 <?php /* Template Name: Page - Configurator */ ?>
 <?php get_header() ?>
 
-<section class="configurator-container" style="height: calc(100vh - 90px); margin-top: 90px">
+<section class="configurator-container">
   <div class="configurator-frame-container">
-    <iframe id="configurator" src="" frameborder="0" height="100%" width="100%" data-pathname="" style="height: calc(100vh - 90px);"></iframe>
+    <iframe id="configurator" src="" frameborder="0" data-pathname=""></iframe>
   </div>
 </section>
 
-<?php get_footer() ?>
+<?php //get_footer() ?>
 
 
 
@@ -64,3 +64,6 @@
 
   setIframeSrc(initialLocation);
 </script>
+
+</body>
+</html>

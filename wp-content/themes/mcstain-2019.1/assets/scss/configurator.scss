@@ -1,0 +1,44 @@
+.configurator-container { height: calc(100vh - 60px); margin-top: 60px;
+  .configurator-frame-container {
+    #configurator { width: 100vw; height: calc(100vh - 60px); }
+  }
+}
+
+
+/*
+Extra small devices (portrait phones, less than 576px)
+No media query...Bootstrap default
+*/
+
+/*** SMALL DEVICES : Landscape phones, 576px + ***/
+@media (min-width: 576px){
+
+}
+
+/*** MEDIUM DEVICES : Tablets, 768px + ***/
+@media (min-width: 768px){
+  .configurator-container { height: calc(100vh - 70px); margin-top: 70px;
+    .configurator-frame-container {
+      #configurator { height: calc(100vh - 70px); }
+    }
+  }
+}
+
+/*** LARGE DEVICES : Desktops, 992px and up ***/
+@media (min-width: 992px){
+
+}
+
+/*** EXTRA LARGE DEVICES : Large Desktops, 1200px + ***/
+@media (min-width: 1200px){
+  .configurator-container { height: calc(100vh - 90px); margin-top: 90px;
+    .configurator-frame-container {
+      #configurator {  height: calc(100vh - 90px); }
+    }
+  }
+}
+
+
+/*
+:::::::::: CUSTOM MEDIA QUERIES IF NEEDED ::::::::::
+*/
