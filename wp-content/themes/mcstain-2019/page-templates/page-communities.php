@@ -54,7 +54,7 @@ $_c = 1;
           <?php if($post->post_name == 'harvest-ridge'): ?>
             <img src="<?php bloginfo('template_directory') ?>/assets/images/comm-page-hr.jpg" alt="<?php the_title() ?>" class="img-fluid" />
           <?php elseif($post->post_name == 'painted-prairie'): ?>
-            <img src="<?php bloginfo('template_directory') ?>/assets/images/comm-page-pp.jpg" alt="<?php the_title() ?>" class="img-fluid" />
+            <img src="<?php bloginfo('template_directory') ?>/assets/images/paintedprairie-open.jpg" alt="<?php the_title() ?>" class="img-fluid" />
           <?php elseif($post->post_name == 'arras-park'): ?>
             <img src="<?php bloginfo('template_directory') ?>/assets/images/comm-page-ap.jpg" alt="<?php the_title() ?>" class="img-fluid" />
           <?php else: ?>
