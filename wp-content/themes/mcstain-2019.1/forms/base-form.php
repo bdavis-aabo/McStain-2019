@@ -13,6 +13,12 @@
   <?php endif; ?>
 
   <div id="contact-form">
-    <?php echo do_shortcode('[contact-form-7 title="' . $_community . ' - Base Form"]'); ?>
+    <?php
+    if(!is_page('quick-move-in-homes')):
+      echo do_shortcode('[contact-form-7 title="' . $_community . ' - Base Form"]');
+    elseif(is_page('quick-move-in-homes')):
+      echo do_shortcode('[contact-form-7 id="1700" title="Contact Us Form"]');
+    endif;
+    ?>
   </div>
 </div><!-- /end email-form.base-contactform -->
