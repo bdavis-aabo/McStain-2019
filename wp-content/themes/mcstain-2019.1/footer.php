@@ -54,6 +54,7 @@
     get_template_part('cultivation/cultivation-realtor');
   ?>
 
+  <?php if(is_front_page() || is_page('home')): get_template_part('home/home-promotion'); endif; ?>
 
 <?php wp_footer() ?>
 

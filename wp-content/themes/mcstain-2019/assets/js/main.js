@@ -209,6 +209,41 @@ $(document).ready(function(){
     $('.card-toggle').not(this).removeClass('open');
   });
 
+  // Promotional Lightbox
+  function displayMask(){
+    $('.window-mask').addClass('show');
+    $('html, body').css('overflow','hidden');
+  }
+  function displayPromo(){
+    $('.promotion-container').addClass('visible');
+  }
+  function closePromo(){
+    $('.window-mask').removeClass('show');
+    $('.promotion-container').removeClass('visible');
+    $('html, body').css('overflow', 'auto');
+  }
+  if(window.location.pathname === '/'){
+    if($('.window-mask').length){
+      setTimeout(function(){
+        displayMask();
+      },3000);
+      setTimeout(function(){
+        displayPromo();
+      },3500);
+
+      $('.close').click(function(){
+        closePromo();
+      });
+      $('.window-mask').click(function(){
+        closePromo();
+      });
+      $(document).keyup(function(e){
+        if(e.keyCode === 27){
+          closePromo();
+        }
+      });
+    }
+  } //end alertbox + lightbox functions
 
 
 

@@ -18,4 +18,21 @@
   }
   add_action('wp_enqueue_scripts', 'mcstain_styles', PHP_INT_MAX);
 
+  // Create Post Type for Promotions
+  add_action('init','create_promos');
+  function create_promos(){
+    register_post_type('promos', array(
+      'label'           =>	__('Promotions'),
+		  'singular_label'	=>	__('Promotion'),
+		  'public'          =>	true,
+		  'show_ui'         =>	true,
+		  'capability_type'	=>	'post',
+		  'hierarchical'		=>	'true',
+		  'rewrite'         =>	array('slug' => 'promos'),
+		  'supports'        =>	array('title','custom-fields','order','page-attributes'),
+		  'menu_position'		=>	25,
+		  'menu_icon'       =>	'dashicons-megaphone',
+		  'has_archive'     =>	true,
+  ));
+}
 ?>
