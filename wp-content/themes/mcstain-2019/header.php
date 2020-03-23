@@ -20,6 +20,21 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 
+  <!-- Chatra -->
+  <script>
+    (function(d, w, c) {
+        w.ChatraID = 'hEgydxKrigGcivC2u';
+        var s = d.createElement('script');
+        w[c] = w[c] || function() {
+            (w[c].q = w[c].q || []).push(arguments);
+        };
+        s.async = true;
+        s.src = 'https://call.chatra.io/chatra.js';
+        if (d.head) d.head.appendChild(s);
+    })(document, window, 'Chatra');
+  </script>
+<!-- /Chatra -->
+
   <?php include_once('assets/_inc/ga.php') ?>
 
 <?php wp_head() ?>
