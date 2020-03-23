@@ -33,7 +33,7 @@
         if (d.head) d.head.appendChild(s);
     })(document, window, 'Chatra');
   </script>
-<!-- /Chatra -->
+  <!-- /Chatra -->
 
   <?php include_once('assets/_inc/ga.php') ?>
 
