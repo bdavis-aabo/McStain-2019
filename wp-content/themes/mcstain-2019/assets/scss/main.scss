@@ -649,7 +649,7 @@ No media query...Bootstrap default
         strong { font-family: 'uni-bold', sans-serif; color: $ltgreen; }
       }
       p { margin: 0 0 20px; line-height: 1.35em; text-align: left; }
-      .builder-btn { margin: 10px auto; font-size: .9em; text-transform: uppercase; padding: 10px 25px; }
+      button.builder-btn { margin: 10px auto; font-size: .9em; text-transform: uppercase; padding: 10px 25px; border: none !important; }
     }
     .gray-line { border-bottom: 2px solid $ltgray; margin: 45px 0 10px; }
   }
