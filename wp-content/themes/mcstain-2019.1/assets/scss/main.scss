@@ -254,7 +254,9 @@ No media query...Bootstrap default
     }
   }
   .inventory-section {
-    .qmi-home { margin-bottom: 2.5vh; }
+    .qmi-home { margin-bottom: 2.5vh;
+      .builder-btn { border: none !important; }
+    }
   }
 
   .bewell-section {
