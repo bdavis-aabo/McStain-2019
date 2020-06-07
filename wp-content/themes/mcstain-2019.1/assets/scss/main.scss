@@ -51,6 +51,71 @@
   }
 }
 
+/*** QMI HOME LANDING PAGE ***/
+.single-quickmoves {
+  .floorplan-heroslider { padding-top: 60px;
+    .carousel {
+      .carousel-indicators { bottom: -10px;
+        li { width: 45px; height: 5px; margin-left: 5px; margin-right: 5px; opacity: .8;
+          &.active { background-color: $ltgreen; }
+        }
+      }
+      .carousel-control-prev,
+      .carousel-control-next { width: 5%; height: 60px; background: $blue; top: 50%; transform: translateY(-50%); opacity: 1; }
+    }
+  }
+  .floorplan-availability { margin-bottom: 1vh;
+    .availability-container { text-align: center; text-transform: uppercase; padding: 8px 0; font-size: 1.3em; }
+  }
+  .floorplan-section { padding: 3.5vh 0; width: 90vw; margin: 0 auto; border-bottom: 1px solid rgba($ltgreen,.5);
+    &.floorplan-details {
+      .details-container { display: flex; flex-wrap: wrap;
+        .details-container-left,
+        .details-container-right { flex-grow: 1; }
+        .details-container-left  {
+          h1 { font-size: 28px; font-family: 'uni-regular'; margin-bottom: 6px; line-height: 18px;
+            .qmi-price { font-size: .85em; font-family: 'uni-book'; }
+          }
+          .qmi-information { margin: 2px 0 12px; }
+        }
+        .details-container-right { display: none; }
+      }
+    }
+    &.floorplan-images,
+    &.floorplan-tour {
+      .floorplan-top { display: flex; flex-wrap: wrap;
+        h2 { font-size: 28px; }
+        .ltgreen-btn { text-transform: uppercase; font-family: 'uni-regular'; }
+      }
+      .floorplan-container {
+        &.desktop { display: none; }
+        &.mobile  { padding-top: 3vh;
+          .carousel {
+            .carousel-control-prev,
+            .carousel-control-next { width: 5%; height: 60px; background: $blue; top: 50%; transform: translateY(-50%); opacity: 1; }
+          }
+          .image-caption { text-align: center; text-transform: uppercase; font-size: 1.1em; }
+        }
+      }
+      .tour-container {
+        .tour-frame   { border: none; overflow: hidden; width: 100%; }
+      }
+    }
+    &.floorplan-community {
+      .community-container { display: flex; flex-wrap: wrap;
+        .community-container-left,
+        .community-container-right { flex-grow: 1; }
+        .community-container-left {
+          h3 { font-size: 24px; font-family: 'uni-regular'; margin-bottom: 8px; line-height: 24px; }
+          h4 { font-size: 18px; font-family: 'uni-regular'; }
+          p { }
+        }
+        .community-container-right { padding: 2.5vh 0; }
+      }
+    }
+  }
+}
+
 /*** HOMEPAGE PROMOTIONAL LIGHTBOX ***/
 .window-mask { position: fixed; background: rgba(0,0,0,.8); top: 0; left: 0; width: 100vw; height: 100vh; z-index: -999; opacity: 0;
   transition: opacity .5s ease-in-out;
@@ -73,6 +138,49 @@ No media query...Bootstrap default
 
 }
 
+/*** IPHONE X ***/
+@media only screen and (min-device-width: 374px) and (max-device-width: 812px) and (-webkit-device-pixel-ratio: 3){
+
+}
+
+/*** IPHONE X : Landscape ***/
+@media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-device-pixel-ratio: 3)
+  and (orientation: landscape) {
+  /*** QMI HOME LANDING PAGE ***/
+  .single-quickmoves {
+    .floorplan-section { padding: 5vh 0;
+      &.floorplan-images {
+        .floorplan-top { flex-wrap: nowrap; justify-content: space-between; align-content: flex-start;
+          h2 { margin-bottom: 0; }
+          .ltgreen-btn { padding: 10px 25px; height: auto; display: inline-block; }
+        }
+        .floorplan-container {
+          &.mobile { display: none; }
+          &.desktop { display: flex; justify-content: space-between; padding: 2.5vh 0;
+            .fp-image { flex-basis: 30%; text-align: center; text-transform: uppercase; }
+          }
+        }
+      }
+      &.floorplan-tour {
+        .tour-container { min-height: 375px;
+          .tour-frame { min-height: 375px;  }
+        }
+      }
+      &.floorplan-community {
+        .community-container { display: flex; flex-wrap: nowrap; justify-content: space-between;
+          .community-container-left { flex-basis: 70%;
+            h3 { padding-right: 20vw; margin-bottom: 0; }
+
+          }
+          .community-container-right { flex-basis: 20%; }
+        }
+      }
+    }
+  }
+}
+
+
+
 /*** MEDIUM DEVICES : Tablets, 768px + ***/
 @media (min-width: 768px){
   .community-container {
@@ -88,6 +196,37 @@ No media query...Bootstrap default
   /*** HOMEPAGE PROMOTIONAL LIGHTBOX ***/
   .window-mask {
     .promotion-container { min-width: auto; }
+  }
+
+  /*** QMI HOME LANDING PAGE ***/
+  .single-quickmoves {
+    .floorplan-section { padding: 5vh 0;
+      &.floorplan-images {
+        .floorplan-top { flex-wrap: nowrap; justify-content: space-between; align-content: flex-start; align-items: flex-start;
+          h2 { margin-bottom: 0; }
+          .ltgreen-btn { padding: 10px 25px; height: auto; display: inline-block; }
+        }
+        .floorplan-container {
+          &.mobile { display: none; }
+          &.desktop { display: flex; justify-content: space-between; padding: 2.5vh 0;
+            .fp-image { flex-basis: 30%; text-align: center; text-transform: uppercase; }
+          }
+        }
+      }
+      &.floorplan-tour {
+        .tour-container { min-height: 375px;
+          .tour-frame { min-height: 375px;  }
+        }
+      }
+      &.floorplan-community {
+        .community-container { display: flex; flex-wrap: nowrap; justify-content: space-between;
+          .community-container-left { flex-basis: 70%;
+            h3 { padding-right: 20vw; margin-bottom: 0; }
+          }
+          .community-container-right { flex-basis: 20%; padding: 0; }
+        }
+      }
+    }
   }
 
   /*** Gallery Styles */
@@ -132,6 +271,18 @@ No media query...Bootstrap default
         .card-toggle { font-size: 1.25em; }
       }
       .card-body { padding: 1.25rem; }
+    }
+  }
+
+  /*** QMI HOME LANDING PAGE ***/
+  .single-quickmoves {
+    .floorplan-section {
+      &.floorplan-details {
+        .details-container { flex-wrap: nowrap; justify-content: space-between;
+          .details-container-left  { flex-basis: 70%; padding-right: 5vw; }
+          .details-container-right { flex-basis: 20%; display: block; }
+        }
+      }
     }
   }
 }
@@ -226,6 +377,39 @@ No media query...Bootstrap default
     }
   }
   .location-map-section { max-width: 1600px; margin: 0 auto; }
+
+  /*** QMI HOME LANDING PAGE ***/
+  .single-quickmoves {
+    .floorplan-heroslider {
+      .carousel {
+        .carousel-control-prev,
+        .carousel-control-next { width: 2.5%; }
+      }
+    }
+    .floorplan-section { width: 75vw;
+      &.floorplan-details {
+        .details-container { display: flex; flex-wrap: wrap;
+          .details-container-left,
+          .details-container-right { flex-grow: 1; }
+          .details-container-left  {
+            h1 { font-size: 2.25em; font-family: 'uni-regular'; margin-bottom: 6px; line-height: 18px;
+              .qmi-price { font-size: .85em; font-family: 'uni-book'; }
+            }
+            .qmi-address { margin-top: 8px; font-size: 1.1em; }
+            .qmi-information { margin: 2px 0 12px; }
+          }
+          .details-container-right { padding: 0 1.5vw; }
+        }
+      }
+      &.floorplan-images,
+      &.floorplan-tour {
+        .floorplan-top {
+          h2 { font-size: 2.25em; }
+          .ltgreen-btn { text-transform: uppercase; font-family: 'uni-regular'; }
+        }
+      }
+    }
+  }
 
   footer { max-width: 1600px; margin: 0 auto; }
 }

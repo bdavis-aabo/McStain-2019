@@ -44,7 +44,8 @@ $red:       #ed1c24;
 .orange-txt  { color: $orange }
 
 .blue-bg   { background: $blue; color: $white; }
-.ltgreen-bg { background: $ltgreen; color: $white;}
+.ltgreen-bg { background: $ltgreen; color: $white; }
+.green-bg  { background: $green; color: $white; }
 .gray-bg   { background: $ltgray; }
 .yellow-bg { background: $yellow; }
 .red-bg    { background: $red; }
@@ -52,6 +53,8 @@ $red:       #ed1c24;
 a { cursor: pointer; transition: all 666ms ease-in-out;
   &:hover { text-decoration: none; }
 }
+button,
+button.btn { border: none !important; }
 .btn { font-family: $bold-italic, sans-serif; font-style: normal; border-radius: 0; font-size: 1.1em; font-weight: normal;
   transition: background 666ms ease-in-out; border: none; cursor: pointer; padding: .375rem 1rem;
   &.sidebar-btn { padding-left: 5vw; padding-right: 5vw; float: right; margin-bottom: 15px; }
