@@ -45,6 +45,8 @@
       </p>
       <?php echo get_field('qmi_details') ?>
       <?php endwhile; endif; ?>
+
+      <p><a href="mailto: email@mcstain.com" class="btn ltgreen-btn">Learn More</a></p>
     </div>
     <div class="details-container-right">
       <img src="<?php bloginfo('stylesheet_directory') ?>/assets/images/<?php echo $_terms[0]->slug.'-logo.jpg'; ?>" class="img-fluid" />
