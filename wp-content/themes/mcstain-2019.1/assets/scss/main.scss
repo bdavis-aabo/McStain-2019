@@ -400,7 +400,7 @@ No media query...Bootstrap default
             .qmi-address { margin-top: 8px; font-size: 1.1em; }
             .qmi-information { margin: 2px 0 12px; }
           }
-          .details-container-right { padding: 0 1.5vw; }
+          .details-container-right { padding: 0 2.5vw; }
         }
       }
       &.floorplan-images,
@@ -408,6 +408,11 @@ No media query...Bootstrap default
         .floorplan-top {
           h2 { font-size: 2.25em; }
           .ltgreen-btn { text-transform: uppercase; font-family: 'uni-regular'; }
+        }
+      }
+      &.floorplan-community {
+        .community-container {
+          .community-container-right { padding: 0 2.5vw; }
         }
       }
     }
