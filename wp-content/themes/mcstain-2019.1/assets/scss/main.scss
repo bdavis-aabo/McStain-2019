@@ -394,7 +394,7 @@ No media query...Bootstrap default
           .details-container-left,
           .details-container-right { flex-grow: 1; }
           .details-container-left  {
-            h1 { font-size: 2.25em; font-family: 'uni-regular'; margin-bottom: 6px; line-height: 18px;
+            h1 { font-size: 2.25em; font-family: 'uni-regular', sans-serif; margin-bottom: 6px; line-height: 18px;
               .qmi-price { font-size: .85em; font-family: 'uni-book'; }
             }
             .qmi-address { margin-top: 8px; font-size: 1.1em; }
