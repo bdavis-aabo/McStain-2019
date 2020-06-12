@@ -82,8 +82,9 @@
                 get_sub_field('garage') . '-car Garage';
               ?>
             </p>
+            <a class="builder-btn ltgreen-btn" href="<?php the_permalink() ?>">View Home</a>
           <?php endwhile; endif; ?>
-						<button class="builder-btn ltgreen-btn lightbox-trigger base-contact qmi-trigger" data-comm="<?php echo $_projectID ?>" data-model="<?php echo strtolower(get_field('qmi_floorplan')) ?>">Contact Us</button>
+
           </div>
         </div>
         <?php endwhile; ?>
