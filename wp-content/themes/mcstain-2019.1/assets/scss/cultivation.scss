@@ -10,7 +10,9 @@
     }
 
     &.community-introduction {
-      &.community-photogallery { margin-top: 4.25vh; }
+      &.community-photogallery { margin-top: 4.25vh;
+        h2 { font-size: 1.65em; color: $blue; font-family: 'uni-bold'; }
+      }
       .community-details {
         h1 { font-family: 'uni-light', sans-serif;
           em { font-style: normal; font-family: 'uni-bold', sans-serif; }
