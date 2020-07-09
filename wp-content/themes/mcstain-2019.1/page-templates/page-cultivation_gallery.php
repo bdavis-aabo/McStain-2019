@@ -25,7 +25,10 @@
         <?php else: ?>
         <div class="row">
           <div class="col-12">
-            <?php echo get_field('page_sub_content') ?>
+            <div class="gallery-subcontent">
+              <?php echo get_field('page_sub_content') ?>
+            </div>
+
           </div>
         </div>
         <?php endif; ?>

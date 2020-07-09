@@ -116,6 +116,12 @@
   }
 }
 
+.community-photogallery {
+  .gallery-subcontent { display: flex; flex-wrap: wrap;
+    img.alignnone { margin: 0 auto 20px; flex-grow: 1; flex-basis: 100%; }
+  }
+}
+
 /*** HOMEPAGE PROMOTIONAL LIGHTBOX ***/
 .window-mask { position: fixed; background: rgba(0,0,0,.8); top: 0; left: 0; width: 100vw; height: 100vh; z-index: -999; opacity: 0;
   transition: opacity .5s ease-in-out;
