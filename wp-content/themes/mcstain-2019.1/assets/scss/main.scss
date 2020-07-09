@@ -282,6 +282,15 @@ No media query...Bootstrap default
     }
   }
 
+  .community-photogallery {
+    .gallery-subcontent {
+      p { display: flex; flex-wrap: nowrap; justify-content: space-between;
+        img.alignnone { margin: 0 auto 20px; flex-grow: 0; width: 48%; flex-basis: 48%; background: pink; }
+      }
+
+    }
+  }
+
   /*** QMI HOME LANDING PAGE ***/
   .single-quickmoves {
     .floorplan-section {
