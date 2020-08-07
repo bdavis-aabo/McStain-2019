@@ -27,6 +27,10 @@ $_floorplans->query($_args);
       <div class="col-lg-10 col-md-10 col-sm-12">
         <div class="community-models-content">
           <?php echo get_field('models_content') ?>
+          <?php if(is_page('lost-creek-farm')): ?>
+            <button class="btn gold-btn model-btn nomobile" onclick="window.location.href = '/communities/<?php echo $post->post_name ?>/<?php echo $post->post_name ?>-gallery';" target="_blank"><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i> Photo Gallery</button>
+
+          <?php endif; ?>
         </div>
       </div>
     </div>
@@ -85,6 +89,7 @@ $_floorplans->query($_args);
         </div>
         <?php endwhile; wp_reset_postdata(); ?>
 
+        <?php if(!is_page('lost-creek-farm')): ?>
         <div class="col-6 col-sm-4 col-md-4 col-lg-2 right-btn">
           <article class="model">
             <button class="gold-btn btn btn-block model-btn" onclick="window.location.href = '/communities/<?php echo $post->post_name ?>/<?php echo $post->post_name ?>-gallery';" target="_blank">
@@ -93,6 +98,7 @@ $_floorplans->query($_args);
             </button>
           </article>
         </div>
+        <?php endif; ?>
       </div>
     </div>
   </div>

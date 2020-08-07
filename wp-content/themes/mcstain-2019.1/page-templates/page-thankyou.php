@@ -37,6 +37,7 @@
                 <li><a target="_blank" class="btn green-btn" href="<?php bloginfo('url') ?>/_floorplan-pdf/<?php echo $_community ?>/scene-brochure.pdf">Scene</a></li>
                 <li><a target="_blank" class="btn green-btn" href="<?php bloginfo('url') ?>/_floorplan-pdf/<?php echo $_community ?>/panorama-brochure.pdf">Panorama</a></li>
                 <li><a target="_blank" class="btn green-btn" href="<?php bloginfo('url') ?>/_floorplan-pdf/<?php echo $_community ?>/aspect-brochure.pdf">Aspect</a></li>
+                <li><a target="_blank" class="btn green-btn" href="<?php bloginfo('url') ?>/_floorplan-pdf/<?php echo $_community ?>/vista-brochure.pdf">Vista</a></li>
               <?php elseif($_community == 'westgrange'): ?>
                 <li><a target="_blank" class="btn green-btn" href="<?php bloginfo('url') ?>/_floorplan-pdf/<?php echo $_community ?>/concerto-brochure.pdf">Concerto</a></li>
                 <li><a target="_blank" class="btn green-btn" href="<?php bloginfo('url') ?>/_floorplan-pdf/<?php echo $_community ?>/interlude-brochure.pdf">Interlude</a></li>
