@@ -121,3 +121,21 @@ $_floorplans->query($_args);
   </div>
 </section>
 <?php endif; ?>
+
+<?php if(get_field('model_features') != ''): ?>
+<section class="bewell-section community-features">
+  <div class="accordion" id="feature-accordion">
+    <div class="card">
+      <div class="card-header" id="<?php echo 'heading'.$_c ?>">
+        <h5 class="card-toggle" data-toggle="collapse" data-target="#standard-features"
+            aria-expanded="<?php if($_c == 1): echo 'true'; else: echo 'false'; endif; ?>" aria-controls="standard-features">
+              <span class="indicator"><i class="fas fa-plus"></i></span> standard features
+        </h5>
+      </div>
+      <div id="standard-features" class="collapse " aria-labelledby="standard-features" data-parent="#feature-accordion">
+        <div class="card-body"><?php echo get_field('model_features') ?></div>
+      </div>
+    </div>
+  </div>
+</section>
+<?php endif; ?>

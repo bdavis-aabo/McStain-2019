@@ -18,6 +18,19 @@
 }
 
 .bewell-section { margin-top: 0;
+  &.community-features { display: flex; justify-content: center; width: 100%;
+    #feature-accordion { flex-basis: 80%;
+      .card { border-bottom: 1px solid rgba(0,0,0,.125);
+        #standard-features {
+          .card-body {
+            ul { display: flex; flex-wrap: wrap; justify-content: space-between; font-size: .9em; color: $gray; 
+              li { flex-basis: 49%; }
+            }
+          }
+        }
+      }
+    }
+  }
   .bewell-headline { margin-bottom: 2.5vh;
     h1 { color: $green; font-size: 2.5em; margin: 0; }
     h3 { font-family: 'uni-bold', sans-serif; font-size: 1.3em; margin: 0 0 10px; }
