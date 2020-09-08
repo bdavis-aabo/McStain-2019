@@ -129,7 +129,7 @@ $_floorplans->query($_args);
       <div class="card-header" id="<?php echo 'heading'.$_c ?>">
         <h5 class="card-toggle" data-toggle="collapse" data-target="#standard-features"
             aria-expanded="<?php if($_c == 1): echo 'true'; else: echo 'false'; endif; ?>" aria-controls="standard-features">
-              <span class="indicator"><i class="fas fa-plus"></i></span> standard features
+              <span class="indicator"><i class="fas fa-plus"></i></span> Outstanding Interiors - See Our Standard Features
         </h5>
       </div>
       <div id="standard-features" class="collapse " aria-labelledby="standard-features" data-parent="#feature-accordion">
