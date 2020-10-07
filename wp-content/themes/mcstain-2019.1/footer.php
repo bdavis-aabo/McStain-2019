@@ -37,6 +37,9 @@
             <p class="copyright">Artist renderings may not be to scale and homes may not be built as shown. McStain Neighborhoods reserves the right to change plans, elevations, specifications, materials, and pricing without prior notice. Your individual contract supersedes all features listed here and may differ in final details, specifications and finishes. McStain Neighborhoods® is a registered trademark of McStain Constructors LLC.
             </p>
           </div>
+          <div class="col-12">
+            <?php dynamic_sidebar('footer-energy'); ?>
+          </div>
         </div>
       </div>
   </footer>

@@ -11,7 +11,7 @@
     wp_enqueue_style(
       'child-main.min',
       get_stylesheet_directory_uri().'/assets/css/main.min.css',
-      array('main.min'),
+      array(),
       filemtime(get_stylesheet_directory().'/assets/css/min.min.css'),
       'all'
     );
@@ -33,6 +33,21 @@
 		  'menu_position'		=>	25,
 		  'menu_icon'       =>	'dashicons-megaphone',
 		  'has_archive'     =>	true,
-  ));
-}
+    ));
+  }
+
+  // Widgets (Directions)
+  function energy_widget(){
+    register_sidebar(array(
+      'name'          => __('Footer Energy', 'footer-energy'),
+	    'description'   => __('Widget to display EnergyStar in footer.', 'footer-energy'),
+	    'id'            => 'footer-energystar',
+	    'before_widget' => '<div class="footer-energy">',
+	    'after_widget'  => '</div>',
+	    'before_title'  => '',
+	    'after_title'   => ''
+    ));
+  }
+
+  add_action('widgets_init','energy_widget');
 ?>
