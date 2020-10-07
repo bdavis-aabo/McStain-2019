@@ -31,7 +31,7 @@
             <?php echo get_the_post_thumbnail($post->ID, 'thumbnail', array('class' => 'img-fluid aligncenter')); ?>
           </div>
           <div class="col-12 col-md-8">
-            <h1 class="article-title"><a href="<?php the_permalink() ?>" title="<?php the_title() ?>"><?php the_title() ?></a></h1>
+            <h1 class="article-title"><a href="<?php the_permalink() ?>"><?php the_title() ?></a></h1>
             <p><?php echo wp_trim_words(get_the_content(), 60, '') ?></p>
             <a href="<?php the_permalink() ?>" title="<?php echo the_title() ?>">Read More...</a>
           </div>

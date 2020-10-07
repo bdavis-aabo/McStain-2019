@@ -22,7 +22,7 @@
         <div class="carousel-item <?php if($_s == 0): echo 'active'; endif; ?>">
             <picture>
               <source media="(max-width: 375px)" srcset="<?php echo $_slideMobile['url'] ?>">
-              <img src="<?php echo $_slideImage ?>" alt="" class="img-fluid aligncenter" />
+              <img src="<?php echo $_slideImage ?>" alt="<?php the_title() ?>" class="img-fluid aligncenter" />
             </picture>
             <a href="<?php echo get_field('community_link') ?>" title="<?php the_title() ?>" class="btn ltgreen-btn community-btn">
               Tell me more

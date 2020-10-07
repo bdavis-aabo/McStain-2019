@@ -157,6 +157,20 @@
   }
 }
 
+.footer {
+  .footer-section {
+    &.footer-left {
+      .footer-social {
+        li {
+          a {
+            .social-txt { display: none; }
+          }
+        }
+      }
+    }
+  }
+}
+
 /*
 Extra small devices (portrait phones, less than 576px)
 No media query...Bootstrap default
@@ -332,6 +346,12 @@ No media query...Bootstrap default
   .community-container {
     section.community-introduction {
       .community-scroller { margin-top: 3vh;  }
+    }
+  }
+  .homepage-heroimage {
+    .homepage-heroimage-caption {
+      h1, h2 { text-shadow: 0 0 8px rgba($black,.5)}
+      h2.caption-content { font-family: 'uni-regular' !important; }
     }
   }
   .homepage-content,

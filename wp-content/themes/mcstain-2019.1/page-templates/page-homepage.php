@@ -15,14 +15,14 @@
             <?php endwhile; ?>
 
             <a href="/bewell-house-by-mcstain/" title="BeWell House, exclusively by McStain Neighborhoods" class="sidebar-btn">
-              <img src="<?php bloginfo('template_directory') ?>/assets/images/bewell-btn-mobile.jpg" class="img-fluid aligncenter" />
+              <img src="<?php bloginfo('template_directory') ?>/assets/images/bewell-btn-mobile.jpg" class="img-fluid aligncenter" alt="BeWell House, exclusively by McStain Neighborhoods" />
             </a>
           </div>
         </div>
         <div class="col-md-3">
           <div class="right-btn nomobile">
             <a href="/bewell-house-by-mcstain/" title="BeWell House, exclusively by McStain Neighborhoods">
-              <img src="<?php bloginfo('stylesheet_directory') ?>/assets/images/bewell-callout.jpg" class="img-fluid alignright" />
+              <img src="<?php bloginfo('stylesheet_directory') ?>/assets/images/bewell-callout.jpg" class="img-fluid alignright" alt="BeWell House, exclusively by McStain Neighborhoods" />
             </a>
           </div>
         </div>
