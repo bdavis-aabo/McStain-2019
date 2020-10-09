@@ -13,7 +13,7 @@
   <?php if($_realtorPage->have_posts()): while($_realtorPage->have_posts()): $_realtorPage->the_post(); the_content(); endwhile; endif; ?>
 
   <div id="contact-form">
-    <?php echo do_shortcode('[contact-form-7 id="1304" title="Realtor Information Form"]') ?>
+    <?php echo do_shortcode('[contact-form-7 id="1701" title="Realtor Information Form"]') ?>
   </div>
 </div>
 
