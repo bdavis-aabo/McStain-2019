@@ -69,7 +69,7 @@
         <?php while($_quickmoves->have_posts()): $_quickmoves->the_post(); $_homeImage = get_field('qmi_image'); ?>
         <div class="col-12 col-md-4">
           <div class="qmi-home">
-            <img src="<?php echo $_homeImage['url'] ?>" class="aligncenter img-fluid" />
+            <img src="<?php echo $_homeImage['url'] ?>" alt="<?php echo $_homeImage['alt'] ?>" class="aligncenter img-fluid" />
             <h2 class="home-name"><?php echo get_field('qmi_floorplan') ?></h2>
             <span class="address-price"><?php echo get_field('qmi_address') ?> | <strong><?php echo '$' . get_field('qmi_price') ?></strong></span>
             <p><?php echo get_field('qmi_available') ?></p>
