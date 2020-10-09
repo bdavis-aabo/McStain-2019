@@ -34,7 +34,7 @@
                 <div class="carousel-inner" role="listbox">
                 <?php foreach($_galleryImages as $_image): ?>
                   <div class="carousel-item <?php if($_s == 0): echo 'active'; endif; ?>">
-                    <img src="<?php echo $_image['url']; ?>" class="img-fluid"/>
+                    <img src="<?php echo $_image['url']; ?>" alt="<?php echo $_image['alt'] ?>" class="img-fluid"/>
                   </div>
                 <?php $_s++; endforeach; ?>
                 </div>
@@ -52,7 +52,7 @@
       <div class="container-fluid">
         <div class="row row-eq-height">
         <div class="col-2">
-        <img src="<?php echo $_logo['url'] ?>" class="img-fluid" alt="<?php the_title() ?>" class="img-fluid" alt="<?php the_title() ?>" />
+        <img src="<?php echo $_logo['url'] ?>" class="img-fluid" alt="<?php echo $_image['alt'] ?>" class="img-fluid" alt="<?php the_title() ?>" />
         </div>
 
         <div class="col-8">
@@ -69,7 +69,7 @@
 
                 foreach($_chunk as $_image):
                   $_html .= '<div class="col-md-3 col-lg-3">';
-                  $_html .= '<img src="'.$_image['url'].'" class="img-fluid"/>';
+                  $_html .= '<img src="'.$_image['url'].'" class="img-fluid"  alt="'. $_image['alt'] .'"/>';
                   $_html .= '</div>';
                 endforeach;
 
