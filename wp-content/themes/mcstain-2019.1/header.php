@@ -4,6 +4,9 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <?php if(is_page('floorplan-configurator')): ?>
+  <meta name="referrer" content="no-referrer-when-downgrade">
+  <?php endif; ?>
 
   <?php //seo plugin grabs page title ?>
 
@@ -34,7 +37,7 @@
     })(document, window, 'Chatra');
   </script>
   <!-- /Chatra -->
-  
+
   <?php include_once('assets/_inc/ga.php') ?>
 
 <?php wp_head() ?>
