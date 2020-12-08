@@ -59,6 +59,7 @@
                   <li><a href="<?php bloginfo('url') ?>/_design-pdf/2020/WG/wg_design-modern.pdf" target="_blank" class="btn green-btn">Modern</a></li>
                   <li><a href="<?php bloginfo('url') ?>/_design-pdf/2020/WG/wg_design-farmhouse.pdf" target="_blank" class="btn green-btn">Farmhouse</a></li>
                   <li><a href="<?php bloginfo('url') ?>/_design-pdf/2020/WG/wg_design-boho.pdf" target="_blank" class="btn green-btn">BOHO Chic</a></li>
+                  <li><a href="<?php bloginfo('url') ?>/_design-pdf/2020/WG/wg_design-classic.pdf" target="_blank" class="btn green-btn">Classic</a></li>
                 </ul>
               <?php elseif($_community == 'lostcreekfarm'): ?>
                 <ul class="brochure-list" id="lostcreekfarm-design-list">
