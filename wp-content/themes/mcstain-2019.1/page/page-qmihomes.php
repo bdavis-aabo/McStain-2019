@@ -9,7 +9,6 @@
     'orderby' => 'menu_order',
     'post_parent' =>  $_communityParent,
     'post__not_in'  =>  array(160),
-    'posts_per_page' => -1,
   );
   $_communities->query($_args);
 ?>
@@ -46,7 +45,7 @@
           'community'         =>  $post->post_name,
           'orderby'         =>  'menu_order',
           'order'           =>  'ASC',
-          'posts_per_page'  =>  4,
+          'posts_per_page'  =>  -1,
           'hide_empty'      =>  1
         );
         $_quickmoves = new WP_Query($_args);
