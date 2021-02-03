@@ -8,7 +8,8 @@
     'order' => 'asc',
     'orderby' => 'menu_order',
     'post_parent' =>  $_communityParent,
-    'post__not_in'  =>  array(160)
+    'post__not_in'  =>  array(160),
+    'posts_per_page' => -1,
   );
   $_communities->query($_args);
 ?>
