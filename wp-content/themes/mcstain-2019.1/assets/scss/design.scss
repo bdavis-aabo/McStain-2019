@@ -85,6 +85,7 @@ button.btn { border: none !important; }
 .red-btn { color: $white; @include sliding-btn($red);
   &:hover { background-position: -100% 0; color: $white; }
 }
+.appt-btn { background: transparent; border: none; box-shadow: none; padding: 0; border-radius: 0; }
 .right-btn,
 .left-btn  {
   .btn { display: inline-block; width: 100%; height: 100%; padding: 5%; word-wrap: break-word; white-space: normal; position: relative;

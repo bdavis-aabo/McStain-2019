@@ -13,9 +13,15 @@
       </div>
       <div class="col-md-3 col-lg-3">
         <div class="right-btn nomobile">
+        <?php if(is_page('arras-park')): ?>
+          <button class="appt-btn lightbox-trigger base-contact">
+            <img src="<?php bloginfo('stylesheet_directory') ?>/assets/images/appointment-callout.jpg" alt="Schedule Appointment Button" class="img-fluid alignright" />
+          </button>
+        <?php else: ?>
           <a href="/bewell-house-by-mcstain/" title="BeWell House, exclusively by McStain Neighborhoods">
             <img src="<?php bloginfo('stylesheet_directory') ?>/assets/images/bewell-callout.jpg" alt="BeWell House, exclusively by McStain Neighborhoods" class="img-fluid alignright" />
           </a>
+        <?php endif; ?>
         </div>
       </div>
     </div>
