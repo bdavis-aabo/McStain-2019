@@ -12,7 +12,7 @@
       'child-main.min',
       get_stylesheet_directory_uri().'/assets/css/main.min.css',
       array(),
-      filemtime(get_stylesheet_directory().'/assets/css/min.min.css'),
+      filemtime(get_stylesheet_directory().'/assets/css/main.min.css'),
       'all'
     );
   }
