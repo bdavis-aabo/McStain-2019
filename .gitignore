@@ -5,8 +5,10 @@ wp-content/backup/*
 wp-content/cache/*
 wp-content/upgrade/*
 wp-content/uploads/*
+wp-content/plugins/*
 _email-images/*
 _floorplan-pdf/*
+dev/
 
 config.codekit3
 sitemap.*
