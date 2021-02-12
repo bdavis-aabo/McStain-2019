@@ -4,10 +4,16 @@
 
 namespace WPGMZA;
 
+if(!defined('ABSPATH'))
+	return;
+
 class MarkerFilter extends Factory
 {
 	protected $_center;
 	protected $_radius;
+	
+	protected $_offset;
+	protected $_limit;
 	
 	public function __construct($options=null)
 	{
@@ -44,6 +50,16 @@ class MarkerFilter extends Factory
 					
 					break;
 					
+				case 'limit':
+				case 'offset':
+				
+					if(!is_numeric($value))
+						throw new \Exception('Value must be numeric');
+					
+					$this->{"_$name"} = $value;
+				
+					break;
+					
 				default:
 				
 					$this->{"_$name"} = $value;
@@ -69,10 +85,15 @@ class MarkerFilter extends Factory
 		$this->map = new Map($id);
 	}
 	
-	protected function applyRadiusClause($query)
+	protected function applyRadiusClause($query, $context=Query::WHERE)
 	{
+		global $wpgmza;
+		
 		if(!$this->center || !$this->radius)
 			return;
+		
+		if(empty($this->map))
+			$this->loadMap();
 		
 		$lat = $this->_center['lat'] / 180 * 3.1415926;
 		$lng = $this->_center['lng'] / 180 * 3.1415926;
@@ -81,31 +102,31 @@ class MarkerFilter extends Factory
 		if($this->map && $this->map->storeLocatorDistanceUnits == Distance::UNITS_MI)
 			$radius *= Distance::KILOMETERS_PER_MILE;
 		
-		$query->where['radius'] = '
+		$query->{$context}['radius'] = "
 			(
-				6381 *
+				6371 *
 			
 				2 *
 			
 				ATAN2(
 					SQRT(
-						POW( SIN( ( (X(latlng) / 180 * 3.1415926) - %f ) / 2 ), 2 ) +
-						COS( X(latlng) / 180 * 3.1415926 ) * COS( %f ) *
-						POW( SIN( ( (Y(latlng) / 180 * 3.1415926) - %f ) / 2 ), 2 )
+						POW( SIN( ( ({$wpgmza->spatialFunctionPrefix}X(latlng) / 180 * 3.1415926) - %f ) / 2 ), 2 ) +
+						COS( {$wpgmza->spatialFunctionPrefix}X(latlng) / 180 * 3.1415926 ) * COS( %f ) *
+						POW( SIN( ( ({$wpgmza->spatialFunctionPrefix}Y(latlng) / 180 * 3.1415926) - %f ) / 2 ), 2 )
 					),
 					
 					SQRT(1 - 
 						(
-							POW( SIN( ( (X(latlng) / 180 * 3.1415926) - %f ) / 2 ), 2 ) +
-							COS( X(latlng) / 180 * 3.1415926 ) * COS( %f ) *
-							POW( SIN( ( (Y(latlng) / 180 * 3.1415926) - %f ) / 2 ), 2 )
+							POW( SIN( ( ({$wpgmza->spatialFunctionPrefix}X(latlng) / 180 * 3.1415926) - %f ) / 2 ), 2 ) +
+							COS( {$wpgmza->spatialFunctionPrefix}X(latlng) / 180 * 3.1415926 ) * COS( %f ) *
+							POW( SIN( ( ({$wpgmza->spatialFunctionPrefix}Y(latlng) / 180 * 3.1415926) - %f ) / 2 ), 2 )
 						)
 					)
 				)
 			)
 			
 			< %f
-		';
+		";
 		
 		$query->params[] = $lat;
 		$query->params[] = $lat;
@@ -118,6 +139,29 @@ class MarkerFilter extends Factory
 		$query->params[] = $radius;
 	}
 	
+	protected function applyIDsClause($set)
+	{
+		if(empty($this->ids))
+			return;
+		
+		$query->in('id', $set);
+	}
+	
+	protected function applyLimit($query)
+	{
+		if(empty($this->_limit))
+			return;
+		
+		$limit = "";
+		
+		if(!empty($this->_offset) || $this->_offset === 0 || $this->_offset === "0")
+			$limit = $this->_offset . ",";
+		
+		$limit .= $this->_limit;
+		
+		$query->limit = $limit;
+	}
+		
 	public function getQuery()
 	{
 		global $WPGMZA_TABLE_NAME_MARKERS;
@@ -128,27 +172,48 @@ class MarkerFilter extends Factory
 		$query->table	= $WPGMZA_TABLE_NAME_MARKERS;
 		
 		$this->applyRadiusClause($query);
+		$this->applyIDsClause($query);
+		$this->applyLimit($query);
 		
 		return $query;
+	}
+	
+	public function getColumns($fields=null)
+	{
+		if(empty($fields))
+			return array('*');
+		
+		$result = array();
+		
+		foreach($fields as $field)
+			$result[] = $field;
+			
+		return $result;
 	}
 	
 	public function getFilteredMarkers($fields=null)
 	{
 		global $wpdb;
 		
-		$query = $this->getQuery();
-		
-		if(empty($fields))
-			$query->fields[] = '*';
-		else
-			foreach($fields as $field)
-				$query->fields[] = $field;
+		$query = $this->getQuery($fields);
+		$query->fields = $this->getColumns($fields);
 		
 		$sql = $query->build();
-		
+
 		$results = $wpdb->get_results($sql);
 		
-		return $results;
+		// NB: Optimize by only fetching ID here, for filtering. Only fetch the rest if fetch ID not set.
+		if(count($query->fields) == 1 && $query->fields[0] == 'id')
+			return $results;
+		
+		$markers = array();
+		
+		foreach($results as $data)
+		{
+			$markers[] = Marker::createInstance($data, Crud::BULK_READ);
+		}
+		
+		return apply_filters('wpgmza_fetch_integrated_markers', $markers, $this);
 	}
 	
 	public function getFilteredIDs()
@@ -160,8 +225,13 @@ class MarkerFilter extends Factory
 		$query->fields[] = 'id';
 		
 		$sql = $query->build();
+		$ids = $wpdb->get_col($sql);
 		
-		return $wpdb->get_col($sql);
+		$integrated = apply_filters('wpgmza_fetch_integrated_markers', $markers, $this);
+		foreach($integrated as $key => $value)
+			$ids[] = $value->id;
+		
+		return $ids;
 	}
 	
 	

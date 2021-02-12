@@ -5,6 +5,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
+use Elementor\Core\Kits\Documents\Tabs\Global_Colors;
+use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
+
 /**
  * Elementor image widget.
  *
@@ -91,10 +94,10 @@ class Widget_Image extends Widget_Base {
 	 *
 	 * Adds different input fields to allow the user to change and customize the widget settings.
 	 *
-	 * @since 1.0.0
+	 * @since 3.1.0
 	 * @access protected
 	 */
-	protected function _register_controls() {
+	protected function register_controls() {
 		$this->start_controls_section(
 			'section_image',
 			[
@@ -133,15 +136,15 @@ class Widget_Image extends Widget_Base {
 				'options' => [
 					'left' => [
 						'title' => __( 'Left', 'elementor' ),
-						'icon' => 'fa fa-align-left',
+						'icon' => 'eicon-text-align-left',
 					],
 					'center' => [
 						'title' => __( 'Center', 'elementor' ),
-						'icon' => 'fa fa-align-center',
+						'icon' => 'eicon-text-align-center',
 					],
 					'right' => [
 						'title' => __( 'Right', 'elementor' ),
-						'icon' => 'fa fa-align-right',
+						'icon' => 'eicon-text-align-right',
 					],
 				],
 				'selectors' => [
@@ -284,7 +287,7 @@ class Widget_Image extends Widget_Base {
 		$this->add_responsive_control(
 			'space',
 			[
-				'label' => __( 'Max Width', 'elementor' ) . ' (%)',
+				'label' => __( 'Max Width', 'elementor' ),
 				'type' => Controls_Manager::SLIDER,
 				'default' => [
 					'unit' => '%',
@@ -295,15 +298,75 @@ class Widget_Image extends Widget_Base {
 				'mobile_default' => [
 					'unit' => '%',
 				],
-				'size_units' => [ '%' ],
+				'size_units' => [ '%', 'px', 'vw' ],
 				'range' => [
 					'%' => [
+						'min' => 1,
+						'max' => 100,
+					],
+					'px' => [
+						'min' => 1,
+						'max' => 1000,
+					],
+					'vw' => [
 						'min' => 1,
 						'max' => 100,
 					],
 				],
 				'selectors' => [
 					'{{WRAPPER}} .elementor-image img' => 'max-width: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'height',
+			[
+				'label' => __( 'Height', 'elementor' ),
+				'type' => Controls_Manager::SLIDER,
+				'default' => [
+					'unit' => 'px',
+				],
+				'tablet_default' => [
+					'unit' => 'px',
+				],
+				'mobile_default' => [
+					'unit' => 'px',
+				],
+				'size_units' => [ 'px', 'vh' ],
+				'range' => [
+					'px' => [
+						'min' => 1,
+						'max' => 500,
+					],
+					'vh' => [
+						'min' => 1,
+						'max' => 100,
+					],
+				],
+				'selectors' => [
+					'{{WRAPPER}} .elementor-image img' => 'height: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'object-fit',
+			[
+				'label' => __( 'Object Fit', 'elementor' ),
+				'type' => Controls_Manager::SELECT,
+				'condition' => [
+					'height[size]!' => '',
+				],
+				'options' => [
+					'' => __( 'Default', 'elementor' ),
+					'fill' => __( 'Fill', 'elementor' ),
+					'cover' => __( 'Cover', 'elementor' ),
+					'contain' => __( 'Contain', 'elementor' ),
+				],
+				'default' => '',
+				'selectors' => [
+					'{{WRAPPER}} .elementor-image img' => 'object-fit: {{VALUE}};',
 				],
 			]
 		);
@@ -466,19 +529,19 @@ class Widget_Image extends Widget_Base {
 				'options' => [
 					'left' => [
 						'title' => __( 'Left', 'elementor' ),
-						'icon' => 'fa fa-align-left',
+						'icon' => 'eicon-text-align-left',
 					],
 					'center' => [
 						'title' => __( 'Center', 'elementor' ),
-						'icon' => 'fa fa-align-center',
+						'icon' => 'eicon-text-align-center',
 					],
 					'right' => [
 						'title' => __( 'Right', 'elementor' ),
-						'icon' => 'fa fa-align-right',
+						'icon' => 'eicon-text-align-right',
 					],
 					'justify' => [
 						'title' => __( 'Justified', 'elementor' ),
-						'icon' => 'fa fa-align-justify',
+						'icon' => 'eicon-text-align-justify',
 					],
 				],
 				'default' => '',
@@ -497,9 +560,8 @@ class Widget_Image extends Widget_Base {
 				'selectors' => [
 					'{{WRAPPER}} .widget-image-caption' => 'color: {{VALUE}};',
 				],
-				'scheme' => [
-					'type' => Scheme_Color::get_type(),
-					'value' => Scheme_Color::COLOR_3,
+				'global' => [
+					'default' => Global_Colors::COLOR_TEXT,
 				],
 			]
 		);
@@ -520,7 +582,9 @@ class Widget_Image extends Widget_Base {
 			[
 				'name' => 'caption_typography',
 				'selector' => '{{WRAPPER}} .widget-image-caption',
-				'scheme' => Scheme_Typography::TYPOGRAPHY_3,
+				'global' => [
+					'default' => Global_Typography::TYPOGRAPHY_TEXT,
+				],
 			]
 		);
 
@@ -583,7 +647,7 @@ class Widget_Image extends Widget_Base {
 					$caption = wp_get_attachment_caption( $settings['image']['id'] );
 					break;
 				case 'custom':
-					$caption = ! empty( $settings['caption'] ) ? $settings['caption'] : '';
+					$caption = ! Utils::is_empty( $settings['caption'] ) ? $settings['caption'] : '';
 			}
 		}
 		return $caption;
@@ -615,10 +679,7 @@ class Widget_Image extends Widget_Base {
 		$link = $this->get_link_url( $settings );
 
 		if ( $link ) {
-			$this->add_render_attribute( 'link', [
-				'href' => $link['url'],
-				'data-elementor-open-lightbox' => $settings['open_lightbox'],
-			] );
+			$this->add_link_attributes( 'link', $link );
 
 			if ( Plugin::$instance->editor->is_edit_mode() ) {
 				$this->add_render_attribute( 'link', [
@@ -626,12 +687,8 @@ class Widget_Image extends Widget_Base {
 				] );
 			}
 
-			if ( ! empty( $link['is_external'] ) ) {
-				$this->add_render_attribute( 'link', 'target', '_blank' );
-			}
-
-			if ( ! empty( $link['nofollow'] ) ) {
-				$this->add_render_attribute( 'link', 'rel', 'nofollow' );
+			if ( 'custom' !== $settings['link_to'] ) {
+				$this->add_lightbox_data_attributes( 'link', $settings['image']['id'], $settings['open_lightbox'] );
 			}
 		} ?>
 		<div <?php echo $this->get_render_attribute_string( 'wrapper' ); ?>>
@@ -660,10 +717,10 @@ class Widget_Image extends Widget_Base {
 	 *
 	 * Written as a Backbone JavaScript template and used to generate the live preview.
 	 *
-	 * @since 1.0.0
+	 * @since 2.9.0
 	 * @access protected
 	 */
-	protected function _content_template() {
+	protected function content_template() {
 		?>
 		<# if ( settings.image.url ) {
 			var image = {
@@ -772,6 +829,7 @@ class Widget_Image extends Widget_Base {
 			if ( empty( $settings['link']['url'] ) ) {
 				return false;
 			}
+
 			return $settings['link'];
 		}
 

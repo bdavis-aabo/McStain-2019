@@ -17,28 +17,13 @@ jQuery(function($) {
 		
 		Parent.call(this, element, options);
 		
-		if(!window.google)
-		{
-			var status = WPGMZA.googleAPIStatus;
-			var message = "Google API not loaded";
-			
-			if(status && status.message)
-				message += " - " + status.message;
-			
-			if(status.code == "USER_CONSENT_NOT_GIVEN")
-			{
-				return;
-			}
-			
-			$(element).html("<div class='notice notice-error'><p>" + WPGMZA.localized_strings.google_api_not_loaded + "<pre>" + message + "</pre></p></div>");
-			
-			throw new Error(message);
-		}
-		
 		this.loadGoogleMap();
 		
-		if(options)
-			this.setOptions(options);
+		if(options){
+			this.setOptions(options, true);
+		} else {
+			this.setOptions({}, true);
+		}
 
 		google.maps.event.addListener(this.googleMap, "click", function(event) {
 			var wpgmzaEvent = new WPGMZA.Event("click");
@@ -79,6 +64,9 @@ jQuery(function($) {
 			
 			this.dispatchEvent("created");
 			WPGMZA.events.dispatchEvent({type: "mapcreated", map: this});
+			
+			// Legacy event
+			$(this.element).trigger("wpgooglemaps_loaded");
 		}
 	}
 	
@@ -95,6 +83,46 @@ jQuery(function($) {
 	}
 	WPGMZA.GoogleMap.prototype.constructor = WPGMZA.GoogleMap;
 	
+	WPGMZA.GoogleMap.parseThemeData = function(raw)
+	{
+		var json;
+		
+		try{
+			json = JSON.parse(raw);	// Try to parse strict JSON
+		}catch(e) {
+			
+			try{
+				
+				json = eval(raw);	// Try to parse JS object
+				
+			}catch(e) {
+				
+				var str = raw;
+				
+				str = str.replace(/\\'/g, '\'');
+				str = str.replace(/\\"/g, '"');
+				str = str.replace(/\\0/g, '\0');
+				str = str.replace(/\\\\/g, '\\');
+				
+				try{
+					
+					json = eval(str);
+					
+				}catch(e) {
+					
+					console.warn("Couldn't parse theme data");
+				
+				return [];
+					
+				}
+				
+			}
+			
+		}
+		
+		return json;
+	}
+	
 	/**
 	 * Creates the Google Maps map
 	 * @return void
@@ -109,26 +137,34 @@ jQuery(function($) {
 		google.maps.event.addListener(this.googleMap, "bounds_changed", function() { 
 			self.onBoundsChanged();
 		});
-		
+
 		if(this.settings.bicycle == 1)
 			this.enableBicycleLayer(true);
 		if(this.settings.traffic == 1)
 			this.enableTrafficLayer(true);
-		if(this.settings.transport == 1)
+		if(this.settings.transport_layer)
 			this.enablePublicTransportLayer(true);
-		this.showPointsOfInterest(this.settings.show_point_of_interest);
+
+		this.showPointsOfInterest(this.settings.wpgmza_show_point_of_interest);
 		
 		// Move the loading wheel into the map element (it has to live outside in the HTML file because it'll be overwritten by Google otherwise)
 		$(this.engineElement).append($(this.element).find(".wpgmza-loader"));
 	}
 	
-	WPGMZA.GoogleMap.prototype.setOptions = function(options)
+	WPGMZA.GoogleMap.prototype.setOptions = function(options, initializing)
 	{
 		Parent.prototype.setOptions.call(this, options);
 		
-		var converted = $.extend(options, this.settings.toGoogleMapsOptions());
+		if(options.scrollwheel)
+			delete options.scrollwheel;	// NB: Delete this when true, scrollwheel: true breaks gesture handling
 		
-		//this.googleMap.setOptions(converted);
+		if(!initializing)
+		{
+			this.googleMap.setOptions(options);
+			return;
+		}
+		
+		var converted = $.extend(options, this.settings.toGoogleMapsOptions());
 		
 		var clone = $.extend({}, converted);
 		if(!clone.center instanceof google.maps.LatLng && (clone.center instanceof WPGMZA.LatLng || typeof clone.center == "object"))
@@ -137,7 +173,7 @@ jQuery(function($) {
 				lng: parseFloat(clone.center.lng)
 			};
 		
-		if(this.settings.hide_point_of_interest == "1")
+		if(this.settings.hide_point_of_interest)
 		{
 			var noPoi = {
 				featureType: "poi",
@@ -238,6 +274,20 @@ jQuery(function($) {
 		Parent.prototype.removeCircle.call(this, circle);
 	}
 	
+	WPGMZA.GoogleMap.prototype.addRectangle = function(rectangle)
+	{
+		rectangle.googleRectangle.setMap(this.googleMap);
+		
+		Parent.prototype.addRectangle.call(this, rectangle);
+	}
+	
+	WPGMZA.GoogleMap.prototype.removeRectangle = function(rectangle)
+	{
+		rectangle.googleRectangle.setMap(null);
+		
+		Parent.prototype.removeRectangle.call(this, rectangle);
+	}
+	
 	/**
 	 * Delegate for google maps getCenter
 	 * @return void
@@ -309,8 +359,8 @@ jQuery(function($) {
 	 * Gets the bounds
 	 * @return object
 	 */
-	WPGMZA.GoogleMap.prototype.getBounds = function()
-	{
+	WPGMZA.GoogleMap.prototype.getBounds = function() {
+		
 		var bounds = this.googleMap.getBounds();
 		var northEast = bounds.getNorthEast();
 		var southWest = bounds.getSouthWest();
@@ -416,10 +466,10 @@ jQuery(function($) {
 	 * @return void
 	 */
 	WPGMZA.GoogleMap.prototype.enablePublicTransportLayer = function(enable)
-	{
+	{		
 		if(!this.publicTransportLayer)
 			this.publicTransportLayer = new google.maps.TransitLayer();
-		
+				
 		this.publicTransportLayer.setMap(
 			enable ? this.googleMap : null
 		);
@@ -432,7 +482,7 @@ jQuery(function($) {
 	 */
 	WPGMZA.GoogleMap.prototype.showPointsOfInterest = function(show)
 	{
-		// TODO: This will bug the front end because there is textarea with theme data
+		// TODO: This will bug the front end because there is no textarea with theme data
 		var text = $("textarea[name='theme_data']").val();
 		
 		if(!text)
@@ -545,6 +595,17 @@ jQuery(function($) {
 		if(!this.googleMap)
 			return;
 		google.maps.event.trigger(this.googleMap, "resize");
+	}
+
+	WPGMZA.GoogleMap.prototype.enableAllInteractions = function()
+	{	
+		var options = {};
+
+		options.scrollwheel				= true;
+		options.draggable				= true;
+		options.disableDoubleClickZoom	= false;
+		
+		this.googleMap.setOptions(options);
 	}
 	
 });

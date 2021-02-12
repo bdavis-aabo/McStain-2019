@@ -8,7 +8,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-$event = isset( $_REQUEST['id'] ) ? CustomEventFactory::getById( $_REQUEST['id'] ) : new CustomEvent();
+if(isset( $_REQUEST['id'] )) {
+    $id = sanitize_key($_REQUEST['id']);
+    $event = CustomEventFactory::getById($id );
+} else {
+    $event =  new CustomEvent();
+}
+
 
 ?>
 
@@ -53,10 +59,13 @@ $event = isset( $_REQUEST['id'] ) ? CustomEventFactory::getById( $_REQUEST['id']
         Event Trigger
     </div>
     <div class="card-body">
-        <div class="row">
+        <div class="row mb-3">
             <div class="col form-inline">
 				<label>Fire event when</label>
 	            <?php Events\renderTriggerTypeInput( $event, 'trigger_type' ); ?>
+                <div class="triger_post_type form-inline" style="display: none">
+                    <?php Events\renderPostTypeSelect( $event, 'post_type_value' ); ?>
+                </div>
                 <div class="event-delay form-inline">
                     <label>with delay</label>
                     <?php Events\renderNumberInput( $event, 'delay', '0' ); ?>
@@ -64,6 +73,17 @@ $event = isset( $_REQUEST['id'] ) ? CustomEventFactory::getById( $_REQUEST['id']
                 </div>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col form-inline">
+                <?php Events\renderSwitcherInput( $event, 'enable_time_window',true ); ?>
+                <label>Fire this event only once in</label>
+                <?php Events\renderNumberInput( $event, 'time_window', '24' ); ?>
+                <label>hours</label>
+                <?php renderProBadge( 'https://www.pixelyoursite.com/?utm_source=pys-free-plugin&utm_medium=pro-badge&utm_campaign=pro-feature' ); ?>
+            </div>
+        </div>
+
 
         <div id="page_visit_panel" class="event_triggers_panel" data-trigger_type="page_visit" style="display: none;">
             <div class="row mt-3 event_trigger" data-trigger_id="0" style="display: none;">
@@ -435,42 +455,140 @@ $event = isset( $_REQUEST['id'] ) ? CustomEventFactory::getById( $_REQUEST['id']
             </div>
             <div id="analytics_panel">
                 <div class="row mt-3">
-                    <div class="col col-offset-left">
+                    <div class="col ">
+                        <?php
+                        if(GA()->isUse4Version()) :
+                        ?>
                         <div class="row mb-3">
-                            <label class="col-5 control-label">Action</label>
-                            <div class="col-4">
-                                <?php Events\renderGoogleAnalyticsActionInput( $event, 'ga_event_action' ); ?>
-                            </div>
-                            <div class="col-3">
+                            <div class="col col-offset-left form-inline" >
+                                <script>
+                                    <?php
+                                    $fields = array();
+                                    foreach ($event->GAEvents as $group => $items) {
+                                        foreach ($items as $name => $elements) {
+                                            $fields[] = array("name"=>$name,'fields'=>$elements);
+                                        }
+                                    }
+
+                                    ?>
+                                    var ga_fields = <?=json_encode($fields)?>
+                                </script>
+                                <label class=" control-label">Event</label>
+
+                                <?php  Events\renderGoogleAnalyticsV4ActionInput( $event, 'ga_event_action' ); ?>
+
                                 <div id="ga-custom-action">
                                     <?php Events\renderTextInput( $event, 'ga_custom_event_action', 'Enter name' ); ?>
                                 </div>
                             </div>
                         </div>
-                        <div class="row mb-3">
-                            <label class="col-5 control-label">Category</label>
-                            <div class="col-4">
-                                <?php Events\renderTextInput( $event, 'ga_event_category' ); ?>
-                            </div>
+                        <div class="ga-param-list">
+                            <?php
+                            foreach($event->getGaParams() as $key=>$val) : ?>
+                                <div class="row mb-3 ga_param">
+                                    <label class="col-5 control-label"><?=$key?></label>
+                                    <div class="col-4">
+                                        <?php Events\renderGAParamInput( $key, $val ); ?>
+                                    </div>
+                                </div>
+                            <?php endforeach;?>
                         </div>
-                        <div class="row mb-3">
-                            <label class="col-5 control-label">Label</label>
-                            <div class="col-4">
-                                <?php Events\renderTextInput( $event, 'ga_event_label' ); ?>
-                            </div>
+                        <div class="ga-custom-param-list">
+                            <?php
+                            foreach ( $event->getGACustomParams() as $key => $custom_param ) : ?>
+                                <?php $param_id = $key + 1; ?>
+
+                                <div class="row mt-3 ga-custom-param" data-param_id="<?php echo $param_id; ?>">
+                                    <div class="col">
+                                        <div class="row">
+                                            <div class="col-1"></div>
+                                            <div class="col-4">
+                                                <input type="text" placeholder="Enter name" class="form-control custom-param-name"
+                                                       name="pys[event][ga_custom_params][<?php echo $param_id; ?>][name]"
+                                                       value="<?php esc_attr_e( $custom_param['name'] ); ?>">
+                                            </div>
+                                            <div class="col-4">
+                                                <input type="text" placeholder="Enter value" class="form-control custom-param-value"
+                                                       name="pys[event][ga_custom_params][<?php echo $param_id; ?>][value]"
+                                                       value="<?php esc_attr_e( $custom_param['value'] ); ?>">
+                                            </div>
+                                            <div class="col-2">
+                                                <button type="button" class="btn btn-sm remove-row">
+                                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
                         </div>
-                        <div class="row mb-3">
-                            <label class="col-5 control-label">Value</label>
+
+
+                        <div class="row mt-3">
+                            <div class="col-5"></div>
                             <div class="col-4">
-                                <?php Events\renderTextInput( $event, 'ga_event_value' ); ?>
+                                <button class="btn btn-sm btn-block btn-primary add-ga-custom-parameter" type="button">Add
+                                    Custom Parameter</button>
                             </div>
                         </div>
                         <div class="row mb">
                             <label class="col-5 control-label">Non-interactive</label>
                             <div class="col-4">
-	                            <?php Events\renderSwitcherInput( $event, 'ga_non_interactive' ); ?>
+                                <?php Events\renderSwitcherInput( $event, 'ga_non_interactive' ); ?>
                             </div>
                         </div>
+                        <div class="row mt-3">
+                            <div class="col-12">
+                                The following parameters are automatically tracked: content_name, event_url, post_id, post_type. The paid version tracks the event_hour, event_month, and event_day.
+                            </div>
+                                </div>
+                            <div class="row mt-3 ga_woo_info" style="display: none">
+                                <div class="col-12">
+                                    <strong>ATTENTION</strong>:​ the plugin automatically tracks ecommerce specific events for WooCommerce and Easy Digital Downloads. Make sure you really need this event.
+                                </div>
+                            </div>
+                        <?php  elseif($event->getGaVersion() == "4"):  ?>
+                        <div class="row mb-3">
+                            Google Analytics doesn't work for this event. Enable Google Analytics 4
+                        </div>
+
+                    <?php else:?>
+                    <div class="row mb-3">
+                        <label class="col-5 control-label">Action</label>
+                        <div class="col-4">
+                            <?php  Events\renderGoogleAnalyticsActionInput( $event, 'ga_event_action' ); ?>
+                        </div>
+                        <div class="col-3">
+                            <div id="ga-custom-action">
+                                <?php Events\renderTextInput( $event, 'ga_custom_event_action', 'Enter name' ); ?>
+                            </div>
+                        </div>
+                            </div>
+                    <div class="row mb-3">
+                        <label class="col-5 control-label">Category</label>
+                        <div class="col-4">
+                            <?php Events\renderTextInput( $event, 'ga_event_category' ); ?>
+                        </div>
+                            </div>
+                    <div class="row mb-3">
+                        <label class="col-5 control-label">Label</label>
+                        <div class="col-4">
+                            <?php Events\renderTextInput( $event, 'ga_event_label' ); ?>
+                        </div>
+                            </div>
+                    <div class="row mb-3">
+                        <label class="col-5 control-label">Value</label>
+                        <div class="col-4">
+                            <?php Events\renderTextInput( $event, 'ga_event_value' ); ?>
+                        </div>
+                    </div>
+                        <div class="row mb">
+                            <label class="col-5 control-label">Non-interactive</label>
+                            <div class="col-4">
+                                <?php Events\renderSwitcherInput( $event, 'ga_non_interactive' ); ?>
+                            </div>
+                        </div>
+                    <?php endif?>
                     </div>
                 </div>
             </div>
@@ -480,7 +598,7 @@ $event = isset( $_REQUEST['id'] ) ? CustomEventFactory::getById( $_REQUEST['id']
 
 <div class="card card-disabled">
     <div class="card-header">
-        Google Ads <?php renderProBadge(); ?><?php cardCollapseBtn(); ?>
+        Google Ads <?php renderProBadge('https://www.pixelyoursite.com/google-ads-tag/?utm_source=pys-free-plugin&utm_medium=pro-badge&utm_campaign=pro-feature'); ?><?php cardCollapseBtn(); ?>
     </div>
     <div class="card-body">
         <div class="row mb-2">
@@ -549,6 +667,10 @@ $event = isset( $_REQUEST['id'] ) ? CustomEventFactory::getById( $_REQUEST['id']
 
 <?php if ( Pinterest()->enabled() ) : ?>
     <?php Pinterest()->renderCustomEventOptions( $event ); ?>
+<?php endif; ?>
+
+<?php if ( Bing()->enabled() ) : ?>
+    <?php Bing()->renderCustomEventOptions( $event ); ?>
 <?php endif; ?>
 
 <div class="card card-static card-disabled">

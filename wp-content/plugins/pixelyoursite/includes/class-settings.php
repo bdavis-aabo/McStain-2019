@@ -291,6 +291,56 @@ abstract class Settings {
 		<?php
 		
 	}
+
+    /**
+     * Output text area input array item
+     *
+     * @param        $key
+     * @param string $placeholder
+     * @param int    $index
+     */
+    public function render_text_area_array_item( $key, $placeholder = '', $index = 0 ) {
+
+        $attr_name = "pys[$this->slug][$key][]";
+        $attr_id = 'pys_' . $this->slug . '_' . $key . '_' . $index;
+
+        $values = (array) $this->getOption( $key );
+        $attr_value = isset( $values[ $index ] ) ? $values[ $index ] : null;
+
+        ?>
+
+        <textarea type="text" name="<?php esc_attr_e( $attr_name ); ?>"
+                  id="<?php esc_attr_e( $attr_id ); ?>"
+                  placeholder="<?php esc_attr_e( $placeholder ); ?>"
+                  class="form-control"><?php esc_attr_e( $attr_value ); ?></textarea>
+
+        <?php
+    }
+
+    /**
+     * Output text input array item
+     *
+     * @param        $key
+     * @param string $placeholder
+     * @param int    $index
+     */
+    public function render_text_input_array_item( $key, $placeholder = '', $index = 0 ) {
+
+        $attr_name = "pys[$this->slug][$key][]";
+        $attr_id = 'pys_' . $this->slug . '_' . $key . '_' . $index;
+
+        $values = (array) $this->getOption( $key );
+        $attr_value = isset( $values[ $index ] ) ? $values[ $index ] : null;
+
+        ?>
+
+        <input type="text" name="<?php esc_attr_e( $attr_name ); ?>"
+               id="<?php esc_attr_e( $attr_id ); ?>"
+               value="<?php esc_attr_e( $attr_value ); ?>"
+               placeholder="<?php esc_attr_e( $placeholder ); ?>"
+               class="form-control">
+        <?php
+    }
 	
 	/**
 	 * Output text area input
@@ -412,7 +462,7 @@ abstract class Settings {
 	 * @param      $label
 	 * @param bool $disabled
 	 */
-	public function render_radio_input( $key, $value, $label, $disabled = false ) {
+	public function render_radio_input( $key, $value, $label, $disabled = false, $with_pro_badge = false ) {
   
 		$attr_name = "pys[$this->slug][$key]";
  
@@ -424,6 +474,9 @@ abstract class Settings {
                    value="<?php esc_attr_e( $value ); ?>">
             <span class="custom-control-indicator"></span>
             <span class="custom-control-description"><?php echo wp_kses_post( $label ); ?></span>
+	        <?php if ( $with_pro_badge ) {
+		        renderCogBadge();
+	        } ?>
         </label>
 
 		<?php
@@ -697,5 +750,26 @@ abstract class Settings {
 		return $sanitized;
 		
 	}
+
+    public function render_checkbox_input_array( $key, $label, $index = 0, $disabled = false ) {
+
+        $attr_name  = "pys[$this->slug][$key][]";
+        $attr_values = (array)$this->getOption( $key );
+        $value = "index_".$index;
+        $valueIndex = array_search($value,$attr_values);
+
+        ?>
+
+        <label class="custom-control custom-checkbox">
+            <input type="checkbox" name="<?php esc_attr_e( $attr_name ); ?>" value="<?=$value?>"
+                   class="custom-control-input" <?php disabled( $disabled, true ); ?>
+                <?=$valueIndex !== false ? "checked" : "" ?>>
+            <span class="custom-control-indicator"></span>
+            <span class="custom-control-description"><?php echo wp_kses_post( $label ); ?></span>
+        </label>
+
+        <?php
+
+    }
 	
 }

@@ -2,7 +2,10 @@
 
 namespace WPGMZA;
 
-class QueryFragment implements \ArrayAccess
+if(!defined('ABSPATH'))
+	return;
+
+class QueryFragment implements \ArrayAccess, \Countable
 {
 	private $nextIndex = 0;
 	
@@ -42,6 +45,27 @@ class QueryFragment implements \ArrayAccess
 		array_shift($arr);
 		
 		return $arr;
+	}
+	
+	public function count()
+	{
+		$count = 0;
+		
+		foreach($this as $key => $value)
+			$count++;
+		
+		return $count - 1;
+	}
+	
+	public function clear()
+	{
+		foreach($this as $key => $value)
+		{
+			if($key == 'nextIndex')
+				continue;
+				
+			unset($this->{$key});
+		}
 	}
 }
 

@@ -24,31 +24,6 @@ class SWP_Pro_Options_Page extends SWP_Options_Page {
 
 		$advanced = $SWP_Options_Page->tabs->advanced;
 
-		$bitly = new SWP_Options_Page_Section( __( 'Bitly Link Shortening', 'social-warfare'), 'bitly' );
-		$bitly->set_description( __( 'If you like to have all of your links automatically shortened, turn this on.', 'social-warfare') )
-			->set_information_link( 'https://warfareplugins.com/support/options-page-advanced-tab-bitly-link-shortening/' )
-			->set_priority( 20 );
-
-			//* linkShortening => bitly_authentication
-			$bitly_authentication = new SWP_Option_Toggle( __('Bitly Link Shortening', 'social-warfare' ), 'bitly_authentication' );
-			$bitly_authentication->set_size( 'sw-col-300' )
-				->set_priority( 10 )
-				->set_default( false )
-				->set_premium( 'pro' );
-
-			$bitly_connection = new SWP_Section_HTML( __('Connect Your Bitly Account', 'social-warfare' ), 'bitly_connection' );
-			$bitly_connection->set_priority( 20 )
-				->set_premium( 'pro' )
-				->do_bitly_authentication_button();
-
-			$bitly_start_date = new SWP_Section_HTML( __('When should we start making Bitly links? This can be in the past.', 'social-warfare'), 'bitly_start_date' );
-			$bitly_start_date->set_priority( 30 )
-				->set_premium( 'pro' )
-				->set_dependency( 'bitly_authentication', array( true ) )
-				->do_bitly_start_date();
-
-			$bitly->add_options( [$bitly_authentication, $bitly_connection, $bitly_start_date] );
-
 
 		$analytics_tracking = new SWP_Options_Page_Section( __('Analytics Tracking', 'social-warfare' ), 'analytics_tracking' );
 		$analytics_tracking->set_description( __( 'If you want to activate UTM tracking for shared URL, turn this on.', 'social-warfare') )
@@ -247,7 +222,7 @@ class SWP_Pro_Options_Page extends SWP_Options_Page {
 			$recovery_permalink, $recovery_prefix, $recovery_subdomain, $recovery_protocol,
 			$cross_domain, $former_domain, $current_domain] );
 
-		$advanced->add_sections( [$bitly, $analytics_tracking, $advanced_pinterest, $share_recovery] );
+		$advanced->add_sections( array( $analytics_tracking, $advanced_pinterest, $share_recovery) );
 
 		return $this;
 	}
@@ -275,14 +250,34 @@ class SWP_Pro_Options_Page extends SWP_Options_Page {
 
 		$display->sections->social_networks->add_option( $order_of_icons );
 
+			$emphasize_icon = new SWP_Option_Select( __( 'Emphasize Buttons','social-warfare' ), 'emphasized_icon' );
+			$emphasize_icon->set_choices(array(
+					'0' 	=> __( 'Don\'t Emphasize Any Buttons','social-warfare' ),
+					'1' 	=> __( 'Emphasize the First Button','social-warfare' ),
+					'2' 	=> __( 'Emphasize the First Two Buttons','social-warfare' )
+				))
+				->set_priority( 100 )
+				->set_size( 'sw-col-300' )
+				->set_default( '0' )
+				->set_premium( 'pro' );
+
+		$SWP_Options_Page->tabs->display->sections->social_networks->add_option( $emphasize_icon );
+
 			//* minTotes => minimum_shares
 			$minimum_shares = new SWP_Option_Text( __( 'Minimum Shares', 'social-warfare' ), 'minimum_shares' );
 			$minimum_shares->set_default( 0 )
-				->set_priority( 40 )
+				->set_priority( 25 )
+				->set_size( 'sw-col-460', 'sw-col-460 sw-fit' )
+				->set_premium( 'pro' );
+
+			$delay_share_counts = new SWP_Option_Text( __( 'Delay in Hours', 'social-warfare' ), 'delay_share_counts' );
+			$delay_share_counts->set_default( 0 )
+				->set_priority( 26 )
 				->set_size( 'sw-col-460', 'sw-col-460 sw-fit' )
 				->set_premium( 'pro' );
 
 		$display->sections->share_counts->add_option( $minimum_shares );
+		$display->sections->share_counts->add_option( $delay_share_counts );
 
 		$meta_tags = new SWP_Options_Page_Section( __( 'Social Meta Tags' , 'social-warfare'), 'meta_tags' );
 		$meta_tags->set_description( __( 'Activating Open Graph Tags and Twitter Cards will cause the plugin to output certain meta tags in the head section of your site\'s HTML. Twitter cards are pretty much exactly like Open Graph meta tags, except that there is only one network, Twitter, that looks at them.', 'social-warfare') )
@@ -366,6 +361,22 @@ class SWP_Pro_Options_Page extends SWP_Options_Page {
 				->set_dependency( 'pinit_toggle', [true] )
 				->set_premium( 'pro' );
 
+			$pinit_button_size = new SWP_Option_Select( __( 'Button Size', 'social-warfare' ), 'pinit_button_size' );
+			$pinit_button_size->set_priority( 70 )
+				->set_choices( [
+					'0.9' => __( '90%' , 'social-warfare' ),
+					'1'   => __( '100%' , 'social-warfare' ),
+					'1.1'   => __( '110%' , 'social-warfare' ),
+					'1.2'   => __( '120%' , 'social-warfare' ),
+					'1.3'   => __( '130%' , 'social-warfare' ),
+					'1.4'   => __( '140%' , 'social-warfare' ),
+					'1.5'   => __( '150%' , 'social-warfare' )
+				])
+				->set_size( 'sw-col-460', 'sw-col-460 sw-fit' )
+				->set_default( '1' )
+				->set_dependency( 'pinit_toggle', [true] )
+				->set_premium( 'pro' );
+
 
 
 			$pinit_hide_on_anchors = new SWP_Option_Toggle( __( 'Hide on Anchors (links)', 'social-warfare'), 'pinit_hide_on_anchors' );
@@ -381,6 +392,7 @@ class SWP_Pro_Options_Page extends SWP_Options_Page {
 			$pinit_image_source,
 			$pinit_min_width,
 			$pinit_min_height,
+			$pinit_button_size,
 			$pinit_hide_on_anchors
 		] );
 
@@ -394,7 +406,25 @@ class SWP_Pro_Options_Page extends SWP_Options_Page {
 
 			$yummly_display->add_option( $yummly_table );
 
-		$display->add_sections( [$meta_tags, $image_hover, $yummly_display] );
+		$powered_by = new SWP_Options_Page_Section( __( 'Promote Social Warfare', 'social-warfare' ), 'powered_by' );
+		$powered_by->set_priority( 90 )
+			->set_description( __( 'If you\'d like, you can add a very small "Powered by Social Warfare" to the bottom of the "More" button overlay, "Pinterest" multi-image overlay, and (coming soon) site footer linking to our site with your affiliate link.', 'social-warfare' ) );
+
+			//* totes => totals
+			$powered_by_toggle = new SWP_Option_Toggle( __( 'Display "Powered By"?', 'social-warfare' ), 'powered_by_toggle' );
+			$powered_by_toggle->set_default( false )
+				->set_priority( 10 )
+				->set_size( 'sw-col-460', 'sw-col-460' );
+
+			$affiliate_link = new SWP_Option_Text( __( 'Affiliate Link', 'social-warfare' ), 'affiliate_link' );
+			$affiliate_link->set_size( 'sw-col-460', 'sw-col-460' )
+				->set_priority( 20 )
+				->set_default( '' );
+
+			$powered_by->add_options( [$powered_by_toggle, $affiliate_link] );
+
+
+		$display->add_sections( [$meta_tags, $image_hover, $yummly_display, $powered_by] );
 
 		return $this;
 	}
@@ -403,6 +433,9 @@ class SWP_Pro_Options_Page extends SWP_Options_Page {
 	/**
 	* Adds a few more options and sections to the Social Identity tab.
 	*
+	* @since  UNKNOWN | UNKNOWN | Created
+	* @since  4.0.0 | 25 FEB 2020 | Added OpenShareCount as a twitter count source.
+	* @param  void
 	* @return SWP_Pro_Options_Page $this The calling instance, for method chaining.
 	*/
 	public function update_social_tab() {
@@ -458,7 +491,8 @@ class SWP_Pro_Options_Page extends SWP_Options_Page {
 
 			$tweet_count_source = new SWP_Option_Select( __( 'Tweet Count Source', 'social-warfare' ), 'tweet_count_source' );
 			$tweet_count_source->set_choices( array(
-					'twitcount'         => __( 'TwitCount.com' , 'social-warfare')
+					'twitcount'         => __( 'TwitCount.com' , 'social-warfare'),
+					'opensharecount'    => __( 'OpenShareCount.com' , 'social-warfare')
 				) )
 				->set_default( 'opensharecount' )
 				->set_priority( 30 )
@@ -733,6 +767,7 @@ class SWP_Pro_Options_Page extends SWP_Options_Page {
 				'style4' => 'Don\'t Stop Believin\'',
 				'style5' => 'Thunderstruck',
 				'style6' => 'Livin\' On A Prayer',
+				'style7' => 'You\'re The Inspiration',
 				'none' => __( 'None - Create Your Own CSS In Your Theme', 'social-warfare')
 			])
 				->set_size( 'sw-col-300' )

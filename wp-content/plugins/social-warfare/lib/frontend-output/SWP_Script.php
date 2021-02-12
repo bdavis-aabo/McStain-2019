@@ -10,6 +10,7 @@
  */
 class SWP_Script {
 
+
 	/**
 	 * The magic method used to instatiate our class and queue up all of the
 	 * add_action and add_filter functions as well as fix a known compatibility
@@ -29,7 +30,8 @@ class SWP_Script {
 
 
 	/**
-	 * Add this classes methods to the appropiate hooks.
+	 * This method queues up the helper methods of this class to run when
+	 * WordPress fires off some of their hooks (e.g. wp_footer hook).
 	 *
 	 * @since  3.1.0 | 18 JUNE 2018 | Created
 	 * @param  void
@@ -42,9 +44,13 @@ class SWP_Script {
 		add_filter( 'swp_footer_scripts', array( $this, 'nonce' ) );
 		add_filter( 'swp_footer_scripts', array( $this, 'frame_buster' ) );
 		add_filter( 'swp_footer_scripts', array( $this, 'float_before_content' ) );
+		add_filter( 'swp_footer_scripts', array( $this, 'ajax_url' ) );
+		add_filter( 'swp_footer_scripts', array( $this, 'post_id' ) );
 
 		// Queue up our footer hook function
 		add_filter( 'swp_footer_scripts', array( $this, 'click_tracking' ) );
+		add_filter( 'swp_javascript_variables', array( $this, 'emphasize_buttons' ) );
+		add_filter( 'swp_javascript_variables', array( $this, 'powered_by_variables' ) );
 
 		// Queue up the Social Warfare scripts and styles
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
@@ -71,7 +77,7 @@ class SWP_Script {
 			$debug = true;
 		}
 
-		$enabled = (bool) apply_filters( 'swp_enable_suffix', ! $debug );
+		$enabled = (bool) apply_filters( 'swp_enable_suffix', !$debug );
 
 		return $enabled ? '.min' : '';
 	}
@@ -95,13 +101,15 @@ class SWP_Script {
 			SWP_VERSION
 		);
 
-		wp_enqueue_script(
-			'social_warfare_script',
-			SWP_PLUGIN_URL . "/assets/js/script{$suffix}.js",
-			array( 'jquery' ),
-			SWP_VERSION,
-			true
-		);
+		if( false === SWP_AMP::is_amp() ) {
+			wp_enqueue_script(
+				'social_warfare_script',
+				SWP_PLUGIN_URL . "/assets/js/script{$suffix}.js",
+				array( 'jquery' ),
+				SWP_VERSION,
+				true
+			);
+		}
 
 		$this->localize_variables();
 
@@ -156,12 +164,22 @@ class SWP_Script {
 	 *
 	 */
 	public function footer_functions() {
+
+		if( SWP_AMP::is_amp() ) {
+			return;
+		}
+
 		// Fetch a few variables.
 		$info['postID']           = get_the_ID();
 		$info['footer_output']    = '';
 
 		// Pass the array through our custom filters.
 		$info = apply_filters( 'swp_footer_scripts' , $info );
+
+		// Clean up and minifiy the output.
+		$info['footer_output'] = preg_replace( "/\r|\n/", "", $info['footer_output'] );
+		$info['footer_output'] = preg_replace( "/[ ]{2,}|[\t]/", " ", $info['footer_output'] );
+		$info['footer_output'] = preg_replace( "!\s+!", " ", $info['footer_output'] );
 
 		// If we have output, output it.
 		if ( $info['footer_output'] ) {
@@ -258,6 +276,42 @@ class SWP_Script {
 
 
 	/**
+	 * Ensure the ajaxurl gets output to the screen.
+	 *
+	 * @since  4.0.0 | 24 FEB 2020 | Created
+	 * @access public
+	 * @param  array $info An array of footer script information.
+	 * @return array $info A modified array of footer script information.
+	 *
+	 */
+	public function ajax_url( $info ) {
+
+		// Create a variable containing the AJAX url.
+		$info['footer_output'] .= ' var swp_ajax_url = "'.admin_url( 'admin-ajax.php' ).'";';
+		return $info;
+	}
+
+
+	/**
+	 * Ensure the ajax requests have a valid post_id to work with.
+	 *
+	 * @since  4.0.0 | 24 FEB 2020 | Created
+	 * @access public
+	 * @param  array $info An array of footer script information.
+	 * @return array $info A modified array of footer script information.
+	 *
+	 */
+	public function post_id( $info ) {
+
+		// Create a variable containing the AJAX url.
+		if( true === is_singular() ) {
+			$info['footer_output'] .= ' var swp_post_id = "'.get_the_ID().'";';
+		}
+		return $info;
+	}
+
+
+	/**
 	 * Echoes selected admin settings from the database to javascript.
 	 *
 	 * @since  3.1.0 | 27 JUN 2018 | Created the method.
@@ -277,32 +331,64 @@ class SWP_Script {
 		return $vars;
 	}
 
+
 	/**
 	 * Creates the `socialWarfare` object and initializes it with server-side data.
 	 *
+	 * We'll use this to also add a little bit of data that the JS file can use
+	 * to accomplish its functionality like the post ID, for example.
+	 *
 	 * @since 3.4.0 | 20 NOV 2018 | Created
+	 * @since 3.6.1 | 17 MAY 2019 | Changed $addons to $installed_addons to avoid
+	 *                              using the parent variable within its own loop.
+	 * @param  void
 	 * @return void
 	 *
 	 */
 	function localize_variables() {
 		global $post;
-		$id = isset( $post ) ? $post->ID : 0; // No ID on SW settings page. 
-		$addons = apply_filters( 'swp_registrations', array() );
-		$addon_vars = apply_filters( 'swp_addon_javascript_variables', array() );
 
-		foreach( $addons as $addon ) {
+
+		/**
+		 * The post ID will be null/unset if we are on the plugin's admin
+		 * settings page. As such, we'll just use 0.
+		 *
+		 */
+		$id = isset( $post ) ? $post->ID : 0;
+
+
+		/**
+		 * We'll fetch all the registered addons so that we can list the key of
+		 * each one in the socialWarfare.addons variable.
+		 *
+		 */
+		$installed_addons = apply_filters( 'swp_registrations', array() );
+		$js_variables     = apply_filters( 'swp_javascript_variables', array() );
+
+
+		/**
+		 * Loop through all of the addons that we found and fetch the key for
+		 * each one. The key should be the only information we need on the
+		 * front-end. Example keys: "pro", "affiliatewp", etc.
+		 *
+		 */
+		$addons = array();
+		foreach( $installed_addons as $addon ) {
 			$addons[] = $addon->key;
 		}
 
-		$data = array(
-			'addons'	=> $addons,
-			'post_id' => $id,
-			'floatBeforeContent'	=> SWP_Utility::get_option( 'float_before_content' )
-		);
 
-		foreach( $addon_vars as $addon_key => $data_array ) {
-			$data[$addon_key] = $data_array;
-		}
+		/**
+		 * Once all the data has been collected, we'll organize it into a single
+		 * variable for output.
+		 *
+		 */
+		$data = array(
+			'addons'             => $addons,
+			'post_id'            => $id,
+			'variables'          => $js_variables,
+			'floatBeforeContent' => SWP_Utility::get_option( 'float_before_content' )
+		);
 
 		wp_localize_script( 'social_warfare_script', 'socialWarfare', $data );
 	}
@@ -319,6 +405,32 @@ class SWP_Script {
 	public function hook_esi() {
 		echo ' var swp_nonce = "'.wp_create_nonce().'";';
 		exit;
+	}
+
+
+	/**
+	 * A method for outputting the "Emphasize Buttons" server variable.
+	 *
+	 * @since  4.0.0 | 13 JUL 2019 | Created
+	 * @param  array $variables An array of server variables to be sent to the JS
+	 * @return array The modified array of server variables to be sent to the JS
+	 *
+	 */
+	public function emphasize_buttons( $variables ) {
+		$variables['emphasizeIcons'] = SWP_Utility::get_option('emphasized_icon');
+		return $variables;
+	}
+
+	public function powered_by_variables( $variables ) {
+		$variables['powered_by_toggle'] = SWP_Utility::get_option('powered_by_toggle');
+
+		$affiliate_link = SWP_Utility::get_option('affiliate_link');
+		if( false === $affiliate_link || empty( $affiliate_link ) || '#' === $affiliate_link ) {
+			$affiliate_link = 'https://warfareplugins.com';
+		}
+
+		$variables['affiliate_link'] = $affiliate_link;
+		return $variables;
 	}
 
 }

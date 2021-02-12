@@ -29,5 +29,38 @@ jQuery(document).ready(function($){
         });
         tgm_media_frame_default.open();
     });
+	
+	function bindMediaDialog(button) {
+		
+		$(button).on("click", function(event) {
+			var dialog = wp.media.frames.tgm_media_frame = wp.media({
+				frame: "select",
+				multiple: false,
+				title: "Category Image",
+				library: {
+					type: "image"
+				},
+				button: {
+					text: "Use as Category Image"
+				}
+			});
+			
+			dialog.on("select", function(ev) {
+				var media_attachment = dialog.state().get('selection').first().toJSON();
+				var selector = $(button).attr("data-media-dialog-target");
+				
+				$(selector).val(media_attachment.url);
+			});
+			
+			dialog.open();
+		});
+		
+	}
+	
+	$("[data-media-dialog-target]").each(function(index, el) {
+		
+		bindMediaDialog(el);
+		
+	});
 
 });

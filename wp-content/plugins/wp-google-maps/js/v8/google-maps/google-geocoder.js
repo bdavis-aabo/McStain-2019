@@ -21,10 +21,40 @@ jQuery(function($) {
 	WPGMZA.GoogleGeocoder.prototype = Object.create(WPGMZA.Geocoder.prototype);
 	WPGMZA.GoogleGeocoder.prototype.constructor = WPGMZA.GoogleGeocoder;
 	
-	WPGMZA.GoogleGeocoder.prototype.getLatLngFromAddress = function(options, callback)
-	{
-		if(!options || !options.address)
-			throw new Error("No address specified");
+	WPGMZA.GoogleGeocoder.prototype.getLatLngFromAddress = function(options, callback) {
+
+		if(!options || !options.address) {
+			
+			nativeStatus = WPGMZA.Geocoder.NO_ADDRESS;
+			callback(null, nativeStatus);
+			return;
+			/*throw new Error("No address specified");*/
+
+		}
+
+		if (options.lat && options.lng) {
+			var latLng = {
+				lat: options.lat,
+				lng: options.lng
+			};
+			var bounds = null;
+			
+			var results = [
+				{
+					geometry: {
+						location: latLng
+					},
+					latLng: latLng,
+					lat: latLng.lat,
+					lng: latLng.lng,
+					bounds: bounds
+				}
+			];
+			
+			callback(results, WPGMZA.Geocoder.SUCCESS);
+		} else {
+
+		}
 		
 		if(WPGMZA.isLatLngString(options.address))
 			return WPGMZA.Geocoder.prototype.getLatLngFromAddress.call(this, options, callback);
@@ -44,6 +74,10 @@ jQuery(function($) {
 					lat: location.lat(),
 					lng: location.lng()
 				};
+				var bounds = null;
+				
+				if(results[0].geometry.bounds)
+					bounds = WPGMZA.LatLngBounds.fromGoogleLatLngBounds(results[0].geometry.bounds);
 				
 				var results = [
 					{
@@ -52,9 +86,12 @@ jQuery(function($) {
 						},
 						latLng: latLng,
 						lat: latLng.lat,
-						lng: latLng.lng
+						lng: latLng.lng,
+						bounds: bounds
 					}
 				];
+				
+				
 				
 				callback(results, WPGMZA.Geocoder.SUCCESS);
 			}

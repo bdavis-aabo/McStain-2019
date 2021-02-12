@@ -75,10 +75,10 @@ class Widget_Sidebar extends Widget_Base {
 	 *
 	 * Adds different input fields to allow the user to change and customize the widget settings.
 	 *
-	 * @since 1.0.0
+	 * @since 3.1.0
 	 * @access protected
 	 */
-	protected function _register_controls() {
+	protected function register_controls() {
 		global $wp_registered_sidebars;
 
 		$options = [];
@@ -136,10 +136,10 @@ class Widget_Sidebar extends Widget_Base {
 	 *
 	 * Written as a Backbone JavaScript template and used to generate the live preview.
 	 *
-	 * @since 1.0.0
+	 * @since 2.9.0
 	 * @access protected
 	 */
-	protected function _content_template() {}
+	protected function content_template() {}
 
 	/**
 	 * Render sidebar widget as plain content.

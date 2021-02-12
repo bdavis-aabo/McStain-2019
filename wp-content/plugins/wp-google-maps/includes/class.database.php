@@ -2,7 +2,10 @@
 
 namespace WPGMZA;
 
-class Database
+if(!defined('ABSPATH'))
+	return;
+
+class Database extends Factory
 {
 	public function __construct()
 	{
@@ -10,9 +13,31 @@ class Database
 		global $wpgmza_version;
 		
 		$this->version = get_option('wpgmza_db_version');
-		
-		if(version_compare($this->version, $wpgmza_version, '<'))
+
+		if(!$this->version || version_compare($this->version, $wpgmza_version, '<'))
+		{
+			if(!empty($this->version))
+			{
+				$upgrader = new Upgrader();
+				$upgrader->upgrade($this->version);
+			}
+			
 			$this->install();
+		}
+	}
+	
+	public static function getCharsetAndCollate()
+	{
+		global $wpdb;
+		$charset_collate = '';
+
+		if(!empty($wpdb->charset))
+			$charset_collate = "DEFAULT CHARACTER SET $wpdb->charset";
+
+		if (!empty($wpdb->collate))
+			$charset_collate .= " COLLATE $wpdb->collate";
+		
+		return $charset_collate;
 	}
 	
 	public function install()
@@ -29,6 +54,8 @@ class Database
 		$this->installCircleTable();
 		$this->installRectangleTable();
 		
+		$this->setDefaults();
+		
 		update_option('wpgmza_db_version', $wpgmza_version);
 	}
 	
@@ -38,7 +65,7 @@ class Database
 		
 		$sql = "CREATE TABLE `$WPGMZA_TABLE_NAME_MAPS` (
 			id int(11) NOT NULL AUTO_INCREMENT,
-			map_title varchar(55) NOT NULL,
+			map_title varchar(256) NOT NULL,
 			map_width varchar(6) NOT NULL,
 			map_height varchar(6) NOT NULL,
 			map_start_lat varchar(700) NOT NULL,
@@ -73,7 +100,7 @@ class Database
 			default_to VARCHAR(700) NOT NULL,
 			other_settings longtext NOT NULL,
 			PRIMARY KEY  (id)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1";
+			) AUTO_INCREMENT=1 " . Database::getCharsetAndCollate();
 
 		dbDelta($sql);
 	}
@@ -88,7 +115,7 @@ class Database
 			address varchar(700) NOT NULL,
 			description mediumtext NOT NULL,
 			pic varchar(700) NOT NULL,
-			link varchar(700) NOT NULL,
+			link varchar(2083) NOT NULL,
 			icon varchar(700) NOT NULL,
 			lat varchar(100) NOT NULL,
 			lng varchar(100) NOT NULL,
@@ -100,12 +127,11 @@ class Database
 			retina tinyint(1) DEFAULT '0',
 			type tinyint(1) DEFAULT '0',
 			did varchar(500) NOT NULL,
+			sticky tinyint(1) DEFAULT '0',
 			other_data LONGTEXT NOT NULL,
 			latlng POINT,
-			integration_source VARCHAR(32) NULL,
-			integration_context INT(11) NULL,
 			PRIMARY KEY  (id)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1";
+			) AUTO_INCREMENT=1 " . Database::getCharsetAndCollate();
 
 		dbDelta($sql);
 	}
@@ -118,6 +144,7 @@ class Database
 			id int(11) NOT NULL AUTO_INCREMENT,
 			map_id int(11) NOT NULL,
 			polydata LONGTEXT NOT NULL,
+			description TEXT NOT NULL,
 			innerpolydata LONGTEXT NOT NULL,
 			linecolor VARCHAR(7) NOT NULL,
 			lineopacity VARCHAR(7) NOT NULL,
@@ -130,7 +157,7 @@ class Database
 			ohopacity VARCHAR(3) NOT NULL,
 			polyname VARCHAR(100) NOT NULL,
 			PRIMARY KEY  (id)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1";
+			) AUTO_INCREMENT=1 " . Database::getCharsetAndCollate();
 
 		dbDelta($sql);
 	}
@@ -148,7 +175,7 @@ class Database
 			opacity VARCHAR(3) NOT NULL,
 			polyname VARCHAR(100) NOT NULL,
 			PRIMARY KEY  (id)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1";
+			) AUTO_INCREMENT=1 " . Database::getCharsetAndCollate();
 
 		dbDelta($sql);
 	}
@@ -166,7 +193,7 @@ class Database
 			color VARCHAR(16),
 			opacity FLOAT,
 			PRIMARY KEY  (id)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1";
+			) AUTO_INCREMENT=1 " . Database::getCharsetAndCollate();
 
 		dbDelta($sql);
 	}
@@ -184,8 +211,38 @@ class Database
 			color VARCHAR(16),
 			opacity FLOAT,
 			PRIMARY KEY  (id)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1";
+			) AUTO_INCREMENT=1 " . Database::getCharsetAndCollate();
 
 		dbDelta($sql);
+	}
+	
+	protected function setDefaults()
+	{
+		
+	}
+
+	public function onFirstRun()
+	{
+		$map = Map::createInstance(array(
+			"map_title"				=> __("My first map","wp-google-maps"),
+			"map_start_lat"			=> "45.950464398418106",
+			"map_start_lng"			=> "-109.81550500000003",
+			"map_width"				=> "100",
+			"map_height"			=> "400",
+			"map_width_type"		=> "%",
+			"map_height_type"		=> "px",
+			"map_start_location"	=> "45.950464398418106,-109.81550500000003",
+			"map_start_zoom"		=> "2",
+			"directions_enabled"	=> '0',
+			"alignment"				=> "4"
+		));
+		
+		$marker = Marker::createInstance(array(
+			"map_id"				=> $map->id,
+			"address"				=> "California",
+			"lat"					=> 36.778261,
+			"lng"					=> -119.4179323999,
+			"approved"				=> 1
+		));
 	}
 }

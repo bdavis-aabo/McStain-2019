@@ -108,6 +108,10 @@ abstract class Module extends Base_Object {
 		return get_called_class();
 	}
 
+	public static function get_experimental_data() {
+		return [];
+	}
+
 	/**
 	 * Clone.
 	 *
@@ -218,7 +222,7 @@ abstract class Module extends Base_Object {
 			$relative_url = $this->get_assets_relative_url() . $file_extension . '/';
 		}
 
-		$url = ELEMENTOR_URL . $relative_url . $file_name;
+		$url = $this->get_assets_base_url() . $relative_url . $file_name;
 
 		if ( 'default' === $add_min_suffix ) {
 			$add_min_suffix = ! $is_test_mode;
@@ -272,6 +276,18 @@ abstract class Module extends Base_Object {
 		}
 
 		return $this->get_assets_url( $file_name, 'css', $relative_url, $add_min_suffix );
+	}
+
+	/**
+	 * Get assets base url
+	 *
+	 * @since 2.6.0
+	 * @access protected
+	 *
+	 * @return string
+	 */
+	protected function get_assets_base_url() {
+		return ELEMENTOR_URL;
 	}
 
 	/**

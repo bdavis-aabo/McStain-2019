@@ -2,6 +2,9 @@
 
 namespace WPGMZA;
 
+if(!defined('ABSPATH'))
+	return;
+
 /**
  * This module handles all GDPR functionality for the plugin, including
  * displaying notices, settings and handling logic
@@ -14,20 +17,13 @@ class GDPRCompliance
 	{
 		if(!GDPRCompliance::$filtersBound)
 		{
-			add_filter('wpgmza_global_settings_tabs', array($this, 'onGlobalSettingsTabs'));
-			add_filter('wpgmza_global_settings_tab_content', array($this, 'onGlobalSettingsTabContent'), 10, 1);
+			//add_filter('wpgmza_global_settings_tabs', array($this, 'onGlobalSettingsTabs'));
+			//add_filter('wpgmza_global_settings_tab_content', array($this, 'onGlobalSettingsTabContent'), 10, 1);
 			
 			add_filter('wpgmza_plugin_get_default_settings', array($this, 'onPluginGetDefaultSettings'));
 			
 			GDPRCompliance::$filtersBound = true;
 		}
-		
-		add_action('wp_ajax_wpgmza_gdpr_privacy_policy_notice_dismissed', array($this, 'onPrivacyPolicyNoticeDismissed'));
-		
-		//add_action('admin_notices', array($this, 'onAdminNotices'));
-		//add_action('admin_post_wpgmza_dismiss_admin_gdpr_warning', array($this, 'onDismissAdminWarning'));
-		
-		//$this->setDefaultSettings();
 	}
 	
 	/**
@@ -74,28 +70,11 @@ class GDPRCompliance
 	}
 	
 	/**
-	 * Called when the user dismisses the "check our updated privacy policy" admin notice, this call is made over AJAX. This sets a flag so the notice isn't displayed again.
-	 * @return void
-	 */
-	public function onPrivacyPolicyNoticeDismissed()
-	{
-		$wpgmza_other_settings = get_option('WPGMZA_OTHER_SETTINGS');
-		$wpgmza_other_settings['privacy_policy_notice_dismissed'] = true;
-		
-		update_option('WPGMZA_OTHER_SETTINGS', $wpgmza_other_settings);
-		
-		wp_send_json(array(
-			'success' => 1
-		));
-		
-		exit;
-	}
-	
-	/**
 	 * Called by onGlobalSettingsTabContent to add the content to our GDPR tab on the settings page, triggered by the filter wpgmza_global_settings_tab_content.
+	 * @deprecated Built into the settings page as of 8.1.0, provided for legacy support
 	 * @return DOMDocument The GDPR tab content
 	 */
-	protected function getSettingsTabContent()
+	public function getSettingsTabContent()
 	{
 		global $wpgmza;
 		
@@ -123,7 +102,7 @@ class GDPRCompliance
 	{
 		$wpgmza_other_settings = array_merge( (array)$this->getDefaultSettings(), get_option('WPGMZA_OTHER_SETTINGS') );
 		
-		$html = $wpgmza_other_settings['wpgmza_gdpr_default_notice'];
+		$html = apply_filters('wpgmza_gdpr_notice', $wpgmza_other_settings['wpgmza_gdpr_default_notice']);
 		
 		if(!empty($wpgmza_other_settings['wpgmza_gdpr_override_notice']) && !empty($wpgmza_other_settings['wpgmza_gdpr_notice_override_text']))
 			$html = $wpgmza_other_settings['wpgmza_gdpr_notice_override_text'];
@@ -140,6 +119,9 @@ class GDPRCompliance
 			$html = '<input type="checkbox" name="wpgmza_ugm_gdpr_consent" required/> ' . $html;
 		
 		$html = apply_filters('wpgmza_gdpr_notice_html', $html);
+		
+		if(empty($html))
+			return "";
 		
 		$document = new DOMDocument();
 		@$document->loadHTML( utf8_decode($html) );
@@ -201,6 +183,8 @@ class GDPRCompliance
 	
 	/**
 	 * Handles POST data when the settings page saves.
+	 * NB: Deprecated as of 8.1.0. The settings page module handles this.
+	 * @deprecated
 	 * @return void
 	 */
 	public function onPOST()

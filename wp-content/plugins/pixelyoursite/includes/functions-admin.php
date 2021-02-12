@@ -25,15 +25,25 @@ function buildAdminUrl( $page, $tab = '', $action = '', $extra = array() ) {
 }
 
 function getCurrentAdminPage() {
-    return empty( $_GET['page'] ) ? '' : $_GET['page'];
+    if(!empty($_GET['page'])) {
+        return sanitize_text_field($_GET['page']);
+    }
+    return '';
+
 }
 
 function getCurrentAdminTab() {
-    return empty( $_GET['tab'] ) ? 'general' : $_GET['tab'];
+    if(!empty( $_GET['tab'] ) ) {
+        return sanitize_text_field($_GET['tab']);
+    }
+    return 'general';
 }
 
 function getCurrentAdminAction() {
-    return empty( $_GET['action'] ) ? '' : $_GET['action'];
+    if(!empty( $_GET['action'] ) ) {
+        return sanitize_text_field($_GET['action']);
+    }
+    return '';
 }
 
 function getAdminPrimaryNavTabs() {
@@ -131,7 +141,6 @@ function manageAdminPermissions() {
         }
         
     }
-    
 }
 
 function renderPopoverButton( $popover_id ) {
@@ -232,12 +241,22 @@ function adminRenderNotices() {
             adminRenderLicenseExpirationNotice( Pinterest() );
         }
     }
-    
+
+    if ( isBingActive( false ) && isBingVersionIncompatible() ) {
+        adminIncompatibleVersionNotice( 'PixelYourSite Bing Add-On', PYS_FREE_BING_MIN_VERSION );
+    } elseif ( isBingActive() ) {
+        $expire_at = Bing()->getOption( 'license_expires' );
+
+        if ( $expire_at && $now > $expire_at ) {
+            adminRenderLicenseExpirationNotice( Bing() );
+        }
+    }
+
     /**
      * Pixel ID notices
      */
     
-    $facebook_pixel_id = Facebook()->getOption( 'pixel_id' );
+    $facebook_pixel_id = Facebook()->getPixelIDs() ;
     
     if ( Facebook()->enabled() && empty( $facebook_pixel_id ) ) {
         $no_facebook_pixels = true;
@@ -245,7 +264,7 @@ function adminRenderNotices() {
         $no_facebook_pixels = false;
     }
     
-    $ga_tracking_id = GA()->getOption( 'tracking_id' );
+    $ga_tracking_id = GA()->getPixelIDs() ;
     
     if ( GA()->enabled() && empty( $ga_tracking_id ) ) {
         $no_ga_pixels = true;
@@ -283,6 +302,11 @@ function adminRenderNotices() {
             }
             
         }
+
+        // show notice if licence was never activated
+        if (Pinterest()->enabled() && empty($pinterest_license_status)) {
+            adminRenderActivatePinterestLicence();
+        }
         
     } else {
         
@@ -300,6 +324,17 @@ function adminRenderNotices() {
             
         }
         
+    }
+
+    if ( isBingActive() ) {
+
+        $bing_license_status = Bing()->getOption( 'license_status' );
+
+        // show notice if licence was never activated
+        if (Bing()->enabled() && empty($bing_license_status)) {
+            adminRenderActivateBingLicence();
+        }
+
     }
     
     /**
@@ -384,8 +419,39 @@ function adminNoticeDismissHandler() {
     
     // save time when notice was dismissed
     $meta_key = 'pys_' . sanitize_text_field( $_REQUEST['addon_slug'] ) . '_' . sanitize_text_field( $_REQUEST['meta_key'] ) . '_dismissed_at';
-    update_user_meta( $_REQUEST['user_id'], $meta_key, time() );
+    $userId = sanitize_text_field( $_REQUEST['user_id'] );
+    update_user_meta($userId, $meta_key, time() );
     
+}
+
+function adminRenderActivatePinterestLicence() {
+
+    if ( 'pixelyoursite_licenses' == getCurrentAdminPage() ) {
+        return; // do not show notice licenses page
+    }
+
+    ?>
+
+    <div class="notice notice-error">
+        <p>Activate your Pinterest add-on license: <a href="<?php echo esc_url( buildAdminUrl( 'pixelyoursite_licenses' ) ); ?>">click here</a>.</p>
+    </div>
+
+    <?php
+}
+
+function adminRenderActivateBingLicence() {
+
+    if ( 'pixelyoursite_licenses' == getCurrentAdminPage() ) {
+        return; // do not show notice licenses page
+    }
+
+    ?>
+
+    <div class="notice notice-error">
+        <p>Activate your PixelYourSite Microsoft UET (Bing) add-on license: <a href="<?php echo esc_url( buildAdminUrl( 'pixelyoursite_licenses' ) ); ?>">click here</a>.</p>
+    </div>
+
+    <?php
 }
 
 function adminRenderNoPixelsNotice() {
@@ -588,7 +654,28 @@ function renderDummySelectInput( $value, $full_width = false ) {
     <?php
 }
 
-function renderProBadge( $url = null ) {
+function renderDummyGoogleAdsConversionLabelInputs() {
+    ?>
+
+    <div class="row mt-1 mb-2">
+        <div class="col-11 col-offset-left form-inline">
+            <label>Add conversion label </label>
+            <?php renderDummyTextInput( 'Enter conversion label' ); ?>
+            <?php renderProBadge('https://www.pixelyoursite.com/google-ads-tag'); ?>
+        </div>
+        <div class="col-1">
+            <button type="button" class="btn btn-link" role="button" data-toggle="pys-popover" data-trigger="focus"
+                    data-placement="right" data-popover_id="google_ads_conversion_label" data-original-title=""
+                    title="">
+                <i class="fa fa-info-circle" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+
+    <?php
+}
+
+function renderProBadge( $url = null,$label = "Pro Feature" ) {
     
     if ( ! $url ) {
         $url = 'https://www.pixelyoursite.com/';
@@ -596,7 +683,14 @@ function renderProBadge( $url = null ) {
     
     $url = untrailingslashit( $url ) . '/?utm_source=pys-free-plugin&utm_medium=pro-badge&utm_campaign=pro-feature';
     
-    echo '&nbsp;<a href="' . esc_url( $url ) . '" target="_blank" class="badge badge-pill badge-pro">Pro Feature <i class="fa fa-external-link" aria-hidden="true"></i></a>';
+    echo '&nbsp;<a href="' . esc_url( $url ) . '" target="_blank" class="badge badge-pill badge-pro">'.$label.' <i class="fa fa-external-link" aria-hidden="true"></i></a>';
+}
+
+function renderCogBadge( $label = "You need this plugin" ) {
+
+	$url = 'https://www.pixelyoursite.com/woocommerce-cost-of-goods';
+
+	echo '&nbsp;<a href="' . esc_url( $url ) . '" target="_blank" class="badge badge-pill badge-pro">'.$label.' <i class="fa fa-external-link" aria-hidden="true"></i></a>';
 }
 
 function renderSpBadge() {

@@ -2,6 +2,9 @@
 
 namespace WPGMZA;
 
+if(!defined('ABSPATH'))
+	return;
+
 /**
  * This module loads the Google Maps API unconditionally (as opposed to the GoogleMapsAPILoader)
  * @deprecated This functionality will be merged into one class with GoogleMapsAPILoader
@@ -10,6 +13,7 @@ namespace WPGMZA;
 class GoogleMapsLoader
 {
 	private static $googleAPILoadCalled = false;
+	const TEMPORARY_API_KEY	= "QUl6YVN5RG9fZkc3RFhCT1Z2ZGhsckxhLVBIUkV1RkRwVGtsV2hZ";
 	
 	/**
 	 * This will be handled by the Factory class
@@ -66,6 +70,10 @@ class GoogleMapsLoader
 		
 		// Libraries
 		$libraries = array('geometry', 'places', 'visualization');
+		
+		if($wpgmza->getCurrentPage() == Plugin::PAGE_MAP_EDIT)
+			$libraries[] = 'drawing';
+		
 		$params['libraries'] = implode(',', $libraries);
 		
 		// API Version
@@ -96,6 +104,8 @@ class GoogleMapsLoader
 		$key = get_option('wpgmza_google_maps_api_key');
 		if(!empty($key))
 			$params['key'] = $key;
+		else if(is_admin())
+			$params['key'] = base64_decode(GoogleMapsLoader::TEMPORARY_API_KEY);
 
 		$params = apply_filters( 'wpgmza_google_maps_api_params', $params );
 		

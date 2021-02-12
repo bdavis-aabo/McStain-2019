@@ -41,77 +41,23 @@ if ( ! defined( 'ABSPATH' ) ) {
     </div>
 </div>
 
-<!-- Semafors -->
 <div class="card card-static">
     <div class="card-header">
-        Advanced Data Tracking
+        About EDD Events Parameters
     </div>
     <div class="card-body">
         <div class="row">
-            <div class="col-11">
-                <div class="indicator">ON</div>
-                <h4 class="indicator-label">Facebook Dynamic Product Ads</h4>
-            </div>
-            <div class="col-1">
-                <?php renderPopoverButton( 'edd_facebook_am_params' ); ?>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-11">
-                <div class="indicator">ON</div>
-                <h4 class="indicator-label">Facebook & Pinterest parameters</h4>
-            </div>
-            <div class="col-1">
-                <?php renderPopoverButton( 'edd_facebook_and_pinterest_params' ); ?>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-11">
-                <div class="indicator indicator-off">OFF</div>
-                <h4 class="indicator-label">Facebook & Pinterest PRO parameters</h4>
-            </div>
-            <div class="col-1">
-                <?php renderPopoverButton( 'edd_facebook_and_pinterest_pro_params' ); ?>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-11">
-                <div class="indicator">ON</div>
-                <h4 class="indicator-label">Facebook & Pinterest parameters for Purchase event</h4>
-            </div>
-            <div class="col-1">
-                <?php renderPopoverButton( 'edd_facebook_and_pinterest_purchase_params' ); ?>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-11">
-                <div class="indicator indicator-off">OFF</div>
-                <h4 class="indicator-label">Facebook & Pinterest PRO parameters for Purchase event</h4>
-            </div>
-            <div class="col-1">
-                <?php renderPopoverButton( 'edd_facebook_and_pinterest_purchase_pro_params' ); ?>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-11">
-                <div class="indicator">ON</div>
-                <h4 class="indicator-label">Google Analytics Enhanced Ecommerce</h4>
-            </div>
-            <div class="col-1">
-                <?php renderPopoverButton( 'edd_ga_enhanced_ecommerce_params' ); ?>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-11">
-                <div class="indicator indicator-off">OFF</div>
-                <h4 class="indicator-label">Google Ads Tag with Dynamic Remarketing Support</h4>
-            </div>
-            <div class="col-1">
-                <?php renderPopoverButton( 'edd_google_ads_enhanced_ecommerce_params' ); ?>
+            <div class="col">
+                <p>All events get the following parameters for all the tags: <i>page_title, post_type, post_id, event_URL, user_role, plugin, event_time (pro), event_day (pro), event_month (pro), traffic_source (pro), UTMs (pro).</i></p>
+                <p>The Purchase event will have the following extra-parameters: <i>category_name, num_items, tags, total (pro), transactions_count (pro), tax (pro), predicted_ltv (pro), average_order (pro), coupon_used (pro), coupon_code (pro), shipping (pro), shipping_cost (pro).</i></p>
+                <p>The Facebook Pixel events are Dynamic Ads ready.</p>
+                <p>The Google Analytics events track the data Enhanced Ecommerce or Monetization (GA4).</p>
+                <p>The Pinterest events have the required data for Dynamic Remarketing.</p>
             </div>
         </div>
     </div>
 </div>
+
 
 <!-- AddToCart -->
 <div class="card card-static">
@@ -162,6 +108,133 @@ if ( ! defined( 'ABSPATH' ) ) {
         </div>
     </div>
     
+<?php endif; ?>
+
+<?php if ( GA()->enabled() ) : ?>
+
+    <div class="card card-static" id="pys-section-ga-id">
+        <div class="card-header">
+            Google Analytics ID setting
+        </div>
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col col-offset-left form-inline">
+                    <label>ecomm_prodid</label>
+                    <?php GA()->render_select_input( 'edd_content_id',
+                        array(
+                            'download_id' => 'Download ID',
+                            'download_sku'   => 'Download SKU',
+                        )
+                    ); ?>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col col-offset-left form-inline">
+                    <label>ecomm_prodid prefix</label><?php GA()->render_text_input( 'edd_content_id_prefix', '(optional)' ); ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-offset-left form-inline">
+                    <label>ecomm_prodid suffix</label><?php GA()->render_text_input( 'edd_content_id_suffix', '(optional)' ); ?>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>
+
+
+    <div class="card card-static card-disabled">
+        <div class="card-header">
+            Google Ads ID Settings
+            <?php renderProBadge( 'https://www.pixelyoursite.com/google-analytics?utm_source=pys-free-plugin&utm_medium=pro-badg
+e&utm_campaign=pro-feature' ); ?>
+        </div>
+
+    </div>
+
+
+<?php if ( Pinterest()->enabled() ) : ?>
+
+    <div class="card card-static" id="pys-section-ga-id">
+        <div class="card-header">
+            Pinterest Tag ID setting
+        </div>
+        <div class="card-body">
+
+            <div class="row mb-3">
+                <div class="col col-offset-left form-inline">
+                    <label>ID</label>
+                    <?php Pinterest()->render_select_input( 'edd_content_id',
+                        array(
+                            'download_id' => 'Download ID',
+                            'download_sku'   => 'Download SKU',
+                        )
+                    ); ?>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-11 col-offset-left form-inline">
+                    <label>ID prefix</label><?php Pinterest()->render_text_input( 'edd_content_id_prefix',
+                        '(optional)' ); ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-11 col-offset-left form-inline">
+                    <label>ID suffix</label><?php Pinterest()->render_text_input( 'edd_content_id_suffix',
+                        '(optional)' ); ?>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php else: ?>
+    <div class="card card-static card-disabled" id="pys-section-ga-id">
+        <div class="card-header">
+            Pinterest Tag ID setting
+            <?php renderProBadge("https://www.pixelyoursite.com/pinterest-tag?utm_source=pys-free-plugin&utm_medium=pinterest-badge&utm_campaign=requiere-free-add-on",
+            "Requires free add-on"); ?>
+        </div>
+    </div>
+<?php endif; ?>
+
+<?php if ( Bing()->enabled() ) : ?>
+    <div class="card card-static">
+        <div class="card-header">
+            Bing ID setting
+        </div>
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col col-offset-left form-inline">
+                    <label>ID</label>
+                    <?php Bing()->render_select_input( 'edd_content_id',
+                        array(
+                            'download_id' => 'Download ID',
+                            'download_sku'   => 'Download SKU',
+                        )
+                    ); ?>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-11 col-offset-left form-inline">
+                    <label>ID prefix</label><?php Bing()->render_text_input( 'edd_content_id_prefix',
+                        '(optional)' ); ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-11 col-offset-left form-inline">
+                    <label>ID suffix</label><?php Bing()->render_text_input( 'edd_content_id_suffix',
+                        '(optional)' ); ?>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php else: ?>
+    <div class="card card-static card-disabled">
+        <div class="card-header">
+            Bing Tag ID setting
+            <?php renderProBadge( 'https://www.pixelyoursite.com/bing-tag?utm_source=pixelyoursite-free-plugin&utm_medium=plugin&utm_campaign=free-plugin-bing',
+                "Requires paid add-on"); ?>
+        </div>
+    </div>
 <?php endif; ?>
 
 <!-- Google Dynamic Remarketing Vertical -->
@@ -216,8 +289,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <!-- Purchase -->
 <div class="card">
-    <div class="card-header">
-        Track Purchases <?php cardCollapseBtn(); ?>
+    <div class="card-header has_switch">
+        <?php PYS()->render_switcher_input('edd_purchase_enabled');?>Track Purchases <?php cardCollapseBtn(); ?>
     </div>
     <div class="card-body">
 
@@ -245,6 +318,16 @@ if ( ! defined( 'ABSPATH' ) ) {
                     <?php Pinterest()->render_switcher_input( 'edd_checkout_enabled' ); ?>
                     <h4 class="switcher-label">Enable the Checkout event on Pinterest</h4>
                     <?php Pinterest()->renderAddonNotice(); ?>
+                </div>
+            </div>
+        <?php endif; ?>
+
+        <?php if ( Bing()->enabled() ) : ?>
+            <div class="row">
+                <div class="col">
+                    <?php Bing()->render_switcher_input( 'edd_purchase_enabled' ); ?>
+                    <h4 class="switcher-label">Enable the Purchase event on Bing</h4>
+                    <?php Bing()->renderAddonNotice(); ?>
                 </div>
             </div>
         <?php endif; ?>
@@ -298,9 +381,10 @@ if ( ! defined( 'ABSPATH' ) ) {
             <div class="col">
                 <?php renderDummySwitcher(); ?>
                 <h4 class="switcher-label">Enable the purchase event on Google Ads</h4>
-                <?php renderProBadge(); ?>
+                <?php renderProBadge('https://www.pixelyoursite.com/google-ads-tag/?utm_source=pys-free-plugin&utm_medium=pro-badge&utm_campaign=pro-feature'); ?>
             </div>
         </div>
+        <?php renderDummyGoogleAdsConversionLabelInputs(); ?>
 
         <div class="row mt-3">
             <div class="col">
@@ -316,8 +400,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <!-- InitiateCheckout -->
 <div class="card">
-    <div class="card-header">
-        Track the Checkout Page <?php cardCollapseBtn(); ?>
+    <div class="card-header has_switch">
+        <?php PYS()->render_switcher_input('edd_initiate_checkout_enabled');?>Track the Checkout Page <?php cardCollapseBtn(); ?>
     </div>
     <div class="card-body">
         
@@ -336,6 +420,16 @@ if ( ! defined( 'ABSPATH' ) ) {
                     <?php Pinterest()->render_switcher_input( 'edd_initiate_checkout_enabled' ); ?>
                     <h4 class="switcher-label">Enable the InitiateCheckout on Pinterest</h4>
                     <?php Pinterest()->renderAddonNotice(); ?>
+                </div>
+            </div>
+        <?php endif; ?>
+
+        <?php if ( Bing()->enabled() ) : ?>
+            <div class="row">
+                <div class="col">
+                    <?php Bing()->render_switcher_input( 'edd_initiate_checkout_enabled' ); ?>
+                    <h4 class="switcher-label">Enable the InitiateCheckout on Bing</h4>
+                    <?php Bing()->renderAddonNotice(); ?>
                 </div>
             </div>
         <?php endif; ?>
@@ -391,17 +485,18 @@ if ( ! defined( 'ABSPATH' ) ) {
             <div class="col">
                 <?php renderDummySwitcher(); ?>
                 <h4 class="switcher-label">Enable the begin_checkout event on Google Ads</h4>
-                <?php renderProBadge(); ?>
+                <?php renderProBadge('https://www.pixelyoursite.com/google-ads-tag/?utm_source=pys-free-plugin&utm_medium=pro-badge&utm_campaign=pro-feature'); ?>
             </div>
         </div>
+        <?php renderDummyGoogleAdsConversionLabelInputs(); ?>
 
     </div>
 </div>
 
 <!-- RemoveFromCart -->
 <div class="card">
-    <div class="card-header">
-        Track remove from cart <?php cardCollapseBtn(); ?>
+    <div class="card-header has_switch">
+        <?php PYS()->render_switcher_input('edd_remove_from_cart_enabled');?>Track remove from cart <?php cardCollapseBtn(); ?>
     </div>
     <div class="card-body">
         
@@ -433,7 +528,7 @@ if ( ! defined( 'ABSPATH' ) ) {
             <div class="col">
                 <?php renderDummySwitcher(); ?>
                 <h4 class="switcher-label">Enable the remove_from_cart event on Google Ads</h4>
-                <?php renderProBadge(); ?>
+                <?php renderProBadge('https://www.pixelyoursite.com/google-ads-tag/?utm_source=pys-free-plugin&utm_medium=pro-badge&utm_campaign=pro-feature'); ?>
             </div>
         </div>
         
@@ -447,13 +542,23 @@ if ( ! defined( 'ABSPATH' ) ) {
             </div>
         <?php endif; ?>
 
+<!--        --><?php //if ( Bing()->enabled() ) : ?>
+<!--            <div class="row">-->
+<!--                <div class="col">-->
+<!--                    --><?php //Bing()->render_switcher_input( 'edd_remove_from_cart_enabled' ); ?>
+<!--                    <h4 class="switcher-label">Enable the RemoveFromCart event on Bing</h4>-->
+<!--                    --><?php //Bing()->renderAddonNotice(); ?>
+<!--                </div>-->
+<!--            </div>-->
+<!--        --><?php //endif; ?>
+
     </div>
 </div>
 
 <!-- AddToCart -->
 <div class="card">
-    <div class="card-header">
-        Track add to cart <?php cardCollapseBtn(); ?>
+    <div class="card-header has_switch">
+        <?php PYS()->render_switcher_input('edd_add_to_cart_enabled');?>Track add to cart <?php cardCollapseBtn(); ?>
     </div>
     <div class="card-body">
         
@@ -472,6 +577,16 @@ if ( ! defined( 'ABSPATH' ) ) {
                     <?php Pinterest()->render_switcher_input( 'edd_add_to_cart_enabled' ); ?>
                     <h4 class="switcher-label">Enable the AddToCart event on Pinterest</h4>
                     <?php Pinterest()->renderAddonNotice(); ?>
+                </div>
+            </div>
+        <?php endif; ?>
+
+        <?php if ( Bing()->enabled() ) : ?>
+            <div class="row">
+                <div class="col">
+                    <?php Bing()->render_switcher_input( 'edd_add_to_cart_enabled' ); ?>
+                    <h4 class="switcher-label">Enable the AddToCart event on Bing</h4>
+                    <?php Bing()->renderAddonNotice(); ?>
                 </div>
             </div>
         <?php endif; ?>
@@ -527,17 +642,18 @@ if ( ! defined( 'ABSPATH' ) ) {
             <div class="col">
                 <?php renderDummySwitcher(); ?>
                 <h4 class="switcher-label">Enable the add_to_cart event on Google Ads</h4>
-                <?php renderProBadge(); ?>
+                <?php renderProBadge('https://www.pixelyoursite.com/google-ads-tag/?utm_source=pys-free-plugin&utm_medium=pro-badge&utm_campaign=pro-feature'); ?>
             </div>
         </div>
+        <?php renderDummyGoogleAdsConversionLabelInputs(); ?>
 
     </div>
 </div>
 
 <!-- ViewContent -->
 <div class="card">
-    <div class="card-header">
-        Track product pages <?php cardCollapseBtn(); ?>
+    <div class="card-header has_switch">
+        <?php PYS()->render_switcher_input('edd_view_content_enabled');?>Track product pages <?php cardCollapseBtn(); ?>
     </div>
     <div class="card-body">
         
@@ -556,6 +672,16 @@ if ( ! defined( 'ABSPATH' ) ) {
                     <?php Pinterest()->render_switcher_input( 'edd_page_visit_enabled' ); ?>
                     <h4 class="switcher-label">Enable the PageVisit event on Pinterest</h4>
                     <?php Pinterest()->renderAddonNotice(); ?>
+                </div>
+            </div>
+        <?php endif; ?>
+
+        <?php if ( Bing()->enabled() ) : ?>
+            <div class="row">
+                <div class="col">
+                    <?php Bing()->render_switcher_input( 'edd_view_content_enabled' ); ?>
+                    <h4 class="switcher-label">Enable the PageVisit event on Bing</h4>
+                    <?php Bing()->renderAddonNotice(); ?>
                 </div>
             </div>
         <?php endif; ?>
@@ -618,17 +744,18 @@ if ( ! defined( 'ABSPATH' ) ) {
             <div class="col">
                 <?php renderDummySwitcher(); ?>
                 <h4 class="switcher-label">Enable the view_item event on Google Ads</h4>
-                <?php renderProBadge(); ?>
+                <?php renderProBadge('https://www.pixelyoursite.com/google-ads-tag/?utm_source=pys-free-plugin&utm_medium=pro-badge&utm_campaign=pro-feature'); ?>
             </div>
         </div>
+        <?php renderDummyGoogleAdsConversionLabelInputs(); ?>
 
     </div>
 </div>
 
 <!-- ViewCategory -->
 <div class="card">
-    <div class="card-header">
-        Track product category pages <?php cardCollapseBtn(); ?>
+    <div class="card-header has_switch">
+        <?php PYS()->render_switcher_input('edd_view_category_enabled');?>Track product category pages <?php cardCollapseBtn(); ?>
     </div>
     <div class="card-body">
         
@@ -663,6 +790,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                 <?php renderProBadge(); ?>
             </div>
         </div>
+        <?php renderDummyGoogleAdsConversionLabelInputs(); ?>
         
         <?php if ( Pinterest()->enabled() ) : ?>
             <div class="row">
@@ -670,6 +798,16 @@ if ( ! defined( 'ABSPATH' ) ) {
                     <?php Pinterest()->render_switcher_input( 'edd_view_category_enabled' ); ?>
                     <h4 class="switcher-label">Enable the ViewCategory event on Pinterest</h4>
                     <?php Pinterest()->renderAddonNotice(); ?>
+                </div>
+            </div>
+        <?php endif; ?>
+
+        <?php if ( Bing()->enabled() ) : ?>
+            <div class="row">
+                <div class="col">
+                    <?php Bing()->render_switcher_input( 'edd_view_category_enabled' ); ?>
+                    <h4 class="switcher-label">Enable the ViewCategory event on Bing</h4>
+                    <?php Bing()->renderAddonNotice(); ?>
                 </div>
             </div>
         <?php endif; ?>
@@ -716,6 +854,13 @@ if ( ! defined( 'ABSPATH' ) ) {
             <div class="col">
                 <?php renderDummySwitcher(); ?>
                 <h4 class="switcher-label">Enable on Pinterest</h4>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <?php renderDummySwitcher(); ?>
+                <h4 class="switcher-label">Enable on Bing</h4>
             </div>
         </div>
         
@@ -768,6 +913,13 @@ if ( ! defined( 'ABSPATH' ) ) {
                 <h4 class="switcher-label">Enable on Pinterest</h4>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col">
+                <?php renderDummySwitcher(); ?>
+                <h4 class="switcher-label">Enable on Bing</h4>
+            </div>
+        </div>
         
         <div class="row mt-3">
             <div class="col col-offset-left form-inline">
@@ -817,6 +969,13 @@ if ( ! defined( 'ABSPATH' ) ) {
             <div class="col">
                 <?php renderDummySwitcher(); ?>
                 <h4 class="switcher-label">Enable on Pinterest</h4>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <?php renderDummySwitcher(); ?>
+                <h4 class="switcher-label">Enable on Bing</h4>
             </div>
         </div>
         

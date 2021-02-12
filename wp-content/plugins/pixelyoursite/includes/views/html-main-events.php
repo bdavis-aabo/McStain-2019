@@ -33,8 +33,30 @@ $new_event_url = buildAdminUrl( 'pixelyoursite', 'events', 'edit' );
     <div class="card-body">
 	    <?php PYS()->render_switcher_input( 'custom_events_enabled' ); ?>
         <h4 class="switcher-label">Enable Events</h4>
+        <div class="mt-3">
+            <a  class="btn btn-sm btn-light btn-events-import">Import Events</a>
+            <a   class="btn  ml-3  btn-sm btn-light btn-events-export">Export Events</a>
+            <a class="ml-3 badge badge-pill badge-pro" href="https://www.pixelyoursite.com/?utm_source=pys-free-plugin&amp;utm_medium=pro-badge&amp;utm_campaign=pro-feature/?utm_source=pys-free-plugin&amp;utm_medium=pro-badge&amp;utm_campaign=pro-feature" target="_blank" >Pro Feature <i class="fa fa-external-link" aria-hidden="true"></i></a>
+        </div>
     </div>
 </div>
+
+<div class="card card-static">
+    <div class="card-header">
+        About Parameters
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col">
+                <p>All the events you configure here will automatically get the following parameters for all the tags:
+                    <i>page_title, post_type, post_id, event_URL, user_role, plugin, event_time (pro), event_day (pro), event_month (pro), traffic_source (pro), UTMs (pro).</i></p>
+                <p>Exception: Google Analytics Universal will not get all these parameters. Only <i>event_time (pro), event_day (pro), event_month (pro), traffic_source (pro)</i> are sent as custom dimensions.</p>
+                <p>You can add other parameters when you configure the events.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div class="card card-static">
     <div class="card-header">

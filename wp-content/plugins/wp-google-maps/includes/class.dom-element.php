@@ -2,6 +2,9 @@
 
 namespace WPGMZA;
 
+if(!defined('ABSPATH'))
+	return;
+
 require_once(plugin_dir_path(__FILE__) . 'class.selector-to-xpath.php');
 
 class DOMElement extends \DOMElement
@@ -13,6 +16,20 @@ class DOMElement extends \DOMElement
 		\DOMElement::__construct();
 	}
 	
+	public function __get($name)
+	{
+		switch($name)
+		{
+			case "html":
+				
+				return $this->ownerDocument->saveHTML( $this );
+			
+				break;
+		}
+		
+		return \DOMElement::__get($name);
+	}
+	
 	/**
 	 * Runs a CSS selector on the element. This is equivilant to Javascripts querySelector
 	 * @param string $query a CSS selector
@@ -21,8 +38,10 @@ class DOMElement extends \DOMElement
 	public function querySelector($query)
 	{
 		$results = $this->querySelectorAll($query);		
+		
 		if(empty($results))
 			return null;
+		
 		return $results[0];
 	}
 	
@@ -49,7 +68,7 @@ class DOMElement extends \DOMElement
 		if($sort)
 			usort($results, array('WPGMZA\DOMElement', 'sortByDOMPosition'));
 		
-		return $results;
+		return new DOMQueryResults($results);
 	}
 	
 	/** 
@@ -94,7 +113,7 @@ class DOMElement extends \DOMElement
 	 */
 	public function closest($selector)
 	{
-		if($this === $this->ownerDocument->documentElement)
+		if($this === $this->ownerDocument->getDocumentElementSafe())
 			throw new \Exception('Method not valid on document element');
 		
 		for($el = $this; $el->parentNode != null; $el = $el->parentNode)
@@ -105,6 +124,16 @@ class DOMElement extends \DOMElement
 		}
 		
 		return null;
+	}
+	
+	/**
+	 * Wraps this element in the element passed in, then replaces this nodes original position
+	 * @param DOMElement The element to wrap this element in
+	 */
+	public function wrap($wrapper)
+	{
+		$this->parentNode->replaceChild($wrapper, $this);
+		$wrapper->appendChild($this);
 	}
 	
 	/**
@@ -212,10 +241,10 @@ class DOMElement extends \DOMElement
 		
 		if($subject instanceof \DOMDocument)
 		{
-			if(!$subject->documentElement)
+			if(!$subject->getDocumentElementSafe())
 				throw new \Exception('Document is empty');
 			
-			$node = $this->ownerDocument->importNode($subject->documentElement, true);
+			$node = $this->ownerDocument->importNode($subject->getDocumentElementSafe(), true);
 
 		}
 		else if($subject instanceof \DOMNode)
@@ -234,25 +263,26 @@ class DOMElement extends \DOMElement
 			else
 				$temp->load($subject);
 			
-			$node = $this->ownerDocument->importNode($temp->documentElement, true);
+			$node = $this->ownerDocument->importNode($temp->getDocumentElementSafe(), true);
 		}
 		else if(is_string($subject))
 		{
 			if(empty($subject))
 				return;
 			
-			if($subject != strip_tags($subject))
+			if($subject != strip_tags($subject) || preg_match('/&.+;/', $subject))
 			{
 				// Subject is a HTML string
 				$html = DOMDocument::convertUTF8ToHTMLEntities($subject);
 				
 				$temp = new DOMDocument('1.0', 'UTF-8');
 				$str = "<div id='domdocument-import-payload___'>" . $html . "</div>";
-				
-				if($wpgmza->isInDeveloperMode())
+
+				if($wpgmza->isInDeveloperMode()){
 					$temp->loadHTML($str);
-				else
+				} else {
 					@$temp->loadHTML($str);
+				}
 				
 				$body = $temp->querySelector('#domdocument-import-payload___');
 				for($child = $body->firstChild; $child != null; $child = $child->nextSibling)
@@ -276,14 +306,21 @@ class DOMElement extends \DOMElement
 		
 		if($body = $node->querySelector("body"))
 		{
-			// TODO: I don't think a query selector is necessary here. Iterating over the bodies children should be more optimal.
-			foreach($node->querySelectorAll("body>*") as $child)
+			// TODO: I don't think a query selector is necessary here. Iterating over the bodies children should be more optimal
+			$results = $node->querySelectorAll("body>*");
+			
+			foreach($results as $child)
 				$this->appendChild($child);
+			
+			return $results;
 		}
 		else
+		{
 			$this->appendChild($node);
+			return $node;
+		}
 		
-		return $this;
+		return null;
 	}
 	
 	/**
@@ -513,6 +550,9 @@ class DOMElement extends \DOMElement
 			if(!$name)
 				continue;
 			
+			if(preg_match('/nonce/i', $name))
+				continue; // NB: Do not serialize nonce values
+			
 			switch($input->getAttribute('type'))
 			{
 				case 'checkbox':
@@ -585,6 +625,14 @@ class DOMElement extends \DOMElement
 	 */
 	public function setValue($value)
 	{
+		/*if($this->getAttribute("name") == "wpgmza_gdpr_require_consent_before_load")
+		{
+			
+			echo "<pre>";
+			debug_print_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
+			exit;
+		}*/
+		
 		switch(strtolower($this->nodeName))
 		{
 			case 'textarea':
@@ -682,6 +730,7 @@ class DOMElement extends \DOMElement
 	 */
 	public function clear()
 	{
+
 		while($this->childNodes->length)
 			$this->removeChild($this->firstChild);
 		return $this;
@@ -699,4 +748,3 @@ class DOMElement extends \DOMElement
 	}
 }
 
-?>

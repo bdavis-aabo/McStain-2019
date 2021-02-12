@@ -58,6 +58,7 @@ class SWP_Twitter extends SWP_Social_Network {
 	 * @since  3.0.0 | 07 APR 2018 | Created
 	 * @since  3.4.0 | 16 NOV 2018 | Removed Open Share Counts API.
 	 * @since  3.4.0 | 16 NOV 2018 | Added local property for debugging.
+	 * @since  4.0.0 | 24 FEB 2020 | Added Open Share Count API.
 	 * @var    $request_url Stored in a local property to allow us to output it
 	 *                      via the debug method when ?swp_debug=twitter is used.
 	 * @param  string $url The permalink of the page or post for which to fetch share counts
@@ -82,12 +83,24 @@ class SWP_Twitter extends SWP_Social_Network {
 
 
 		/**
-		 * Twitcount is currently the only working, valid source of Twitter
-		 * share counts. If it's active, return the API url of the JSON enpoint.
+		 * Twitcount is a working, valid source of Twitter share counts. If it's
+		 * active, return the API url of the JSON enpoint.
 		 *
 		 */
 		if( 'twitcount' === SWP_Utility::get_option( 'tweet_count_source' ) ) {
 			$this->request_url = 'https://counts.twitcount.com/counts.php?url=' . $url;
+			return $this->request_url;
+		}
+
+
+		/**
+		 * OpenShareCount.com is another alternative source for fetching share
+		 * counts for shared pages. If it's active, we return it's API URL for
+		 * it's JSON endpoint.
+		 *
+		 */
+		if( 'opensharecount' === SWP_Utility::get_option( 'tweet_count_source' ) ) {
+			$this->request_url = 'https://opensharecount.com/count.json?url=' . $url;
 			return $this->request_url;
 		}
 
@@ -154,13 +167,14 @@ class SWP_Twitter extends SWP_Social_Network {
 	/**
 	 * This is the method that generates the via=username section of the share link.
 	 *
+	 *
 	 * @since  3.4.0 | 19 NOV 2018 | Created
 	 * @since  3.5.2 | 21 MAR 2018 | Changed access from protected to public.
 	 * @param  array $post_data The array of information passed in from the buttons panel.
 	 * @return sting The via=username section of the share link.
 	 *
 	 */
-	public function get_via_parameter( $post_data ) {
+	public static function get_via_parameter( $post_data ) {
 		if ( is_object( $post_data ) ) {
 			// A global $post, for example
 			$post_data = (array) $post_data;
@@ -273,11 +287,6 @@ class SWP_Twitter extends SWP_Social_Network {
 		// If the current source is set to New Share Counts
 		if ( 'newsharecounts' == $source ) {
 			$service_name = 'New Share Count';
-		}
-
-		// If the current source is set to Open Share Counts
-		if ( 'opensharecount' == $source ) {
-			$service_name = 'Open Share Counts';
 		}
 
 		// If an invalid source was matched above, handle it here.

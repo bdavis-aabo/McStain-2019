@@ -48,77 +48,23 @@ use PixelYourSite\Facebook\Helpers;
     </div>
 </div>
 
-<!-- Semafors -->
 <div class="card card-static">
     <div class="card-header">
-        Advanced Data Tracking
+        About WooCommerce Events Parameters
     </div>
     <div class="card-body">
         <div class="row">
-            <div class="col-11">
-                <div class="indicator">ON</div>
-                <h4 class="indicator-label">Facebook Dynamic Product Ads</h4>
-            </div>
-            <div class="col-1">
-		        <?php renderPopoverButton( 'woo_facebook_am_params' ); ?>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-11">
-                <div class="indicator">ON</div>
-                <h4 class="indicator-label">Facebook & Pinterest parameters</h4>
-            </div>
-            <div class="col-1">
-                <?php renderPopoverButton( 'woo_facebook_and_pinterest_params' ); ?>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-11">
-                <div class="indicator indicator-off">OFF</div>
-                <h4 class="indicator-label">Facebook & Pinterest PRO parameters</h4>
-            </div>
-            <div class="col-1">
-			    <?php renderPopoverButton( 'woo_facebook_and_pinterest_pro_params' ); ?>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-11">
-                <div class="indicator">ON</div>
-                <h4 class="indicator-label">Facebook & Pinterest parameters for Purchase event</h4>
-            </div>
-            <div class="col-1">
-                <?php renderPopoverButton( 'woo_facebook_and_pinterest_purchase_params' ); ?>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-11">
-                <div class="indicator indicator-off">OFF</div>
-                <h4 class="indicator-label">Facebook & Pinterest PRO parameters for Purchase event</h4>
-            </div>
-            <div class="col-1">
-			    <?php renderPopoverButton( 'woo_facebook_and_pinterest_purchase_pro_params' ); ?>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-11">
-                <div class="indicator">ON</div>
-                <h4 class="indicator-label">Google Analytics Enhanced Ecommerce</h4>
-            </div>
-            <div class="col-1">
-			    <?php renderPopoverButton( 'woo_ga_enhanced_ecommerce_params' ); ?>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-11">
-                <div class="indicator indicator-off">OFF</div>
-                <h4 class="indicator-label">Google Ads Tag with Dynamic Remarketing Support</h4>
-            </div>
-            <div class="col-1">
-                <?php renderPopoverButton( 'woo_google_ads_enhanced_ecommerce_params' ); ?>
+            <div class="col">
+                <p>All events get the following parameters for all the tags: <i>page_title, post_type, post_id, event_URL, user_role, plugin, event_time (pro), event_day (pro), event_month (pro), traffic_source (pro), UTMs (pro).</i></p>
+                <p>The Purchase event will have the following extra-parameters: <i>category_name, num_items, tags, total (pro), transactions_count (pro), tax (pro), predicted_ltv (pro), average_order (pro), coupon_used (pro), coupon_code (pro), shipping (pro), shipping_cost (pro).</i></p>
+                <p>The Facebook Pixel events are Dynamic Ads ready.</p>
+                <p>The Google Analytics events track the data Enhanced Ecommerce or Monetization (GA4).</p>
+                <p>The Pinterest events have the required data for Dynamic Remarketing.</p>
             </div>
         </div>
     </div>
 </div>
+
 
 <!-- AddToCart -->
 <div class="card card-static">
@@ -221,29 +167,150 @@ use PixelYourSite\Facebook\Helpers;
 
 <?php endif; ?>
 
+<?php if ( GA()->enabled() ) : ?>
+
+    <div class="card card-static" id="pys-section-ga-id">
+        <div class="card-header">
+            Google Analytics ID setting
+        </div>
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col">
+                    <?php GA()->render_switcher_input( 'woo_variable_as_simple' ); ?>
+                    <h4 class="switcher-label">Treat variable products like simple products</h4>
+                    <p class="mt-3">If you enable this option, the main ID will be used instead of the variation ID.</p>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col col-offset-left form-inline">
+                    <label>ecomm_prodid</label>
+                    <?php GA()->render_select_input( 'woo_content_id',
+                        array(
+                            'product_id' => 'Product ID',
+                            'product_sku'   => 'Product SKU',
+                        )
+                    ); ?>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col col-offset-left form-inline">
+                    <label>ecomm_prodid prefix</label><?php GA()->render_text_input( 'woo_content_id_prefix', '(optional)' ); ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-offset-left form-inline">
+                    <label>ecomm_prodid suffix</label><?php GA()->render_text_input( 'woo_content_id_suffix', '(optional)' ); ?>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>
+
+
 <!-- Google Ads Settings -->
 <div class="card card-static card-disabled">
     <div class="card-header">
-        Google Ads Settings <?php renderProBadge( 'https://www.pixelyoursite.com/google-analytics' ); ?>
+        Google Ads ID Setting <?php renderProBadge( 'https://www.pixelyoursite.com/google-analytics?utm_source=pys-free-plugin&utm_medium=pro-badg
+e&utm_campaign=pro-feature' ); ?>
     </div>
-    <div class="card-body">
-        <div class="row mb-3">
-            <div class="col-11 col-offset-left form-inline">
-                <label>Product ID prefix</label>
-                <?php renderDummyTextInput( '(optional)' ); ?>
-            </div>
-            <div class="col-1">
-                <?php renderPopoverButton( 'ads_woo_item_id_prefix' ); ?>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-11 col-offset-left form-inline">
-                <label>Product ID suffix</label>
-                <?php renderDummyTextInput( '(optional)' ); ?>
-            </div>
-        </div>
-    </div>
+
 </div>
+
+<?php if ( Pinterest()->enabled() ) : ?>
+
+    <div class="card card-static" id="pys-section-ga-id">
+        <div class="card-header">
+            Pinterest Tag ID setting
+        </div>
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col">
+                    <?php Pinterest()->render_switcher_input( 'woo_variable_as_simple' ); ?>
+                    <h4 class="switcher-label">Treat variable products like simple products</h4>
+                    <p class="mt-3">If you enable this option, the main ID will be used instead of the variation ID.</p>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col col-offset-left form-inline">
+                    <label>ID</label>
+                    <?php Pinterest()->render_select_input( 'woo_content_id',
+                        array(
+                            'product_id' => 'Product ID',
+                            'product_sku'   => 'Product SKU',
+                        )
+                    ); ?>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col col-offset-left form-inline">
+                    <label>ID prefix</label><?php Pinterest()->render_text_input( 'woo_content_id_prefix', '(optional)' ); ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-offset-left form-inline">
+                    <label>ID suffix</label><?php Pinterest()->render_text_input( 'woo_content_id_suffix', '(optional)' ); ?>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php else: ?>
+    <div class="card card-static card-disabled" id="pys-section-ga-id">
+        <div class="card-header">
+            Pinterest Tag ID setting
+            <?php renderProBadge( 'https://www.pixelyoursite.com/pinterest-tag?utm_source=pys-free-plugin&utm_medium=pinterest-badge&utm_campaign=requiere-free-add-on',
+                "Requires free add-on"); ?>
+        </div>
+    </div>
+<?php endif; ?>
+
+<!-- @todo: update UI -->
+<!-- @todo: hide for dummy Bing -->
+<?php if ( Bing()->enabled() ) : ?>
+    <div class="card card-static">
+        <div class="card-header">
+            Bing Tag ID setting
+        </div>
+        <div class="card-body">
+
+            <div class="row mb-3">
+                <div class="col">
+                    <?php Bing()->render_switcher_input( 'woo_variable_as_simple' ); ?>
+                    <h4 class="switcher-label">Treat variable products like simple products</h4>
+                    <p class="mt-3">If you enable this option, the main ID will be used instead of the variation ID.</p>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col col-offset-left form-inline">
+                    <label>ID</label>
+                    <?php Bing()->render_select_input( 'woo_content_id',
+                        array(
+                            'product_id' => 'Product ID',
+                            'product_sku'   => 'Product SKU',
+                        )
+                    ); ?>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col col-offset-left form-inline">
+                    <label>ID prefix</label><?php Bing()->render_text_input( 'woo_content_id_prefix', '(optional)' ); ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-offset-left form-inline">
+                    <label>ID suffix</label><?php Bing()->render_text_input( 'woo_content_id_suffix', '(optional)' ); ?>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php else : ?>
+    <div class="card card-static card-disabled">
+        <div class="card-header">
+            Bing Tag ID setting
+            <?php renderProBadge( 'https://www.pixelyoursite.com/bing-tag?utm_source=pixelyoursite-free-plugin&utm_medium=plugin&utm_campaign=free-plugin-bing',
+                "Requires paid add-on"); ?>
+        </div>
+    </div>
+<?php endif; ?>
 
 <!-- Google Dynamic Remarketing Vertical -->
 <div class="card card-static card-disabled">
@@ -264,6 +331,8 @@ use PixelYourSite\Facebook\Helpers;
         </div>
     </div>
 </div>
+
+
 
 <!-- Event Value -->
 <div class="card card-static card-disabled">
@@ -300,8 +369,8 @@ use PixelYourSite\Facebook\Helpers;
 
 <!-- Purchase -->
 <div class="card">
-    <div class="card-header">
-        Track Purchases <?php cardCollapseBtn(); ?>
+    <div class="card-header has_switch ">
+        <?php PYS()->render_switcher_input('woo_purchase_enabled');?>Track Purchases <?php cardCollapseBtn(); ?>
     </div>
     <div class="card-body">
         <div class="row mb-3">
@@ -312,7 +381,23 @@ use PixelYourSite\Facebook\Helpers;
                 <?php renderPopoverButton( 'woo_purchase_on_transaction' ); ?>
             </div>
         </div>
-        
+
+        <div class="row mb-1">
+            <div class="col">
+                <label>Fire the Purchase Event for the following order status: <?php renderProBadge('https://www.pixelyoursite.com/google-ads-tag/?utm_source=pys-free-plugin&utm_medium=pro-badge&utm_campaign=pro-feature'); ?></label>
+                <div class="custom-controls-stacked ml-2">
+                    <?php
+                    $statuses = wc_get_order_statuses();
+                    foreach ( $statuses as $status => $status_name) {
+                        PYS()->render_checkbox_input( 'woo_order_purchase_status_'.esc_attr( $status ), esc_html( $status_name ),true);
+                    }
+                    ?>
+                </div>
+                <label>The Purchase event fires when the client makes a transaction on your website. It won't fire on when the order status is modified afterwards.</label>
+
+            </div>
+        </div>
+
         <?php if ( Facebook()->enabled() ) : ?>
             <div class="row">
                 <div class="col">
@@ -325,9 +410,19 @@ use PixelYourSite\Facebook\Helpers;
         <?php if ( Pinterest()->enabled() ) : ?>
             <div class="row">
                 <div class="col">
-                    <?php Pinterest()->render_switcher_input( 'woo_checkout_enabled' ); ?>
+                    <?php Pinterest()->render_switcher_input( 'woo_purchase_enabled' ); ?>
                     <h4 class="switcher-label">Enable the Checkout event on Pinterest</h4>
                     <?php Pinterest()->renderAddonNotice(); ?>
+                </div>
+            </div>
+        <?php endif; ?>
+
+        <?php if ( Bing()->enabled() ) : ?>
+            <div class="row">
+                <div class="col">
+                    <?php Bing()->render_switcher_input( 'woo_purchase_enabled' ); ?>
+                    <h4 class="switcher-label">Enable the Purchase event on Bing</h4>
+                    <?php Bing()->renderAddonNotice(); ?>
                 </div>
             </div>
         <?php endif; ?>
@@ -347,6 +442,13 @@ use PixelYourSite\Facebook\Helpers;
                         <div class="custom-controls-stacked">
                             <?php PYS()->render_radio_input( 'woo_purchase_value_option', 'price',
                                 'Products price (subtotal)' ); ?>
+	                        <?php  if ( !isPixelCogActive() ) { ?>
+		                        <?php PYS()->render_radio_input( 'woo_purchase_value_option', 'cog',
+			                        'Price minus Cost of Goods', true, true ); ?>
+	                        <?php } else { ?>
+		                        <?php PYS()->render_radio_input( 'woo_purchase_value_option', 'cog',
+			                        'Price minus Cost of Goods', false ); ?>
+							<?php } ?>
                             <?php renderDummyRadioInput( 'Percent of products value (subtotal)' ); ?>
                             <div class="form-inline">
                                 <?php renderDummyTextInput( 0 ); ?>
@@ -381,9 +483,10 @@ use PixelYourSite\Facebook\Helpers;
             <div class="col">
                 <?php renderDummySwitcher(); ?>
                 <h4 class="switcher-label">Enable the purchase event on Google Ads</h4>
-                <?php renderProBadge(); ?>
+                <?php renderProBadge('https://www.pixelyoursite.com/google-ads-tag/?utm_source=pys-free-plugin&utm_medium=pro-badge&utm_campaign=pro-feature'); ?>
             </div>
         </div>
+        <?php renderDummyGoogleAdsConversionLabelInputs(); ?>
 
         <div class="row mt-3">
             <div class="col">
@@ -398,8 +501,8 @@ use PixelYourSite\Facebook\Helpers;
 
 <!-- InitiateCheckout -->
 <div class="card">
-    <div class="card-header">
-        Track the Checkout Page <?php cardCollapseBtn(); ?>
+    <div class="card-header has_switch">
+        <?php PYS()->render_switcher_input('woo_initiate_checkout_enabled');?>Track the Checkout Page <?php cardCollapseBtn(); ?>
     </div>
     <div class="card-body">
         
@@ -422,6 +525,16 @@ use PixelYourSite\Facebook\Helpers;
             </div>
         <?php endif; ?>
 
+        <?php if ( Bing()->enabled() ) : ?>
+            <div class="row">
+                <div class="col">
+                    <?php Bing()->render_switcher_input( 'woo_initiate_checkout_enabled' ); ?>
+                    <h4 class="switcher-label">Enable the InitiateCheckout on Bing</h4>
+                    <?php Bing()->renderAddonNotice(); ?>
+                </div>
+            </div>
+        <?php endif; ?>
+
         <div class="row my-3">
             <div class="col-11 col-offset-left">
                 <?php PYS()->render_switcher_input( 'woo_initiate_checkout_value_enabled', true ); ?>
@@ -439,6 +552,13 @@ use PixelYourSite\Facebook\Helpers;
                         <div class="custom-controls-stacked">
                             <?php PYS()->render_radio_input( 'woo_initiate_checkout_value_option', 'price',
                                 'Products price (subtotal)' ); ?>
+	                        <?php  if ( !isPixelCogActive() ) { ?>
+		                        <?php PYS()->render_radio_input( 'woo_initiate_checkout_value_option', 'cog',
+			                        'Price minus Cost of Goods', true, true ); ?>
+	                        <?php } else { ?>
+		                        <?php PYS()->render_radio_input( 'woo_initiate_checkout_value_option', 'cog',
+			                        'Price minus Cost of Goods', false ); ?>
+	                        <?php } ?>
                             <?php renderDummyRadioInput( 'Percent of products value (subtotal)' ); ?>
                             <div class="form-inline">
                                 <?php renderDummyTextInput( 0 ); ?>
@@ -473,17 +593,18 @@ use PixelYourSite\Facebook\Helpers;
             <div class="col">
                 <?php renderDummySwitcher(); ?>
                 <h4 class="switcher-label">Enable the begin_checkout event on Google Ads</h4>
-                <?php renderProBadge(); ?>
+                <?php renderProBadge('https://www.pixelyoursite.com/google-ads-tag/?utm_source=pys-free-plugin&utm_medium=pro-badge&utm_campaign=pro-feature'); ?>
             </div>
         </div>
+        <?php renderDummyGoogleAdsConversionLabelInputs(); ?>
 
     </div>
 </div>
 
 <!-- RemoveFromCart -->
 <div class="card">
-    <div class="card-header">
-        Track remove from cart <?php cardCollapseBtn(); ?>
+    <div class="card-header has_switch">
+        <?php PYS()->render_switcher_input('woo_remove_from_cart_enabled');?>Track remove from cart <?php cardCollapseBtn(); ?>
     </div>
     <div class="card-body">
         
@@ -515,7 +636,7 @@ use PixelYourSite\Facebook\Helpers;
             <div class="col">
                 <?php renderDummySwitcher(); ?>
                 <h4 class="switcher-label">Enable the remove_from_cart event on Google Ads</h4>
-                <?php renderProBadge(); ?>
+                <?php renderProBadge('https://www.pixelyoursite.com/google-ads-tag/?utm_source=pys-free-plugin&utm_medium=pro-badge&utm_campaign=pro-feature'); ?>
             </div>
         </div>
         
@@ -529,13 +650,23 @@ use PixelYourSite\Facebook\Helpers;
             </div>
         <?php endif; ?>
 
+<!--	    --><?php //if ( Bing()->enabled() ) : ?>
+<!--            <div class="row">-->
+<!--                <div class="col">-->
+<!--				    --><?php //Bing()->render_switcher_input( 'woo_remove_from_cart_enabled' ); ?>
+<!--                    <h4 class="switcher-label">Enable the RemoveFromCart event on Bing</h4>-->
+<!--				    --><?php //Bing()->renderAddonNotice(); ?>
+<!--                </div>-->
+<!--            </div>-->
+<!--	    --><?php //endif; ?>
+
     </div>
 </div>
 
 <!-- AddToCart -->
 <div class="card">
-    <div class="card-header">
-        Track add to cart <?php cardCollapseBtn(); ?>
+    <div class="card-header has_switch">
+        <?php PYS()->render_switcher_input('woo_add_to_cart_enabled');?>Track add to cart <?php cardCollapseBtn(); ?>
     </div>
     <div class="card-body">
         
@@ -558,6 +689,16 @@ use PixelYourSite\Facebook\Helpers;
             </div>
         <?php endif; ?>
 
+        <?php if ( Bing()->enabled() ) : ?>
+            <div class="row">
+                <div class="col">
+                    <?php Bing()->render_switcher_input( 'woo_add_to_cart_enabled' ); ?>
+                    <h4 class="switcher-label">Enable the AddToCart event on Bing</h4>
+                    <?php Bing()->renderAddonNotice(); ?>
+                </div>
+            </div>
+        <?php endif; ?>
+
         <div class="row my-3">
             <div class="col-11 col-offset-left">
                 <?php PYS()->render_switcher_input( 'woo_add_to_cart_value_enabled', true ); ?>
@@ -575,6 +716,13 @@ use PixelYourSite\Facebook\Helpers;
                         <div class="custom-controls-stacked">
                             <?php PYS()->render_radio_input( 'woo_add_to_cart_value_option', 'price',
                                 'Products price (subtotal)' ); ?>
+	                        <?php  if ( !isPixelCogActive() ) { ?>
+		                        <?php PYS()->render_radio_input( 'woo_add_to_cart_value_option', 'cog',
+			                        'Price minus Cost of Goods', true, true ); ?>
+	                        <?php } else { ?>
+		                        <?php PYS()->render_radio_input( 'woo_add_to_cart_value_option', 'cog',
+			                        'Price minus Cost of Goods', false ); ?>
+	                        <?php } ?>
                             <?php renderDummyRadioInput( 'Percent of products value (subtotal)' ) ?>
                             <div class="form-inline">
                                 <?php renderDummyTextInput( 0 ); ?>
@@ -609,17 +757,18 @@ use PixelYourSite\Facebook\Helpers;
             <div class="col">
                 <?php renderDummySwitcher(); ?>
                 <h4 class="switcher-label">Enable the add_to_cart event on Google Ads</h4>
-                <?php renderProBadge(); ?>
+                <?php renderProBadge('https://www.pixelyoursite.com/google-ads-tag/?utm_source=pys-free-plugin&utm_medium=pro-badge&utm_campaign=pro-feature'); ?>
             </div>
         </div>
+        <?php renderDummyGoogleAdsConversionLabelInputs(); ?>
 
     </div>
 </div>
 
 <!-- ViewContent -->
 <div class="card">
-    <div class="card-header">
-        Track product pages <?php cardCollapseBtn(); ?>
+    <div class="card-header has_switch">
+        <?php PYS()->render_switcher_input('woo_view_content_enabled');?>Track product pages <?php cardCollapseBtn(); ?>
     </div>
     <div class="card-body">
         
@@ -635,9 +784,19 @@ use PixelYourSite\Facebook\Helpers;
         <?php if ( Pinterest()->enabled() ) : ?>
             <div class="row">
                 <div class="col">
-                    <?php Pinterest()->render_switcher_input( 'woo_page_visit_enabled' ); ?>
+                    <?php Pinterest()->render_switcher_input( 'woo_view_content_enabled' ); ?>
                     <h4 class="switcher-label">Enable the PageVisit event on Pinterest</h4>
                     <?php Pinterest()->renderAddonNotice(); ?>
+                </div>
+            </div>
+        <?php endif; ?>
+
+        <?php if ( Bing()->enabled() ) : ?>
+            <div class="row">
+                <div class="col">
+                    <?php Bing()->render_switcher_input( 'woo_view_content_enabled' ); ?>
+                    <h4 class="switcher-label">Enable the PageVisit event on Bing</h4>
+                    <?php Bing()->renderAddonNotice(); ?>
                 </div>
             </div>
         <?php endif; ?>
@@ -666,6 +825,13 @@ use PixelYourSite\Facebook\Helpers;
                         <div class="custom-controls-stacked">
                             <?php PYS()->render_radio_input( 'woo_view_content_value_option', 'price',
                                 'Product price' ); ?>
+	                        <?php  if ( !isPixelCogActive() ) { ?>
+		                        <?php PYS()->render_radio_input( 'woo_view_content_value_option', 'cog',
+			                        'Price minus Cost of Goods', true, true ); ?>
+	                        <?php } else { ?>
+		                        <?php PYS()->render_radio_input( 'woo_view_content_value_option', 'cog',
+			                        'Price minus Cost of Goods', false ); ?>
+	                        <?php } ?>
                             <?php renderDummyRadioInput( 'Percent of product price' ); ?>
                             <div class="form-inline">
                                 <?php renderDummyTextInput( 0 ); ?>
@@ -700,17 +866,18 @@ use PixelYourSite\Facebook\Helpers;
             <div class="col">
                 <?php renderDummySwitcher(); ?>
                 <h4 class="switcher-label">Enable the view_item event on Google Ads</h4>
-                <?php renderProBadge(); ?>
+                <?php renderProBadge('https://www.pixelyoursite.com/google-ads-tag/?utm_source=pys-free-plugin&utm_medium=pro-badge&utm_campaign=pro-feature'); ?>
             </div>
         </div>
+        <?php renderDummyGoogleAdsConversionLabelInputs(); ?>
 
     </div>
 </div>
 
 <!-- ViewCategory -->
 <div class="card">
-    <div class="card-header">
-        Track product category pages <?php cardCollapseBtn(); ?>
+    <div class="card-header has_switch">
+        <?php PYS()->render_switcher_input('woo_view_category_enabled');?>Track product category pages <?php cardCollapseBtn(); ?>
     </div>
     <div class="card-body">
         
@@ -738,13 +905,24 @@ use PixelYourSite\Facebook\Helpers;
             </div>
         <?php endif; ?>
 
+	    <?php if ( Bing()->enabled() ) : ?>
+            <div class="row">
+                <div class="col">
+				    <?php Bing()->render_switcher_input( 'woo_view_category_enabled' ); ?>
+                    <h4 class="switcher-label">Enable the ViewCategory event on Bing</h4>
+				    <?php Bing()->renderAddonNotice(); ?>
+                </div>
+            </div>
+	    <?php endif; ?>
+
         <div class="row">
             <div class="col">
                 <?php renderDummySwitcher(); ?>
                 <h4 class="switcher-label">Enable the view_item_list event on Google Ads</h4>
-                <?php renderProBadge(); ?>
+                <?php renderProBadge('https://www.pixelyoursite.com/google-ads-tag/?utm_source=pys-free-plugin&utm_medium=pro-badge&utm_campaign=pro-feature'); ?>
             </div>
         </div>
+        <?php renderDummyGoogleAdsConversionLabelInputs(); ?>
         
         <?php if ( Pinterest()->enabled() ) : ?>
             <div class="row">
@@ -756,6 +934,94 @@ use PixelYourSite\Facebook\Helpers;
             </div>
         <?php endif; ?>
 
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-header">
+        Track product list performance on Google Analytics
+        <?php renderProBadge( 'https://www.pixelyoursite.com/google-analytics?utm_source=pys-free-plugin&utm_medium=pro-badge&utm_campaign=pro-feature' ); ?>
+        <?php cardCollapseBtn(); ?>
+    </div>
+    <div class="card-body">
+        <?php if ( GA()->enabled() ) : ?>
+            <div class="row mb-1">
+                <div class="col">
+                    <?php GA()->render_switcher_input( 'woo_view_category_enabled_tmp',false,true ); ?>
+                    <h4 class="switcher-label">Enable the view_item_list event on Google Analytics(categories, related products, search, shortcodes)</h4>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col col-offset-left">
+                    <?php GA()->render_checkbox_input( 'woo_view_category_non_interactive_tmp', 'Non-interactive event',true ); ?>
+                </div>
+            </div>
+            <div class="row mb-1">
+                <div class="col">
+                    <?php GA()->render_switcher_input( 'woo_select_content_enabled_tmp',false,true ); ?>
+                    <h4 class="switcher-label">Enable the select_content event on Google Analytics(when a product is clicked on categories, related products, search, shortcodes)</h4>
+                </div>
+            </div>
+        <?php endif; ?>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header has_switch">
+        <?php PYS()->render_switcher_input('woo_complete_registration_enabled');?> CompleteRegistration for the Facebook Pixel<?php cardCollapseBtn(); ?>
+    </div>
+    <div class="card-body">
+        <?php if ( Facebook()->enabled() ) : ?>
+            <div class="row mb-1">
+                <div class="col">
+                    <?php Facebook()->render_checkbox_input( 'woo_complete_registration_fire_every_time',
+                        "Fire this event every time a transaction takes place"); ?>
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col col-offset-left">
+                    <?php Facebook()->render_switcher_input( 'woo_complete_registration_use_custom_value'); ?>
+                    <h4 class="switcher-label">Event value on Facebook</h4>
+                    <div class="row mt-2">
+                        <div class="col col-offset-left">
+                            <div class="collapse-inner pt-0">
+                                <div class="custom-controls-stacked">
+                                    <?php Facebook()->render_radio_input("woo_complete_registration_custom_value","price",
+                                        "Order's total") ?>
+                                    <?php  if ( !isPixelCogActive() ) { ?>
+                                        <?php Facebook()->render_radio_input( 'woo_complete_registration_custom_value', 'cog',
+                                            'Price minus Cost of Goods', true, true ); ?>
+                                    <?php } else { ?>
+                                        <?php Facebook()->render_radio_input( 'woo_complete_registration_custom_value', 'cog',
+                                            'Price minus Cost of Goods', false ); ?>
+                                    <?php } ?>
+                                    <?php Facebook()->render_radio_input("woo_complete_registration_custom_value","percent",
+                                        "Percent of the order's total") ?>
+                                    <div class="form-inline">
+                                        <?php Facebook()->render_number_input( 'woo_complete_registration_percent_value' ); ?>
+                                    </div>
+                                    <?php Facebook()->render_radio_input("woo_complete_registration_custom_value","global",
+                                        "Use global value") ?>
+                                    <div class="form-inline">
+                                        <?php Facebook()->render_number_input( 'woo_complete_registration_global_value' ); ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-1">
+                <div class="col">
+                    <?php Facebook()->render_switcher_input( 'woo_complete_registration_send_from_server'); ?>
+                    <h4 class="switcher-label">Send this from your server only. It won't be visible on your browser.</h4>
+                </div>
+            </div>
+        <?php endif; ?>
     </div>
 </div>
 
@@ -800,6 +1066,13 @@ use PixelYourSite\Facebook\Helpers;
             <div class="col">
                 <?php renderDummySwitcher(); ?>
                 <h4 class="switcher-label">Enable on Pinterest</h4>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <?php renderDummySwitcher(); ?>
+                <h4 class="switcher-label">Enable on Bing</h4>
             </div>
         </div>
         
@@ -850,6 +1123,13 @@ use PixelYourSite\Facebook\Helpers;
             <div class="col">
                 <?php renderDummySwitcher(); ?>
                 <h4 class="switcher-label">Enable on Pinterest</h4>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <?php renderDummySwitcher(); ?>
+                <h4 class="switcher-label">Enable on Bing</h4>
             </div>
         </div>
         
@@ -903,6 +1183,13 @@ use PixelYourSite\Facebook\Helpers;
                 <h4 class="switcher-label">Enable on Pinterest</h4>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col">
+                <?php renderDummySwitcher(); ?>
+                <h4 class="switcher-label">Enable on Bing</h4>
+            </div>
+        </div>
         
         <div class="row mt-3">
             <div class="col col-offset-left form-inline">
@@ -933,6 +1220,13 @@ use PixelYourSite\Facebook\Helpers;
             <div class="col">
                 <?php renderDummySwitcher(); ?>
                 <h4 class="switcher-label">Enable on Pinterest</h4>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <?php renderDummySwitcher(); ?>
+                <h4 class="switcher-label">Enable on Bing</h4>
             </div>
         </div>
         
@@ -1007,6 +1301,13 @@ use PixelYourSite\Facebook\Helpers;
             <div class="col">
                 <?php renderDummySwitcher(); ?>
                 <h4 class="switcher-label">Enable on Pinterest</h4>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <?php renderDummySwitcher(); ?>
+                <h4 class="switcher-label">Enable on Bing</h4>
             </div>
         </div>
         

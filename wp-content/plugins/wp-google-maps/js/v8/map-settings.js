@@ -34,14 +34,14 @@ jQuery(function($) {
 		}
 		
 		WPGMZA.assertInstanceOf(this, "MapSettings");
+
+
 		
-		function addSettings(input)
-		{
+		function addSettings(input) {
 			if(!input)
 				return;
 			
-			for(var key in input)
-			{
+			for(var key in input) {
 				if(key == "other_settings")
 					continue; // Ignore other_settings
 				
@@ -60,6 +60,7 @@ jQuery(function($) {
 		
 		if(json && json.other_settings)
 			addSettings(json.other_settings);
+
 	}
 	
 	/**
@@ -70,6 +71,7 @@ jQuery(function($) {
 	 */
 	WPGMZA.MapSettings.prototype.toOLViewOptions = function()
 	{
+		var self = this;
 		var options = {
 			center: ol.proj.fromLonLat([-119.4179, 36.7783]),
 			zoom: 4
@@ -104,12 +106,26 @@ jQuery(function($) {
 			]);
 		}
 		
-		// Start zoom
-		if(this.zoom)
-			options.zoom = parseInt(this.zoom);
+		if(!empty("map_start_lat") && !empty("map_start_lng"))
+		{
+			options.center = ol.proj.fromLonLat([
+				parseFloat(this.map_start_lng),
+				parseFloat(this.map_start_lat)
+			]);
+		}
 		
-		if(this.start_zoom)
+		// Start zoom
+		if(this.zoom){
+			options.zoom = parseInt(this.zoom);
+		}
+		
+		if(this.start_zoom){
 			options.zoom = parseInt(this.start_zoom);
+		}
+
+		if(this.map_start_zoom){
+			options.zoom = parseInt(this.map_start_zoom);
+		}
 		
 		// Zoom limits
 		// TODO: This matches the Google code, so some of these could be potentially put on a parent class
@@ -155,8 +171,13 @@ jQuery(function($) {
 		
 		var zoom = (this.start_zoom ? parseInt(this.start_zoom) : 4);
 		
-		if(!this.start_zoom && this.zoom)
+		if(!this.start_zoom && this.zoom){
 			zoom = parseInt( this.zoom );
+		}
+
+		if(this.map_start_zoom){
+			zoom = parseInt(this.map_start_zoom);
+		}
 		
 		var options = {
 			zoom:			zoom,
@@ -169,25 +190,54 @@ jQuery(function($) {
 				lng: parseFloat(this.center.lng)
 			});
 		
-		if(this.map_min_zoom && this.map_max_zoom)
+		if(!empty("map_start_lat") && !empty("map_start_lng"))
 		{
-			options.minZoom = Math.min(this.map_min_zoom, this.map_max_zoom);
-			options.maxZoom = Math.max(this.map_min_zoom, this.map_max_zoom);
+			// NB: map_start_lat and map_start_lng are the "real" values. Not sure where start_location comes from
+			options.center = new google.maps.LatLng({
+				lat: parseFloat(this.map_start_lat),
+				lng: parseFloat(this.map_start_lng)
+			});
+		}
+		
+		if(this.wpgmza_min_zoom && this.wpgmza_max_zoom)
+		{
+			options.minZoom = Math.min(this.wpgmza_min_zoom, this.wpgmza_max_zoom);
+			options.maxZoom = Math.max(this.wpgmza_min_zoom, this.wpgmza_max_zoom);
+		}
+		
+		// NB: Handles legacy checkboxes as well as new, standard controls
+		function isSettingDisabled(value)
+		{
+			if(value === "yes")
+				return true;
+			
+			return (value ? true : false);
 		}
 		
 		// These settings are all inverted because the checkbox being set means "disabled"
-		options.zoomControl				= !(this.wpgmza_settings_map_zoom == 'yes');
-        options.panControl				= !(this.wpgmza_settings_map_pan == 'yes');
-        options.mapTypeControl			= !(this.wpgmza_settings_map_type == 'yes');
-        options.streetViewControl		= !(this.wpgmza_settings_map_streetview == 'yes');
-        options.fullscreenControl		= !(this.wpgmza_settings_map_full_screen_control == 'yes');
+		options.zoomControl				= !isSettingDisabled(this.wpgmza_settings_map_zoom);
+        options.panControl				= !isSettingDisabled(this.wpgmza_settings_map_pan);
+        options.mapTypeControl			= !isSettingDisabled(this.wpgmza_settings_map_type);
+        options.streetViewControl		= !isSettingDisabled(this.wpgmza_settings_map_streetview);
+        options.fullscreenControl		= !isSettingDisabled(this.wpgmza_settings_map_full_screen_control);
         
-        options.draggable				= !(this.wpgmza_settings_map_draggable == 'yes');
-        options.disableDoubleClickZoom	= (this.wpgmza_settings_map_clickzoom == 'yes');
-        options.scrollwheel				= !(this.wpgmza_settings_map_scroll == 'yes');
+        options.draggable				= !isSettingDisabled(this.wpgmza_settings_map_draggable);
+        options.disableDoubleClickZoom	= isSettingDisabled(this.wpgmza_settings_map_clickzoom);
 		
-		if(this.wpgmza_force_greedy_gestures == "greedy" || this.wpgmza_force_greedy_gestures == "yes")
+		// NB: This setting is handled differently as setting scrollwheel to true breaks gestureHandling
+		if(this.wpgmza_settings_map_scroll)
+			options.scrollwheel			= false;
+		
+		if(this.wpgmza_force_greedy_gestures == "greedy" 
+			|| this.wpgmza_force_greedy_gestures == "yes"
+			|| this.wpgmza_force_greedy_gestures == true)
+		{
 			options.gestureHandling = "greedy";
+			
+			// Setting this at all will break gesture handling. Make sure we delete it when using greedy gesture handling
+			if(!this.wpgmza_settings_map_scroll && "scrollwheel" in options)
+				delete options.scrollwheel;
+		}
 		else
 			options.gestureHandling = "cooperative";
 		
@@ -210,14 +260,8 @@ jQuery(function($) {
 				break;
 		}
 		
-		if(this.theme_data && this.theme_data.length > 0)
-		{
-			try{
-				options.styles = JSON.parse(this.theme_data);
-			}catch(e) {
-				alert("Your theme data is not valid JSON and has been ignored");
-			}
-		}
+		if(this.wpgmza_theme_data && this.wpgmza_theme_data.length)
+			options.styles = WPGMZA.GoogleMap.parseThemeData(this.wpgmza_theme_data);
 		
 		return options;
 	}

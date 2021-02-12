@@ -9,10 +9,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 function adminGetPromoNoticesContent() {
     return [
         'woo' => [
+
         ],
         'edd' => [
+
+
+
         ],
         'no_woo_no_edd' => [
+
+
         ],
+        
+        'next' => '8_0_3'
+
     ];
 }

@@ -57,31 +57,34 @@ class SWP_Meta_Box_Loader {
 		// )
 		//
 
+
 		$heading = array(
-			'name'  => 'Share Customization',
+			'name'  => 'Optimize for Social',
 			'id'    => 'swp_meta_box_heading',
 			'type'  => 'heading',
 			'class' => 'heading  swpmb-full-width',
-			'desc'  => 'Make sure your content is shared exactly the way you want it to be shared by customizing the fields below.',
+			'desc'  => $this->generate_score_html() . '<p class="social_optimize_description">Make sure your content is shared exactly the way you want it to be shared by customizing the fields below. Let\'s face it. Nobody else is going to take the time to carefully craft titles and descriptions for your content when they share it to their timelines on social media. With Social Warfare, that doesn\'t matter. If you take a moment to carefully craft your post\'s images, titles and descriptions here, then these will be pre-filled for your visitors when they share your posts online.</p> ',
 		);
 
 
 		// Setup the Open Graph image.
 		$open_graph_image = array(
 			'name'  => __( 'Open Graph Image','social-warfare' ),
-			'desc'  => __( 'Add an image that is optimized for maximum exposure on Facebook, Google+ and LinkedIn. We recommend 1,200px by 628px.','social-warfare' ),
+			'desc'  => __( 'Add an image that is optimized for maximum exposure on Facebook and LinkedIn. We recommend 1,200px by 628px.','social-warfare' ),
 			'id'    => $prefix . 'og_image',
 			'type'  => 'image_advanced',
 			'class' => 'open-graph swpmb-left',
 			'max_file_uploads' => 1,
+			'image_size' => 'full'
 		);
 
 		// Setup the Open Graph title.
 		$open_graph_title = array(
 			'name'  => __( 'Open Graph Title','social-warfare' ),
-			'placeholder'  => __( 'Add a title that will populate the open graph meta tag which will be used when users share your content onto Facebook, LinkedIn, and Google+. If nothing is provided here, we will use the post title as a backup.','social-warfare' ),
+			'desc'  => __( 'Add a title that will populate the open graph meta tag which will be used when users share your content onto Facebook, LinkedIn, and others. If nothing is provided here, we will use the post title as a backup.','social-warfare' ),
+			'placeholder' => 'The Greatest Blog Post in the History of the World',
 			'id'    => $prefix . 'og_title',
-			'type'  => 'textarea',
+			'type'  => 'text',
 			'class' => 'open-graph swpmb-right',
 			'rows'	=> 1,
 		);
@@ -89,7 +92,8 @@ class SWP_Meta_Box_Loader {
 		// Setup the Open Graph description.
 		$open_graph_description = array(
 			'name'  => __( 'Open Graph Description','social-warfare' ),
-			'placeholder'  => __( 'Add a description that will populate the open graph meta tag which will be used when users share your content onto Facebook, LinkedIn, and Google Plus.','social-warfare' ),
+			'desc'  => __( 'Add a description that will populate the open graph meta tag which will be used when users share your content onto Facebook, LinkedIn, and others.','social-warfare' ),
+			'placeholder' => __( 'Foursquare and seven years ago, a new blogger set forth...','social-warfare' ),
 			'id'    => $prefix . 'og_description',
 			'class' => 'open-graph swpmb-right',
 			'type'  => 'textarea',
@@ -98,19 +102,20 @@ class SWP_Meta_Box_Loader {
 		// Setup the Open Graph image.
 		$twitter_image = array(
 			'name'  => __( 'Twitter Card Image','social-warfare' ),
-			'desc'  => __( 'Add an image that is optimized for maximum exposure on Facebook, Google+ and LinkedIn. We recommend 1,200px by 628px.','social-warfare' ),
+			'desc'  => __( 'Add an image that is optimized for maximum exposure on your Twitter card. We recommend 1,200px by 628px.','social-warfare' ),
 			'id'    => $prefix . 'twitter_card_image',
 			'type'  => 'image_advanced',
 			'class' => 'twitter swpmb-left',
 			'max_file_uploads' => 1,
+			'image_size' => 'full'
 		);
 
 		// Setup the Twitter Card title.
 		$twitter_title = array(
 			'name'  => __( 'Twitter Card Title','social-warfare' ),
-			'placeholder'  => __( 'Add a title that will populate the open graph meta tag which will be used when users share your content onto Facebook, LinkedIn, and Google+. If nothing is provided here, we will use the post title as a backup.','social-warfare' ),
+			'desc'  => __( 'Add a title that will populate the Twitter Card meta tag which will be used when users share your content onto Twitter. If nothing is provided here, we will use the post title as a backup.','social-warfare' ),
 			'id'    => $prefix . 'twitter_card_title',
-			'type'  => 'textarea',
+			'type'  => 'text',
 			'class' => $prefix . 'twitter_card_title twitter swpmb-right',
 			'rows'	=> 1,
 		);
@@ -118,7 +123,7 @@ class SWP_Meta_Box_Loader {
 		// Setup the Twitter Card Description description.
 		$twitter_description = array(
 			'name'  => __( 'Twitter Card Description','social-warfare' ),
-			'placeholder'  => __( 'Add a description that will populate the open graph meta tag which will be used when users share your content onto Facebook, LinkedIn, and Google Plus.','social-warfare' ),
+			'desc'  => __( 'Add a description that will populate the Twitter Card description meta tag which will be used when users share your content onto Twitter.','social-warfare' ),
 			'id'    => $prefix . 'twitter_card_description',
 			'class' => $prefix . 'twitter_card_description twitter swpmb-right',
 			'type'  => 'textarea',
@@ -138,26 +143,31 @@ class SWP_Meta_Box_Loader {
 
 		$open_graph_toggle = array(
 			'id'    => 'swp_twitter_use_open_graph',
-			'type'  => 'toggle',
+			'type'  => 'switch',
 			'name'  => __( 'Use Open Graph for Twitter Card?', 'social-warfare'),
 			'desc'	=> '',
-			'value'=> '',
+			'std'=> 1,
 			'class' => 'twitter_og_toggle swpmb-left',
+			'on_label' => 'On',
+			'off_label' => 'Off',
+			'style' => 'square'
 		);
 
 		// Setup the pinterest optimized image.
 		$pinterest_image = array(
 			'name'  => __( 'Pinterest Image','social-warfare' ),
-			'desc'  => __( 'Add an image that is optimized for maximum exposure on Pinterest. We recommend using an image that is formatted in a 2:3 aspect ratio like 1000 x 1500.','social-warfare' ),
+			'desc'  => __( 'Add one or more images that are optimized for maximum exposure on Pinterest. We recommend using an image that is formatted in a 2:3 aspect ratio like 1000 x 1500. <br /><br /> <b>Pro Tip:</b> You can now upload as many Pinterest images as you\'d like. These images will be presented to the user when they click on the Pinterest button. They will also be added to the post content (top, bottom or hidden) so they appear for people using browser extensions, but only if you have this option turned on in the Social Warfare options page.','social-warfare' ),
 			'id'    => $prefix . 'pinterest_image',
 			'class' => $prefix . 'large_image pinterest swpmb-left',
 			'type'  => 'image_advanced',
-			'max_file_uploads' => 1,
+			'max_file_uploads' => 99,
+			'image_size' => 'full'
 		);
 
 		$pinterest_description = array(
 			'name'  => __( 'Pinterest Description','social-warfare' ),
-			'placeholder'  => __( 'Craft a customized description that will be used when this post is shared on Pinterest. Leave this blank to use the title of the post.','social-warfare' ),
+			'desc'  => __( 'Craft a customized description that will be used when this post is shared on Pinterest. Leave this blank to use the title of the post.','social-warfare' ),
+			'placeholder' => __( 'Rockin\' out on the Pinterest description...', 'social-warfare' ),
 			'id'    => $prefix . 'pinterest_description',
 			'class' => $prefix . 'pinterest_descriptionWrapper pinterest swpmb-right',
 			'type'  => 'textarea',
@@ -356,5 +366,21 @@ class SWP_Meta_Box_Loader {
 	 */
 	public function after_meta_boxes( $meta_box ) {
 		return $meta_box;
+	}
+
+
+	/**
+	 * The generate_score_html() method will create the html for the heading that
+	 * will feature the circular score on the right hand side. Clicking on this
+	 * header
+	 *
+	 * @since  4.1.0 | 15 AUG 2020 | Created
+	 * @param  void
+	 * @return string The string of rendered html.
+	 *
+	 */
+	public function generate_score_html() {
+		$html = '<div class="social_score_wrapper"><div class="score_title">Optimize for Social</div><div class="score_rating"><div class="score_rating_top">0</div><div class="score_rating_bottom">100</div></div><div class="swp_clearfix"></div></div>';
+		return $html;
 	}
 }

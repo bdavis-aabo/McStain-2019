@@ -8,40 +8,43 @@ jQuery(function($) {
 	
 	var Parent;
 	
-	WPGMZA.GoogleMarker = function(row)
+	WPGMZA.GoogleMarker = function(options)
 	{
 		var self = this;
 		
-		Parent.call(this, row);
+		Parent.call(this, options);
 		
 		var settings = {};
-		if(row)
+		if(options)
 		{
-			for(var name in row)
+			for(var name in options)
 			{
-				if(row[name] instanceof WPGMZA.LatLng)
+				if(options[name] instanceof WPGMZA.LatLng)
 				{
-					settings[name] = row[name].toGoogleLatLng();
+					settings[name] = options[name].toGoogleLatLng();
 				}
-				else if(row[name] instanceof WPGMZA.Map)
+				else if(options[name] instanceof WPGMZA.Map || name == "icon")
 				{
-					// Do nothing (ignore)
+					// NB: Ignore map here, it's not a google.maps.Map, Google would throw an exception
+					// NB: Ignore icon here, it conflicts with updateIcon in Pro
 				}
 				else
-					settings[name] = row[name];
+					settings[name] = options[name];
 			}
 		}
 		
 		this.googleMarker = new google.maps.Marker(settings);
 		this.googleMarker.wpgmzaMarker = this;
 		
+		this.googleFeature = this.googleMarker;
+		
 		this.googleMarker.setPosition(new google.maps.LatLng({
 			lat: parseFloat(this.lat),
 			lng: parseFloat(this.lng)
 		}));
-			
-		this.googleMarker.setLabel(this.settings.label);
 		
+		if(this.anim)
+			this.googleMarker.setAnimation(this.anim);
 		if(this.animation)
 			this.googleMarker.setAnimation(this.animation);
 			
@@ -66,8 +69,11 @@ jQuery(function($) {
 				type: "dragend",
 				latLng: self.getPosition()
 			});
+
+			self.trigger("change");
 		});
 		
+		this.setOptions(settings);
 		this.trigger("init");
 	}
 	
@@ -77,6 +83,19 @@ jQuery(function($) {
 		Parent = WPGMZA.Marker;
 	WPGMZA.GoogleMarker.prototype = Object.create(Parent.prototype);
 	WPGMZA.GoogleMarker.prototype.constructor = WPGMZA.GoogleMarker;
+	
+	Object.defineProperty(WPGMZA.GoogleMarker.prototype, "opacity", {
+		
+		"get": function() {
+			return this._opacity;
+		},
+		
+		"set": function(value) {
+			this._opacity = value;
+			this.googleMarker.setOpacity(value);
+		}
+		
+	});
 	
 	WPGMZA.GoogleMarker.prototype.setLabel = function(label)
 	{

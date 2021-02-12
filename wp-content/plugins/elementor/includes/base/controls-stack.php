@@ -3,6 +3,7 @@ namespace Elementor;
 
 use Elementor\Core\Base\Base_Object;
 use Elementor\Core\DynamicTags\Manager;
+use Elementor\Core\Schemes\Manager as Schemes_Manager;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
@@ -189,7 +190,10 @@ abstract class Controls_Stack extends Base_Object {
 	 * @return string The converted ID.
 	 */
 	public function get_id_int() {
-		return hexdec( $this->id );
+		/** We ignore possible notices, in order to support elements created prior to v1.8.0 and might include
+		 *  non-base 16 characters as part of their ID.
+		 */
+		return @hexdec( $this->id );
 	}
 
 	/**
@@ -208,28 +212,13 @@ abstract class Controls_Stack extends Base_Object {
 	}
 
 	/**
-	 * Get items.
+	 * @since 2.9.0
+	 * @access public
 	 *
-	 * Utility method that receives an array with a needle and returns all the
-	 * items that match the needle. If needle is not defined the entire haystack
-	 * will be returned.
-	 *
-	 * @since 1.4.0
-	 * @deprecated 2.3.0 Use `Controls_Stack::get_items()` instead
-	 * @access protected
-	 * @static
-	 *
-	 * @param array  $haystack An array of items.
-	 * @param string $needle   Optional. Needle. Default is null.
-	 *
-	 * @return mixed The whole haystack or the needle from the haystack when requested.
+	 * @return bool
 	 */
-	protected static function _get_items( array $haystack, $needle = null ) {
-		if ( $needle ) {
-			return isset( $haystack[ $needle ] ) ? $haystack[ $needle ] : null;
-		}
-
-		return $haystack;
+	public function is_editable() {
+		return true;
 	}
 
 	/**
@@ -289,6 +278,7 @@ abstract class Controls_Stack extends Base_Object {
 	 * @since 1.4.0
 	 * @since 2.0.9 Added the `controls` and the `settings` parameters.
 	 * @access public
+	 * @deprecated 3.0.0
 	 *
 	 * @param array $controls Optional. An array of controls. Default is null.
 	 * @param array $settings Optional. Controls settings. Default is null.
@@ -296,6 +286,8 @@ abstract class Controls_Stack extends Base_Object {
 	 * @return array Active controls.
 	 */
 	public function get_active_controls( array $controls = null, array $settings = null ) {
+		// _deprecated_function( __METHOD__, '3.0.0' );
+
 		if ( ! $controls ) {
 			$controls = $this->get_controls();
 		}
@@ -338,7 +330,7 @@ abstract class Controls_Stack extends Base_Object {
 	 *
 	 * Register a single control to allow the user to set/update data.
 	 *
-	 * This method should be used inside `_register_controls()`.
+	 * This method should be used inside `register_controls()`.
 	 *
 	 * @since 1.4.0
 	 * @access public
@@ -355,6 +347,14 @@ abstract class Controls_Stack extends Base_Object {
 			'position' => null,
 		];
 
+		if ( isset( $args['scheme'] ) ) {
+			$args['global'] = [
+				'default' => Plugin::$instance->kits_manager->convert_scheme_to_global( $args['scheme'] ),
+			];
+
+			unset( $args['scheme'] );
+		}
+
 		$options = array_merge( $default_options, $options );
 
 		if ( $options['position'] ) {
@@ -366,31 +366,7 @@ abstract class Controls_Stack extends Base_Object {
 		}
 
 		if ( empty( $args['type'] ) || ! in_array( $args['type'], [ Controls_Manager::SECTION, Controls_Manager::WP_WIDGET ], true ) ) {
-			$target_section_args = $this->current_section;
-
-			$target_tab = $this->current_tab;
-
-			if ( $this->injection_point ) {
-				$target_section_args = $this->injection_point['section'];
-
-				if ( ! empty( $this->injection_point['tab'] ) ) {
-					$target_tab = $this->injection_point['tab'];
-				}
-			}
-
-			if ( null !== $target_section_args ) {
-				if ( ! empty( $args['section'] ) || ! empty( $args['tab'] ) ) {
-					_doing_it_wrong( sprintf( '%s::%s', get_called_class(), __FUNCTION__ ), sprintf( 'Cannot redeclare control with `tab` or `section` args inside section "%s".', $id ), '1.0.0' );
-				}
-
-				$args = array_replace_recursive( $target_section_args, $args );
-
-				if ( null !== $target_tab ) {
-					$args = array_replace_recursive( $target_tab, $args );
-				}
-			} elseif ( empty( $args['section'] ) && ( ! $options['overwrite'] || is_wp_error( Plugin::$instance->controls_manager->get_control_from_stack( $this->get_unique_name(), $id ) ) ) ) {
-				wp_die( sprintf( '%s::%s: Cannot add a control outside of a section (use `start_controls_section`).', get_called_class(), __FUNCTION__ ) );
-			}
+			$args = $this->handle_control_position( $args, $id, $options['overwrite'] );
 		}
 
 		if ( $options['position'] ) {
@@ -703,10 +679,12 @@ abstract class Controls_Stack extends Base_Object {
 	 *
 	 * @since 1.4.0
 	 * @access public
+	 * @deprecated 3.0.0
 	 *
 	 * @return array Scheme controls.
 	 */
 	final public function get_scheme_controls() {
+		// _deprecated_function( __METHOD__, '3.0.0' );
 		$enabled_schemes = Schemes_Manager::get_enabled_schemes();
 
 		return array_filter(
@@ -725,6 +703,7 @@ abstract class Controls_Stack extends Base_Object {
 	 * @since 1.4.0
 	 * @since 2.0.9 Added the `settings` parameter.
 	 * @access public
+	 * @deprecated 3.0.0
 	 *
 	 * @param array $controls Optional. Controls list. Default is null.
 	 * @param array $settings Optional. Controls settings. Default is null.
@@ -732,6 +711,8 @@ abstract class Controls_Stack extends Base_Object {
 	 * @return array Style controls.
 	 */
 	final public function get_style_controls( array $controls = null, array $settings = null ) {
+		// _deprecated_function( __METHOD__, '3.0.0' );
+
 		$controls = $this->get_active_controls( $controls, $settings );
 
 		$style_controls = [];
@@ -745,7 +726,7 @@ abstract class Controls_Stack extends Base_Object {
 
 			$control = array_merge( $control_obj->get_settings(), $control );
 
-			if ( Controls_Manager::REPEATER === $control['type'] ) {
+			if ( $control_obj instanceof Control_Repeater ) {
 				$style_fields = [];
 
 				foreach ( $this->get_settings( $control_name ) as $item ) {
@@ -761,26 +742,6 @@ abstract class Controls_Stack extends Base_Object {
 		}
 
 		return $style_controls;
-	}
-
-	/**
-	 * Get class controls.
-	 *
-	 * Retrieve the controls that use the same prefix class from all the active
-	 * controls
-	 *
-	 * @since 1.4.0
-	 * @deprecated 2.1.0
-	 * @access public
-	 *
-	 * @return array Class controls.
-	 */
-	final public function get_class_controls() {
-		return array_filter(
-			$this->get_active_controls(), function( $control ) {
-				return ( isset( $control['prefix_class'] ) );
-			}
-		);
 	}
 
 	/**
@@ -952,7 +913,15 @@ abstract class Controls_Stack extends Base_Object {
 	 */
 	final public function get_config() {
 		if ( null === $this->config ) {
-			$this->config = $this->_get_initial_config();
+			// TODO: This is for backwards compatibility starting from 2.9.0
+			// This if statement should be removed when the method is hard-deprecated
+			if ( $this->has_own_method( '_get_initial_config', self::class ) ) {
+				Plugin::$instance->modules_manager->get_modules( 'dev-tools' )->deprecation->deprecated_function( '_get_initial_config', '2.9.0', __CLASS__ . '::get_initial_config()' );
+
+				$this->config = $this->_get_initial_config();
+			} else {
+				$this->config = $this->get_initial_config();
+			}
 		}
 
 		return $this->config;
@@ -1027,9 +996,13 @@ abstract class Controls_Stack extends Base_Object {
 	 * @since 2.0.14
 	 * @access public
 	 */
-	public function get_parsed_dynamic_settings( $setting = null ) {
+	public function get_parsed_dynamic_settings( $setting = null, $settings = null ) {
+		if ( null === $settings ) {
+			$settings = $this->get_settings();
+		}
+
 		if ( null === $this->parsed_dynamic_settings ) {
-			$this->parsed_dynamic_settings = $this->parse_dynamic_settings( $this->get_settings() );
+			$this->parsed_dynamic_settings = $this->parse_dynamic_settings( $settings );
 		}
 
 		return self::get_items( $this->parsed_dynamic_settings, $setting );
@@ -1074,7 +1047,9 @@ abstract class Controls_Stack extends Base_Object {
 			$control = $controls[ $setting_key ];
 
 			if ( $this->is_control_visible( $control, $settings ) ) {
-				if ( Controls_Manager::REPEATER === $control['type'] ) {
+				$control_obj = Plugin::$instance->controls_manager->get_control( $control['type'] );
+
+				if ( $control_obj instanceof Control_Repeater ) {
 					foreach ( $setting as & $item ) {
 						$item = $this->get_active_settings( $item, $control['fields'] );
 					}
@@ -1149,7 +1124,11 @@ abstract class Controls_Stack extends Base_Object {
 				continue;
 			}
 
-			if ( 'repeater' === $control_obj->get_type() ) {
+			if ( $control_obj instanceof Control_Repeater ) {
+				if ( ! isset( $settings[ $control_name ] ) ) {
+					continue;
+				}
+
 				foreach ( $settings[ $control_name ] as & $field ) {
 					$field = $this->parse_dynamic_settings( $field, $control['fields'], $field );
 				}
@@ -1157,11 +1136,19 @@ abstract class Controls_Stack extends Base_Object {
 				continue;
 			}
 
-			if ( empty( $control['dynamic'] ) || ! isset( $all_settings[ Manager::DYNAMIC_SETTING_KEY ][ $control_name ] ) ) {
-				continue;
+			$dynamic_settings = $control_obj->get_settings( 'dynamic' );
+
+			if ( ! $dynamic_settings ) {
+				$dynamic_settings = [];
 			}
 
-			$dynamic_settings = array_merge( $control_obj->get_settings( 'dynamic' ), $control['dynamic'] );
+			if ( ! empty( $control['dynamic'] ) ) {
+				$dynamic_settings = array_merge( $dynamic_settings, $control['dynamic'] );
+			}
+
+			if ( empty( $dynamic_settings ) || ! isset( $all_settings[ Manager::DYNAMIC_SETTING_KEY ][ $control_name ] ) ) {
+				continue;
+			}
 
 			if ( ! empty( $dynamic_settings['active'] ) && ! empty( $all_settings[ Manager::DYNAMIC_SETTING_KEY ][ $control_name ] ) ) {
 				$parsed_value = $control_obj->parse_tags( $all_settings[ Manager::DYNAMIC_SETTING_KEY ][ $control_name ], $dynamic_settings );
@@ -1190,7 +1177,7 @@ abstract class Controls_Stack extends Base_Object {
 	 * @return array Frontend settings.
 	 */
 	public function get_frontend_settings() {
-		$frontend_settings = array_intersect_key( $this->get_active_settings(), array_flip( $this->get_frontend_settings_keys() ) );
+		$frontend_settings = array_intersect_key( $this->get_settings_for_display(), array_flip( $this->get_frontend_settings_keys() ) );
 
 		foreach ( $frontend_settings as $key => $setting ) {
 			if ( in_array( $setting, [ null, '' ], true ) ) {
@@ -1260,8 +1247,8 @@ abstract class Controls_Stack extends Base_Object {
 			$values = $this->get_settings();
 		}
 
-		if ( ! empty( $control['conditions'] ) ) {
-			return Conditions::check( $control['conditions'], $values );
+		if ( ! empty( $control['conditions'] ) && ! Conditions::check( $control['conditions'], $values ) ) {
+			return false;
 		}
 
 		if ( empty( $control['condition'] ) ) {
@@ -1269,7 +1256,7 @@ abstract class Controls_Stack extends Base_Object {
 		}
 
 		foreach ( $control['condition'] as $condition_key => $condition_value ) {
-			preg_match( '/([a-z_0-9]+)(?:\[([a-z_]+)])?(!?)$/i', $condition_key, $condition_key_parts );
+			preg_match( '/([a-z_\-0-9]+)(?:\[([a-z_]+)])?(!?)$/i', $condition_key, $condition_key_parts );
 
 			$pure_condition_key = $condition_key_parts[1];
 			$condition_sub_key = $condition_key_parts[2];
@@ -1317,7 +1304,7 @@ abstract class Controls_Stack extends Base_Object {
 	 * registered controls from this point will be assigned to this section,
 	 * until you close the section using `end_controls_section()` method.
 	 *
-	 * This method should be used inside `_register_controls()`.
+	 * This method should be used inside `register_controls()`.
 	 *
 	 * @since 1.4.0
 	 * @access public
@@ -1403,7 +1390,7 @@ abstract class Controls_Stack extends Base_Object {
 	 * Used to close an existing open controls section. When you use this method
 	 * it stops adding new controls to this section.
 	 *
-	 * This method should be used inside `_register_controls()`.
+	 * This method should be used inside `register_controls()`.
 	 *
 	 * @since 1.4.0
 	 * @access public
@@ -1483,7 +1470,7 @@ abstract class Controls_Stack extends Base_Object {
 	 * Each tab added after this point will be assigned to this group of tabs,
 	 * until you close it using `end_controls_tabs()` method.
 	 *
-	 * This method should be used inside `_register_controls()`.
+	 * This method should be used inside `register_controls()`.
 	 *
 	 * @since 1.4.0
 	 * @access public
@@ -1521,7 +1508,7 @@ abstract class Controls_Stack extends Base_Object {
 	 * Used to close an existing open controls tabs. When you use this method it
 	 * stops adding new controls to this tabs.
 	 *
-	 * This method should be used inside `_register_controls()`.
+	 * This method should be used inside `register_controls()`.
 	 *
 	 * @since 1.4.0
 	 * @access public
@@ -1538,7 +1525,7 @@ abstract class Controls_Stack extends Base_Object {
 	 * Each tab added after this point will be assigned to this group of tabs,
 	 * until you close it using `end_controls_tab()` method.
 	 *
-	 * This method should be used inside `_register_controls()`.
+	 * This method should be used inside `register_controls()`.
 	 *
 	 * @since 1.4.0
 	 * @access public
@@ -1569,7 +1556,7 @@ abstract class Controls_Stack extends Base_Object {
 	 * Used to close an existing open controls tab. When you use this method it
 	 * stops adding new controls to this tab.
 	 *
-	 * This method should be used inside `_register_controls()`.
+	 * This method should be used inside `register_controls()`.
 	 *
 	 * @since 1.4.0
 	 * @access public
@@ -1585,7 +1572,7 @@ abstract class Controls_Stack extends Base_Object {
 	 * all the registered controls from this point will be assigned to this
 	 * popover, until you close the popover using `end_popover()` method.
 	 *
-	 * This method should be used inside `_register_controls()`.
+	 * This method should be used inside `register_controls()`.
 	 *
 	 * @since 1.9.0
 	 * @access public
@@ -1602,7 +1589,7 @@ abstract class Controls_Stack extends Base_Object {
 	 * Used to close an existing open popover. When you use this method it stops
 	 * adding new controls to this popover.
 	 *
-	 * This method should be used inside `_register_controls()`.
+	 * This method should be used inside `register_controls()`.
 	 *
 	 * @since 1.9.0
 	 * @access public
@@ -1636,7 +1623,15 @@ abstract class Controls_Stack extends Base_Object {
 	public function print_template() {
 		ob_start();
 
-		$this->_content_template();
+		// TODO: This is for backwards compatibility starting from 2.9.0
+		// This `if` statement should be removed when the method is removed
+		if ( $this->has_own_method( '_content_template', self::class ) ) {
+			Plugin::$instance->modules_manager->get_modules( 'dev-tools' )->deprecation->deprecated_function( '_content_template', '2.9.0', __CLASS__ . '::content_template()' );
+
+			$this->_content_template();
+		} else {
+			$this->content_template();
+		}
 
 		$template_content = ob_get_clean();
 
@@ -1743,8 +1738,29 @@ abstract class Controls_Stack extends Base_Object {
 	 *
 	 * @since 1.4.0
 	 * @access protected
+	 * @deprecated 3.1.0 Use `Controls_Stack::register_controls()` instead
 	 */
-	protected function _register_controls() {}
+	protected function _register_controls() {
+		Plugin::$instance->modules_manager->get_modules( 'dev-tools' )->deprecation->deprecated_function( __METHOD__, '3.1.0', __CLASS__ . '::register_controls()' );
+
+		$this->register_controls();
+	}
+
+	/**
+	 * Register controls.
+	 *
+	 * Used to add new controls to any element type. For example, external
+	 * developers use this method to register controls in a widget.
+	 *
+	 * Should be inherited and register new controls using `add_control()`,
+	 * `add_responsive_control()` and `add_group_control()`, inside control
+	 * wrappers like `start_controls_section()`, `start_controls_tabs()` and
+	 * `start_controls_tab()`.
+	 *
+	 * @since 3.1.0
+	 * @access protected
+	 */
+	protected function register_controls() {}
 
 	/**
 	 * Get default data.
@@ -1786,47 +1802,20 @@ abstract class Controls_Stack extends Base_Object {
 	}
 
 	/**
-	 * Get parsed settings.
+	 * Get initial config.
 	 *
-	 * Retrieve the parsed settings for all the controls that represent them.
-	 * The parser set default values and process the settings.
+	 * Retrieve the current element initial configuration - controls list and
+	 * the tabs assigned to the control.
 	 *
-	 * Classes that extend `Controls_Stack` can add new process to the settings
-	 * parser.
-	 *
-	 * @since 1.4.0
-	 * @deprecated 2.3.0 Use `Controls_Stack::get_init_settings()` instead
+	 * @since 2.9.0
 	 * @access protected
 	 *
-	 * @return array Parsed settings.
+	 * @return array The initial config.
 	 */
-	protected function _get_parsed_settings() {
-		_deprecated_function( __METHOD__, '2.3.0', 'Controls_Stack::get_init_settings' );
-
-		return $this->get_init_settings();
-	}
-
-	/**
-	 * Sanitize initial data.
-	 *
-	 * Performs data cleaning and sanitization.
-	 *
-	 * @since 2.0.0
-	 * @deprecated 2.1.5 Use `Controls_Stack::sanitize_settings` instead
-	 * @access protected
-	 *
-	 * @param array $data     Data to sanitize.
-	 * @param array $controls Optional. An array of controls. Default is an
-	 *                        empty array.
-	 *
-	 * @return array Sanitized data.
-	 */
-	protected function sanitize_initial_data( $data, array $controls = [] ) {
-		_deprecated_function( __METHOD__, '2.1.5', 'Controls_Stack::sanitize_settings' );
-
-		$data['settings'] = $this->sanitize_settings( $data['settings'], $controls );
-
-		return $data;
+	protected function get_initial_config() {
+		return [
+			'controls' => $this->get_controls(),
+		];
 	}
 
 	/**
@@ -1836,14 +1825,15 @@ abstract class Controls_Stack extends Base_Object {
 	 * the tabs assigned to the control.
 	 *
 	 * @since 1.4.0
+	 * @deprecated 2.9.0 use `get_initial_config()` instead
 	 * @access protected
 	 *
 	 * @return array The initial config.
 	 */
 	protected function _get_initial_config() {
-		return [
-			'controls' => $this->get_controls(),
-		];
+		Plugin::$instance->modules_manager->get_modules( 'dev-tools' )->deprecation->deprecated_function( __METHOD__, '2.9.0', __CLASS__ . '::get_initial_config()' );
+
+		return $this->get_initial_config();
 	}
 
 	/**
@@ -1881,6 +1871,28 @@ abstract class Controls_Stack extends Base_Object {
 	protected function render() {}
 
 	/**
+	 * Render element in static mode.
+	 *
+	 * If not inherent will call the base render.
+	 */
+	protected function render_static() {
+		$this->render();
+	}
+
+	/**
+	 * Determine the render logic.
+	 */
+	protected function render_by_mode() {
+		if ( Plugin::$instance->frontend->is_static_render_mode() ) {
+			$this->render_static();
+
+			return;
+		}
+
+		$this->render();
+	}
+
+	/**
 	 * Print content template.
 	 *
 	 * Used to generate the content template on the editor, using a
@@ -1900,15 +1912,30 @@ abstract class Controls_Stack extends Base_Object {
 	 *
 	 * Used to generate the live preview, using a Backbone JavaScript template.
 	 *
-	 * @since 2.0.0
+	 * @since 2.9.0
 	 * @access protected
 	 */
-	protected function _content_template() {}
+	protected function content_template() {}
+
+	/**
+	 * Render element output in the editor.
+	 *
+	 * Used to generate the live preview, using a Backbone JavaScript template.
+	 *
+	 * @since 2.0.0
+	 * @deprecated 2.9.0 use `content_template()` instead
+	 * @access protected
+	 */
+	protected function _content_template() {
+		Plugin::$instance->modules_manager->get_modules( 'dev-tools' )->deprecation->deprecated_function( __METHOD__, '2.9.0', __CLASS__ . '::content_template()' );
+
+		$this->content_template();
+	}
 
 	/**
 	 * Initialize controls.
 	 *
-	 * Register the all controls added by `_register_controls()`.
+	 * Register the all controls added by `register_controls()`.
 	 *
 	 * @since 2.0.0
 	 * @access protected
@@ -1916,7 +1943,65 @@ abstract class Controls_Stack extends Base_Object {
 	protected function init_controls() {
 		Plugin::$instance->controls_manager->open_stack( $this );
 
-		$this->_register_controls();
+		// TODO: This is for backwards compatibility starting from 2.9.0
+		// This `if` statement should be removed when the method is removed
+		if ( $this->has_own_method( '_register_controls', self::class ) ) {
+			Plugin::$instance->modules_manager->get_modules( 'dev-tools' )->deprecation->deprecated_function( '_register_controls', '3.1.0', __CLASS__ . '::register_controls()' );
+
+			$this->_register_controls();
+		} else {
+			$this->register_controls();
+		}
+	}
+
+	protected function handle_control_position( array $args, $control_id, $overwrite ) {
+		if ( isset( $args['type'] ) && in_array( $args['type'], [ Controls_Manager::SECTION, Controls_Manager::WP_WIDGET ], true ) ) {
+			return $args;
+		}
+
+		$target_section_args = $this->current_section;
+
+		$target_tab = $this->current_tab;
+
+		if ( $this->injection_point ) {
+			$target_section_args = $this->injection_point['section'];
+
+			if ( ! empty( $this->injection_point['tab'] ) ) {
+				$target_tab = $this->injection_point['tab'];
+			}
+		}
+
+		if ( null !== $target_section_args ) {
+			if ( ! empty( $args['section'] ) || ! empty( $args['tab'] ) ) {
+				_doing_it_wrong( sprintf( '%s::%s', get_called_class(), __FUNCTION__ ), sprintf( 'Cannot redeclare control with `tab` or `section` args inside section "%s".', $control_id ), '1.0.0' );
+			}
+
+			$args = array_replace_recursive( $target_section_args, $args );
+
+			if ( null !== $target_tab ) {
+				$args = array_replace_recursive( $target_tab, $args );
+			}
+		} elseif ( empty( $args['section'] ) && ( ! $overwrite || is_wp_error( Plugin::$instance->controls_manager->get_control_from_stack( $this->get_unique_name(), $control_id ) ) ) ) {
+			wp_die( sprintf( '%s::%s: Cannot add a control outside of a section (use `start_controls_section`).', get_called_class(), __FUNCTION__ ) );
+		}
+
+		return $args;
+	}
+
+	/**
+	 * Initialize the class.
+	 *
+	 * Set the raw data, the ID and the parsed settings.
+	 *
+	 * @since 2.9.0
+	 * @access protected
+	 *
+	 * @param array $data Initial data.
+	 */
+	protected function init( $data ) {
+		$this->data = array_merge( $this->get_default_data(), $data );
+
+		$this->id = $data['id'];
 	}
 
 	/**
@@ -1925,14 +2010,15 @@ abstract class Controls_Stack extends Base_Object {
 	 * Set the raw data, the ID and the parsed settings.
 	 *
 	 * @since 1.4.0
+	 * @deprecated 2.9.0 use `init()` instead
 	 * @access protected
 	 *
 	 * @param array $data Initial data.
 	 */
 	protected function _init( $data ) {
-		$this->data = array_merge( $this->get_default_data(), $data );
+		Plugin::$instance->modules_manager->get_modules( 'dev-tools' )->deprecation->deprecated_function( __METHOD__, '2.9.0', __CLASS__ . '::init()' );
 
-		$this->id = $data['id'];
+		$this->init( $data );
 	}
 
 	/**
@@ -1955,7 +2041,9 @@ abstract class Controls_Stack extends Base_Object {
 		}
 
 		foreach ( $controls as $control ) {
-			if ( 'repeater' === $control['type'] ) {
+			$control_obj = Plugin::$instance->controls_manager->get_control( $control['type'] );
+
+			if ( $control_obj instanceof Control_Repeater ) {
 				if ( empty( $settings[ $control['name'] ] ) ) {
 					continue;
 				}
@@ -2000,7 +2088,15 @@ abstract class Controls_Stack extends Base_Object {
 	 */
 	public function __construct( array $data = [] ) {
 		if ( $data ) {
-			$this->_init( $data );
+			// TODO: This is for backwards compatibility starting from 2.9.0
+			// This if statement should be removed when the method is hard-deprecated
+			if ( $this->has_own_method( '_init', self::class ) ) {
+				Plugin::$instance->modules_manager->get_modules( 'dev-tools' )->deprecation->deprecated_function( '_init', '2.9.0', __CLASS__ . '::init()' );
+
+				$this->_init( $data );
+			} else {
+				$this->init( $data );
+			}
 		}
 	}
 }

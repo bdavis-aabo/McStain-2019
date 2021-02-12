@@ -1,6 +1,7 @@
 <?php
 namespace Elementor;
 
+use Elementor\Core\DocumentTypes\PageBase;
 use Elementor\TemplateLibrary\Source_Local;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -36,6 +37,51 @@ class Compatibility {
 		if ( is_admin() || defined( 'WP_LOAD_IMPORTERS' ) ) {
 			add_filter( 'wp_import_post_meta', [ __CLASS__, 'on_wp_import_post_meta' ] );
 			add_filter( 'wxr_importer.pre_process.post_meta', [ __CLASS__, 'on_wxr_importer_pre_process_post_meta' ] );
+		}
+
+		add_action( 'elementor/maintenance_mode/mode_changed', [ __CLASS__, 'clear_3rd_party_cache' ] );
+
+		add_action( 'elementor/element/before_section_start', [ __CLASS__, 'document_post_deprecated_hooks' ], 10, 3 );
+		add_action( 'elementor/element/after_section_start', [ __CLASS__, 'document_post_deprecated_hooks' ], 10, 3 );
+		add_action( 'elementor/element/before_section_end', [ __CLASS__, 'document_post_deprecated_hooks' ], 10, 3 );
+		add_action( 'elementor/element/after_section_end', [ __CLASS__, 'document_post_deprecated_hooks' ], 10, 3 );
+	}
+
+	public static function document_post_deprecated_hooks( $instance, $section_id, $args ) {
+		if ( ! $instance instanceof PageBase ) {
+			return;
+		}
+
+		$current_action = current_action();
+		$current_action = explode( '/', $current_action );
+		$current_sub_action = $current_action[2];
+
+		$deprecated_action = "elementor/element/post/{$section_id}/{$current_sub_action}";
+
+		if ( ! has_action( $deprecated_action ) ) {
+			return;
+		}
+
+		$replacement = "`elementor/element/wp-post/{$section_id}/{$current_sub_action}` or `elementor/element/wp-page/{$section_id}/{$current_sub_action}`";
+
+		Plugin::$instance->modules_manager->get_modules( 'dev-tools' )->deprecation->do_deprecated_action( $deprecated_action, func_get_args(), '2.7.0', $replacement );
+	}
+
+	public static function clear_3rd_party_cache() {
+		// W3 Total Cache.
+		if ( function_exists( 'w3tc_flush_all' ) ) {
+			w3tc_flush_all();
+		}
+
+		// WP Fastest Cache.
+		if ( ! empty( $GLOBALS['wp_fastest_cache'] ) && method_exists( $GLOBALS['wp_fastest_cache'], 'deleteCache' ) ) {
+			$GLOBALS['wp_fastest_cache']->deleteCache();
+		}
+
+		// WP Super Cache
+		if ( function_exists( 'wp_cache_clean_cache' ) ) {
+			global $file_prefix;
+			wp_cache_clean_cache( $file_prefix, true );
 		}
 	}
 
@@ -96,20 +142,8 @@ class Compatibility {
 	public static function init() {
 		// Hotfix for NextGEN Gallery plugin.
 		if ( defined( 'NGG_PLUGIN_VERSION' ) ) {
-			add_filter( 'elementor/utils/get_edit_link', function( $edit_link ) {
+			add_filter( 'elementor/document/urls/edit', function( $edit_link ) {
 				return add_query_arg( 'display_gallery_iframe', '', $edit_link );
-			} );
-		}
-
-		// Hack for Ninja Forms.
-		if ( class_exists( '\Ninja_Forms' ) && class_exists( '\NF_Display_Render' ) ) {
-			add_action( 'elementor/preview/enqueue_styles', function() {
-				ob_start();
-				\NF_Display_Render::localize( 0 );
-
-				ob_clean();
-
-				wp_add_inline_script( 'nf-front-end', 'var nfForms = nfForms || [];' );
 			} );
 		}
 
@@ -193,7 +227,7 @@ class Compatibility {
 			} );
 		}
 
-		// Fix Preview URL for https://premium.wpmudev.org/project/domain-mapping/ plugin
+		// Fix Preview URL for https://github.com/wpmudev/domain-mapping plugin
 		if ( class_exists( 'domain_map' ) ) {
 			add_filter( 'elementor/document/urls/preview', function( $preview_url ) {
 				if ( wp_parse_url( $preview_url, PHP_URL_HOST ) !== $_SERVER['HTTP_HOST'] ) {
@@ -297,14 +331,39 @@ class Compatibility {
 	 * @return array Updated post meta.
 	 */
 	public static function on_wp_import_post_meta( $post_meta ) {
-		foreach ( $post_meta as &$meta ) {
-			if ( '_elementor_data' === $meta['key'] ) {
-				$meta['value'] = wp_slash( $meta['value'] );
-				break;
+		$is_wp_importer_before_0_7 = self::is_wp_importer_before_0_7();
+
+		if ( $is_wp_importer_before_0_7 ) {
+			foreach ( $post_meta as &$meta ) {
+				if ( '_elementor_data' === $meta['key'] ) {
+					$meta['value'] = wp_slash( $meta['value'] );
+					break;
+				}
 			}
 		}
 
 		return $post_meta;
+	}
+
+	/**
+	 * Is WP Importer Before 0.7
+	 *
+	 * Checks if WP Importer is installed, and whether its version is older than 0.7.
+	 *
+	 * @return bool
+	 */
+	public static function is_wp_importer_before_0_7() {
+		$wp_importer = get_plugins( '/wordpress-importer' );
+
+		if ( ! empty( $wp_importer ) ) {
+			$wp_importer_version = $wp_importer['wordpress-importer.php']['Version'];
+
+			if ( version_compare( $wp_importer_version, '0.7', '<' ) ) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	/**
@@ -324,8 +383,12 @@ class Compatibility {
 	 * @return array Updated post meta.
 	 */
 	public static function on_wxr_importer_pre_process_post_meta( $post_meta ) {
-		if ( '_elementor_data' === $post_meta['key'] ) {
-			$post_meta['value'] = wp_slash( $post_meta['value'] );
+		$is_wp_importer_before_0_7 = self::is_wp_importer_before_0_7();
+
+		if ( $is_wp_importer_before_0_7 ) {
+			if ( '_elementor_data' === $post_meta['key'] ) {
+				$post_meta['value'] = wp_slash( $post_meta['value'] );
+			}
 		}
 
 		return $post_meta;

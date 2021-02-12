@@ -22,14 +22,13 @@
     display:block;
     margin:10px;
     padding:10px;
-    background-color: #FFF;
+    /* background-color: #FFF; */
     position: relative;
     z-index: 10000;
     display: block;
     float: left;
     top: 5px !important;
     padding: 10px;
-    background: #fff;
 }
 .wpgmza_modern_infowindow_inner {
     
@@ -39,11 +38,12 @@
     position: absolute !important;
     width: 100%;
     bottom: 0;
+    right: 0;
     background-color: #666;
-    width: 100%;
+    
     padding: 10px;
+    height:38px;
     top: 35%;
-    height: 18px;
     margin-bottom: 0;
     color: #fff;
     -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
@@ -71,6 +71,12 @@
     margin-top: 5px;
     padding-right: 5px;
  }
+ 
+  .wpgmza_iw_custom_fields
+  {
+	  color: white;
+  }
+ 
 .wpgmza_modern_infowindow_close {
     cursor: pointer;
     width: 20px;
@@ -79,7 +85,6 @@
     display: block;
     float: right;
     z-index: 9;
-    position: relative;
 }
 .wpgmza_button {
     background: #627383;
@@ -111,3 +116,15 @@
 .wpgmza_iw_description { width: 100%; max-height:90px;  }
 .wpgmza_iw_address { width: 100%; }
 .wpgmza_iw_address_p { margin-top:1px; margin-bottom:3px; font-style:italic; font-size:1.2em; }
+
+/** OL Overrides */
+
+.wpgmza-ol-modern-infowindow-container .wpgmza_modern_infowindow {
+    right: 1px !important;
+    top: 35px !important;
+    position: absolute;
+    font-size: 12px;
+}
+.wpgmza-ol-modern-infowindow-container {
+    width: 100%;
+}

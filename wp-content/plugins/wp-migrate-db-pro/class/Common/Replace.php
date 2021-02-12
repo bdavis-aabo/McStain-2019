@@ -4,6 +4,7 @@ namespace DeliciousBrains\WPMDB\Common;
 
 use DeliciousBrains\WPMDB\Common\Error\ErrorLog;
 use DeliciousBrains\WPMDB\Common\MigrationState\MigrationStateManager;
+use DeliciousBrains\WPMDB\Common\Properties\Properties;
 use DeliciousBrains\WPMDB\Common\Sql\TableHelper;
 use DeliciousBrains\WPMDB\Common\Util\Util;
 
@@ -70,35 +71,67 @@ class Replace {
 	/**
 	 * @var
 	 */
-	private $table;
+	protected $table;
 	/**
 	 * @var
 	 */
-	private $column;
+	protected $column;
 	/**
 	 * @var
 	 */
-	private $row;
+	protected $row;
 	/**
 	 * @var ErrorLog
 	 */
-	private $error_log;
+	protected $error_log;
 	/**
 	 * @var Util\Util
 	 */
-	private $util;
+	protected $util;
+	/**
+	 * @var array
+	 */
+	protected $json_search;
+	/**
+	 * @var array
+	 */
+	protected $json_replace;
+	/**
+	 * @var array
+	 */
+	protected $json_replace_tables;
+	/**
+	 * @var array
+	 */
+	protected $json_replace_columns;
+
+	protected $json_merged;
+
+	/**
+	 * @var Properties
+	 */
+	protected $properties;
 
 	function __construct(
 		MigrationStateManager $migration_state_manager,
 		TableHelper $table_helper,
 		ErrorLog $error_log,
-		Util $util
+		Util $util,
+		Properties $properties
 	) {
-
 		$this->migration_state_manager = $migration_state_manager;
 		$this->table_helper            = $table_helper;
 		$this->error_log               = $error_log;
 		$this->util                    = $util;
+		$this->properties              = $properties;
+	}
+
+	public function get($prop){
+		return $this->$prop;
+	}
+
+	public function set($prop, $value){
+		return $this->$prop = $value;
 	}
 
 	public function register( $args ) {
@@ -123,16 +156,28 @@ class Replace {
 			}
 		}
 
-		$this->table        = $args['table'];
-		$this->search       = $args['search'];
-		$this->replace      = $args['replace'];
-		$this->intent       = $args['intent'];
-		$this->base_domain  = $args['base_domain'];
-		$this->site_domain  = $args['site_domain'];
-		$this->site_details = $args['site_details'];
+		$this->table                = $args['table'];
+		$this->search               = $args['search'];
+		$this->replace              = $args['replace'];
+		$this->intent               = $args['intent'];
+		$this->base_domain          = $args['base_domain'];
+		$this->site_domain          = $args['site_domain'];
+		$this->site_details         = $args['site_details'];
+		$this->json_search          = '';
+		$this->json_replace         = '';
+		$this->json_replace_tables  = '';
+		$this->json_replace_columns = '';
+		$this->json_merged          = false;
+
+		global $wpdb;
+
+		$prefix = $wpdb->base_prefix;
+
+		$this->json_replaces( $prefix );
 
 		// Detect a protocol mismatch between the remote and local sites involved in the migration
 		$this->detect_protocol_mismatch();
+
 		return $this;
 	}
 
@@ -281,9 +326,46 @@ class Replace {
 
 		$protocol_search  = $this->source_protocol . '://' . implode( '', $parsed_destination );
 		$protocol_replace = $destination_url;
-		$new              = str_ireplace( $protocol_search, $protocol_replace, $new, $count );
+
+		// JSON search & replace
+		if ( in_array( $this->table, $this->json_replace_tables )
+		     && in_array( $this->column, $this->json_replace_columns )
+		) {
+			$protocol_search  = [ $protocol_search, Util::json_encode_trim( $protocol_search ) ];
+			$protocol_replace = [ $protocol_replace, Util::json_encode_trim( $protocol_replace ) ];
+		}
+
+		$new = str_ireplace( $protocol_search, $protocol_replace, $new, $count );
 
 		return $new;
+	}
+
+
+	public function maybe_merge_json_replaces()
+	{
+		if ( $this->json_merged ) {
+			return false;
+		}
+
+		if ( !in_array( $this->table, $this->json_replace_tables ) ||
+		     !in_array( $this->column, $this->json_replace_columns ) ) {
+			return false;
+		}
+
+		if ( empty( $this->search ) && empty( $this->replace ) ) {
+			return false;
+		}
+
+		if ( !is_array( $this->json_search ) || !is_array( $this->json_replace ) ) {
+			return false;
+		}
+
+		//Only add json replacements once
+		$this->search      = array_merge( $this->search, $this->json_search );
+		$this->replace     = array_merge( $this->replace, $this->json_replace );
+		$this->json_merged = true;
+
+		return true;
 	}
 
 	/**
@@ -293,8 +375,15 @@ class Replace {
 	 *
 	 * @return string
 	 */
-	function apply_replaces( $subject ) {
+	public function apply_replaces( $subject )
+	{
+		if ( empty( $this->search ) && empty( $this->replace ) ) {
+			return $subject;
+		}
+
+		$this->maybe_merge_json_replaces(); // Maybe merge in json_encoded find/replace values
 		$new = str_ireplace( $this->search, $this->replace, $subject, $count );
+
 		if ( $this->is_subdomain_replaces_on() ) {
 			$new = $this->subdomain_replaces( $new );
 		}
@@ -325,9 +414,16 @@ class Replace {
 			return $pre;
 		}
 
+		//If the intent is find_replace we need to prefix the tables with the temp prefix and wp base table prefix.
+		$table_prefix = '';
+		if ( 'find_replace' === $this->get_intent() ) {
+			global $wpdb;
+			$table_prefix = $this->properties->temp_prefix . $wpdb->base_prefix;
+		}
+
 		// Some options contain serialized self-references which leads to memory exhaustion. Skip these.
-		if ( $this->table_is( 'options' ) && 'option_value' === $this->get_column() && is_serialized( $data ) ) {
-			if ( preg_match( '/r\:\d+/i', $data ) ) {
+		if ( $this->table_is( 'options', $table_prefix ) && 'option_value' === $this->get_column() && is_serialized( $data ) ) {
+			if ( preg_match( '/r\:\d+;/i', $data ) ) {
 				return $data;
 			}
 		}
@@ -477,12 +573,15 @@ class Replace {
 	 *
 	 * $is_posts = $this->table_is( 'posts' );
 	 *
+	 * @TODO Cover table prefixing with Unit Tests
+	 *
 	 * @param  string $desired_table Name of the desired table, table prefix omitted.
+	 * @param  string $prefix        The table prefix
 	 *
 	 * @return boolean                Whether or not the desired table is the table currently being processed.
 	 */
-	public function table_is( $desired_table ) {
-		return $this->table_helper->table_is( $desired_table, $this->table );
+	public function table_is( $desired_table, $prefix = '' ) {
+		return $this->table_helper->table_is( $desired_table, $this->table, 'table', $prefix );
 	}
 
 	/**
@@ -494,5 +593,44 @@ class Replace {
 	 */
 	public function get_intent() {
 		return $this->intent;
+	}
+
+	/**
+	 * @param string $prefix
+	 */
+	protected function json_replaces( $prefix )
+	{
+		$default_tables = [
+			"${prefix}posts",
+		];
+
+		if ( in_array( $this->intent, ['find_replace', 'import'] ) ) {
+			$default_tables = [
+				"_mig_${prefix}posts",
+			];
+		}
+
+		$this->json_replace_tables = apply_filters( 'wpmdb_json_replace_tables', $default_tables );
+
+		$this->json_replace_columns = apply_filters( 'wpmdb_json_replace_columns', [
+			'post_content',
+			'post_content_filtered',
+		] );
+
+		if ( empty( $this->search ) && empty( $this->replace ) ) {
+			return;
+		}
+
+		if ( is_array( $this->search ) ) {
+			$this->json_search = array_map( function ( $item ) {
+				return Util::json_encode_trim( $item );
+			}, $this->search );
+		}
+
+		if ( is_array( $this->replace ) ) {
+			$this->json_replace = array_map( function ( $item ) {
+				return Util::json_encode_trim( $item );
+			}, $this->replace );
+		}
 	}
 }

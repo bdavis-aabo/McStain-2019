@@ -28,7 +28,20 @@ jQuery(function($) {
 	 */
 	WPGMZA.OLGeocoder.prototype.getResponseFromCache = function(query, callback)
 	{
-		$.ajax(WPGMZA.ajaxurl, {
+		WPGMZA.restAPI.call("/geocode-cache", {
+			data: {
+				query: JSON.stringify(query)
+			},
+			success: function(response, xhr, status) {
+				// Legacy compatibility support
+				response.lng = response.lon;
+				
+				callback(response);
+			},
+			useCompressedPathVariable: true
+		});
+		
+		/*$.ajax(WPGMZA.ajaxurl, {
 			data: {
 				action: "wpgmza_query_nominatim_cache",
 				query: JSON.stringify(query)
@@ -39,7 +52,7 @@ jQuery(function($) {
 				
 				callback(response);
 			}
-		});
+		});*/
 	}
 	
 	/**
@@ -56,8 +69,11 @@ jQuery(function($) {
 			format: "json"
 		};
 		
-		if(options.componentRestrictions && options.componentRestrictions.country)
+		if(options.componentRestrictions && options.componentRestrictions.country){
 			data.countrycodes = options.componentRestrictions.country;
+		} else if(options.country){
+			data.countrycodes = options.country;
+		}
 		
 		$.ajax("https://nominatim.openstreetmap.org/search/", {
 			data: data,
@@ -126,6 +142,22 @@ jQuery(function($) {
 		if(!options)
 			throw new Error("Invalid options");
 		
+		if(WPGMZA.LatLng.REGEXP.test(options.address))
+		{
+			var latLng = WPGMZA.LatLng.fromString(options.address);
+			
+			callback([{
+				geometry: {
+					location: latLng
+				},
+				latLng: latLng,
+				lat: latLng.lat,
+				lng: latLng.lng
+			}], WPGMZA.Geocoder.SUCCESS);
+			
+			return;
+		}
+		
 		if(options.location)
 			options.latLng = new WPGMZA.LatLng(options.location);
 		
@@ -150,6 +182,17 @@ jQuery(function($) {
 						lat: parseFloat(response[i].lat),
 						lng: parseFloat(response[i].lon)
 					};
+					
+					response[i].bounds = new WPGMZA.LatLngBounds(
+						new WPGMZA.LatLng({
+							lat: response[i].boundingbox[1],
+							lng: response[i].boundingbox[2]
+						}),
+						new WPGMZA.LatLng({
+							lat: response[i].boundingbox[0],
+							lng: response[i].boundingbox[3]
+						})
+					);
 					
 					// Backward compatibility with old UGM
 					response[i].lng = response[i].lon;

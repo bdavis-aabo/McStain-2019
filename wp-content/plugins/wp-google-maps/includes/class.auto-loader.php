@@ -2,6 +2,9 @@
 
 namespace WPGMZA;
 
+if(!defined('ABSPATH'))
+	return;
+
 /**
  * The AutoLoader class can be used to scan a directory and register any
  * classes found in the PHP files there, recursively.
@@ -112,8 +115,6 @@ class AutoLoader
 	 */
 	public function getClassesInPathByFilename($path)
 	{
-		// var_dump("Getting classes in $path");
-		
 		$results = array();
 		
 		$dir 	= new \RecursiveDirectoryIterator($path);
@@ -177,7 +178,9 @@ class AutoLoader
 			wpgmza_require_once( $file );
 		else
 			try{
+				
 				wpgmza_require_once( $file );
+				
 			}catch(\Exception $e) {
 				
 				add_action('admin_notices', function() use ($e) {

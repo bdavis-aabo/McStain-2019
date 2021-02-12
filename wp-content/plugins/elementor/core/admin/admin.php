@@ -2,6 +2,7 @@
 namespace Elementor\Core\Admin;
 
 use Elementor\Api;
+use Elementor\Beta_Testers;
 use Elementor\Core\Base\App;
 use Elementor\Plugin;
 use Elementor\Settings;
@@ -37,7 +38,7 @@ class Admin extends App {
 			return;
 		}
 
-		if ( Utils::is_ajax() ) {
+		if ( wp_doing_ajax() ) {
 			return;
 		}
 
@@ -134,14 +135,16 @@ class Admin extends App {
 			return;
 		}
 
-		if ( ! User::is_current_user_can_edit( $post->ID ) ) {
+		$document = Plugin::$instance->documents->get( $post->ID );
+
+		if ( ! $document || ! $document->is_editable_by_current_user() ) {
 			return;
 		}
 
 		wp_nonce_field( basename( __FILE__ ), '_elementor_edit_mode_nonce' );
 		?>
 		<div id="elementor-switch-mode">
-			<input id="elementor-switch-mode-input" type="hidden" name="_elementor_post_mode" value="<?php echo Plugin::$instance->db->is_built_with_elementor( $post->ID ); ?>" />
+			<input id="elementor-switch-mode-input" type="hidden" name="_elementor_post_mode" value="<?php echo $document->is_built_with_elementor(); ?>" />
 			<button id="elementor-switch-mode-button" type="button" class="button button-primary button-hero">
 				<span class="elementor-switch-mode-on">
 					<i class="eicon-arrow-<?php echo ( is_rtl() ) ? 'right' : 'left'; ?>" aria-hidden="true"></i>
@@ -154,7 +157,7 @@ class Admin extends App {
 			</button>
 		</div>
 		<div id="elementor-editor">
-			<a id="elementor-go-to-edit-page-link" href="<?php echo Utils::get_edit_link( $post->ID ); ?>">
+			<a id="elementor-go-to-edit-page-link" href="<?php echo $document->get_edit_url(); ?>">
 				<div id="elementor-editor-button" class="button button-primary button-hero">
 					<i class="eicon-elementor-square" aria-hidden="true"></i>
 					<?php echo __( 'Edit with Elementor', 'elementor' ); ?>
@@ -196,7 +199,7 @@ class Admin extends App {
 			return;
 		}
 
-		Plugin::$instance->db->set_is_elementor_page( $post_id, ! empty( $_POST['_elementor_post_mode'] ) );
+		Plugin::$instance->documents->get( $post_id )->set_is_built_with_elementor( ! empty( $_POST['_elementor_post_mode'] ) );
 	}
 
 	/**
@@ -218,6 +221,7 @@ class Admin extends App {
 		if ( User::is_current_user_can_edit( $post->ID ) && Plugin::$instance->db->is_built_with_elementor( $post->ID ) ) {
 			$post_states['elementor'] = __( 'Elementor', 'elementor' );
 		}
+
 		return $post_states;
 	}
 
@@ -304,100 +308,6 @@ class Admin extends App {
 	}
 
 	/**
-	 * Admin notices.
-	 *
-	 * Add Elementor notices to WordPress admin screen.
-	 *
-	 * Fired by `admin_notices` action.
-	 *
-	 * @since 1.0.0
-	 * @access public
-	 */
-	public function admin_notices() {
-		$upgrade_notice = Api::get_upgrade_notice();
-		if ( empty( $upgrade_notice ) ) {
-			return;
-		}
-
-		if ( ! current_user_can( 'update_plugins' ) ) {
-			return;
-		}
-
-		if ( ! in_array( get_current_screen()->id, [ 'toplevel_page_elementor', 'edit-elementor_library', 'elementor_page_elementor-system-info', 'dashboard' ], true ) ) {
-			return;
-		}
-
-		// Check if have any upgrades.
-		$update_plugins = get_site_transient( 'update_plugins' );
-
-		$has_remote_update_package = ! ( empty( $update_plugins ) || empty( $update_plugins->response[ ELEMENTOR_PLUGIN_BASE ] ) || empty( $update_plugins->response[ ELEMENTOR_PLUGIN_BASE ]->package ) );
-
-		if ( ! $has_remote_update_package && empty( $upgrade_notice['update_link'] ) ) {
-			return;
-		}
-
-		if ( $has_remote_update_package ) {
-			$product = $update_plugins->response[ ELEMENTOR_PLUGIN_BASE ];
-
-			$details_url = self_admin_url( 'plugin-install.php?tab=plugin-information&plugin=' . $product->slug . '&section=changelog&TB_iframe=true&width=600&height=800' );
-			$upgrade_url = wp_nonce_url( self_admin_url( 'update.php?action=upgrade-plugin&plugin=' . ELEMENTOR_PLUGIN_BASE ), 'upgrade-plugin_' . ELEMENTOR_PLUGIN_BASE );
-			$new_version = $product->new_version;
-		} else {
-			$upgrade_url = $upgrade_notice['update_link'];
-			$details_url = $upgrade_url;
-
-			$new_version = $upgrade_notice['version'];
-		}
-
-		// Check if have upgrade notices to show.
-		if ( version_compare( ELEMENTOR_VERSION, $upgrade_notice['version'], '>=' ) ) {
-			return;
-		}
-
-		$notice_id = 'upgrade_notice_' . $upgrade_notice['version'];
-		if ( User::is_user_notice_viewed( $notice_id ) ) {
-			return;
-		}
-		?>
-		<div class="notice updated is-dismissible elementor-message elementor-message-dismissed" data-notice_id="<?php echo esc_attr( $notice_id ); ?>">
-			<div class="elementor-message-inner">
-				<div class="elementor-message-icon">
-					<div class="e-logo-wrapper">
-						<i class="eicon-elementor" aria-hidden="true"></i>
-					</div>
-				</div>
-				<div class="elementor-message-content">
-					<strong><?php echo __( 'Update Notification', 'elementor' ); ?></strong>
-					<p>
-						<?php
-						printf(
-							/* translators: 1: Details URL, 2: Accessibility text, 3: Version number, 4: Update URL, 5: Accessibility text */
-							__( 'There is a new version of Elementor Page Builder available. <a href="%1$s" class="thickbox open-plugin-details-modal" aria-label="%2$s">View version %3$s details</a> or <a href="%4$s" class="update-link" aria-label="%5$s">update now</a>.', 'elementor' ),
-							esc_url( $details_url ),
-							esc_attr( sprintf(
-								/* translators: %s: Elementor version */
-								__( 'View Elementor version %s details', 'elementor' ),
-								$new_version
-							) ),
-							$new_version,
-							esc_url( $upgrade_url ),
-							esc_attr( __( 'Update Elementor Now', 'elementor' ) )
-						);
-						?>
-					</p>
-				</div>
-				<div class="elementor-message-action">
-					<a class="button elementor-button" href="<?php echo $upgrade_url; ?>">
-						<i class="dashicons dashicons-update" aria-hidden="true"></i>
-						<?php echo __( 'Update Now', 'elementor' ); ?>
-					</a>
-				</div>
-			</div>
-		</div>
-		<?php
-	}
-
-	/**
 	 * Admin footer text.
 	 *
 	 * Modifies the "Thank you" text displayed in the admin footer.
@@ -448,7 +358,7 @@ class Admin extends App {
 			'e-dashboard-overview' => $dashboard['e-dashboard-overview'],
 		];
 
-		$wp_meta_boxes['dashboard']['normal']['core'] = array_merge( $ours, $dashboard ); // WPCS: override ok.
+		$wp_meta_boxes['dashboard']['normal']['core'] = array_merge( $ours, $dashboard ); // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 	}
 
 	/**
@@ -507,16 +417,17 @@ class Admin extends App {
 			</div>
 			<?php if ( $recently_edited_query->have_posts() ) : ?>
 				<div class="e-overview__recently-edited">
-					<h3 class="e-overview__heading"><?php echo __( 'Recently Edited', 'elementor' ); ?></h3>
+					<h3 class="e-heading e-divider_bottom"><?php echo __( 'Recently Edited', 'elementor' ); ?></h3>
 					<ul class="e-overview__posts">
 						<?php
 						while ( $recently_edited_query->have_posts() ) :
 							$recently_edited_query->the_post();
+							$document = Plugin::$instance->documents->get( get_the_ID() );
 
 							$date = date_i18n( _x( 'M jS', 'Dashboard Overview Widget Recently Date', 'elementor' ), get_the_modified_time( 'U' ) );
 							?>
 							<li class="e-overview__post">
-								<a href="<?php echo esc_attr( Utils::get_edit_link( get_the_ID() ) ); ?>" class="e-overview__post-link"><?php the_title(); ?> <span class="dashicons dashicons-edit"></span></a> <span><?php echo $date; ?>, <?php the_time(); ?></span>
+								<a href="<?php echo esc_attr( $document->get_edit_url() ); ?>" class="e-overview__post-link"><?php echo esc_html( get_the_title() ); ?> <span class="dashicons dashicons-edit"></span></a> <span><?php echo $date; ?>, <?php the_time(); ?></span>
 							</li>
 						<?php endwhile; ?>
 					</ul>
@@ -524,7 +435,7 @@ class Admin extends App {
 			<?php endif; ?>
 			<?php if ( ! empty( $elementor_feed ) ) : ?>
 				<div class="e-overview__feed">
-					<h3 class="e-overview__heading"><?php echo __( 'News & Updates', 'elementor' ); ?></h3>
+					<h3 class="e-heading e-divider_bottom"><?php echo __( 'News & Updates', 'elementor' ); ?></h3>
 					<ul class="e-overview__posts">
 						<?php foreach ( $elementor_feed as $feed_item ) : ?>
 							<li class="e-overview__post">
@@ -540,7 +451,7 @@ class Admin extends App {
 					</ul>
 				</div>
 			<?php endif; ?>
-			<div class="e-overview__footer">
+			<div class="e-overview__footer e-divider_top">
 				<ul>
 					<?php foreach ( $this->get_dashboard_overview_widget_footer_actions() as $action_id => $action ) : ?>
 						<li class="e-overview__<?php echo esc_attr( $action_id ); ?>"><a href="<?php echo esc_attr( $action['link'] ); ?>" target="_blank"><?php echo esc_html( $action['title'] ); ?> <span class="screen-reader-text"><?php echo __( '(opens in a new window)', 'elementor' ); ?></span><span aria-hidden="true" class="dashicons dashicons-external"></span></a></li>
@@ -576,6 +487,12 @@ class Admin extends App {
 				'title' => __( 'Go Pro', 'elementor' ),
 				'link' => Utils::get_pro_link( 'https://elementor.com/pro/?utm_source=wp-overview-widget&utm_campaign=gopro&utm_medium=wp-dash' ),
 			],
+		];
+
+		// Visible to all core users when Elementor Pro is not installed.
+		$additions_actions['find_an_expert'] = [
+			'title' => __( 'Find an Expert', 'elementor' ),
+			'link' => 'https://go.elementor.com/go-pro-find-an-expert',
 		];
 
 		/**
@@ -623,7 +540,7 @@ class Admin extends App {
 		if ( empty( $_GET['template_type'] ) ) {
 			$type = 'post';
 		} else {
-			$type = $_GET['template_type']; // XSS ok.
+			$type = sanitize_text_field( $_GET['template_type'] );
 		}
 
 		$post_data = isset( $_GET['post_data'] ) ? $_GET['post_data'] : [];
@@ -644,6 +561,10 @@ class Admin extends App {
 		$post_data['post_type'] = $post_type;
 
 		$document = Plugin::$instance->documents->create( $type, $post_data, $meta );
+
+		if ( is_wp_error( $document ) ) {
+			wp_die( $document );
+		}
 
 		wp_redirect( $document->get_edit_url() );
 
@@ -674,6 +595,29 @@ class Admin extends App {
 	}
 
 	/**
+	 * @since 2.6.0
+	 * @access public
+	 */
+	public function add_beta_tester_template() {
+		Plugin::$instance->common->add_template( ELEMENTOR_PATH . 'includes/admin-templates/beta-tester.php' );
+	}
+
+	/**
+	 * @access public
+	 */
+	public function enqueue_beta_tester_scripts() {
+		$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+
+		wp_enqueue_script(
+			'elementor-beta-tester',
+			ELEMENTOR_ASSETS_URL . 'js/beta-tester' . $suffix . '.js',
+			[],
+			ELEMENTOR_VERSION,
+			true
+		);
+	}
+
+	/**
 	 * @access public
 	 */
 	public function init_new_template() {
@@ -683,8 +627,40 @@ class Admin extends App {
 
 		// Allow plugins to add their templates on admin_head.
 		add_action( 'admin_head', [ $this, 'add_new_template_template' ] );
-
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_new_template_scripts' ] );
+	}
+
+	public function version_update_warning( $current_version, $new_version ) {
+		$current_version_minor_part = explode( '.', $current_version )[1];
+		$new_version_minor_part = explode( '.', $new_version )[1];
+
+		if ( $current_version_minor_part === $new_version_minor_part ) {
+			return;
+		}
+		?>
+		<hr class="e-major-update-warning__separator" />
+		<div class="e-major-update-warning">
+			<div class="e-major-update-warning__icon">
+				<i class="eicon-info-circle"></i>
+			</div>
+			<div>
+				<div class="e-major-update-warning__title">
+					<?php echo __( 'Heads up, Please backup before upgrade!', 'elementor' ); ?>
+				</div>
+				<div class="e-major-update-warning__message"><?php echo sprintf( __( 'The latest update includes some substantial changes across different areas of the plugin. We highly recommend you <a href="%s">backup your site before upgrading</a>, and make sure you first update in a staging environment', 'elementor' ), 'https://go.elementor.com/wp-dash-update-backup' ); ?></div>
+			</div>
+		</div>
+		<?php
+	}
+
+	/**
+	 * @access public
+	 */
+	public function init_beta_tester( $current_screen ) {
+		if ( ( 'toplevel_page_elementor' === $current_screen->base ) || 'elementor_page_elementor-tools' === $current_screen->id ) {
+			add_action( 'admin_head', [ $this, 'add_beta_tester_template' ] );
+			add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_beta_tester_scripts' ] );
+		}
 	}
 
 	/**
@@ -699,6 +675,8 @@ class Admin extends App {
 		Plugin::$instance->init_common();
 
 		$this->add_component( 'feedback', new Feedback() );
+		$this->add_component( 'canary-deployment', new Canary_Deployment() );
+		$this->add_component( 'admin-notices', new Admin_Notices() );
 
 		add_action( 'admin_init', [ $this, 'maybe_redirect_to_getting_started' ] );
 
@@ -713,7 +691,6 @@ class Admin extends App {
 		add_filter( 'plugin_action_links_' . ELEMENTOR_PLUGIN_BASE, [ $this, 'plugin_action_links' ] );
 		add_filter( 'plugin_row_meta', [ $this, 'plugin_row_meta' ], 10, 2 );
 
-		add_action( 'admin_notices', [ $this, 'admin_notices' ] );
 		add_filter( 'admin_body_class', [ $this, 'body_status_classes' ] );
 		add_filter( 'admin_footer_text', [ $this, 'admin_footer_text' ] );
 
@@ -724,6 +701,11 @@ class Admin extends App {
 		add_action( 'admin_action_elementor_new_post', [ $this, 'admin_action_new_post' ] );
 
 		add_action( 'current_screen', [ $this, 'init_new_template' ] );
+		add_action( 'current_screen', [ $this, 'init_beta_tester' ] );
+
+		add_action( 'in_plugin_update_message-' . ELEMENTOR_PLUGIN_BASE, function( $plugin_data ) {
+			$this->version_update_warning( ELEMENTOR_VERSION, $plugin_data['new_version'] );
+		} );
 	}
 
 	/**
@@ -731,16 +713,22 @@ class Admin extends App {
 	 * @access protected
 	 */
 	protected function get_init_settings() {
+		$beta_tester_email = get_user_meta( get_current_user_id(), User::BETA_TESTER_META_KEY, true );
+		$elementor_beta = get_option( 'elementor_beta', 'no' );
+		$all_introductions = User::get_introduction_meta();
+		$beta_tester_signup_dismissed = array_key_exists( Beta_Testers::BETA_TESTER_SIGNUP, $all_introductions );
+
 		$settings = [
 			'home_url' => home_url(),
-			'i18n' => [
-				'rollback_confirm' => __( 'Are you sure you want to reinstall previous version?', 'elementor' ),
-				'rollback_to_previous_version' => __( 'Rollback to Previous Version', 'elementor' ),
-				'yes' => __( 'Continue', 'elementor' ),
-				'cancel' => __( 'Cancel', 'elementor' ),
-				'new_template' => __( 'New Template', 'elementor' ),
-				'back_to_wordpress_editor_message' => __( 'Please note that you are switching to WordPress default editor. Your current layout, design and content might break.', 'elementor' ),
-				'back_to_wordpress_editor_header' => __( 'Back to WordPress Editor', 'elementor' ),
+			'settings_url' => Settings::get_url(),
+			'user' => [
+				'introduction' => User::get_introduction_meta(),
+			],
+			'beta_tester' => [
+				'beta_tester_signup' => Beta_Testers::BETA_TESTER_SIGNUP,
+				'has_email' => $beta_tester_email,
+				'option_enabled' => 'no' !== $elementor_beta,
+				'signup_dismissed' => $beta_tester_signup_dismissed,
 			],
 		];
 

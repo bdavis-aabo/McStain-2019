@@ -92,6 +92,11 @@ class Controls_Manager {
 	const RAW_HTML = 'raw_html';
 
 	/**
+	 * Deprecated Notice control.
+	 */
+	const DEPRECATED_NOTICE = 'deprecated_notice';
+
+	/**
 	 * Popover Toggle control.
 	 */
 	const POPOVER_TOGGLE = 'popover_toggle';
@@ -182,6 +187,11 @@ class Controls_Manager {
 	const ICON = 'icon';
 
 	/**
+	 * Icons control.
+	 */
+	const ICONS = 'icons';
+
+	/**
 	 * Gallery control.
 	 */
 	const GALLERY = 'gallery';
@@ -220,6 +230,11 @@ class Controls_Manager {
 	 * Hover animation control.
 	 */
 	const HOVER_ANIMATION = 'hover_animation';
+
+	/**
+	 * Exit animation control.
+	 */
+	const EXIT_ANIMATION = 'exit_animation';
 
 	/**
 	 * Controls.
@@ -321,7 +336,7 @@ class Controls_Manager {
 	 * @param string $tab_name  Tab name.
 	 * @param string $tab_label Tab label.
 	 */
-	public static function add_tab( $tab_name, $tab_label ) {
+	public static function add_tab( $tab_name, $tab_label = '' ) {
 		if ( ! self::$tabs ) {
 			self::init_tabs();
 		}
@@ -363,6 +378,7 @@ class Controls_Manager {
 			self::TAB,
 			self::TABS,
 			self::DIVIDER,
+			self::DEPRECATED_NOTICE,
 
 			self::COLOR,
 			self::MEDIA,
@@ -379,6 +395,7 @@ class Controls_Manager {
 			self::URL,
 			self::REPEATER,
 			self::ICON,
+			self::ICONS,
 			self::GALLERY,
 			self::STRUCTURE,
 			self::SELECT2,
@@ -387,6 +404,7 @@ class Controls_Manager {
 			self::TEXT_SHADOW,
 			self::ANIMATION,
 			self::HOVER_ANIMATION,
+			self::EXIT_ANIMATION,
 		];
 	}
 
@@ -402,7 +420,7 @@ class Controls_Manager {
 	 * External developers can register new controls by hooking to the
 	 * `elementor/controls/controls_registered` action.
 	 *
-	 * @since 1.0.0
+	 * @since 3.1.0
 	 * @access private
 	 */
 	private function register_controls() {
@@ -860,36 +878,96 @@ class Controls_Manager {
 	 * @since 1.0.0
 	 * @access public
 	 *
-	 * @param Controls_Stack $controls_stack.
+	 * @param Controls_Stack $controls_stack .
+	 * @param string $tab
+	 * @param array $additional_messages
+	 *
 	 */
-	public function add_custom_css_controls( Controls_Stack $controls_stack ) {
+	public function add_custom_css_controls( Controls_Stack $controls_stack, $tab = self::TAB_ADVANCED, $additional_messages = [] ) {
 		$controls_stack->start_controls_section(
 			'section_custom_css_pro',
 			[
 				'label' => __( 'Custom CSS', 'elementor' ),
-				'tab' => self::TAB_ADVANCED,
+				'tab' => $tab,
 			]
 		);
+
+		$messages = [
+			__( 'Custom CSS lets you add CSS code to any widget, and see it render live right in the editor.', 'elementor' ),
+		];
+
+		if ( $additional_messages ) {
+			$messages = array_merge( $messages, $additional_messages );
+		}
 
 		$controls_stack->add_control(
 			'custom_css_pro',
 			[
 				'type' => self::RAW_HTML,
-				'raw' => '<div class="elementor-nerd-box">' .
-						'<i class="elementor-nerd-box-icon eicon-hypster" aria-hidden="true"></i>
-						<div class="elementor-nerd-box-title">' .
-							__( 'Meet Our Custom CSS', 'elementor' ) .
-						'</div>
-						<div class="elementor-nerd-box-message">' .
-							__( 'Custom CSS lets you add CSS code to any widget, and see it render live right in the editor.', 'elementor' ) .
-						'</div>
-						<div class="elementor-nerd-box-message">' .
-							__( 'This feature is only available on Elementor Pro.', 'elementor' ) .
-						'</div>
-						<a class="elementor-nerd-box-link elementor-button elementor-button-default elementor-go-pro" href="' . Utils::get_pro_link( 'https://elementor.com/pro/?utm_source=panel-custom-css&utm_campaign=gopro&utm_medium=wp-dash' ) . '" target="_blank">' .
-							__( 'Go Pro', 'elementor' ) .
-						'</a>
-						</div>',
+				'raw' => $this->get_teaser_template( [
+					'title' => __( 'Meet Our Custom CSS', 'elementor' ),
+					'messages' => $messages,
+					'link' => 'https://elementor.com/pro/?utm_source=panel-custom-css&utm_campaign=gopro&utm_medium=wp-dash',
+				] ),
+			]
+		);
+
+		$controls_stack->end_controls_section();
+	}
+
+	public function get_teaser_template( $texts ) {
+		ob_start();
+		?>
+		<div class="elementor-nerd-box">
+			<img class="elementor-nerd-box-icon" src="<?php echo ELEMENTOR_ASSETS_URL . 'images/go-pro.svg'; ?>" />
+			<div class="elementor-nerd-box-title"><?php echo $texts['title']; ?></div>
+			<?php foreach ( $texts['messages'] as $message ) { ?>
+				<div class="elementor-nerd-box-message"><?php echo $message; ?></div>
+			<?php }
+
+			if ( $texts['link'] ) { ?>
+				<a class="elementor-nerd-box-link elementor-button elementor-button-default elementor-button-go-pro" href="<?php echo Utils::get_pro_link( $texts['link'] ); ?>" target="_blank">
+					<?php echo __( 'Go Pro', 'elementor' ); ?>
+				</a>
+			<?php } ?>
+		</div>
+		<?php
+
+		return ob_get_clean();
+	}
+
+	/**
+	 * Add custom attributes controls.
+	 *
+	 * This method adds a new control for the "Custom Attributes" feature. The free
+	 * version of elementor uses this method to display an upgrade message to
+	 * Elementor Pro.
+	 *
+	 * @since 2.8.3
+	 * @access public
+	 *
+	 * @param Controls_Stack $controls_stack.
+	 */
+	public function add_custom_attributes_controls( Controls_Stack $controls_stack ) {
+		$controls_stack->start_controls_section(
+			'section_custom_attributes_pro',
+			[
+				'label' => __( 'Attributes', 'elementor' ),
+				'tab' => self::TAB_ADVANCED,
+			]
+		);
+
+		$controls_stack->add_control(
+			'custom_attributes_pro',
+			[
+				'type' => self::RAW_HTML,
+				'raw' => $this->get_teaser_template( [
+					'title' => __( 'Meet Our Attributes', 'elementor' ),
+					'messages' => [
+						__( 'Attributes lets you add custom HTML attributes to any element.', 'elementor' ),
+					],
+					'link' => 'https://elementor.com/pro/?utm_source=panel-custom-attributes&utm_campaign=gopro&utm_medium=wp-dash',
+				] ),
 			]
 		);
 

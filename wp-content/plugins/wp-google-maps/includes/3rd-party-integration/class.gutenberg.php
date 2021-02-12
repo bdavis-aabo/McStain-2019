@@ -2,6 +2,9 @@
 
 namespace WPGMZA\Integration;
 
+if(!defined('ABSPATH'))
+	return;
+
 /**
  * This module integrates the plugin with the Gutenberg editor
  */
@@ -45,7 +48,7 @@ class Gutenberg extends \WPGMZA\Factory
 		if(!is_admin())
 			return;
 		
-		$wpgmza->loadScripts();
+		$wpgmza->loadScripts(true);
 		
 		wp_enqueue_style(
 			'wpgmza-gutenberg-integration', 
@@ -88,14 +91,21 @@ class Gutenberg extends \WPGMZA\Factory
 	 */
 	public function onRender($attr)
 	{
-		extract($attr);
-		
 		$attributes = array_merge(array('id' => 1), $attr);
 		
 		$str = "[wpgmza";
 		
 		foreach($attributes as $name => $value)
-			$str .= " $name=\"" . addslashes($value) . "\"";
+		{
+			if(is_string($value))
+				$v = addslashes($value);
+			else if(is_array($value))
+				$v = implode(',', array_map('addslashes', $value));
+			else
+				$v = $value;
+			
+			$str .= " $name=\"" . addslashes($v) . "\"";
+		}
 		
 		$str .= "]";
 		

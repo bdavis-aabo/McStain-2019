@@ -1,6 +1,8 @@
 <?php
 namespace Elementor;
 
+use Elementor\Core\Kits\Documents\Tabs\Global_Typography;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
@@ -76,10 +78,10 @@ class Widget_Alert extends Widget_Base {
 	 *
 	 * Adds different input fields to allow the user to change and customize the widget settings.
 	 *
-	 * @since 1.0.0
+	 * @since 3.1.0
 	 * @access protected
 	 */
-	protected function _register_controls() {
+	protected function register_controls() {
 		$this->start_controls_section(
 			'section_alert',
 			[
@@ -111,6 +113,9 @@ class Widget_Alert extends Widget_Base {
 				'placeholder' => __( 'Enter your title', 'elementor' ),
 				'default' => __( 'This is an Alert', 'elementor' ),
 				'label_block' => true,
+				'dynamic' => [
+					'active' => true,
+				],
 			]
 		);
 
@@ -123,6 +128,9 @@ class Widget_Alert extends Widget_Base {
 				'default' => __( 'I am a description. Click the edit button to change this text.', 'elementor' ),
 				'separator' => 'none',
 				'show_label' => false,
+				'dynamic' => [
+					'active' => true,
+				],
 			]
 		);
 
@@ -223,7 +231,9 @@ class Widget_Alert extends Widget_Base {
 			[
 				'name' => 'alert_title',
 				'selector' => '{{WRAPPER}} .elementor-alert-title',
-				'scheme' => Scheme_Typography::TYPOGRAPHY_1,
+				'global' => [
+					'default' => Global_Typography::TYPOGRAPHY_PRIMARY,
+				],
 			]
 		);
 
@@ -253,7 +263,9 @@ class Widget_Alert extends Widget_Base {
 			[
 				'name' => 'alert_description',
 				'selector' => '{{WRAPPER}} .elementor-alert-description',
-				'scheme' => Scheme_Typography::TYPOGRAPHY_3,
+				'global' => [
+					'default' => Global_Typography::TYPOGRAPHY_TEXT,
+				],
 			]
 		);
 
@@ -272,7 +284,7 @@ class Widget_Alert extends Widget_Base {
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 
-		if ( empty( $settings['alert_title'] ) ) {
+		if ( Utils::is_empty( $settings['alert_title'] ) ) {
 			return;
 		}
 
@@ -289,7 +301,7 @@ class Widget_Alert extends Widget_Base {
 		<div <?php echo $this->get_render_attribute_string( 'wrapper' ); ?>>
 			<span <?php echo $this->get_render_attribute_string( 'alert_title' ); ?>><?php echo $settings['alert_title']; ?></span>
 			<?php
-			if ( ! empty( $settings['alert_description'] ) ) :
+			if ( ! Utils::is_empty( $settings['alert_description'] ) ) :
 				$this->add_render_attribute( 'alert_description', 'class', 'elementor-alert-description' );
 
 				$this->add_inline_editing_attributes( 'alert_description' );
@@ -311,10 +323,10 @@ class Widget_Alert extends Widget_Base {
 	 *
 	 * Written as a Backbone JavaScript template and used to generate the live preview.
 	 *
-	 * @since 1.0.0
+	 * @since 2.9.0
 	 * @access protected
 	 */
-	protected function _content_template() {
+	protected function content_template() {
 		?>
 		<# if ( settings.alert_title ) {
 			view.addRenderAttribute( {

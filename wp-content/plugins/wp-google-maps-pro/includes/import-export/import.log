@@ -1,0 +1,39 @@
+2021-01-12 07:21:52 :- Base class constructor called
+2021-01-12 07:21:52 :- Loading file /Applications/AMPPS/www/wordpress55/wp-content/uploads/2021/01/wordpress55.wpgooglemaps.2021-01-12.json
+2021-01-12 07:21:52 :- Attempting to parse JSON
+2021-01-12 08:26:09 :- Base class constructor called
+2021-01-12 08:26:09 :- Loading file /Applications/AMPPS/www/wordpress55/wp-content/uploads/2021/01/futurehomesuk.wpgooglemaps.2021-01-12.json
+2021-01-12 08:26:09 :- Attempting to parse JSON
+2021-01-12 08:26:25 :- Base class constructor called
+2021-01-12 08:26:25 :- Loading file /Applications/AMPPS/www/wordpress55/wp-content/uploads/2021/01/futurehomesuk.wpgooglemaps.2021-01-12.json
+2021-01-12 08:26:25 :- Attempting to parse JSON
+2021-01-12 08:26:25 :- Import completed
+2021-01-20 08:46:33 :- Base class constructor called
+2021-01-20 08:46:33 :- Loading file C:\wamp64\www\wp_dev/wp-content/uploads/2021/01/saturday-upload.csv
+2021-01-20 08:46:46 :- Base class constructor called
+2021-01-20 08:46:46 :- Loading file C:\wamp64\www\wp_dev/wp-content/uploads/2021/01/saturday-upload.csv
+2021-01-20 08:46:46 :- Attempting to geocode 1326 Haslam Way, Saskatoon, SK, Canada (address)
+2021-01-20 08:46:47 :- Request denied
+2021-01-20 08:49:09 :- Base class constructor called
+2021-01-20 08:49:09 :- Loading file C:\wamp64\www\wp_dev/wp-content/uploads/2021/01/saturday-upload.csv
+2021-01-20 08:49:17 :- Base class constructor called
+2021-01-20 08:49:17 :- Loading file C:\wamp64\www\wp_dev/wp-content/uploads/2021/01/saturday-upload.csv
+2021-01-20 08:49:17 :- Attempting to geocode 1326 Haslam Way, Saskatoon, SK, Canada (address)
+2021-01-20 08:49:17 :- Request denied
+2021-01-20 08:50:51 :- Base class constructor called
+2021-01-20 08:50:51 :- Loading file C:\wamp64\www\wp_dev/wp-content/uploads/2021/01/saturday-upload.csv
+2021-01-20 08:50:51 :- Attempting to geocode 1326 Haslam Way, Saskatoon, SK, Canada (address)
+2021-01-20 08:50:52 :- Request denied
+2021-01-20 08:54:55 :- Base class constructor called
+2021-01-20 08:54:55 :- Loading file C:\wamp64\www\wp_dev/wp-content/uploads/2021/01/saturday-upload.csv
+2021-01-20 08:55:03 :- Base class constructor called
+2021-01-20 08:55:03 :- Loading file C:\wamp64\www\wp_dev/wp-content/uploads/2021/01/saturday-upload.csv
+2021-01-20 08:55:03 :- Attempting to geocode 1326 Haslam Way, Saskatoon, SK, Canada (address)
+2021-01-20 08:55:04 :- Request denied
+2021-01-22 11:08:47 :- Base class constructor called
+2021-01-22 11:08:47 :- Loading file C:\wamp64\www\wp_dev/wp-content/uploads/2021/01/playinginpuddles.wpgooglemaps.2021-01-22.json
+2021-01-22 11:08:47 :- Attempting to parse JSON
+2021-01-22 11:08:57 :- Base class constructor called
+2021-01-22 11:08:57 :- Loading file C:\wamp64\www\wp_dev/wp-content/uploads/2021/01/playinginpuddles.wpgooglemaps.2021-01-22.json
+2021-01-22 11:08:57 :- Attempting to parse JSON
+2021-01-22 11:09:04 :- Import completed

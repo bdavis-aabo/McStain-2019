@@ -60,9 +60,8 @@ final class PYS extends Settings implements Plugin {
         add_action( 'admin_notices', 'PixelYourSite\adminRenderPromoNotice' );
         add_action( 'admin_init', array( $this, 'adminProcessRequest' ), 11 );
 
-	    if ( ! defined( 'DOING_AJAX' ) ) {
-		    add_action( 'template_redirect', array( $this, 'managePixels' ) );
-	    }
+        // run Events Manager
+        add_action( 'template_redirect', array( $this, 'managePixels' ) );
 
 	    // "admin_permission" option custom sanitization function
 	    add_filter( 'pys_core_settings_sanitize_admin_permissions_field', function( $value ) {
@@ -81,6 +80,10 @@ final class PYS extends Settings implements Plugin {
 	    add_action( 'wp_ajax_pys_get_gdpr_filters_values', array( $this, 'ajaxGetGdprFiltersValues' ) );
 	    add_action( 'wp_ajax_nopriv_pys_get_gdpr_filters_values', array( $this, 'ajaxGetGdprFiltersValues' ) );
 
+        /*
+         * Restore settings after COG plugin
+         * */
+        add_action( 'deactivate_pixel-cost-of-goods/pixel-cost-of-goods.php',array($this,"restoreSettingsAfterCog"));
     }
 
     public function init() {
@@ -96,7 +99,7 @@ final class PYS extends Settings implements Plugin {
 		    PYS_FREE_PATH . '/includes/options_defaults.json'
 	    );
 
-	    // register pixels and plugins (addons)
+	    // register pixels and plugins (add-ons)
 	    do_action( 'pys_register_pixels', $this );
 	    do_action( 'pys_register_plugins', $this );
 
@@ -105,6 +108,12 @@ final class PYS extends Settings implements Plugin {
 		    /** @noinspection PhpIncludeInspection */
 		    require_once PYS_FREE_PATH . '/modules/pinterest/pinterest.php';
 	    }
+
+        // load dummy Bing plugin for admin UI
+        if ( ! array_key_exists( 'bing', $this->registeredPlugins ) ) {
+            /** @noinspection PhpIncludeInspection */
+            require_once PYS_FREE_PATH . '/modules/bing/bing.php';
+        }
 
         // maybe disable Facebook for WooCommerce pixel output
 	    if ( isWooCommerceActive() && $this->getOption( 'woo_enabled' )
@@ -177,6 +186,25 @@ final class PYS extends Settings implements Plugin {
 	 */
     public function managePixels() {
 
+        if (defined('DOING_AJAX') && DOING_AJAX) {
+            return;
+        }
+
+        // disable Events Manager on Customizer and preview mode
+        if (is_admin() || is_customize_preview() || is_preview()) {
+            return;
+        }
+
+        // disable Events Manager on Elementor editor
+        if (did_action('elementor/preview/init') || did_action('elementor/editor/init')) {
+            return;
+        }
+
+        // disable Events Manager on Divi Builder
+        if (function_exists('et_core_is_fb_enabled') && et_core_is_fb_enabled()) {
+            return;
+        }
+
     	// output debug info
 	    add_action( 'wp_head', function() {
 		    echo "<script type='text/javascript'>console.log('PixelYourSite Free version " . PYS_FREE_VERSION . "');</script>\r\n";
@@ -187,7 +215,7 @@ final class PYS extends Settings implements Plugin {
 	    }
 
 	    // at least one pixel should be configured
-	    if ( ! Facebook()->configured() && ! GA()->configured() && ! Pinterest()->configured() ) {
+	    if ( ! Facebook()->configured() && ! GA()->configured() && ! Pinterest()->configured() && ! Bing()->configured() ) {
 
 		    add_action( 'wp_head', function() {
 			    echo "<script type='text/javascript'>console.warn('PixelYourSite: no pixel configured.');</script>\r\n";
@@ -209,6 +237,7 @@ final class PYS extends Settings implements Plugin {
 		    'facebook_disabled_by_api'  => apply_filters( 'pys_disable_facebook_by_gdpr', false ),
 		    'analytics_disabled_by_api' => apply_filters( 'pys_disable_analytics_by_gdpr', false ),
 		    'pinterest_disabled_by_api' => apply_filters( 'pys_disable_pinterest_by_gdpr', false ),
+            'bing_disabled_by_api' => apply_filters( 'pys_disable_bing_by_gdpr', false ),
 	    ) );
 
     }
@@ -258,19 +287,17 @@ final class PYS extends Settings implements Plugin {
 
         if ( in_array( getCurrentAdminPage(), $this->adminPagesSlugs ) ) {
 
-	        wp_register_style( 'select2', '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css' );
-	        wp_register_script( 'select2', '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js',
-		        array( 'jquery' ) );
 
-	        wp_deregister_script( 'jquery' );
-	        wp_enqueue_script( 'jquery', '//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js' );
+            wp_register_style( 'select2_css', PYS_FREE_URL . '/dist/styles/select2.min.css' );
+            wp_enqueue_script( 'select2_js', PYS_FREE_URL . '/dist/scripts/select2.min.js',
+                array( 'jquery' ) );
 
-	        wp_enqueue_script( 'popper', '//cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js', 'jquery' );
-	        wp_enqueue_script( 'bootstrap', '//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js', 'jquery',
+	        wp_enqueue_script( 'popper', PYS_FREE_URL . '/dist/scripts/popper.min.js', 'jquery' );
+	        wp_enqueue_script( 'bootstrap', PYS_FREE_URL . '/dist/scripts/bootstrap.min.js', 'jquery',
 		        'popper' );
 
-            wp_enqueue_style( 'pys', PYS_FREE_URL . '/dist/styles/admin.css', array( 'select2' ), PYS_FREE_VERSION );
-            wp_enqueue_script( 'pys', PYS_FREE_URL . '/dist/scripts/admin.js', array( 'jquery', 'select2', 'popper',
+            wp_enqueue_style( 'pys_css', PYS_FREE_URL . '/dist/styles/admin.css', array( 'select2_css' ), PYS_FREE_VERSION );
+            wp_enqueue_script( 'pys_js', PYS_FREE_URL . '/dist/scripts/admin.js', array( 'jquery', 'select2_js', 'popper',
                                                                                  'bootstrap' ), PYS_FREE_VERSION );
 
         }
@@ -350,7 +377,12 @@ final class PYS extends Settings implements Plugin {
 
 			$nonce   = isset( $_REQUEST['_wpnonce'] ) ? $_REQUEST['_wpnonce'] : null;
 			$action  = $_REQUEST['action'];
-			$post_id = isset( $_REQUEST['pys']['event']['post_id'] ) ? $_REQUEST['pys']['event']['post_id'] : false;
+			if(isset( $_REQUEST['pys']['event']['post_id'] )) {
+                $post_id =  sanitize_key($_REQUEST['pys']['event']['post_id']) ;
+            } else {
+                $post_id = false;
+            }
+
 
 			if ( $action == 'update' && wp_verify_nonce( $nonce, 'pys_update_event' ) ) {
 
@@ -358,7 +390,12 @@ final class PYS extends Settings implements Plugin {
 					$event = CustomEventFactory::getById( $post_id );
 					$event->update( $_REQUEST['pys']['event'] );
 				} else {
-					CustomEventFactory::create( $_REQUEST['pys']['event'] );
+				    if(isset( $_REQUEST['pys']['event']) && is_array($_REQUEST['pys']['event'])) {
+                        CustomEventFactory::create( $_REQUEST['pys']['event'] );
+                    } else {
+                        CustomEventFactory::create( [] );
+                    }
+
 				}
 
 			} elseif ( $action == 'enable' && $post_id && wp_verify_nonce( $nonce, 'pys_enable_event' ) ) {
@@ -436,8 +473,14 @@ final class PYS extends Settings implements Plugin {
 	    }
 
         if ( wp_verify_nonce( $_REQUEST['_wpnonce'], 'pys_save_settings' ) ) {
-    
-            $core_options = isset( $_POST['pys']['core'] ) ? $_POST['pys']['core'] : array();
+
+            if(isset( $_POST['pys']['core'] ) && is_array($_POST['pys']['core'])) {
+                $core_options = $_POST['pys']['core'];
+            } else {
+                $core_options =  array();
+            }
+
+
     
             $gdpr_ajax_enabled = isset( $core_options['gdpr_ajax_enabled'] )
                 ? $core_options['gdpr_ajax_enabled']        // value from form data
@@ -445,7 +488,23 @@ final class PYS extends Settings implements Plugin {
     
             // allow 3rd party plugins to by-pass option value
             $core_options['gdpr_ajax_enabled'] = apply_filters( 'pys_gdpr_ajax_enabled', $gdpr_ajax_enabled );
-    
+
+	        if (isPixelCogActive() ) {
+
+		        if (isset($core_options['woo_purchase_value_option'])) {
+                    $core_options = $this->updateDefaultNoCogOption($core_options,'woo_purchase_value_option','woo_purchase_value_cog');
+                }
+                if (isset($core_options['woo_view_content_value_option'])) {
+                    $core_options = $this->updateDefaultNoCogOption($core_options,'woo_view_content_value_option','woo_content_value_cog');
+                }
+                if (isset($core_options['woo_add_to_cart_value_option'])) {
+                    $core_options = $this->updateDefaultNoCogOption($core_options,'woo_add_to_cart_value_option','woo_add_to_cart_value_cog');
+                }
+                if (isset($core_options['woo_initiate_checkout_value_option'])) {
+                    $core_options = $this->updateDefaultNoCogOption($core_options,'woo_initiate_checkout_value_option','woo_initiate_checkout_value_cog');
+                }
+	        }
+
             // update core options
             $this->updateOptions( $core_options );
 
@@ -461,6 +520,17 @@ final class PYS extends Settings implements Plugin {
 
         }
 
+    }
+
+    private function updateDefaultNoCogOption($core_options,$optionName,$defaultOptionName) {
+        $val = $core_options[$optionName];
+        $currentVal = $this->getOption($optionName);
+        if($val != 'cog') {
+            $core_options[$defaultOptionName] = $val;
+        } elseif ( $currentVal != 'cog' ) {
+            $core_options[$defaultOptionName] = $currentVal;
+        }
+        return $core_options;
     }
 
     private function adminResetSettings() {
@@ -513,6 +583,39 @@ final class PYS extends Settings implements Plugin {
             purgeCache();
         }
         
+    }
+
+    function restoreSettingsAfterCog() {
+
+        $params = array();
+        $oldPurchase = $this->getOption("woo_purchase_value_cog");
+        $oldContent = $this->getOption("woo_content_value_cog");
+        $oldAddCart = $this->getOption("woo_add_to_cart_value_cog");
+        $oldInitCheckout = $this->getOption("woo_initiate_checkout_value_cog");
+
+        if($this->getOption('woo_purchase_value_option') == 'cog') {
+            if(!empty($oldPurchase)) $params['woo_purchase_value_option'] = $oldPurchase;
+            else $params['woo_purchase_value_option'] = "price";
+        }
+        if($this->getOption('woo_view_content_value_option') == 'cog') {
+            if(!empty($oldContent)) $params['woo_view_content_value_option'] = $oldContent;
+            else $params['woo_view_content_value_option'] = "price";
+        }
+        if($this->getOption('woo_add_to_cart_value_option') == 'cog') {
+            if(!empty($oldAddCart)) $params['woo_add_to_cart_value_option'] = $oldAddCart;
+            else $params['woo_add_to_cart_value_option'] = "price";
+        }
+        if($this->getOption('woo_initiate_checkout_value_option') == 'cog') {
+            if(!empty($oldInitCheckout)) $params['woo_initiate_checkout_value_option'] = $oldInitCheckout;
+            else $params['woo_initiate_checkout_value_option'] = "price";
+        }
+
+        $params['woo_purchase_value_cog'] = '';
+        $params['woo_content_value_cog'] = '';
+        $params['woo_add_to_cart_value_cog'] = '';
+        $params['woo_initiate_checkout_value_cog'] = '';
+
+        $this->updateOptions($params);
     }
 }
 

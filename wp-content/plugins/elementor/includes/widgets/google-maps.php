@@ -93,10 +93,10 @@ class Widget_Google_Maps extends Widget_Base {
 	 *
 	 * Adds different input fields to allow the user to change and customize the widget settings.
 	 *
-	 * @since 1.0.0
+	 * @since 3.1.0
 	 * @access protected
 	 */
-	protected function _register_controls() {
+	protected function register_controls() {
 		$this->start_controls_section(
 			'section_map',
 			[
@@ -153,18 +153,6 @@ class Widget_Google_Maps extends Widget_Base {
 				],
 				'selectors' => [
 					'{{WRAPPER}} iframe' => 'height: {{SIZE}}{{UNIT}};',
-				],
-			]
-		);
-
-		$this->add_control(
-			'prevent_scroll',
-			[
-				'label' => __( 'Prevent Scroll', 'elementor' ),
-				'type' => Controls_Manager::SWITCHER,
-				'default' => 'yes',
-				'selectors' => [
-					'{{WRAPPER}} iframe' => 'pointer-events: none;',
 				],
 			]
 		);
@@ -264,7 +252,7 @@ class Widget_Google_Maps extends Widget_Base {
 		}
 
 		printf(
-			'<div class="elementor-custom-embed"><iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q=%s&amp;t=m&amp;z=%d&amp;output=embed&amp;iwloc=near" aria-label="%s"></iframe></div>',
+			'<div class="elementor-custom-embed"><iframe frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?q=%1$s&amp;t=m&amp;z=%2$d&amp;output=embed&amp;iwloc=near" title="%3$s" aria-label="%3$s"></iframe></div>',
 			rawurlencode( $settings['address'] ),
 			absint( $settings['zoom']['size'] ),
 			esc_attr( $settings['address'] )
@@ -276,8 +264,8 @@ class Widget_Google_Maps extends Widget_Base {
 	 *
 	 * Written as a Backbone JavaScript template and used to generate the live preview.
 	 *
-	 * @since 1.0.0
+	 * @since 2.9.0
 	 * @access protected
 	 */
-	protected function _content_template() {}
+	protected function content_template() {}
 }

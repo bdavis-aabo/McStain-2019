@@ -100,6 +100,7 @@ abstract class Base_Tag extends Controls_Stack {
 			'controls' => $this->get_controls(),
 			'content_type' => $this->get_content_type(),
 			'settings_required' => $this->is_settings_required(),
+			'editable' => $this->is_editable(),
 		];
 	}
 
@@ -170,7 +171,13 @@ abstract class Base_Tag extends Controls_Stack {
 			'label' => __( 'Settings', 'elementor' ),
 		] );
 
-		$this->_register_controls();
+		if ( $this->has_own_method( '_register_controls' ) ) {
+			Plugin::$instance->modules_manager->get_modules( 'dev-tools' )->deprecation->deprecated_function( '_register_controls', '3.1.0', __CLASS__ . '::register_controls()' );
+
+			$this->_register_controls();
+		} else {
+			$this->register_controls();
+		}
 
 		$this->end_controls_section();
 
