@@ -64,6 +64,7 @@
           -> pull each tab contents
         */
       ?>
+      amenities
     </div>
   </section>
 
