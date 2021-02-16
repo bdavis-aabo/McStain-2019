@@ -91,4 +91,4 @@ pull collections for community by slug
     </div>
 
   </div>
-<?php endforeach; ?>
+<?php endforeach; wp_reset_query(); ?>

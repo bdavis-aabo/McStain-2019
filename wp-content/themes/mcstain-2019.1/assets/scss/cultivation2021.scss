@@ -96,6 +96,26 @@ footer
         }
       }
     }
+
+    &.community-design-suites { margin: 5vh 0 3.5vh;
+      .design-suite-container { display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
+        .design-suite-content  { flex-basis: 50%; text-align: center;
+          h1 { font-family: 'uni-bold'; color: $black; font-size: 60px; line-height: 1.35em; margin-bottom: 35px; }
+          h2 { font-family: 'uni-bold'; color: $black; font-size: 24px; line-height: 1.35em; margin-bottom: 25px; text-transform: uppercase; }
+          h3 { font-family: 'uni-book'; color: $ltgreen; font-size: 48px; }
+          p  { }
+        }
+        .design-suite-files { flex-grow: 1; flex-basis: 100%; display: flex; flex-wrap: nowrap; justify-content: center; align-items: center;
+          list-style: none; margin-bottom: 45px; 
+          .design-file { margin-right: 15px;
+            &:last-child { margin-right: 0; }
+            a { color: $white; background: $ltgreen; padding: 8px 25px; text-transform: uppercase; }
+          }
+        }
+      }
+    }
   }
+
+
 
 }
