@@ -18,6 +18,18 @@
   }
   add_action('wp_enqueue_scripts', 'mcstain_styles', PHP_INT_MAX);
 
+  function mcstain_cultivation_js(){
+    wp_register_script(
+      'jquery.cultivation.min',
+      get_stylesheet_directory_uri() . '/assets/js/cultivation.min.js?v='.filemtime(get_stylesheet_directory().'/assets/js/cultivation.min.js'),
+      array('jquery'),
+      filemtime(get_stylesheet_directory().'/assets/js/cultivation.min.js'),
+      true
+    );
+    wp_enqueue_script('jquery.cultivation.min');
+  }
+  	add_action('wp_enqueue_scripts','mcstain_cultivation_js', 11);
+
   // Create Post Type for Promotions
   add_action('init','create_promos');
   function create_promos(){
@@ -34,6 +46,35 @@
 		  'menu_icon'       =>	'dashicons-megaphone',
 		  'has_archive'     =>	true,
     ));
+  }
+
+  // Custom Taxonomy for Collections
+  add_action('init','collection_taxonomies',0);
+  function collection_taxonomies(){
+    $_labels = array(
+  		'name' 				=> 	_x('Collections', 'taxonomy general name'),
+  		'singular_name'		=> 	_x('Collection', 'taxonomy singular name'),
+  		'search_items'		=>	__('Search Collections'),
+  		'all_items'			=>	__('All Collections'),
+  		'parent_item'		=>	__('Parent Collection'),
+  		'parent_item_colon'	=>	__('Parent Collection:'),
+  		'edit_item'			=>	__('Edit Collection'),
+  		'update_item'		=>	__('Update Collection'),
+  		'add_new_item'		=>	__('Add New Collection'),
+  		'new_item_name'		=>	__('New Collection Name'),
+  		'menu_name'			=>	__('Collections'),
+  		);
+  	$_args = array(
+  		'hierarchical'		=>	true,
+  		'labels'			=>	$_labels,
+  		'show_ui'			=>	true,
+  		'show_admin_column'	=>	true,
+  		'update_count_callback' => '_update_post_term_count',
+  		'query_var'			=>	true,
+  		'rewrite'			=>	array('slug' => 'collection'),
+  		);
+
+  	register_taxonomy('collection', array('floorplans'), $_args);
   }
 
   // Widgets (Directions)

@@ -111,7 +111,7 @@ function create_floorplans(){
     'capability_type' =>  'post',
     'hierarchical'    =>  true,
     'rewrite'         =>  array('slug' => 'community/%community%/floorplans'),
-    'supports'        =>  array('title','author','custom-fields','order','page-attributes'),
+    'supports'        =>  array('title','author','custom-fields','order','page-attributes','thumbnail'),
     'menu_position'   =>  20,
     'menu_icon'       =>  'dashicons-admin-home',
     'has_archive'     =>  false

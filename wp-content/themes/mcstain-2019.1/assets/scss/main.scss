@@ -2,6 +2,7 @@
 @import 'design';
 @import 'navigation';
 @import 'cultivation';
+@import 'cultivation2021';
 @import 'forms';
 @import 'maps';
 @import 'configurator';
@@ -390,12 +391,12 @@ No media query...Bootstrap default
 */
 @media (min-width: 1599px){
   .header {
-    .navbar { max-width: 1600px; margin: 0 auto; }
+    .navbar {  margin: 0 auto; }
   }
-  .homepage-heroimage { margin: 0 auto; max-width: 1600px; float: none; }
+  .homepage-heroimage { margin: 0 auto;  float: none; }
 
   .homepage-communities {
-    #community-slider { max-width: 1600px; margin: 0 auto; }
+    #community-slider {  margin: 0 auto; }
   }
 
 
@@ -403,14 +404,14 @@ No media query...Bootstrap default
     section.community-introduction {
       .community-scroller { margin-top: 3vh;  }
     }
-    section.community-heroimage { max-width: 1600px; margin: 0 auto; float: none; }
+    section.community-heroimage {  margin: 0 auto; float: none; }
     section.community-design {
-      .community-carousel { max-width: 1600px; margin: 0 auto; }
+      .community-carousel {  margin: 0 auto; }
     }
     section.community-amenities {
-      .amenities-slider { max-width: 1600px; margin: 3vh auto; }
+      .amenities-slider {  margin: 3vh auto; }
     }
-    section.community-map { max-width: 1600px; margin: 0 auto; float: none; overflow: auto; }
+    section.community-map {  margin: 0 auto; float: none; overflow: auto; }
   }
   .manifesto-slider {
     #manifesto-slider {
@@ -436,7 +437,7 @@ No media query...Bootstrap default
       }
     }
   }
-  .location-map-section { max-width: 1600px; margin: 0 auto; }
+  .location-map-section {  margin: 0 auto; }
 
   /*** QMI HOME LANDING PAGE ***/
   .single-quickmoves {
@@ -476,5 +477,5 @@ No media query...Bootstrap default
     }
   }
 
-  footer { max-width: 1600px; margin: 0 auto; }
+  footer {  margin: 0 auto; }
 }

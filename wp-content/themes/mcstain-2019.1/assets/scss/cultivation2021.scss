@@ -1,0 +1,100 @@
+/*
+heroimage
+
+three-bees
+
+body contents
+
+collections
+
+design Suites
+
+amenities
+
+maps/contact
+
+footer
+
+*/
+
+
+.page-template-cultivation_2021 {
+  .section { display: flex; justify-content: center;
+    &.three-bees { flex-wrap: wrap;
+      .callout-container { display: flex; flex-wrap: nowrap; justify-content: center; align-items: stretch; width: 100%;
+        .bee-contents { flex-basis: 33.333%; display: flex; flex-wrap: wrap; justify-content: center; align-items: stretch;
+          .bee-content { color: $white; padding: 5% 0; width: 50%; display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start;
+            figure { margin-bottom: 0; }
+            p { font-size: 1em; line-height: 1.65em; margin-bottom: 12px; }
+            .bee-link { align-self: flex-end; align-content: flex-start; color: $white; }
+          }
+        }
+      }
+      .excited-callout { flex-basis: 100%; justify-content: flex-end;
+        .alignright { position: relative; bottom: 80px; width: 50%; }
+      }
+    }
+
+    &.community-content-section { margin: 3.5vh 0;
+      .community-content-container { display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
+        .community-contents { flex-basis: 65%; text-align: center;
+          h1 { font-family: 'uni-book', sans-serif; font-size: 60px; margin-bottom: 25px;
+            em { font-family: 'uni-bold', sans-serif; font-style: normal; color: $ltgreen; }
+          }
+          h2 { font-family: 'uni-bold', sans-serif; font-size: 32px; color: $blue; line-height: 48px; }
+          p  { font-family: 'uni-book', sans-serif; }
+        }
+      }
+    }
+
+    &.community-collections {
+      .collection-container { display: flex; flex-wrap: wrap; justify-content: space-between;
+        .collection-details,
+        .collection-slider  { align-self: stretch; }
+        .collection-details { order: 1; flex-basis: 35%; display: flex; justify-content: center; align-items: center;
+          .collection-detail-container { flex-basis: 80%; display: flex; flex-wrap: wrap; text-align: center; justify-content: center;
+            h1 { font-family: 'uni-book', sans-serif; font-size: 40px; line-height: 1.25em; margin-bottom: 20px;
+              em { font-family: 'uni-bold'; font-style: normal; }
+            }
+            h2 { font-family: 'uni-bold'; font-size: 24px; margin-bottom: 12px; }
+            button { color: $white; font-family: 'uni-regular'; text-transform: uppercase; font-size: .9em; font-style: normal;
+              .fas { font-size: .8em; }
+            }
+          }
+
+        }
+        .collection-slider  { order: 0; flex-basis: 65%;
+          .carousel-indicators { bottom: 30px; left: 50px; right: auto; margin: 0; justify-content: flex-start;
+            li { margin-right: 10px; width: 60px; height: 5px; }
+          }
+        }
+        .collection-floorplans { order: 2; flex-grow: 1; flex-basis: 100%; height: auto; opacity: 1; transition: all 666ms ease-in-out;
+          &.hidden { opacity: 0; height: 0; }
+          .floorplan-container { display: flex; flex-wrap: nowrap; justify-content: space-between; align-items: center;
+            .floorplan { position: relative; overflow: hidden;
+              .floorplan-details { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; color: $white;
+                text-transform: uppercase; transform: translateY(100%); transition: transform 666ms ease-in-out;
+                .background-box { background: rgba($dkblue,.8); mix-blend-mode: multiply; top: 0; left: 0; bottom: 0; right: 0; position: absolute; }
+                .background-details { padding: 20px; top: 0; left: 0; bottom: 0; right: 0; position: relative; }
+                p { margin-bottom: 10px; mix-blend-mode: normal; }
+                .floorplan-title { font-family: 'uni-bold'; font-size: 24px; }
+                .details { font-size: 15px; line-height: 1.35em; font-family: 'uni-book'; }
+                .price   { font-family: 'uni-regular'; font-size: 18px; }
+                .floorplan-link { font-size: 16px; color: $white; }
+              }
+              &:hover {
+                .floorplan-details { transform: translateY(0); }
+              }
+            }
+          }
+        }
+
+        &:nth-child(even) {
+          .collection-details { order: 0; }
+          .collection-slider  { order: 1; }
+        }
+      }
+    }
+  }
+
+}

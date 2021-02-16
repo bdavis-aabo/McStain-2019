@@ -26,10 +26,12 @@ $medgray:   #9c9895;
 $black:     #000;
 $aqua:      #0084b5;
 $blue:      #3d5161;
-$yellow:    #e7b809;
+$dkblue:    #1f2f3c;
+$ltblue:    #0e76bc;
+$yellow:    #caa22d;
 $gold:      #bf8b07;
 $green:     #4f7728;
-$ltgreen:   #70851e;
+$ltgreen:   #7e9e42;
 $orange:    #bb611a;
 $brown:     #564438;
 $red:       #ed1c24;
@@ -44,6 +46,7 @@ $red:       #ed1c24;
 .orange-txt  { color: $orange }
 
 .blue-bg   { background: $blue; color: $white; }
+.ltblue-bg { background: $ltblue; color: $white;}
 .ltgreen-bg { background: $ltgreen; color: $white; }
 .green-bg  { background: $green; color: $white; }
 .gray-bg   { background: $ltgray; }
