@@ -131,6 +131,29 @@ footer
         }
       }
     }
+
+    &.community-amenities {
+
+    }
+
+    &.community-sitemap {
+
+    }
+
+    &.community-location { margin-bottom: 0; padding-bottom: 0;
+      .community-location-container { display: flex; flex-wrap: nowrap; justify-content: space-between; align-items: stretch; flex-basis: 100%;
+        .community-map,
+        .community-location-information { flex-basis: 50%; }
+        .community-map { background: $ltgray; min-height: 650px; }  //remove min-height once map is placed
+        .community-location-information { display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
+          .location-information { flex-basis: 60%;
+            h2 { font-size: 24px; font-family: 'uni-bold'; margin-bottom: 25px; line-height: 1.35em; }
+            p  { margin-bottom: 15px; }
+
+          }
+        }
+      }
+    }
   }
 
 

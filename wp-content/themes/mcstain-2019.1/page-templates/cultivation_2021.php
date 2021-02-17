@@ -88,11 +88,21 @@
 
   <section class="section community-location" id="directions">
     <div class="community-location-container">
-      <div class="community-map">map</div>
+      <div class="community-map">
+        <?php
+        if($post->post_name == 'painted-prairie'):
+          echo do_shortcode('[wpgmza id="4"]');
+        elseif($post->post_name == 'arras-park'):
+          echo do_shortcode('[wpgmza id="5"]');
+        endif;
+        ?>
+      </div>
 
       <div class="community-location-information ltgreen-bg">
-        <h2 class="white-txt">There's much more to get you excited.</h2>
-        <?php echo get_field('community_address') ?>
+        <div class="location-information">
+          <h2 class="white-txt">There's much more to get you excited.</h2>
+          <?php echo get_field('community_address') ?>
+        </div>
       </div>
     </div>
   </section>
