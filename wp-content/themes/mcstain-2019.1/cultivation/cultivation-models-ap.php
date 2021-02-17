@@ -27,6 +27,7 @@ pull collections for community by slug
       'collection'      => $_collection->slug,
     );
     $_floorplans->query($_args);
+    $_carouselName = str_replace(' ', '', str_replace(' Collection', '', $_collection->name));
   ?>
 
   <div class="collection-container" id="<?php echo $_collection->slug; ?>">
@@ -41,7 +42,7 @@ pull collections for community by slug
 
     <div class="collection-slider">
       <?php if($_floorplans->have_posts()): ?>
-      <div id="floorplanCarousel" class="carousel slide" data-ride="carousel" data-interval="6500">
+      <div id="<?php echo $_carouselName . 'Carousel' ?>" class="carousel slide" data-ride="carousel" data-interval="6500">
         <div class="carousel-inner">
         <?php $_s = 0; while($_floorplans->have_posts()): $_floorplans->the_post();
           $_galleryImages = get_field('floorplan_elevations'); $_galleryImage = $_galleryImages[0];
@@ -53,7 +54,7 @@ pull collections for community by slug
         </div>
         <div class="carousel-indicators">
           <?php $_i = 0; while($_floorplans->have_posts()): $_floorplans->the_post(); ?>
-          <li data-target="#floorplanCarousel" data-slide-to="<?php echo $_i ?>"></li>
+          <li <?php if($_i == 0): echo 'class="active"'; endif; ?>data-target="#<?php echo $_carouselName . 'Carousel' ?>" data-slide-to="<?php echo $_i ?>"></li>
           <?php $_i++; endwhile; wp_reset_postdata(); ?>
         </div>
       </div>

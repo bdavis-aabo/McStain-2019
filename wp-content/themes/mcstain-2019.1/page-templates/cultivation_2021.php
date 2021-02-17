@@ -12,6 +12,18 @@
     </video>
   </section>
 
+  <section class="section community-quicklinks">
+    <div class="quicklink-container">
+      <ul class="quicklinks">
+        <li><a href="#homeplans">Home Plans</a></li>
+        <li><a href="#design">Design Suites</a></li>
+        <li><a href="#about">About <?php the_title() ?></a></li>
+        <li><a href="#sitemap">Site Map</a></li>
+        <li><a href="#directions">Directions</a></li>
+      </ul>
+    </div>
+  </section>
+
   <?php get_template_part('cultivation/three-bees') ?>
 
   <section class="section community-content-section">
@@ -22,7 +34,7 @@
     </div>
   </section>
 
-  <section class="section community-collections">
+  <section class="section community-collections" id="homeplans">
     <div class="community-collection-container">
       <?php
         if($post->post_name == 'arras-park'):
@@ -36,7 +48,7 @@
 
   <?php //get_template_part('cultivation/cultivation-design') ?>
 
-  <section class="section community-design-suites">
+  <section class="section community-design-suites" id="design">
     <div class="design-suite-container">
       <div class="design-suite-content">
         <?php echo get_field('design_content'); ?>
@@ -53,22 +65,28 @@
 
       <?php endif; ?>
 
-      design suite gallery.
+      <?php if(get_field('design_images') != ''): $_designImages = get_field('design_images'); ?>
+      <div class="design-suite-images">
+        <?php foreach($_designImages as $_image): ?>
+        <figure><img src="<?php echo $_image['url'] ?>" class="img-fluid" alt="design suite image" /></figure>
+        <?php endforeach; ?>
+      </div>
+
+      <?php endif; ?>
     </div>
   </section>
 
-  <section class="section community-amenities">
+  <section class="section community-amenities" id="about">
     <div class="amenities-container">
-      <?php
-        /* Amenities slider -> activated by buttons below
-          -> pull each tab contents
-        */
-      ?>
-      amenities
+      <?php get_template_part('cultivation/cultivation-amenities2021') ?>
     </div>
   </section>
 
-  <section class="section community-loaction">
+  <section class="section community-sitemap" id="sitemap">
+    sitemap
+  </section>
+
+  <section class="section community-location" id="directions">
     <div class="community-location-container">
       <div class="community-map">map</div>
 

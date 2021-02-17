@@ -20,6 +20,18 @@ footer
 
 .page-template-cultivation_2021 {
   .section { display: flex; justify-content: center;
+    p  { font-family: 'uni-book', sans-serif; }
+    &.community-quicklinks {
+      .quicklink-container { display: flex; justify-content: center; align-items: center;
+        .quicklinks { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: nowrap; justify-content: space-between; padding: 12px 0;
+          li { margin-right: 15px;
+            &:last-child { margin-right: 0; }
+            a { text-transform: uppercase; font-family: 'uni-book'; color: $black; padding: 0 20px; font-size: .9em; }
+          }
+        }
+      }
+    }
+
     &.three-bees { flex-wrap: wrap;
       .callout-container { display: flex; flex-wrap: nowrap; justify-content: center; align-items: stretch; width: 100%;
         .bee-contents { flex-basis: 33.333%; display: flex; flex-wrap: wrap; justify-content: center; align-items: stretch;
@@ -42,13 +54,13 @@ footer
             em { font-family: 'uni-bold', sans-serif; font-style: normal; color: $ltgreen; }
           }
           h2 { font-family: 'uni-bold', sans-serif; font-size: 32px; color: $blue; line-height: 48px; }
-          p  { font-family: 'uni-book', sans-serif; }
+
         }
       }
     }
 
     &.community-collections {
-      .collection-container { display: flex; flex-wrap: wrap; justify-content: space-between;
+      .collection-container { display: flex; flex-wrap: wrap; justify-content: space-between; margin-bottom: 20px;
         .collection-details,
         .collection-slider  { align-self: stretch; }
         .collection-details { order: 1; flex-basis: 35%; display: flex; justify-content: center; align-items: center;
@@ -103,14 +115,19 @@ footer
           h1 { font-family: 'uni-bold'; color: $black; font-size: 60px; line-height: 1.35em; margin-bottom: 35px; }
           h2 { font-family: 'uni-bold'; color: $black; font-size: 24px; line-height: 1.35em; margin-bottom: 25px; text-transform: uppercase; }
           h3 { font-family: 'uni-book'; color: $ltgreen; font-size: 48px; }
-          p  { }
+          p  { font-size: .95em; }
         }
         .design-suite-files { flex-grow: 1; flex-basis: 100%; display: flex; flex-wrap: nowrap; justify-content: center; align-items: center;
-          list-style: none; margin-bottom: 45px; 
+          list-style: none; margin-bottom: 45px;
           .design-file { margin-right: 15px;
             &:last-child { margin-right: 0; }
-            a { color: $white; background: $ltgreen; padding: 8px 25px; text-transform: uppercase; }
+            a { color: $white; background: $ltgreen; padding: 8px 25px; text-transform: uppercase; font-size: .9em; font-family: 'uni-book';
+              &:hover { background: tint($ltgreen, 20); }
+            }
           }
+        }
+        .design-suite-images { display: flex; flex-wrap: nowrap; justify-content: space-between; align-items: center; flex-basis: 80%;
+          figure { flex-basis: 49%; }
         }
       }
     }
