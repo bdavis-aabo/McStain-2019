@@ -132,12 +132,28 @@ footer
       }
     }
 
-    &.community-amenities {
-
+    &.community-amenities { margin: 5vh 0;
+      .amenities-container { display: flex; flex-wrap: wrap; justify-content: center;
+        .carousel-inner {
+          .carousel-item {
+            .amenities-content-container { margin: 7.5vh auto 0; width: 65%; text-align: center;
+              h1 { color: $gold; font-size: 60px; margin-bottom: 15px; line-height: 1.35em; }
+            }
+          }
+        }
+        .carousel-indicators { bottom: auto; top: 625px; font-family: 'uni-book';
+          li { text-indent: 0; width: auto; text-transform: uppercase; font-size: .95em; margin-right: 30px; border: none;
+            &:last-child { margin-right: 0; }
+            &.active { color: $gold; }
+          }
+        }
+      }
     }
 
-    &.community-sitemap {
-
+    &.community-sitemap { margin-bottom: 5vh;
+      .sitemap-container { flex-basis: 85%; display: block; overflow: hidden; padding-top: 56.25%; position: relative;
+        iframe { border: 0; width: 100%; height: 100%; left: 0; top: 0; position: absolute; }
+      }
     }
 
     &.community-location { margin-bottom: 0; padding-bottom: 0;
@@ -149,7 +165,7 @@ footer
           .location-information { flex-basis: 60%;
             h2 { font-size: 24px; font-family: 'uni-bold'; margin-bottom: 25px; line-height: 1.35em; }
             p  { margin-bottom: 15px; }
-
+            .btn { font-size: .85em; font-style: normal; text-transform: uppercase; font-family: 'uni-book'; }
           }
         }
       }

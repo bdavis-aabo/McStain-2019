@@ -77,14 +77,10 @@
   </section>
 
   <section class="section community-amenities" id="about">
-    <div class="amenities-container">
-      <?php get_template_part('cultivation/cultivation-amenities2021') ?>
-    </div>
+    <?php get_template_part('cultivation/cultivation-amenities2021') ?>
   </section>
 
-  <section class="section community-sitemap" id="sitemap">
-    sitemap
-  </section>
+  <?php //if(get_field('cultivation_map_url') != ''): get_template_part('cultivation/cultivation-sitemap2021'); endif; ?>
 
   <section class="section community-location" id="directions">
     <div class="community-location-container">
@@ -102,6 +98,8 @@
         <div class="location-information">
           <h2 class="white-txt">There's much more to get you excited.</h2>
           <?php echo get_field('community_address') ?>
+
+          <button class="btn dkblue-btn lightbox-trigger base-contact"><i class="fas fa-chevron-right"></i><i class="fas fa-chevron-right"></i> sign up for more info</button>
         </div>
       </div>
     </div>
