@@ -94,6 +94,8 @@ footer
                 .details { font-size: 15px; line-height: 1.35em; font-family: 'uni-book'; }
                 .price   { font-family: 'uni-regular'; font-size: 18px; }
                 .floorplan-link { font-size: 16px; color: $white; }
+
+                &.parkway-details { transform: translateY(0); }
               }
               &:hover {
                 .floorplan-details { transform: translateY(0); }
@@ -118,7 +120,7 @@ footer
           p  { font-size: .95em; }
         }
         .design-suite-files { flex-grow: 1; flex-basis: 100%; display: flex; flex-wrap: nowrap; justify-content: center; align-items: center;
-          list-style: none; margin-bottom: 45px;
+          list-style: none; margin-bottom: 45px; padding: 0;
           .design-file { margin-right: 15px;
             &:last-child { margin-right: 0; }
             a { color: $white; background: $ltgreen; padding: 8px 25px; text-transform: uppercase; font-size: .9em; font-family: 'uni-book';
@@ -138,10 +140,11 @@ footer
           .carousel-item {
             .amenities-content-container { margin: 7.5vh auto 0; width: 65%; text-align: center;
               h1 { color: $gold; font-size: 60px; margin-bottom: 15px; line-height: 1.35em; }
+              p  { padding: 0 5%; }
             }
           }
         }
-        .carousel-indicators { bottom: auto; top: 625px; font-family: 'uni-book';
+        .carousel-indicators { bottom: auto; top: 58%; font-family: 'uni-book';
           li { text-indent: 0; width: auto; text-transform: uppercase; font-size: .95em; margin-right: 30px; border: none;
             &:last-child { margin-right: 0; }
             &.active { color: $gold; }

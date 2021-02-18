@@ -1,3 +1,49 @@
+// function to make all carousel-items the same min-height as tallest element.
+function carouselNormalization(){
+  var items = $('#amenitiesSlider .carousel-item'),
+    heights = [],
+    tallest;
+
+  var itemImages = $('#amenitiesSlider .carousel-item > img'),
+    imageHeights = [],
+    imageTallest;
+
+  if(items.length) {
+    function normalizeHeights(){
+      items.each(function(){
+        heights.push($(this).height());
+      });
+      tallest = Math.max.apply(null, heights);
+      items.each(function(){
+        $(this).css('min-height', tallest + 'px');
+      });
+    }
+    function setNavigationTop(){
+      itemImages.each(function(){
+        imageHeights.push($(this).height());
+      });
+      imageTallest = Math.max.apply(null, imageHeights);
+      $('#amenitiesSlider .carousel-indicators').css('top', (imageTallest + 30) + 'px');
+    }
+    normalizeHeights();
+    setNavigationTop();
+
+    $(window).on('resize orientationchange', function(){
+      tallest = 0, heights.length = 0;
+      items.each(function(){
+        $(this).css('min-height', '0');
+      });
+
+      imageTallest = 0, imageHeights.length = 0;
+      itemImages.each(function(){
+        $('#amenitiesSlider .carousel-indicators').css('top', '0');
+      });
+      normalizeHeights();
+      setNavigationTop();
+    });
+  }
+}
+
 $(document).ready(function(){
   // show/hide floorplan thumbnails
   $('.view-btn').click(function(){
@@ -41,5 +87,7 @@ $(document).ready(function(){
       }
     }
   });
+
+  carouselNormalization();
 
 });
