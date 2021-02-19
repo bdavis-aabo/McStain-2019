@@ -74,9 +74,9 @@ pull collections for community by slug
           </div>
         </div>
         <div class="carousel-indicators">
-          <li class="active" data-target="#parkway-collection-carousel" data-slide-to="1"></li>
+          <li class="active" data-target="#parkway-collection-carousel" data-slide-to="0"></li>
+          <li data-target="#parkway-collection-carousel" data-slide-to="1"></li>
           <li data-target="#parkway-collection-carousel" data-slide-to="2"></li>
-          <li data-target="#parkway-collection-carousel" data-slide-to="3"></li>
         </div>
       </div>
       <?php endif; // endif not parkway, show other collection-sliders ?>

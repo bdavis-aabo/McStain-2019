@@ -69,7 +69,8 @@ footer
               em { font-family: 'uni-bold'; font-style: normal; }
             }
             h2 { font-family: 'uni-bold'; font-size: 24px; margin-bottom: 12px; }
-            button { color: $white; font-family: 'uni-regular'; text-transform: uppercase; font-size: .9em; font-style: normal;
+            button { color: $white; font-family: 'uni-regular'; text-transform: uppercase; font-size: .9em; font-style: normal; flex-grow: 1;
+              flex-basis: 100%;
               .fas { font-size: .8em; }
             }
           }
@@ -174,7 +175,85 @@ footer
       }
     }
   }
+}
 
 
+// SINGLE FLOORPLAN STYLES
+.single-floorplans {
+  .section { display: flex; justify-content: center;
+    &.floorplan-heroslider {
+      .floorplan-slider-container {
+        .carousel {
+          .carousel-inner {
+            .carousel-item {
+              .carousel-caption { background: rgba($dkblue, .95); bottom: 0; left: 0; right: 0; text-transform: uppercase; font-family: 'uni-book';
+                letter-spacing: 1px;
+              }
+            }
+          }
+          .carousel-control-prev,
+          .carousel-control-next { align-items: flex-end; bottom: 26px; z-index: 999; opacity: 1; color: $white; }
+        }
+      }
+    }
 
+    &.floorplan-information {
+      .floorplan-info-container { flex-basis: 80%; display: flex; flex-wrap: wrap;
+        .floorplan-contents { flex-basis: 100%;
+          .floorplan-title { font-size: 48px;
+            span { font-family: 'uni-bold'; }
+          }
+          .floorplan-details { margin: 20px 0 0; padding: 0; list-style: none;
+            li { padding: 0 0 5px; margin: 0; }
+          }
+        }
+        .excited-callout { flex-basis: 100%; justify-content: flex-end;
+          .alignright { position: relative; bottom: 80px; width: 50%; }
+        }
+      }
+    }
+
+    &.floorplan-images {
+      .floorplan-image-container { flex-basis: 80%; display: flex; flex-wrap: wrap; justify-content: center;
+        .nav-pills { flex-basis: 85%;
+          .nav-item {
+            .nav-link { border-radius: 0; text-transform: uppercase; font-size: .9em; color: $blue; background: white;
+              &.active,
+              &:hover { background: $blue; color: $white; }
+            }
+          }
+        }
+        .tab-content { border: 1px solid $blue;
+          .tab-pane {
+            p.floorplan-name { text-transform: uppercase; margin: 15px 0; text-align: center; font-size: .95em; }
+          }
+        }
+      }
+    }
+
+    &.floorplan-builder { margin: 5vh 0;
+      .floorplan-builder-container { display: flex; flex-wrap: wrap; justify-content: center; flex-basis: 80%; }
+      .builder-button-container { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; flex-basis: 100%; margin-bottom: 0px;
+        .builder-btn { text-align: center; flex-grow: 1;
+          h1 { margin: 15px 0 0; font-family: 'uni-bold'; font-size: 72px; }
+          span.blue-bg { padding: 5px 100px; display: inline-block; position: relative; top: 20px; }
+        }
+      }
+    }
+
+    &.community-location { margin-bottom: 0; padding-bottom: 0;
+      .community-location-container { display: flex; flex-wrap: nowrap; justify-content: space-between; align-items: stretch; flex-basis: 100%;
+        .community-map,
+        .community-location-information { flex-basis: 50%; }
+        .community-map { background: $ltgray; min-height: 650px; }  //remove min-height once map is placed
+        .community-location-information { display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
+          .location-information { flex-basis: 60%;
+            h2 { font-size: 24px; font-family: 'uni-bold'; margin-bottom: 25px; line-height: 1.35em; }
+            p  { margin-bottom: 15px; }
+            .btn { font-size: .85em; font-style: normal; text-transform: uppercase; font-family: 'uni-book'; }
+          }
+        }
+      }
+    }
+  }
 }
