@@ -105,6 +105,8 @@
   </section>
   <?php endwhile; endif; ?>
 
+  <?php get_template_part('cultivation/single-floorplans') ?>
+
   <?php get_template_part('cultivation/floorplan-map') ?>
 
 
