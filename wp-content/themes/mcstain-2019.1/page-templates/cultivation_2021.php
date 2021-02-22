@@ -80,7 +80,7 @@
     <?php get_template_part('cultivation/cultivation-amenities2021') ?>
   </section>
 
-  <?php //if(get_field('cultivation_map_url') != ''): get_template_part('cultivation/cultivation-sitemap2021'); endif; ?>
+  <?php if(get_field('cultivation_map_url') != ''): get_template_part('cultivation/cultivation-sitemap2021'); endif; ?>
 
   <section class="section community-location" id="directions">
     <div class="community-location-container">
