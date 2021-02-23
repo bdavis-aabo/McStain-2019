@@ -38,6 +38,15 @@
   </section>
   <?php endif; ?>
 
+  <section class="section floorplan-back">
+    <div class="floorplan-back-container">
+      <a href="/communities/<?php echo $_term->slug ?>" title="Back to <?php echo $_cat ?>">
+        <i class="fas fa-chevron-left"></i><i class="fas fa-chevron-left"></i> Back to <?php echo $_cat ?>
+      </a>
+
+    </div>
+  </section>
+
   <section class="section floorplan-information">
     <div class="floorplan-info-container">
       <div class="floorplan-contents">

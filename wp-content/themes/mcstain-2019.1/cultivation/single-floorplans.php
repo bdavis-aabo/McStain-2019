@@ -15,7 +15,9 @@
     'collection'      => $_collection,
   );
   $_floorplans->query($_args);
+
 ?>
+
 
   <?php if($_uriSegments[2] == 'arras-park'): //if community == arras park
     if($_floorplans->have_posts()):
@@ -29,12 +31,15 @@
       <?php while($_floorplans->have_posts()): $_floorplans->the_post();
         $_galleryImages = get_field('floorplan_elevations'); $_galleryImage = $_galleryImages[0];
       ?>
-      <article class="floorplan" id="<?php echo $post->post_name ?>">
+      <article class="floorplan <?php if($post->post_name == $_uriSegments[4]): echo 'active'; endif; ?>" id="<?php echo $post->post_name ?>">
         <img src="<?php echo $_galleryImage['url'] ?>" alt="<?php the_title() ?> - Elevation" class="floorplan-thumbnail img-fluid" />
         <div class="floorplan-details noshow">
           <div class="background-box"></div>
           <div class="background-details">
             <p class="floorplan-title"><?php the_title() ?></p>
+            <?php if($post->post_name == $_uriSegments[4]): ?>
+              <p class="details">currently viewing</p>
+            <?php endif; ?>
             <?php if(have_rows('floorplan_details')): the_row(); ?>
               <p class="details">
                 <?php echo get_sub_field('square_footage') ?> sq ft finished above ground<br/>

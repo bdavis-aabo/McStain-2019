@@ -1,22 +1,516 @@
 /*
 heroimage
-
 three-bees
-
 body contents
-
 collections
-
 design Suites
-
 amenities
-
 maps/contact
-
 footer
-
 */
 
+.page-template-cultivation_2021 {
+  .section { display: flex; justify-content: center;
+    p  { font-family: 'uni-book', sans-serif; }
+
+    &.community-heroimage { margin-top: 60px; }
+
+    &.community-quicklinks {
+      .quicklink-container { display: flex; justify-content: center; align-items: center;
+        .quicklinks { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; padding: 12px 0;
+          li { margin-right: 0; flex-grow: 1; flex-basis: 80%; text-align: center;
+            &:last-child { margin-right: 0; }
+            a { text-transform: uppercase; font-family: 'uni-book'; color: $black; padding: 0 20px; font-size: .9em; }
+          }
+        }
+      }
+    }
+
+    &.three-bees { flex-wrap: wrap;
+      .callout-container { display: flex; flex-wrap: wrap; justify-content: center; align-items: stretch; width: 100%;
+        .bee-contents { flex-basis: 100%; display: flex; flex-wrap: wrap; justify-content: center; align-items: stretch;
+          .bee-content { color: $white; padding: 5% 0; width: 50%; display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start;
+            figure { margin-bottom: 0; }
+            p { font-size: 1em; line-height: 1.65em; margin-bottom: 12px; }
+            .bee-link { align-self: flex-end; align-content: flex-start; color: $white; }
+          }
+        }
+      }
+      .excited-callout { flex-basis: 100%; justify-content: flex-end;
+        .alignright { position: relative; bottom: 25px; width: 70%; }
+      }
+    }
+
+    &.community-content-section { margin: 3.5vh 0;
+      .community-content-container { display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
+        .community-contents { flex-basis: 90%; text-align: center;
+          h1 { font-family: 'uni-book', sans-serif; font-size: 40px; margin-bottom: 25px;
+            em { font-family: 'uni-bold', sans-serif; font-style: normal; color: $ltgreen; }
+          }
+          h2 { font-family: 'uni-bold', sans-serif; font-size: 30px; color: $blue; line-height: 36px; }
+          p  { font-size: 1.1em; line-height: 1.85em; }
+        }
+      }
+    }
+
+    &.community-collections {
+      .collection-container { display: flex; flex-wrap: wrap; justify-content: space-between; margin-bottom: 20px;
+        .collection-details,
+        .collection-slider  { align-self: stretch; }
+        .collection-details { order: 1; flex-basis: 100%; display: flex; justify-content: center; align-items: center;
+          .collection-detail-container { flex-basis: 80%; display: flex; flex-wrap: wrap; text-align: center; justify-content: center; padding: 30px 0;
+            h1 { font-family: 'uni-book', sans-serif; font-size: 36px; line-height: 1.25em; margin-bottom: 20px;
+              em { font-family: 'uni-bold'; font-style: normal; }
+            }
+            h2 { font-family: 'uni-bold'; font-size: 20px; margin-bottom: 12px; }
+            p  { font-size: 1.1em; line-height: 1.65em; }
+            button { color: $white; font-family: 'uni-regular'; text-transform: uppercase; font-size: 1.1em; font-style: normal; flex-grow: 1;
+              flex-basis: 100%;
+              .fas { font-size: .8em; }
+            }
+          }
+
+        }
+        .collection-slider  { order: 0; flex-basis: 100%;
+          .carousel-indicators { bottom: 10px; left: 10px; right: auto; margin: 0; justify-content: flex-start;
+            li { margin-right: 10px; width: 30px; height: 5px; }
+          }
+        }
+        .collection-floorplans { order: 2; flex-grow: 1; flex-basis: 100%; transition: transform 666ms ease-in-out; z-index: 1;
+          cursor: pointer; overflow: hidden; transform-origin: top; height: auto;
+          &.hidden { z-index: -1; height: 0; }
+          .floorplan-container { display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
+            .floorplan { position: relative; overflow: hidden;
+              .floorplan-details { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; color: $white;
+                text-transform: uppercase; transform: translateY(100%); transition: transform 666ms ease-in-out;
+                .background-box { background: rgba($dkblue,.8); mix-blend-mode: multiply; top: 0; left: 0; bottom: 0; right: 0; position: absolute; }
+                .background-details { padding: 20px; top: 0; left: 0; bottom: 0; right: 0; position: relative; }
+                p { margin-bottom: 10px; mix-blend-mode: normal; }
+                .floorplan-title { font-family: 'uni-bold'; font-size: 24px; }
+                .details { font-size: 15px; line-height: 1.35em; font-family: 'uni-book'; }
+                .price   { font-family: 'uni-regular'; font-size: 18px; }
+                .floorplan-link { font-size: 16px; color: $white; }
+
+                &.parkway-details { transform: translateY(0); }
+              }
+              &:hover {
+                .floorplan-details { transform: translateY(0); }
+              }
+            }
+          }
+        }
+
+        &:nth-child(even) {
+          .collection-details { order: 1; }
+          .collection-slider  { order: 0; }
+        }
+      }
+    }
+
+    &.community-design-suites { margin: 5vh 0 3.5vh;
+      .design-suite-container { display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
+        .design-suite-content  { flex-basis: 85%; text-align: center;
+          h1 { font-family: 'uni-bold'; color: $black; font-size: 48px; line-height: 1.15em; margin-bottom: 35px; }
+          h2 { font-family: 'uni-bold'; color: $black; font-size: 24px; line-height: 1.35em; margin-bottom: 25px; text-transform: uppercase; }
+          h3 { font-family: 'uni-book'; color: $ltgreen; font-size: 36px; line-height: 1.15em; }
+          p  { font-size: 1.1em; line-height: 1.65em; }
+        }
+        .design-suite-files { flex-grow: 1; flex-basis: 100%; display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
+          list-style: none; margin-bottom: 45px; padding: 0; margin-top: 25px;
+          .design-file { margin-right: 10px; text-align: center; margin-bottom: 15px;
+            &:last-child { margin-right: 0; }
+            a { color: $white; background: $ltgreen; padding: 8px 25px; text-transform: uppercase; font-size: .9em; font-family: 'uni-book';
+              display: inline-flex;
+              &:hover { background: tint($ltgreen, 20); }
+            }
+          }
+        }
+        .design-suite-images { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; flex-basis: 80%;
+          figure { flex-basis: 100%; }
+        }
+      }
+    }
+
+    &.community-amenities { margin: 5vh 0;
+      .amenities-container { display: flex; flex-wrap: wrap; justify-content: center;
+        .carousel-inner {
+          .carousel-item {
+            .amenities-content-container { margin: 10vh auto 0; width: 90%; text-align: center;
+              h1 { color: $gold; font-size: 30px; margin-bottom: 15px; line-height: 1.35em; }
+              p  { padding: 0; font-size: 1.1em; line-height: 1.65em; }
+            }
+          }
+        }
+        .carousel-indicators { bottom: auto; top: 58%; font-family: 'uni-book'; justify-content: space-between; margin-left: 5%; margin-right: 5%;
+          li { text-indent: 0; width: auto; text-transform: uppercase; font-size: .95em; margin-right: 0px; border: none;
+            &:last-child { margin-right: 0; }
+            &.active { color: $gold; }
+          }
+        }
+      }
+    }
+
+    &.community-sitemap { margin-bottom: 5vh;
+      .sitemap-container { flex-basis: 100%; display: block; overflow: hidden; padding-top: 56.25%; position: relative;
+        iframe { border: 0; width: 100%; height: 100%; left: 0; top: 0; position: absolute; }
+      }
+    }
+
+    &.community-location { margin-bottom: 0; padding-bottom: 0;
+      .community-location-container { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: stretch; flex-basis: 100%;
+        .community-map,
+        .community-location-information { flex-basis: 100%; }
+        .community-map { background: $ltgray; }  //remove min-height once map is placed
+        .community-location-information { display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
+          .location-information { flex-basis: 70%; padding-top: 30px; padding-bottom: 30px;
+            h2 { font-size: 24px; font-family: 'uni-bold'; margin-bottom: 25px; line-height: 1.35em; }
+            p  { margin-bottom: 16px;
+              a { color: $white; }
+            }
+            .btn { font-size: .9em; font-style: normal; text-transform: uppercase; font-family: 'uni-book';
+              .fas:last-child { padding-right: 8px; }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+// SINGLE FLOORPLAN STYLES
+.single-floorplans {
+  .section { display: flex; justify-content: center;
+    &.floorplan-heroslider { margin-top: 60px;
+      .floorplan-slider-container {
+        .carousel {
+          .carousel-inner {
+            .carousel-item {
+              .carousel-caption { background: rgba($dkblue, .95); bottom: 0; left: 0; right: 0; text-transform: uppercase; font-family: 'uni-book';
+                letter-spacing: 1px; padding-top: 8px; padding-bottom: 8px;
+              }
+            }
+          }
+          .carousel-control-prev,
+          .carousel-control-next { align-items: flex-end; bottom: 12px; z-index: 999; opacity: 1; color: $white; }
+        }
+      }
+    }
+
+    &.floorplan-back { margin: 2vh 0 0;
+      .floorplan-back-container { flex-basis: 80%; display: flex; flex-wrap: nowrap; justify-content: flex-start;
+        a { text-transform: uppercase; color: $ltgreen; font-size: .95em; letter-spacing: 1px;
+          .fas:last-child { padding-right: 8px; }
+        }
+      }
+    }
+
+    &.floorplan-information { padding-top: 40px;
+      .floorplan-info-container { flex-basis: 80%; display: flex; flex-wrap: wrap;
+        .floorplan-contents { flex-basis: 100%;
+          .floorplan-title { font-size: 36px;
+            span { font-family: 'uni-bold'; }
+          }
+          .floorplan-details { margin: 10px 0 0; padding: 0; list-style: none; font-size: 1.1em;
+            li { padding: 0 0 5px; margin: 0; }
+          }
+        }
+        .excited-callout { flex-basis: 100%; justify-content: flex-end; display: none;
+          .alignright { position: relative; bottom: 80px; width: 50%; }
+        }
+      }
+    }
+
+    &.floorplan-images { margin-top: 2vh;
+      .floorplan-image-container { flex-basis: 80%; display: flex; flex-wrap: wrap; justify-content: center;
+        .nav-pills { flex-basis: 100%; display: flex; justify-content: center;
+          .nav-item { flex-basis: 50%;
+            .nav-link { border-radius: 0; text-transform: uppercase; font-size: .9em; color: $blue; background: white;
+              &.active,
+              &:hover { background: $blue; color: $white; }
+            }
+          }
+        }
+        .tab-content { border: 1px solid $blue;
+          .tab-pane {
+            p.floorplan-name { text-transform: uppercase; margin: 15px 0; text-align: center; font-size: .95em; }
+          }
+        }
+      }
+    }
+
+    &.floorplan-builder { margin: 5vh 0;
+      .floorplan-builder-container { display: flex; flex-wrap: wrap; justify-content: center; flex-basis: 80%; }
+      .builder-button-container { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; flex-basis: 100%; margin-bottom: 0px;
+        .builder-btn { text-align: center; flex-grow: 1;
+          h1 { margin: 15px 0 0; font-family: 'uni-bold'; font-size: 30px; }
+          span.blue-bg { padding: 5px 100px; display: inline-block; position: relative; top: 20px; }
+        }
+      }
+    }
+
+    &.single-floorplan-section { flex-wrap: wrap; margin-bottom: 5vh;
+      .collection-message { flex-basis: 80%; flex-grow: 0; text-align: center;
+        h2 { font-size: 28px; line-height: 32px;
+          .ltgreen-txt { font-family: 'uni-bold'; }
+        }
+      }
+      .collection-floorplans { order: 2; flex-grow: 1; flex-basis: 100%; transition: transform 666ms ease-in-out; z-index: 1;
+        cursor: pointer; overflow: hidden; transform-origin: top; height: auto;
+        .floorplan-container { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
+          .floorplan { position: relative; overflow: hidden;
+            .floorplan-details { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; color: $white;
+              text-transform: uppercase; transform: translateY(100%); transition: transform 666ms ease-in-out;
+              .background-box { background: rgba($dkblue,.8); mix-blend-mode: multiply; top: 0; left: 0; bottom: 0; right: 0; position: absolute; }
+              .background-details { padding: 20px; top: 0; left: 0; bottom: 0; right: 0; position: relative; }
+              p { margin-bottom: 10px; mix-blend-mode: normal; }
+              .floorplan-title { font-family: 'uni-bold'; font-size: 24px; }
+              .details { font-size: 15px; line-height: 1.35em; font-family: 'uni-book'; }
+              .price   { font-family: 'uni-regular'; font-size: 18px; }
+              .floorplan-link { font-size: 16px; color: $white; }
+
+              &.parkway-details { transform: translateY(0); }
+            }
+            &:hover {
+              .floorplan-details { transform: translateY(0); }
+            }
+          }
+        }
+      }
+    }
+
+    &.community-location { margin-bottom: 0; padding-bottom: 0;
+      .community-location-container { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; flex-basis: 100%;
+        .community-map,
+        .community-location-information { flex-basis: 100%; }
+        .community-map { background: $ltgray; }  //remove min-height once map is placed
+        .community-location-information { display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
+          .location-information { flex-basis: 70%; padding-top: 30px; padding-bottom: 30px;
+            h2 { font-size: 24px; font-family: 'uni-bold'; margin-bottom: 25px; line-height: 1.35em; }
+            p  { margin-bottom: 16px;
+              a { color: $white; }
+            }
+            .btn { font-size: .9em; font-style: normal; text-transform: uppercase; font-family: 'uni-book';
+              .fas:last-child { padding-right: 8px; }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+/*** SMALL DEVICES : Landscape phones, 576px + ***/
+@media (min-width: 576px){
+  // COMMUNITY PAGE STYLES
+  .page-template-cultivation_2021 {
+    .section {
+      &.community-quicklinks {
+        .quicklink-container {
+          .quicklinks { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: nowrap; justify-content: center; padding: 12px 0;
+            li { margin-right: 0; flex-grow: 1; flex-basis: auto; text-align: center;
+              &:last-child { margin-right: 0; }
+              a { text-transform: uppercase; font-family: 'uni-book'; color: $black; padding: 0 20px; font-size: .9em; }
+            }
+          }
+        }
+      }
+
+      &.three-bees {
+        .callout-container { display: flex; flex-wrap: nowrap; justify-content: center; align-items: stretch; width: 100%;
+          .bee-contents { flex-basis: 100%; display: flex; flex-wrap: wrap; justify-content: center; align-items: stretch;
+            .bee-content { color: $white; padding: 5% 0; width: 80%; display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start;
+              figure { margin-bottom: 0; flex-basis: 70%; }
+              p { font-size: 1em; line-height: 1.65em; margin-bottom: 12px; }
+              .bee-link { align-self: flex-end; align-content: flex-start; color: $white; }
+            }
+          }
+        }
+        .excited-callout { flex-basis: 100%; justify-content: flex-end;
+          .alignright { position: relative; bottom: 25px; width: 70%; }
+        }
+      }
+
+      &.community-content-section { margin: 3.5vh 0;
+        .community-content-container { display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
+          .community-contents { flex-basis: 90%; text-align: center;
+            h1 { font-family: 'uni-book', sans-serif; font-size: 36px; margin-bottom: 15px;
+              em { font-family: 'uni-bold', sans-serif; font-style: normal; color: $ltgreen; }
+            }
+            h2 { font-family: 'uni-bold', sans-serif; font-size: 24px; color: $blue; line-height: 36px; }
+            p  { font-size: 1.1em; line-height: 1.85em; }
+          }
+        }
+      }
+
+      &.community-design-suites {
+        .design-suite-container {
+
+          .design-suite-images { display: flex; flex-wrap: nowrap; justify-content: space-between; align-items: center; flex-basis: 80%;
+            figure { flex-basis: 48%; }
+          }
+        }
+      }
+    }
+  }
+
+
+  // SINGLE FLOORPLAN STYLES
+  .single-floorplans {
+    .section {
+      &.single-floorplan-section { flex-wrap: wrap; margin-bottom: 5vh;
+        .collection-floorplans { order: 2; flex-grow: 1; flex-basis: 100%; transition: transform 666ms ease-in-out; z-index: 1;
+          cursor: pointer; overflow: hidden; transform-origin: top; height: auto;
+          .floorplan-container { display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
+            .floorplan { position: relative; overflow: hidden; flex-basis: 50%;
+              .floorplan-details { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; color: $white;
+                text-transform: uppercase; transform: translateY(100%); transition: transform 666ms ease-in-out;
+                .background-box { background: rgba($dkblue,.8); mix-blend-mode: multiply; top: 0; left: 0; bottom: 0; right: 0; position: absolute; }
+                .background-details { padding: 20px; top: 0; left: 0; bottom: 0; right: 0; position: relative; }
+                p { margin-bottom: 10px; mix-blend-mode: normal; }
+                .floorplan-title { font-family: 'uni-bold'; font-size: 24px; }
+                .details { font-size: 15px; line-height: 1.35em; font-family: 'uni-book'; }
+                .price   { font-family: 'uni-regular'; font-size: 18px; }
+                .floorplan-link { font-size: 16px; color: $white; }
+
+                &.parkway-details { transform: translateY(0); }
+              }
+              &:hover {
+                .floorplan-details { transform: translateY(0); }
+              }
+            }
+          }
+        }
+      }
+    }
+  } // end single-floorplans
+
+
+}
+
+/*** IPHONE X : Landscape ***/
+@media only screen and (min-device-width: 375px) and (max-device-width: 812px) and (-webkit-device-pixel-ratio: 3)
+  and (orientation: landscape) {
+
+    // COMMUNITY PAGE STYLES
+    .page-template-cultivation_2021 {
+      .section {
+        &.community-amenities { margin: 5vh 0;
+          .amenities-container { display: flex; flex-wrap: wrap; justify-content: center;
+            .carousel-inner {
+              .carousel-item {
+                .amenities-content-container { margin: 75px auto 0; width: 90%; text-align: center;
+                  h1 { color: $gold; font-size: 30px; margin-bottom: 15px; line-height: 1.35em; }
+                  p  { padding: 0; font-size: 1.1em; line-height: 1.65em; }
+                }
+              }
+            }
+            .carousel-indicators { bottom: auto; top: 58%; font-family: 'uni-book'; justify-content: space-between; margin-left: 5%; margin-right: 5%;
+              li { text-indent: 0; width: auto; text-transform: uppercase; font-size: .95em; margin-right: 0px; border: none;
+                &:last-child { margin-right: 0; }
+                &.active { color: $gold; }
+              }
+            }
+          }
+        }
+      }
+    }
+}
+
+/*** MEDIUM DEVICES : Tablets, 768px + ***/
+@media (min-width: 768px){
+
+  // COMMUNITY PAGE STYLES
+  .page-template-cultivation_2021 {
+    .section { display: flex; justify-content: center;
+
+      &.community-collections {
+        .collection-container { display: flex; flex-wrap: wrap; justify-content: space-between; margin-bottom: 20px;
+          .collection-floorplans { order: 2; flex-grow: 1; flex-basis: 100%; transition: transform 666ms ease-in-out; z-index: 1;
+            cursor: pointer; overflow: hidden; transform-origin: top; height: auto;
+            &.hidden { z-index: -1; height: 0; }
+            .floorplan-container { display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
+              .floorplan { position: relative; overflow: hidden; flex-basis: 50%;
+                .floorplan-details { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; color: $white;
+                  text-transform: uppercase; transform: translateY(100%); transition: transform 666ms ease-in-out;
+                  .background-box { background: rgba($dkblue,.8); mix-blend-mode: multiply; top: 0; left: 0; bottom: 0; right: 0; position: absolute; }
+                  .background-details { padding: 20px; top: 0; left: 0; bottom: 0; right: 0; position: relative; }
+                  p { margin-bottom: 10px; mix-blend-mode: normal; }
+                  .floorplan-title { font-family: 'uni-bold'; font-size: 24px; }
+                  .details { font-size: 15px; line-height: 1.35em; font-family: 'uni-book'; }
+                  .price   { font-family: 'uni-regular'; font-size: 18px; }
+                  .floorplan-link { font-size: 16px; color: $white; }
+
+                  &.parkway-details { transform: translateY(0); }
+                }
+                &:hover {
+                  .floorplan-details { transform: translateY(0); }
+                }
+              }
+            }
+          }
+
+          &:nth-child(even) {
+            .collection-details { order: 1; }
+            .collection-slider  { order: 0; }
+          }
+        }
+      }
+    }
+  }
+}
+
+/*** LARGE DEVICES : Desktops, 992px and up ***/
+@media (min-width: 992px){
+
+  // COMMUNITY PAGE STYLES
+  .page-template-cultivation_2021 {
+    .section { display: flex; justify-content: center;
+      &.community-location { margin-bottom: 0; padding-bottom: 0;
+        .community-location-container { display: flex; flex-wrap: nowrap; justify-content: space-between; align-items: stretch; flex-basis: 100%;
+          .community-map,
+          .community-location-information { flex-basis: 50%; }
+          .community-map { background: $ltgray; }  //remove min-height once map is placed
+          .community-location-information { display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
+            .location-information { flex-basis: 60%;
+              h2 { font-size: 24px; font-family: 'uni-bold'; margin-bottom: 25px; line-height: 1.35em; }
+              p  { margin-bottom: 15px; }
+              .btn { font-size: .85em; font-style: normal; text-transform: uppercase; font-family: 'uni-book'; }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // SINGLE FLOORPLAN STYLES
+  .single-floorplans {
+    .section {
+      &.floorplan-images {
+        .floorplan-image-container { flex-basis: 80%; display: flex; flex-wrap: wrap; justify-content: center;
+          .nav-pills { flex-basis: auto; display: flex; justify-content: space-between; flex-wrap: nowrap;
+            .nav-item { flex-grow: 0; flex-basis: auto;
+              .nav-link { border-radius: 0; text-transform: uppercase; font-size: .8em; color: $blue; background: white;
+                &.active,
+                &:hover { background: $blue; color: $white; }
+              }
+            }
+          }
+          .tab-content { border: 1px solid $blue;
+            .tab-pane {
+              p.floorplan-name { text-transform: uppercase; margin: 15px 0; text-align: center; font-size: .95em; }
+            }
+          }
+        }
+      }
+
+    }
+  } // end SINGLE FLOORPLANS
+}
+
+/*** EXTRA LARGE DEVICES : Large Desktops, 1200px + ***/
+@media (min-width: 1200px){
 
 .page-template-cultivation_2021 {
   .section { display: flex; justify-content: center;
@@ -24,7 +518,8 @@ footer
     &.community-quicklinks {
       .quicklink-container { display: flex; justify-content: center; align-items: center;
         .quicklinks { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: nowrap; justify-content: space-between; padding: 12px 0;
-          li { margin-right: 15px;
+          flex-basis: 100%;
+          li { margin-right: 15px; flex-basis: auto;
             &:last-child { margin-right: 0; }
             a { text-transform: uppercase; font-family: 'uni-book'; color: $black; padding: 0 20px; font-size: .9em; }
           }
@@ -35,7 +530,7 @@ footer
     &.three-bees { flex-wrap: wrap;
       .callout-container { display: flex; flex-wrap: nowrap; justify-content: center; align-items: stretch; width: 100%;
         .bee-contents { flex-basis: 33.333%; display: flex; flex-wrap: wrap; justify-content: center; align-items: stretch;
-          .bee-content { color: $white; padding: 5% 0; width: 50%; display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start;
+          .bee-content { color: $white; padding: 5% 0; width: 60%; display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start;
             figure { margin-bottom: 0; }
             p { font-size: 1em; line-height: 1.65em; margin-bottom: 12px; }
             .bee-link { align-self: flex-end; align-content: flex-start; color: $white; }
@@ -49,12 +544,12 @@ footer
 
     &.community-content-section { margin: 3.5vh 0;
       .community-content-container { display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
-        .community-contents { flex-basis: 65%; text-align: center;
+        .community-contents { flex-basis: 70%; text-align: center;
           h1 { font-family: 'uni-book', sans-serif; font-size: 56px; margin-bottom: 25px;
             em { font-family: 'uni-bold', sans-serif; font-style: normal; color: $ltgreen; }
           }
           h2 { font-family: 'uni-bold', sans-serif; font-size: 32px; color: $blue; line-height: 48px; }
-
+          P  { font-size: 1em; }
         }
       }
     }
@@ -114,7 +609,7 @@ footer
 
     &.community-design-suites { margin: 5vh 0 3.5vh;
       .design-suite-container { display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
-        .design-suite-content  { flex-basis: 50%; text-align: center;
+        .design-suite-content  { flex-basis: 65%; text-align: center;
           h1 { font-family: 'uni-bold'; color: $black; font-size: 60px; line-height: 1.35em; margin-bottom: 35px; }
           h2 { font-family: 'uni-bold'; color: $black; font-size: 24px; line-height: 1.35em; margin-bottom: 25px; text-transform: uppercase; }
           h3 { font-family: 'uni-book'; color: $ltgreen; font-size: 48px; }
@@ -145,7 +640,7 @@ footer
             }
           }
         }
-        .carousel-indicators { bottom: auto; top: 58%; font-family: 'uni-book';
+        .carousel-indicators { bottom: auto; top: 58%; font-family: 'uni-book'; margin-left: 15%; margin-right: 15%; justify-content: center;
           li { text-indent: 0; width: auto; text-transform: uppercase; font-size: .95em; margin-right: 30px; border: none;
             &:last-child { margin-right: 0; }
             &.active { color: $gold; }
@@ -180,19 +675,26 @@ footer
 
 // SINGLE FLOORPLAN STYLES
 .single-floorplans {
-  .section { display: flex; justify-content: center;
+  .section {
     &.floorplan-heroslider {
       .floorplan-slider-container {
         .carousel {
           .carousel-inner {
             .carousel-item {
-              .carousel-caption { background: rgba($dkblue, .95); bottom: 0; left: 0; right: 0; text-transform: uppercase; font-family: 'uni-book';
-                letter-spacing: 1px;
+              .carousel-caption { padding-top: 20px; padding-bottom: 20px;
               }
             }
           }
           .carousel-control-prev,
-          .carousel-control-next { align-items: flex-end; bottom: 26px; z-index: 999; opacity: 1; color: $white; }
+          .carousel-control-next { bottom: 26px; }
+        }
+      }
+    }
+
+    &.floorplan-back { margin: 2vh 0 0;
+      .floorplan-back-container { flex-basis: 80%; display: flex; flex-wrap: nowrap; justify-content: flex-start;
+        a { text-transform: uppercase; color: $ltgreen; font-size: .95em; letter-spacing: 1px;
+          .fas:last-child { padding-right: 8px; }
         }
       }
     }
@@ -207,7 +709,7 @@ footer
             li { padding: 0 0 5px; margin: 0; }
           }
         }
-        .excited-callout { flex-basis: 100%; justify-content: flex-end;
+        .excited-callout { flex-basis: 100%; justify-content: flex-end; display: block;
           .alignright { position: relative; bottom: 80px; width: 50%; }
         }
       }
@@ -215,9 +717,9 @@ footer
 
     &.floorplan-images {
       .floorplan-image-container { flex-basis: 80%; display: flex; flex-wrap: wrap; justify-content: center;
-        .nav-pills { flex-basis: 85%;
-          .nav-item {
-            .nav-link { border-radius: 0; text-transform: uppercase; font-size: .9em; color: $blue; background: white;
+        .nav-pills { flex-basis: auto; display: flex; justify-content: space-between; flex-wrap: nowrap;
+          .nav-item { flex-grow: 0; flex-basis: auto;
+            .nav-link { border-radius: 0; text-transform: uppercase; font-size: .8em; color: $blue; background: white;
               &.active,
               &:hover { background: $blue; color: $white; }
             }
@@ -263,6 +765,7 @@ footer
 
               &.parkway-details { transform: translateY(0); }
             }
+            &.active,
             &:hover {
               .floorplan-details { transform: translateY(0); }
             }
@@ -287,3 +790,5 @@ footer
     }
   }
 }
+
+} // end 1200px media query

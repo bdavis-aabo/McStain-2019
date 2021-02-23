@@ -5,7 +5,7 @@
 
   <?php if(have_posts()): while(have_posts()): the_post(); $_poster = get_the_post_thumbnail_url(get_the_ID(), 'poster'); ?>
   <section class="section community-heroimage">
-    <video loop autoplay muted style="background: url('<?php echo esc_url($_poster) ?>') no-repeat 0 0" poster="<?php echo esc_url($_poster) ?>" id="cultivation-video">
+    <video loop autoplay muted style="background: url('<?php echo esc_url($_poster) ?>') no-repeat center top; background-size: cover; object-fit: fill; width:100%;" preload="none" id="cultivation-video">
       <source src="<?php bloginfo('stylesheet_directory') ?>/assets/images/video/<?php echo $post->post_name ?>.mp4" type="video/mp4">
       <source src="<?php bloginfo('stylesheet_directory') ?>/assets/images/video/<?php echo $post->post_name ?>.webm" type="video/webm">
       <source src="<?php bloginfo('stylesheet_directory') ?>/assets/images/video/<?php echo $post->post_name ?>.ogv" type="video/ogv">
