@@ -37,10 +37,10 @@
   <section class="section community-collections" id="homeplans">
     <div class="community-collection-container">
       <?php
-        if($post->post_name == 'arras-park'):
+        if(is_page('arras-park')):
           get_template_part('cultivation/cultivation-models-ap');
         else:
-          get_template_part('cultivation/cultivation-models_new');
+          get_template_part('cultivation/cultivation-models-2021');
         endif;
       ?>
     </div>
@@ -62,7 +62,6 @@
           </li>
         <?php endwhile; ?>
       </ul>
-
       <?php endif; ?>
 
       <?php if(get_field('design_images') != ''): $_designImages = get_field('design_images'); ?>

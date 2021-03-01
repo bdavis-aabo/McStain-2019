@@ -89,7 +89,7 @@ footer
                 .floorplan-title { font-family: 'uni-bold'; font-size: 24px; }
                 .details { font-size: 15px; line-height: 1.35em; font-family: 'uni-book'; }
                 .price   { font-family: 'uni-regular'; font-size: 18px; }
-                .floorplan-link { font-size: 16px; color: $white; }
+                .floorplan-link { font-size: 16px; color: $white; margin-right: 15px; }
 
                 &.parkway-details { transform: translateY(0); }
               }
@@ -328,7 +328,7 @@ footer
           }
         }
         .excited-callout { flex-basis: 100%; justify-content: flex-end;
-          .alignright { position: relative; bottom: 25px; width: 70%; }
+          .alignright { position: relative; bottom: 15px; width: 70%; }
         }
       }
 
@@ -538,18 +538,18 @@ footer
         }
       }
       .excited-callout { flex-basis: 100%; justify-content: flex-end;
-        .alignright { position: relative; bottom: 80px; width: 50%; }
+        .alignright { position: relative; bottom: 38px; width: 45%; }
       }
     }
 
     &.community-content-section { margin: 3.5vh 0;
       .community-content-container { display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
-        .community-contents { flex-basis: 70%; text-align: center;
+        .community-contents { flex-basis: 70%; text-align: center; display: flex; justify-content: center; flex-wrap: wrap;
           h1 { font-family: 'uni-book', sans-serif; font-size: 56px; margin-bottom: 25px;
             em { font-family: 'uni-bold', sans-serif; font-style: normal; color: $ltgreen; }
           }
           h2 { font-family: 'uni-bold', sans-serif; font-size: 32px; color: $blue; line-height: 48px; }
-          P  { font-size: 1em; }
+          P  { font-size: 1em; flex-basis: 80%; }
         }
       }
     }
@@ -596,6 +596,11 @@ footer
               &:hover {
                 .floorplan-details { transform: translateY(0); }
               }
+            }
+          }
+          &.quad-floorplans {
+            .floorplan-container { flex-wrap: wrap;
+              .floorplan { flex-basis: 50%; }
             }
           }
         }

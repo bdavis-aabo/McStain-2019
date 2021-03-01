@@ -19,7 +19,7 @@ $_bees->query($_args);
           <img src="<?php bloginfo('stylesheet_directory') ?>/assets/images/besmart-logo.png" alt="BeSmart by McStain" class="img-fluid aligncenter" />
         </figure>
         <?php echo get_field('besmart'); ?>
-        <a href="" class="bee-link">
+        <a href="/mcstain-manifesto" class="bee-link">
           <i class="fas fa-chevron-right"></i><i class="fas fa-chevron-right"></i> learn more
         </a>
       </div>
@@ -30,7 +30,7 @@ $_bees->query($_args);
           <img src="<?php bloginfo('stylesheet_directory') ?>/assets/images/besolar-logo.png" alt="BeSolar by McStain" class="img-fluid aligncenter" />
         </figure>
         <?php echo get_field('besolar'); ?>
-        <a href="" class="bee-link">
+        <a href="/bewell-house-by-mcstain" class="bee-link">
           <i class="fas fa-chevron-right"></i><i class="fas fa-chevron-right"></i> learn more
         </a>
       </div>
