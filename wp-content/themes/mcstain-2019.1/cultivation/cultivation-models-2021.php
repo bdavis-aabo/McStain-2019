@@ -16,7 +16,7 @@ $_floorplans->query($_args);
       <?php if($_floorplans->have_posts()): ?>
       <div class="floorplan-container">
         <?php while($_floorplans->have_posts()): $_floorplans->the_post();
-          $_galleryImages = get_field('floorplan_large_elevations'); $_galleryImage = $_galleryImages[0];
+          $_galleryImages = get_field('floorplan_elevations'); $_galleryImage = $_galleryImages[0];
         ?>
         <article class="floorplan" id="<?php echo $post->post_name ?>">
           <img src="<?php echo $_galleryImage['url'] ?>" alt="<?php the_title() ?> - Elevation" class="floorplan-thumbnail img-fluid" />
