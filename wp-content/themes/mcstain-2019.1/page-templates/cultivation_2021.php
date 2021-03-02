@@ -99,7 +99,11 @@
           <?php echo get_field('community_address') ?>
 
           <button class="btn dkblue-btn lightbox-trigger base-contact"><i class="fas fa-chevron-right"></i><i class="fas fa-chevron-right"></i> sign up for more info</button><br/><br/>
-          <a href="https://www.google.com/maps/dir/39.883354,-104.951735/39.8836339,-104.9512951/@39.8477047,-104.9976304,13z/data=!3m1!4b1" class="btn dkblue-btn" target="_blank"><i class="fas fa-chevron-right"></i><i class="fas fa-chevron-right"></i> get directions</a>
+          <?php if(is_page('arras-park')): ?>
+            <a href="https://www.google.com/maps/dir/39.883354,-104.951735/39.8836339,-104.9512951/@39.8477047,-104.9976304,13z/" class="btn dkblue-btn" target="_blank"><i class="fas fa-chevron-right"></i><i class="fas fa-chevron-right"></i> get directions</a>
+          <?php elseif(is_page('painted-prairie')): ?>
+            <a href="https://www.google.com/maps/dir//21511+E+60th+Ave,+Aurora,+CO+80019/@39.8058817,-104.7388692,17z/" class="btn dkblue-btn" target="_blank"><i class="fas fa-chevron-right"></i><i class="fas fa-chevron-right"></i> get directions</a>
+          <?php endif; ?>
         </div>
       </div>
     </div>
