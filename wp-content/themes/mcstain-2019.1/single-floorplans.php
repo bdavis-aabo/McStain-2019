@@ -107,7 +107,7 @@
   <section class="section floorplan-builder">
     <div class="floorplan-builder-container">
       <div class="builder-button-container ltgreen-bg">
-        <a class="builder-btn" title="Build your home">
+        <a href="https://mcstain.com/communities/painted-prairie/floorplan-configurator/" target="_blank" class="builder-btn" title="Build your home">
           <h1>Build your house</h1>
           <span class="blue-bg"><i class="fas fa-chevron-right"></i><i class="fas fa-chevron-right"></i></span>
         </a>
