@@ -68,6 +68,11 @@
             <li>From $<?php echo get_sub_field('starting_price') ?><br/>
             </ul>
         <?php endif; ?>
+          <?php if(get_field('floorplan_brochure') != ''): $_brochure = get_field('floorplan_brochure'); ?>
+          <a href="<?php echo $_brochure['url'] ?>" title="<?php echo $_brochure['title'] ?>" target="_blank" class="btn green-btn">
+            Download Brochure&nbsp;&nbsp;<i class="fas fa-chevron-right"></i><i class="fas fa-chevron-right"></i>
+          </a>
+          <?php endif; ?>
       </div>
       <div class="excited-callout">
         <img src="<?php bloginfo('stylesheet_directory') ?>/assets/images/get-excited.png" alt="it's time to get excited" class="img-fluid alignright" />
