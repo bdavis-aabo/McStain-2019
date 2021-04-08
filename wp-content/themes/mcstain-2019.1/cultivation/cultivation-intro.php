@@ -8,7 +8,7 @@
 
           <?php if(is_page('arras-park')): ?>
             <button class="appt-btn lightbox-trigger base-contact">
-              <img src="<?php bloginfo('stylesheet_directory') ?>/assets/images/schedule_mobile.jpg" alt="Schedule Appointment Button" class="img-fluid alignright" />
+              <img src="<?php bloginfo('stylesheet_directory') ?>/assets/images/schedule_mobile.jpg" alt="Schedule Appointment Button" class="img-fluid aligncenter" />
             </button>
           <?php else: ?>
           <a href="/bewell-house-by-mcstain/" title="BeWell House, exclusively by McStain Neighborhoods" class="sidebar-btn">
