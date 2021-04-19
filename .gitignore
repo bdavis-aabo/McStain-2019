@@ -6,6 +6,7 @@ wp-content/cache/*
 wp-content/upgrade/*
 wp-content/uploads/*
 wp-content/plugins/*
+wp-content/plugins/elementor/
 _email-images/*
 _floorplan-pdf/*
 dev/
