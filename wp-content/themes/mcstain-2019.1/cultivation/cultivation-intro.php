@@ -6,28 +6,28 @@
         <div class="community-details">
           <?php the_content() ?>
 
-          <?php /* if(is_page('arras-park')): ?>
+          <?php if(is_page('arras-park')): ?>
             <button class="appt-btn lightbox-trigger base-contact">
               <img src="<?php bloginfo('stylesheet_directory') ?>/assets/images/schedule_mobile.jpg" alt="Schedule Appointment Button" class="img-fluid aligncenter" />
             </button>
-          <?php else: */ ?>
+          <?php else: ?>
           <a href="/bewell-house-by-mcstain/" title="BeWell House, exclusively by McStain Neighborhoods" class="sidebar-btn">
             <img src="<?php bloginfo('template_directory') ?>/assets/images/bewell-btn-mobile.jpg" alt="BeWell House, exclusively by McStain Neighborhoods" class="img-fluid aligncenter" />
           </a>
-          <?php //endif; ?>
+          <?php endif; ?>
         </div>
       </div>
       <div class="col-md-3 col-lg-3">
         <div class="right-btn nomobile">
-        <?php /* if(is_page('arras-park')): ?>
+        <?php if(is_page('arras-park')): ?>
           <button class="appt-btn lightbox-trigger base-contact">
             <img src="<?php bloginfo('stylesheet_directory') ?>/assets/images/appointment-callout.jpg" alt="Schedule Appointment Button" class="img-fluid alignright" />
           </button>
-        <?php else: */ ?>
+        <?php else: ?>
           <a href="/bewell-house-by-mcstain/" title="BeWell House, exclusively by McStain Neighborhoods">
             <img src="<?php bloginfo('stylesheet_directory') ?>/assets/images/bewell-callout.jpg" alt="BeWell House, exclusively by McStain Neighborhoods" class="img-fluid alignright" />
           </a>
-        <?php //endif; ?>
+        <?php endif; ?>
         </div>
       </div>
     </div>
