@@ -97,7 +97,7 @@ pull collections for community by slug
               <?php if(have_rows('floorplan_details')): the_row(); ?>
                 <p class="details">
                   <?php echo get_sub_field('square_footage') ?> sq ft finished<br/>
-                  <?php echo get_sub_field('bedrooms') ?> bed | <?php echo get_sub_field('bathrooms') ?> bath
+                  <?php echo get_sub_field('bedrooms') ?> beds | <?php echo get_sub_field('bathrooms') ?> baths
                 </p>
                 <p class="price">From $<?php echo get_sub_field('starting_price') ?></p>
                 <a href="<?php the_permalink() ?>" class="floorplan-link">
@@ -113,7 +113,7 @@ pull collections for community by slug
               <?php if(have_rows('floorplan_details')): the_row(); ?>
                 <p class="details">
                   <?php echo get_sub_field('square_footage') ?> sq ft finished<br/>
-                  <?php echo get_sub_field('bedrooms') ?> bed | <?php echo get_sub_field('bathrooms') ?> bath
+                  <?php echo get_sub_field('bedrooms') ?> beds | <?php echo get_sub_field('bathrooms') ?> baths
                 </p>
                 <p class="price">From $<?php echo get_sub_field('starting_price') ?></p>
                 <a href="<?php the_permalink() ?>" class="floorplan-link">
