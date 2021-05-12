@@ -39,7 +39,7 @@
             <p class="floorplan-title"><?php the_title() ?></p>
             <?php if(have_rows('floorplan_details')): the_row(); ?>
               <p class="details">
-                <?php echo get_sub_field('square_footage') ?> sq ft finished above ground<br/>
+                <?php echo get_sub_field('square_footage') ?> sq ft finished<br/>
                 <?php echo get_sub_field('bedrooms') ?> beds | <?php echo get_sub_field('bathrooms') ?> baths
               </p>
               <p class="price">From $<?php echo get_sub_field('starting_price') ?></p>
