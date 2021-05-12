@@ -37,9 +37,6 @@
           <div class="background-box"></div>
           <div class="background-details">
             <p class="floorplan-title"><?php the_title() ?></p>
-            <?php if($post->post_name == $_uriSegments[4]): ?>
-              <p class="details">currently viewing</p>
-            <?php endif; ?>
             <?php if(have_rows('floorplan_details')): the_row(); ?>
               <p class="details">
                 <?php echo get_sub_field('square_footage') ?> sq ft finished above ground<br/>
