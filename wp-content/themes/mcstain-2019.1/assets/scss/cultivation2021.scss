@@ -767,7 +767,7 @@ footer
               p { margin-bottom: 10px; mix-blend-mode: normal; }
               .floorplan-title { font-family: 'uni-bold'; font-size: 24px; }
               .details { font-size: 15px; line-height: 1.35em; font-family: 'uni-book'; }
-              .price   { font-family: 'uni-regular'; font-size: 18px; }
+              .price   { font-family: 'uni-regular'; font-size: 18px; margin-bottom: 5px; }
               .floorplan-link { font-size: 16px; color: $white; }
 
               &.parkway-details { transform: translateY(0); }
