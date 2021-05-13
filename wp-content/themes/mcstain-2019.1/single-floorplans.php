@@ -104,7 +104,7 @@
   </section>
   <?php endif; ?>
 
-	<?php if($_cat != 'arras-park'): ?>
+	<?php if($term->slug != 'arras-park'): ?>
   <section class="section floorplan-builder">
     <div class="floorplan-builder-container">
       <div class="builder-button-container ltgreen-bg">
@@ -119,6 +119,7 @@
     </div>
   </section>
   <?php endif; ?>
+  
   <?php endwhile; endif; ?>
 
   <?php get_template_part('cultivation/single-floorplans') ?>
