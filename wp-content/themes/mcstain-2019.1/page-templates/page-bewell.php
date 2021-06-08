@@ -25,10 +25,11 @@
           <div class="bewell-rightcolumn">
             <img src="<?php echo $_graphic['url'] ?>" alt="<?php echo the_title() ?>" class="img-fluid aligncenter" />
 
+            <?php if(get_field('bewell_brochure') != ''): $_brochure = get_field('bewell_brochure'); ?>
             <div class="right-btn nomobile">
               <div class="box">
                 <div class="box-contents green-bg">
-                  <a href="https://mcstain.com/wp-content/uploads/2021/06/McStain_BeWell-Flyer-2021.pdf" class="btn green-btn btn-block">
+                  <a href="<?php echo $_brochure['url'] ?>" class="btn green-btn btn-block">
                     <span class="arrows"><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i></span>
                     <span class="text">Download<br/>BeWell Flier</span>
                   </a>
@@ -36,9 +37,10 @@
               </div>
             </div>
 
-            <a href="https://mcstain.com/wp-content/uploads/2021/06/McStain_BeWell-Flyer-2021.pdf" class="btn green-btn sidebar-btn">
+            <a href="<?php echo $_brochure['url'] ?>" class="btn green-btn sidebar-btn">
               <i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i><i class="fa fa-chevron-right"></i> Download BeWell Flier
             </a>
+            <?php endif; ?>
           </div>
         </div>
       </div>
