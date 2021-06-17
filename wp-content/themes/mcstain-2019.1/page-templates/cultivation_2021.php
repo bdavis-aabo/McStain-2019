@@ -30,6 +30,10 @@
     <div class="community-content-container">
       <div class="community-contents">
         <?php the_content() ?>
+
+        <?php if(is_page('arras-park')): ?>
+        <a href="/communities/arras-park/virtual-tour" title="Arras Park Virtual Tour" class="btn cultivation-btn ltgreen-btn">Take a Virtual Tour</a>
+        <?php endif; ?>
       </div>
     </div>
   </section>

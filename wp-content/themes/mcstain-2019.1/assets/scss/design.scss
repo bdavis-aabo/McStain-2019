@@ -63,6 +63,8 @@ button.btn { border: none !important; }
   &.sidebar-btn { padding-left: 5vw; padding-right: 5vw; float: right; margin-bottom: 15px; }
   &:focus,
   &.focus { box-shadow: none !important; }
+
+  &.cultivation-btn { text-transform: uppercase; font-family: 'uni-book', sans-serif; font-size: .9em; }
 }
 .aqua-btn   { color: $white; @include sliding-btn($aqua);
   &:hover { background-position: -100% 0; color: $white; }

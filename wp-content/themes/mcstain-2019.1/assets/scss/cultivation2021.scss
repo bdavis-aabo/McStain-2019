@@ -177,6 +177,8 @@ footer
   }
 }
 
+.virtual-tour-section { background: $blue; }
+
 
 // SINGLE FLOORPLAN STYLES
 .single-floorplans {
@@ -799,3 +801,11 @@ footer
 }
 
 } // end 1200px media query
+
+/*** EXTRA LARGE DEVICES : Large Desktops, 1350px + (for virtual tour on big screens)***/
+@media (min-width: 1350px){
+  .virtual-tour-section { height: calc(100vh - 90px);
+    .embed-responsive { height: 100%; }
+
+  }
+}
