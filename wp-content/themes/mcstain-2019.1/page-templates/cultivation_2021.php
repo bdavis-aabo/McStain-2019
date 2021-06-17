@@ -32,7 +32,7 @@
         <?php the_content() ?>
 
         <?php if(is_page('arras-park')): ?>
-        <a href="/communities/arras-park/virtual-tour" title="Arras Park Virtual Tour" class="btn cultivation-btn ltgreen-btn">Take a Virtual Tour</a>
+        <p><a href="/communities/arras-park/virtual-tour" title="Arras Park Virtual Tour" class="btn cultivation-btn ltgreen-btn">Take a Virtual Tour</a></p>
         <?php endif; ?>
       </div>
     </div>
