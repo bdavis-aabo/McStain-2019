@@ -104,22 +104,43 @@
   </section>
   <?php endif; ?>
 
-	<?php if($_term->slug != 'arras-park'): ?>
+
   <section class="section floorplan-builder">
     <div class="floorplan-builder-container">
       <div class="builder-button-container ltgreen-bg">
+        <?php if($_term->slug != 'arras-park'): ?>
         <a href="https://mcstain.com/communities/painted-prairie/floorplan-configurator/" target="_blank" class="builder-btn" title="Build your home">
           <h1>Build your house</h1>
           <span class="blue-bg"><i class="fas fa-chevron-right"></i><i class="fas fa-chevron-right"></i></span>
         </a>
+        <?php elseif($_term->slug == 'arras-park'):
+          $_uriPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+          $_uriSegments = explode('/', $_uriPath);
+          $_collection = substr($_uriSegments[4], 0, -5);
+        ?>
+          <?php if($_collection == 'parkway'): ?>
+            <a href="https://configurator.creatomus.com/project/arraspark-townhouse" target="_blank" class="builder-btn" title="Build your home">
+              <h1>Build your house</h1>
+              <span class="blue-bg"><i class="fas fa-chevron-right"></i><i class="fas fa-chevron-right"></i></span>
+            </a>
+          <?php elseif($_collection == 'park-place'): ?>
+          <a href="https://configurator.creatomus.com/project/arraspark-alleyload" target="_blank" class="builder-btn" title="Build your home">
+            <h1>Build your house</h1>
+            <span class="blue-bg"><i class="fas fa-chevron-right"></i><i class="fas fa-chevron-right"></i></span>
+          </a>
+          <?php //elseif($_collection == 'park-reserve'); ?>
+
+          <?php endif; //collections ?>
+
+        <?php endif; ?>
       </div>
       <div class="builder-graphic">
         <img src="<?php bloginfo('stylesheet_directory') ?>/assets/images/homebuilder-graphic.jpg" alt="McStain Homebuilder" class="img-fluid aligncenter" />
       </div>
     </div>
   </section>
-  <?php endif; ?>
-  
+
+
   <?php endwhile; endif; ?>
 
   <?php get_template_part('cultivation/single-floorplans') ?>
