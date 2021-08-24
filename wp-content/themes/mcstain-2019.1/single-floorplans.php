@@ -128,7 +128,7 @@
             <h1>Build your house</h1>
             <span class="blue-bg"><i class="fas fa-chevron-right"></i><i class="fas fa-chevron-right"></i></span>
           </a>
-          <?php elseif($_collection == 'park-reserve'); ?>
+        <?php elseif($_collection == 'park-reserve'): ?>
           <a href="https://configurator.creatomus.com/project/arraspark-frontload" target="_blank" class="builder-btn" title="Build your home">
             <h1>Build your house</h1>
             <span class="blue-bg"><i class="fas fa-chevron-right"></i><i class="fas fa-chevron-right"></i></span>
