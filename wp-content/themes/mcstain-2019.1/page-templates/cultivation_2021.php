@@ -32,7 +32,11 @@
         <?php the_content() ?>
 
         <?php if(is_page('arras-park')): ?>
-        <p><a href="/communities/arras-park/virtual-tour" title="Arras Park Virtual Tour" class="btn cultivation-btn ltgreen-btn">Take a Virtual Tour</a></p>
+        <p>
+          <a href="https://configurator.creatomus.com/project/arraspark-frontload?tab=index" target="_blank" title="Arras Park - Build Your Home Online Tool" class="btn cultivation-btn ltgreen-btn" onClick="ga('send', 'event', { eventCategory: 'general', eventAction: 'click', eventLabel: 'ap_homebuilder_btn'});">Design Your Home Online</a>
+          <a href="/communities/arras-park/virtual-tour" target="_blank" title="Arras Park Virtual Tour" class="btn cultivation-btn ltgreen-btn" onClick="ga('send', 'event', { eventCategory: 'general', eventAction: 'click', eventLabel: 'virtual_tour_btn'});">Take a 360&deg; Virtual Tour</a>
+          <a href="https://vr360experience.norris-design.com/arraspark-salescenter/" title="Arras Park Virtual Sales Center" target="_blank" class="btn cultivation-btn ltgreen-btn" onClick="ga('send', 'event', { eventCategory: 'general', eventAction: 'click', eventLabel: 'virtual_sales_btn'});">Visit the Virtual Sales Center</a>
+        </p>
         <?php endif; ?>
       </div>
     </div>
