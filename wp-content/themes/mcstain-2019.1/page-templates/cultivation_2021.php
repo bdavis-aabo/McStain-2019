@@ -33,9 +33,9 @@
 
         <?php if(is_page('arras-park')): ?>
         <p>
-          <a href="https://configurator.creatomus.com/project/arraspark-frontload?tab=index" target="_blank" title="Arras Park - Build Your Home Online Tool" class="btn cultivation-btn ltgreen-btn" onClick="_gaq.push(['_trackEvent', 'general', 'click', 'ap_homebuilder_btn',, false]);">Design Your Home Online</a>
-          <a href="/communities/arras-park/virtual-tour" target="_blank" title="Arras Park Virtual Tour" class="btn cultivation-btn ltgreen-btn" onClick="_gaq.push(['_trackEvent', 'general', 'click', 'virtual_tour_btn',, false]);">Take a 360&deg; Virtual Tour</a>
-          <a href="https://vr360experience.norris-design.com/arraspark-salescenter/" title="Arras Park Virtual Sales Center" target="_blank" class="btn cultivation-btn ltgreen-btn" onClick="_gaq.push(['_trackEvent', 'general', 'click', 'virtual_sales_btn',, false]);">Visit the Virtual Sales Center</a>
+          <a href="https://configurator.creatomus.com/project/arraspark-frontload?tab=index" target="_blank" title="Arras Park - Build Your Home Online Tool" class="btn cultivation-btn ltgreen-btn" onClick="_gaq.push(['_trackEvent', 'general', 'click', 'APHomebuilderBTN',, false]);">Design Your Home Online</a>
+          <a href="/communities/arras-park/virtual-tour" target="_blank" title="Arras Park Virtual Tour" class="btn cultivation-btn ltgreen-btn" onClick="_gaq.push(['_trackEvent', 'general', 'click', 'VirtualTourBTN',, false]);">Take a 360&deg; Virtual Tour</a>
+          <a href="https://vr360experience.norris-design.com/arraspark-salescenter/" title="Arras Park Virtual Sales Center" target="_blank" class="btn cultivation-btn ltgreen-btn" onClick="_gaq.push(['_trackEvent', 'general', 'click', 'VirtualSalesBTN',, false]);">Visit the Virtual Sales Center</a>
         </p>
         <?php endif; ?>
       </div>
