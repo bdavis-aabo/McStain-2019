@@ -109,7 +109,7 @@
     <div class="floorplan-builder-container">
       <div class="builder-button-container ltgreen-bg">
         <?php if($_term->slug != 'arras-park'): ?>
-        <a href="https://mcstain.com/communities/painted-prairie/floorplan-configurator/" target="_blank" class="builder-btn" title="Build your home" onClick="ga('send', 'event', { eventCategory: 'general', eventAction: 'click', eventLabel: 'pp_homebuilder_btn'});">
+        <a href="https://mcstain.com/communities/painted-prairie/floorplan-configurator/" target="_blank" class="builder-btn" title="Build your home" onClick="ga('send', 'event','general','click','pp_homebuilder_btn');">
           <h1>Build your house</h1>
           <span class="blue-bg"><i class="fas fa-chevron-right"></i><i class="fas fa-chevron-right"></i></span>
         </a>
@@ -119,17 +119,17 @@
           $_collection = substr($_uriSegments[4], 0, -5);
         ?>
           <?php if($_collection == 'parkway'): ?>
-            <a href="https://configurator.creatomus.com/project/arraspark-townhouse" target="_blank" class="builder-btn" title="Build your home" onClick="ga('send', 'event', { eventCategory: 'general', eventAction: 'click', eventLabel: 'ap-townhouse_homebuilder_btn'});">
+            <a href="https://configurator.creatomus.com/project/arraspark-townhouse" target="_blank" class="builder-btn" title="Build your home" onClick="ga('send', 'event', 'general', 'click', 'ap-townhouse_homebuilder_btn');">
               <h1>Build your house</h1>
               <span class="blue-bg"><i class="fas fa-chevron-right"></i><i class="fas fa-chevron-right"></i></span>
             </a>
           <?php elseif($_collection == 'park-place'): ?>
-          <a href="https://configurator.creatomus.com/project/arraspark-alleyload" target="_blank" class="builder-btn" title="Build your home" onClick="ga('send', 'event', { eventCategory: 'general', eventAction: 'click', eventLabel: 'ap-alleyload_homebuilder_btn'});">
+          <a href="https://configurator.creatomus.com/project/arraspark-alleyload" target="_blank" class="builder-btn" title="Build your home" onClick="ga('send', 'event', 'general', 'click', 'ap-alleyload_homebuilder_btn');">
             <h1>Build your house</h1>
             <span class="blue-bg"><i class="fas fa-chevron-right"></i><i class="fas fa-chevron-right"></i></span>
           </a>
         <?php elseif($_collection == 'park-reserve'): ?>
-          <a href="https://configurator.creatomus.com/project/arraspark-frontload" target="_blank" class="builder-btn" title="Build your home"onClick="ga('send', 'event', { eventCategory: 'general', eventAction: 'click', eventLabel: 'ap-frontload_homebuilder_btn'});">
+          <a href="https://configurator.creatomus.com/project/arraspark-frontload" target="_blank" class="builder-btn" title="Build your home"onClick="ga('send', 'event', 'general', 'click', 'ap-frontload_homebuilder_btn');">
             <h1>Build your house</h1>
             <span class="blue-bg"><i class="fas fa-chevron-right"></i><i class="fas fa-chevron-right"></i></span>
           </a>
