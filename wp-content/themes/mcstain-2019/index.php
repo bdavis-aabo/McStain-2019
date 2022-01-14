@@ -31,8 +31,8 @@
             <?php endwhile; ?>
 
             <div class="post-pagination">
-              <div class="nav-previous"><?php previous_posts_link('Older Articles') ?></div>
-              <div class="nav-next"><?php next_posts_link('Newer Articles') ?></div>
+              <div class="nav-previous"><?php previous_posts_link('Newer Articles') ?></div>
+              <div class="nav-next"><?php next_posts_link('Older Articles') ?></div>
             </div>
 
             <?php else: ?>
