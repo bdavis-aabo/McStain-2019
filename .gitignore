@@ -41,3 +41,7 @@ wp-content/themes/mcstain-2019/assets/_inc/ga.php
 # Include these files in previously blocked directories
 !wp-content/uploads/.htaccess
 !wp-content/themes/*/index.php
+
+# Incluse other misc files
+.well-known/pki-validation/gsdv.txt
+_design-pdf/2020/PP/pp_design-contemporary.pdf
