@@ -34,7 +34,7 @@
 						elseif(is_page('westerly')):
 							echo do_shortcode('[contact-form-7 id="3135" title="Westerly - Base Form"]');
 						else:
-							echo do_shortcode('[contact-form-7 title="Contact Us Form"]');
+							echo do_shortcode('[contact-form-7 id="1700" title="Contact Us Form"]');
 						endif;
 						?>
           </div>
