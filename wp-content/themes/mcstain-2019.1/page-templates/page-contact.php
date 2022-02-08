@@ -28,11 +28,8 @@
         </div>
         <div class="col-12 col-md-9">
           <div class="right-column-container">
-						<?php
-						if(is_page('west-grange-2')):
-							echo do_shortcode('[contact-form-7 id="1702" title="West Grange - Base Form"]');
-						elseif(is_page('westerly')):
-							echo do_shortcode('[contact-form-7 id="3135" title="Westerly - Base Form"]');
+						<?php if(get_field('page_contact_form') != ''): $_form = get_field('page_contact_form');
+							echo do_shortcode($_form);
 						else:
 							echo do_shortcode('[contact-form-7 id="1700" title="Contact Us Form"]');
 						endif;
