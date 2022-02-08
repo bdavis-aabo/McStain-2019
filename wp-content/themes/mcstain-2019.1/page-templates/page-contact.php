@@ -31,6 +31,8 @@
 						<?php
 						if(is_page('west-grange-2')):
 							echo do_shortcode('[contact-form-7 id="1702" title="West Grange - Base Form"]');
+						elseif(is_page('westerly')):
+							echo do_shortcode('[contact-form-7 id="3135" title="Westerly - Base Form"]');
 						else:
 							echo do_shortcode('[contact-form-7 title="Contact Us Form"]');
 						endif;
