@@ -92,7 +92,7 @@
     <h2 class="ltgreen-txt"><?php echo get_field('qmi_floorplan') ?> Virtual Tour</h2>
   </div>
   <div class="tour-container floorplan-container">
-    <iframe src="<?php echo get_field('qmi_virtual_tour') ?>/?nt=1" class="tour-frame"></iframe>
+    <iframe src="<?php echo get_field('qmi_virtual_tour') ?>" id="showcase-player" frameborder="0" allowfullscreen allow="xr-spatial-tracking" class="tour-frame"></iframe>
   </div>
 </section>
 <?php endif; ?>
