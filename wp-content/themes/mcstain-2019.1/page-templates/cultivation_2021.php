@@ -97,7 +97,7 @@
           echo do_shortcode('[wpgmza id="4"]');
         elseif($post->post_name == 'arras-park'):
           echo do_shortcode('[wpgmza id="5"]');
-				elseif($post->post_name == 'westerly-community-page');
+				elseif($post->post_name == 'westerly-community-page'):
 					echo do_shortcode('[wpgmza id="9"]');
         endif;
         ?>
