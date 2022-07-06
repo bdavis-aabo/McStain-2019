@@ -1,10 +1,10 @@
 
-var slideH = $('#amenitiesSlider > .carousel-inner > #0 > img').height();
+var slideH = $('#amenitiesSlider > .carousel-inner > .active > img').height();
 var slideH = slideH + 30;
 $('.carousel-indicators').css('top', slideH + 'px');
 
 $(window).resize(function(){
-	var slideH = $('#amenitiesSlider > .carousel-inner > #0 > img').height();
+	var slideH = $('#amenitiesSlider > .carousel-inner > .active > img').height();
 	var slideH = slideH + 30;
 	$('.carousel-indicators').css('top', slideH + 'px');
 });
