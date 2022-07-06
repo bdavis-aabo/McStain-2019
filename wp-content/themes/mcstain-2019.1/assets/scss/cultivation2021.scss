@@ -142,10 +142,11 @@ footer
             }
           }
         }
-        .carousel-indicators { bottom: auto; font-family: 'uni-book'; justify-content: space-between; margin-left: 5%; margin-right: 5%;
-          li { text-indent: 0; width: auto; text-transform: uppercase; font-size: .95em; margin-right: 0px; border: none;
+        .carousel-indicators { bottom: auto; top: 25px; font-family: 'uni-book'; justify-content: space-between; margin-left: 5%; margin-right: 5%;
+          li { text-indent: 0; width: auto; text-transform: uppercase; font-size: .95em; margin-right: 0px; border: none; color: $white; opacity: 1;
+						text-shadow: 0 0 5px rgba($black,.5);
             &:last-child { margin-right: 0; }
-            &.active { color: $gold; }
+            &.active { color: $ltgreen; text-shadow: none; }
           }
         }
       }
@@ -412,7 +413,7 @@ footer
             .carousel-indicators { bottom: auto; font-family: 'uni-book'; justify-content: space-between; margin-left: 5%; margin-right: 5%;
               li { text-indent: 0; width: auto; text-transform: uppercase; font-size: .95em; margin-right: 0px; border: none;
                 &:last-child { margin-right: 0; }
-                &.active { color: $gold; }
+
               }
             }
           }
@@ -652,7 +653,7 @@ footer
         .carousel-indicators { bottom: auto; font-family: 'uni-book'; margin-left: 15%; margin-right: 15%; justify-content: center;
           li { text-indent: 0; width: auto; text-transform: uppercase; font-size: .95em; margin-right: 30px; border: none;
             &:last-child { margin-right: 0; }
-            &.active { color: $gold; }
+
           }
         }
       }
