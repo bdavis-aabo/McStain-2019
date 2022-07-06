@@ -1,3 +1,14 @@
+
+var slideH = $('#amenitiesSlider > .carousel-inner > #0 > img').height();
+var slideH = slideH + 30;
+$('.carousel-indicators').css('top', slideH + 'px');
+
+$(window).resize(function(){
+	var slideH = $('#amenitiesSlider > .carousel-inner > #0 > img').height();
+	var slideH = slideH + 30;
+	$('.carousel-indicators').css('top', slideH + 'px');
+});
+
 // // function to make all carousel-items the same min-height as tallest element.
 // function carouselNormalization(){
 //   var items = $('#amenitiesSlider .carousel-item'),
