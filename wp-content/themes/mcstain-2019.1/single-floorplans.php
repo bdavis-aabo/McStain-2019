@@ -108,7 +108,7 @@
   <section class="section floorplan-builder">
     <div class="floorplan-builder-container">
       <div class="builder-button-container ltgreen-bg">
-        <?php if($_term->slug != 'arras-park'): ?>
+        <?php if($_term->slug != 'arras-park' && $_term->slug != 'west-grange' && $_term->slug != 'westerly'): ?>
         <a href="https://configurator.creatomus.com/project/paintedprairie-<?php echo substr($post->post_name, -4) ?>?tab=index" target="_blank" class="builder-btn" title="Build your home" onClick="ga('send', 'event','general','click','pp_homebuilder_btn');">
           <h1>Build your house</h1>
           <span class="blue-bg"><i class="fas fa-chevron-right"></i><i class="fas fa-chevron-right"></i></span>
