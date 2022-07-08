@@ -21,6 +21,10 @@
           echo do_shortcode('[wpgmza id="4"]');
         elseif($post->post_name == 'arras-park'):
           echo do_shortcode('[wpgmza id="5"]');
+					elseif($post->post_name == 'westerly'):
+						echo do_shortcode('[wpgmza id="9"]');
+					elseif($post->post_name == 'west-grange'):
+						echo do_shortcode('[wpgmza id="10"]');
         endif;
         ?>
       </div>
