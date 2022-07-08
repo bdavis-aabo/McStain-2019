@@ -137,9 +137,11 @@
 
         <?php endif; ?>
       </div>
+			<?php if($_term->slug != 'west-grange' && $_term->slug != 'westerly'):?>
       <div class="builder-graphic">
         <img src="<?php bloginfo('stylesheet_directory') ?>/assets/images/homebuilder-graphic.jpg" alt="McStain Homebuilder" class="img-fluid aligncenter" />
       </div>
+			<?php endif; ?>
     </div>
   </section>
 
