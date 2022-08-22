@@ -37,6 +37,10 @@
           <a href="/communities/arras-park/virtual-tour" target="_blank" title="Arras Park Virtual Tour" class="btn cultivation-btn ltgreen-btn" onClick="ga('send', 'event', 'general', 'click', 'VirtualTourBTN');">Take a 360&deg; Virtual Tour</a>
           <a href="https://vr360experience.norris-design.com/arraspark-salescenter/" title="Arras Park Virtual Sales Center" target="_blank" class="btn cultivation-btn ltgreen-btn" onClick="ga('send', 'event', 'general', 'click', 'VirtualSalesBTN');">Visit the Virtual Sales Center</a>
         </p>
+				<?php elseif(is_page('westerly')): ?>
+					<p>
+						<a href="https://vr360experience.norris-design.com/westerly-salescenter/" title="Westerkt Virtual Sales Center" target="_blank" class="btn cultivation-btn ltgreen-btn" onClick="ga('send', 'event', 'general', 'click', 'Westerly-VirtualSalesBTN');">Visit the Virtual Sales Center</a>
+					</p>
         <?php endif; ?>
       </div>
     </div>
