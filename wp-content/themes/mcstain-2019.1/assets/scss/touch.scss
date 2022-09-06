@@ -1,0 +1,103 @@
+@import 'design';
+
+.touch-btn { font-family: 'uni-regular'; text-transform: uppercase; font-size: 16px; padding: .5rem 1rem;
+	.fas { padding-right: 15px; }
+}
+
+.page-template-page-touchscreen_plans { background: $medgray; }
+
+.touchscreen-wrapper { width: 100%; height: 100vh; display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
+	background: url('../images/arraspark-bg2.jpg') no-repeat center center; background-size: cover;
+	.touchscreen-logo { display: block;
+		svg { width: 350px; filter: drop-shadow(0 0 10px rgba($black, .5)); }
+	}
+
+	.touchscreen-section { flex-basis: 75%; display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
+		figure { text-align: center; }
+		.quick-links { list-style: none; margin: 45px 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center;
+			align-items: center;
+			li { font-weight: 400; margin: 0 25px; padding: 0;
+				.touch-btn { padding: .75rem 2rem; font-size: 18px; }
+			}
+		}
+
+	}
+	.touchscreen-map-container { flex-basis: 100%;
+		h1 { font-size: 45px; font-family: 'uni-bold'; color: $white; flex-basis: 100%; flex-grow: 1; margin: 0 0 30px; text-align: left;
+			text-shadow: 0 0 5px rgba($black,.5); }
+		.map-container { width: 100%; height: 100%; background: $white; height: 60vh;
+			iframe { width: 100%; height: 100%; max-height: 100%; max-width: 100%; border: none; }
+		}
+	}
+
+	&.arras-park-touchscreen { padding: 5vh 0;
+		background-attachment: fixed;
+		.floorplan-collection-section { flex-basis: 95%; flex-wrap: wrap; justify-content: space-between; align-items: stretch;
+			transition: transform 666ms ease-in-out 666ms; transform: scaleY(1); opacity: 1; cursor: pointer;
+			&.hidden { transform: scaleY(0); transform-origin: 100% 0%; }
+			.collection-details { flex-basis: 32%; padding: 2.5% 5% 2.5% 2.5%; font-family: 'uni-light'; box-shadow: 0 0 10px rgba($black,.5);
+				h1 { font-size: 45px; line-height: 1.25em; margin-bottom: 20px;
+					em { font-family: 'uni-bold'; font-style: normal; }
+				}
+				h2 { font-size: 32px; line-height: 1.25em; font-family: 'uni-bold'; margin-bottom: 12px; }
+				strong { display: block; margin: 4px 0 0; font-size: 18px;
+				}
+				.view-btn { background: $ltgreen; color: $white; font-style: normal; font-family: 'uni-bold'; margin-top: 20px;
+					align-self: flex-end; text-transform: uppercase; font-size: 16px;
+					.fas {
+						&:last-child { padding-right: 10px; }
+					}
+				}
+			}
+		}
+	}
+
+	.floorplan-list-section { flex-basis: 95%; margin-bottom: 0; transition: transform 666ms ease-in-out; transform: scaleY(1); display: flex;
+		&.hidden { transform: scaleY(0); display: none; }
+		.floorplan-container { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
+			h1 { font-size: 45px; font-family: 'uni-bold'; color: $white; flex-basis: 100%; flex-grow: 1; margin: 0 0 30px; text-align: left;
+				text-shadow: 0 0 5px rgba($black,.5); }
+			.floorplan { flex-basis: 19%; margin: 0 0 30px; padding: 1%; background: $blue; color: $white;box-shadow: 0 0 10px rgba($black,.5);
+				img { border: 1px solid rgba($white, .25); }
+				.floorplan-title { margin: 10px 0 5px; font-family: 'uni-bold'; font-size: 28px; }
+				.details,
+				.price { font-size: 21px; font-family: 'uni-light'; }
+			}
+			&.hidden { display: none; }
+		}
+		.floorplan-detail-container { display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
+			.floorplan-details { display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-start; color: $white;
+				height: 100%;
+				&.hidden { display: none; }
+				.floorplan-details-top,
+				.floorplan-details-bottom { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; background: $blue; }
+
+				.floorplan-details-top { flex-basis: 20%; margin-right: 3%; display: flex; flex-wrap: wrap; justify-content: flex-start;
+					align-items: center; padding: 20px;
+					.green-btn { order: 2; }
+					.floorplan-figure { order: 0; width: 350px; }
+					.floorplan-titlebox { order: 1; padding-left: 0%; text-align: left; flex-basis: 100%; flex-grow: 1; margin-bottom: 15px;
+						h1 { font-size: 45px; font-family: 'uni-bold'; color: $white; flex-basis: 100%; flex-grow: 1; margin: 0; }
+						.details { order: 1; font-size: 21px; font-family: 'uni-light'; }
+					}
+				}
+				.floorplan-details-bottom { flex-basis: 70%;
+					.floorplan-images { order: 2; flex-basis: 100%;
+						.floorplan-image-container {
+							.nav-pills { justify-content: center;
+								.nav-item {
+									.nav-link { color: $white; border-radius: 0; font-family: 'uni-light'; padding: .5rem 1.5rem;
+										&.active { color: $white; background: $green; }
+									}
+								}
+							}
+							.tab-content { padding: 1% 10% 0; display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
+								.tab-pane { padding: 0; width: 70%; }
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

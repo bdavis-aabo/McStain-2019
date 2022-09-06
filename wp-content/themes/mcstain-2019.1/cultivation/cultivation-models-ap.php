@@ -8,7 +8,7 @@ pull collections for community by slug
 */
   $_community = $post->post_name;
   $_collections = get_terms(array(
-    'taxonomy'  =>  'collection',
+    'taxonomy'  	=>  'collection',
     'hide_empty'  =>  false,
     'orderby'     =>  'ID',
     'order'       =>  'ASC'

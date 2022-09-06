@@ -15,6 +15,13 @@
       filemtime(get_stylesheet_directory().'/assets/css/main.min.css'),
       'all'
     );
+		wp_enqueue_style(
+			'touch.min',
+			get_stylesheet_directory_uri().'/assets/css/touch.min.css',
+			array(),
+			filemtime(get_stylesheet_directory().'/assets/css/touch.min.css'),
+			'all'
+		);
   }
   add_action('wp_enqueue_scripts', 'mcstain_styles', PHP_INT_MAX);
 
@@ -26,7 +33,15 @@
       filemtime(get_stylesheet_directory().'/assets/js/cultivation.min.js'),
       true
     );
+		wp_register_script(
+      'jquery.touch.min',
+      get_stylesheet_directory_uri() . '/assets/js/touch.min.js?v='.filemtime(get_stylesheet_directory().'/assets/js/touch.min.js'),
+      array('jquery'),
+      filemtime(get_stylesheet_directory().'/assets/js/touch.min.js'),
+      true
+    );
     wp_enqueue_script('jquery.cultivation.min');
+		wp_enqueue_script('jquery.touch.min');
   }
   	add_action('wp_enqueue_scripts','mcstain_cultivation_js', 11);
 
