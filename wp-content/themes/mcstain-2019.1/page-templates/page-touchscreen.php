@@ -7,7 +7,7 @@
 		<section class="touchscreen-section main-touchscreen-section">
 			<div class="main-touchscreen-container">
 				<figure class="touchscreen-logo">
-					<?php echo file_get_contents(get_stylesheet_directory_uri() . '/assets/images/ap-logo_white.svg') ?>
+					<img src="<?php bloginfo('stylesheet_directory') ?>/assets/images/arraspark_logo_transparent.png" alt="<?php the_title() ?> - Logo" />
 				</figure>
 
 				<ul class="quick-links">
