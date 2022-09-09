@@ -89,7 +89,7 @@ pull collections for community by slug
           $_galleryImages = get_field('floorplan_elevations'); $_galleryImage = $_galleryImages[0]; ?>
         <article class="floorplan" id="<?php echo $post->post_name ?>">
           <img src="<?php echo $_galleryImage['url'] ?>" alt="<?php the_title() ?> - Elevation" class="floorplan-thumbnail img-fluid" />
-          <?php if($_collection->slug != 'parkway-collection'): ?>
+          <?php //if($_collection->slug != 'parkway-collection'): ?>
           <div class="floorplan-details noshow">
             <div class="background-box"></div>
             <div class="background-details">
@@ -106,7 +106,7 @@ pull collections for community by slug
               <?php endif; ?>
             </div>
           </div>
-          <?php else: ?>
+          <?php /* else: ?>
           <div class="floorplan-details parkway-details">
             <div class="background-details">
               <p class="floorplan-title"><?php the_title() ?></p>
@@ -122,7 +122,7 @@ pull collections for community by slug
               <?php endif; ?>
             </div>
           </div>
-          <?php endif; ?>
+          <?php endif; */ ?>
         </article>
         <?php endwhile; ?>
       </div>
