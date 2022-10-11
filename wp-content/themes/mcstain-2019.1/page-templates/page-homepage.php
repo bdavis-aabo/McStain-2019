@@ -22,7 +22,7 @@
         <div class="col-md-3">
           <div class="right-btn nomobile">
             <a href="/bewell-house-by-mcstain/" title="BeWell House, exclusively by McStain Neighborhoods">
-              <img src="<?php bloginfo('stylesheet_directory') ?>/assets/images/bewell-callout.jpg" class="img-fluid alignright" alt="BeWell House, exclusively by McStain Neighborhoods" />
+              <img src="<?php bloginfo('stylesheet_directory') ?>/assets/images/bewell-callout_new.jpg" class="img-fluid alignright" alt="BeWell House, exclusively by McStain Neighborhoods" />
             </a>
           </div>
         </div>
