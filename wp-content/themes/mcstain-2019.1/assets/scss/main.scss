@@ -9,6 +9,13 @@
 
 .alignleft { float: left; margin-right: 15px; }
 
+.homepage-heroimage { background-size: cover !important; min-height: 450px; margin-top: 60px;
+	.homepage-heroimage-caption { text-shadow: 0 0 5px rgba($black,.5);
+		.caption-title { font-size: 48px; }
+		.caption-content { font-size: 26px; }
+	}
+}
+
 .homepage-latestnews {
   .news-article { border-bottom: 1px solid $ltgray; padding-bottom: 2vh;
     .article-title { font-size: 1.5em; margin-bottom: 12px;
@@ -349,12 +356,12 @@ No media query...Bootstrap default
       .community-scroller { margin-top: 3vh;  }
     }
   }
-  .homepage-heroimage {
-    .homepage-heroimage-caption {
-      h1, h2 { text-shadow: 0 0 8px rgba($black,.5)}
-      h2.caption-content { font-family: 'uni-regular' !important; }
-    }
-  }
+	.homepage-heroimage { min-height: 650px; margin-top: 60px; background-color: pink;
+		.homepage-heroimage-caption { text-shadow: 0 0 5px rgba($black,.5);
+			.caption-title { font-size: 60px; line-height: 1px; margin-bottom: 12px; }
+			.caption-content { font-size: 48px; }
+		}
+	}
   .homepage-content,
   .homepage-manifesto,
   .community-design {
@@ -393,7 +400,7 @@ No media query...Bootstrap default
   .header {
     .navbar {  margin: 0 auto; }
   }
-  .homepage-heroimage { margin: 0 auto;  float: none; }
+  .homepage-heroimage { margin: 55px auto 0;  float: none; }
 
   .homepage-communities {
     #community-slider {  margin: 0 auto; }
