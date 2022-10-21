@@ -3,14 +3,29 @@
 <?php get_header(); ?>
 
 
-  <?php if(have_posts()): while(have_posts()): the_post(); $_poster = get_the_post_thumbnail_url(get_the_ID(), 'poster'); ?>
+  <?php if(have_posts()): while(have_posts()): the_post(); ?>
+
+	<?php if(have_rows('community_hero_slides')): $_s = 0; ?>
   <section class="section community-heroimage">
-    <video loop autoplay muted style="background: url('<?php echo esc_url($_poster) ?>') no-repeat center top; background-size: cover; object-fit: fill; width:100%;" preload="none" id="cultivation-video">
-      <source src="<?php bloginfo('stylesheet_directory') ?>/assets/images/video/<?php echo $post->post_name ?>.mp4" type="video/mp4">
-      <source src="<?php bloginfo('stylesheet_directory') ?>/assets/images/video/<?php echo $post->post_name ?>.webm" type="video/webm">
-      <source src="<?php bloginfo('stylesheet_directory') ?>/assets/images/video/<?php echo $post->post_name ?>.ogv" type="video/ogv">
-    </video>
+    <div class="slider-container">
+    	<div class="carousel carousel-fade slide photo-slider" id="commSlider" data-ride="carousel" data-interval="3500">
+    		<div class="carousel-inner">
+    			<?php while(have_rows('community_hero_slides')): the_row();
+						$_lgImage = get_sub_field('large_image');
+						$_mobImage = get_sub_field('mobile_image');
+					?>
+						<div class="carousel-item <?php if($_s == 0): echo 'active'; endif; ?>">
+							<picture>
+        				<source media="(max-width: 520px)" srcset="<?php echo $_mobImage['url'] ?>">
+        				<img src="<?php echo $_lgImage['url'] ?>" alt="<?php echo $_lgImage['alt'] ?>" class="heroimage-img img-fluid" />
+      				</picture>
+						</div>
+					<?php $_s++; endwhile; ?>
+    		</div>
+    	</div>
+    </div>
   </section>
+	<?php endif; ?>
 
   <section class="section community-quicklinks">
     <div class="quicklink-container">
