@@ -8,7 +8,7 @@
 	<?php if(have_rows('community_hero_slides')): $_s = 0; ?>
   <section class="section community-heroimage">
     <div class="slider-container">
-    	<div class="carousel carousel-fade slide photo-slider" id="commSlider" data-ride="carousel" data-interval="3500">
+    	<div class="carousel slide photo-slider" id="commSlider" data-ride="carousel" data-interval="3500">
     		<div class="carousel-inner">
     			<?php while(have_rows('community_hero_slides')): the_row();
 						$_lgImage = get_sub_field('large_image');
@@ -17,7 +17,7 @@
 						<div class="carousel-item <?php if($_s == 0): echo 'active'; endif; ?>">
 							<picture>
         				<source media="(max-width: 520px)" srcset="<?php echo $_mobImage['url'] ?>">
-        				<img src="<?php echo $_lgImage['url'] ?>" alt="<?php echo $_lgImage['alt'] ?>" class="heroimage-img img-fluid" />
+        				<img src="<?php echo $_lgImage['url'] ?>" alt="<?php echo $_lgImage['alt'] ?>" class="heroimage-img img-fluid aligncenter" />
       				</picture>
 						</div>
 					<?php $_s++; endwhile; ?>
