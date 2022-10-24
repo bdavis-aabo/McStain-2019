@@ -137,6 +137,16 @@
   }
 }
 
+.community-heroimage {
+	.slider-container {
+		.carousel {
+			.carousel-item {
+				.aligncenter { margin-bottom: 0; }
+			}
+		}
+	}
+}
+
 .community-photogallery {
   .gallery-subcontent {
     p { display: flex; flex-wrap: wrap;
