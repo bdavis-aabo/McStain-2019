@@ -147,3 +147,4 @@
 		</article>
 		<?php endwhile; ?>
 	</div>
+*/ ?>

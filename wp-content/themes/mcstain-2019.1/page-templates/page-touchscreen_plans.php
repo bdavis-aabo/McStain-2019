@@ -19,11 +19,6 @@
 	?>
 	<div class="touchscreen-wrapper <?php echo $_parent . '-touchscreen' ?>">
 		<?php if($_parent == 'arras-park'): ?>
-<?php /*
-		<figure class="touchscreen-logo">
-			<img src="<?php bloginfo('stylesheet_directory') ?>/assets/images/<?php echo $_parent . '-logo.svg' ?>" alt="Arras Park Logo" class="img-fluid" />
-		</figure>
-*/ ?>
 		<section class="touchscreen-section floorplan-collection-section">
 			<?php foreach($_collections as $_collection): ?>
 				<article class="collection-details blue-bg collection-btn" data-target="<?php echo '#' . $_collection->slug . '-touch_plans' ?>">
@@ -41,13 +36,7 @@
 
 		<?php get_template_part('touchscreen/ap-touchscreen-plans'); ?>
 
-		<?php else: ?>
-		<section class="touchscreen-section floorplan-list-section">
-
-		</section>
 		<?php endif; ?>
-
-
 	</div>
 	<?php endwhile; endif; ?>
 

@@ -2,13 +2,21 @@
 
 <?php get_header('touchscreen'); ?>
 
-	<?php if(have_posts()): while(have_posts()): the_post(); ?>
-	<div class="touchscreen-wrapper">
+	<?php if(have_posts()): while(have_posts()): the_post();
+		$_communityShort = strtolower(str_replace(' ', '', get_field('community')));
+	?>
+	<div class="touchscreen-wrapper <?php echo $_communityShort . '-bg' ?>">
 		<section class="touchscreen-section main-touchscreen-section">
 			<div class="main-touchscreen-container">
+				<?php if(is_page('arras-park-sales')): ?>
 				<figure class="touchscreen-logo">
-					<img src="<?php bloginfo('stylesheet_directory') ?>/assets/images/arraspark_logo_transparent.png" alt="<?php the_title() ?> - Logo" />
+					<img src="<?php bloginfo('stylesheet_directory') ?>/assets/images/<?php echo $_communityShort ?>_logo_transparent.png" alt="<?php the_title() ?> - Logo" />
 				</figure>
+				<?php else: ?>
+				<figure class="touchscreen-logo">
+					<img src="<?php bloginfo('stylesheet_directory') ?>/assets/images/<?php echo $_communityShort ?>-logo.svg" alt="<?php the_title() ?> - Logo" />
+				</figure>
+				<?php endif; ?>
 
 				<ul class="quick-links">
 					<li>

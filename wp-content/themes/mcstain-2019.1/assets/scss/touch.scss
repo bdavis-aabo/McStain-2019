@@ -8,7 +8,17 @@
 
 .touchscreen-wrapper { width: 100%; height: 100vh; display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
 	background: url('../images/arraspark-bg2.jpg') no-repeat center center; background-size: cover;
-	.touchscreen-logo { display: block;
+
+	&.westerly-bg { background: url('../images/westerly-touchscreen-bg.jpg') no-repeat center center; background-size: cover;
+		.main-touchscreen-section {
+			.main-touchscreen-container {
+				.touchscreen-logo {
+					img { width: 450px; }
+				}
+			}
+		}
+	}
+	.touchscreen-logo { display: block; margin-bottom: 60px;
 		svg { width: 350px; filter: drop-shadow(0 0 10px rgba($black, .5)); }
 	}
 
@@ -25,8 +35,10 @@
 	.touchscreen-map-container { flex-basis: 100%;
 		h1 { font-size: 45px; font-family: 'uni-bold'; color: $white; flex-basis: 100%; flex-grow: 1; margin: 0 0 30px; text-align: left;
 			text-shadow: 0 0 5px rgba($black,.5); }
-		.map-container { width: 80%; height: 100%; background: $white; height: 60vh; margin-left: auto; margin-right: auto; 
+		.map-container { width: 80%; height: 100%; background: $white; height: 60vh; margin-left: auto; margin-right: auto;
 			iframe { width: 100%; height: 100%; max-height: 100%; max-width: 100%; border: none; }
+
+			&.areamap-container { width: 100%; }
 		}
 	}
 
@@ -51,6 +63,7 @@
 			}
 		}
 	}
+
 
 	.floorplan-list-section { flex-basis: 95%; margin-bottom: 0; transition: transform 666ms ease-in-out; transform: scaleY(1); display: flex;
 		&.hidden { transform: scaleY(0); display: none; }
@@ -97,6 +110,15 @@
 						}
 					}
 				}
+			}
+		}
+
+		&.westerly-floorplan-list-section {
+			.westerly-floorplan-container { justify-content: center;
+				.floorplan { flex-basis: 25%; margin: .5%; }
+			}
+			.floorplan-details {
+				.floorplan-details-top { margin-right: 1%; }
 			}
 		}
 	}
