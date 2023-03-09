@@ -22,7 +22,7 @@
 	<section class="touchscreen-section floorplan-collection-section">
 		<div class="touchscreen-map-container">
 			<h1 class="white-txt"><?php the_title(); ?></h1>
-			<div class="map-container <?php if(is_page('nearby-amenities')): echo 'areamap-container'; endif;  ?>">
+			<div class="map-container <?php if(is_page('nearby-amenities') || is_page('siteplan')): echo 'areamap-container'; endif;  ?>">
 				<iframe src="<?php echo $_mapURL ?>" width="100%"></iframe>
 			</div>
 			<p style="margin-top: 30px;">

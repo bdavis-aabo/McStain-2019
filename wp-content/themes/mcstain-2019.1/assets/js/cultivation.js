@@ -100,5 +100,48 @@ $(document).ready(function(){
       }
     }
   });
+
+	//Bewell height adjust script
+	const moreButton = $('.more-btn');
+	const bewellSlideContainer = $('.bewell-popup-slider');
+
+	moreButton.click(function(){
+		const height = bewellSlideContainer.prop('scrollHeight');
+		bewellSlideContainer.toggleClass('is-visible');
+		moreButton.text(moreButton.text() === 'Learn More' ? 'Close' : 'Learn More');
+	});
+
+	const popupButton = $('.popup-btn');
+	const bewellPopup = $('.bewell-popup');
+	const closePopup  = $('.bewell-popup > .popup-container .close-btn');
+
+	popupButton.click(function(){
+		bewellPopup.addClass('is-visible');
+	});
+
+	closePopup.click(function(){
+		bewellPopup.removeClass('is-visible');
+	});
+
+
+
+	// Flip Card Functions
+  var flipFrontH = $('.flipper > .card-front').height();
+
+  $('.flipper').height(flipFrontH);
+  $('.flipper .card-back').height(flipFrontH).width(flipFrontH);
+
+  $(window).resize(function(){
+    var flipFrontH = $('.flipper > .card-front').height();
+    $('.flipper').height(flipFrontH);
+    $('.flipper .card-back').height(flipFrontH).width(flipFrontH);
+  });
+
+  $('.flip-container').click(function(){
+    $('.flip-container.hover').not(this).removeClass('hover');
+    $(this).toggleClass('hover');
+  });
+
+
 //   carouselNormalization();
 });

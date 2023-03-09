@@ -22,6 +22,13 @@
 			filemtime(get_stylesheet_directory().'/assets/css/touch.min.css'),
 			'all'
 		);
+		wp_enqueue_style(
+			'bewell.min',
+			get_stylesheet_directory_uri().'/assets/css/bewell.min.css',
+			array(),
+			filemtime(get_stylesheet_directory().'/assets/css/bewell.min.css'),
+			'all'
+		);
   }
   add_action('wp_enqueue_scripts', 'mcstain_styles', PHP_INT_MAX);
 
