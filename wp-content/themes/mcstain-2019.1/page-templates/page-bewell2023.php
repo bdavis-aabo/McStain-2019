@@ -19,15 +19,14 @@
 			<?php $_s++; endwhile; ?>
 			</div>
 		</div>
-
-		<figure class="bewell-animated-logo">
-			<?php echo file_get_contents(get_stylesheet_directory_uri() . '/assets/images/bewell-logoAnim.svg') ?>
-		</figure>
 	</section>
 	<?php endif; ?>
 
 	<section class="page-section bewell-intro-section">
 		<div class="bewell-introduction">
+			<figure class="bewell-animated-logo">
+				<?php echo file_get_contents(get_stylesheet_directory_uri() . '/assets/images/bewell-logoAnim.svg') ?>
+			</figure>
 			<?php the_content() ?>
 		</div>
 	</section>

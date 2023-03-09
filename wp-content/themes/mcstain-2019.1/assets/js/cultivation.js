@@ -1,62 +1,22 @@
+$(window).on('load', function(){
+	// Flip Card Functions
+  var flipFrontH = $('.flipper > .card-front').height();
 
-// var slideH = $('#amenitiesSlider > .carousel-inner > .active > img').height();
-// var slideH = slideH + 20;
-// $('.carousel-indicators').css('top', slideH + 'px');
-//
-// console.log(slideH);
-//
-// $(window).resize(function(){
-// 	var slideH = $('#amenitiesSlider > .carousel-inner > .active > img').height();
-// 	var slideH = slideH + 30;
-// 	$('.carousel-indicators').css('top', slideH + 'px');
-// });
+  $('.flipper').height(flipFrontH);
+  $('.flipper .card-back').height(flipFrontH).width(flipFrontH);
 
-// // function to make all carousel-items the same min-height as tallest element.
-// function carouselNormalization(){
-//   var items = $('#amenitiesSlider .carousel-item'),
-//     heights = [],
-//     tallest;
-//
-//   var itemImages = $('#amenitiesSlider .carousel-item > img'),
-//     imageHeights = [],
-//     imageTallest;
-//
-//   if(items.length) {
-//     function normalizeHeights(){
-//       items.each(function(){
-//         heights.push($(this).height());
-//       });
-//       tallest = Math.max.apply(null, heights);
-//       items.each(function(){
-//         $(this).css('min-height', tallest + 'px');
-//       });
-//     }
-//     function setNavigationTop(){
-//       itemImages.each(function(){
-//         imageHeights.push($(this).height());
-//       });
-//       imageTallest = Math.max.apply(null, imageHeights);
-//       $('#amenitiesSlider .carousel-indicators').css('top', (imageTallest + 30) + 'px');
-//     }
-//     normalizeHeights();
-//     setNavigationTop();
-//
-//     $(window).on('resize orientationchange', function(){
-//       tallest = 0, heights.length = 0;
-//       items.each(function(){
-//         $(this).css('min-height', '0');
-//       });
-//
-//       imageTallest = 0, imageHeights.length = 0;
-//       itemImages.each(function(){
-//         $('#amenitiesSlider .carousel-indicators').css('top', '0');
-//       });
-//       normalizeHeights();
-//       setNavigationTop();
-//     });
-//   }
-// }
-//
+  $(window).resize(function(){
+    var flipFrontH = $('.flipper > .card-front').height();
+    $('.flipper').height(flipFrontH);
+    $('.flipper .card-back').height(flipFrontH).width(flipFrontH);
+  });
+
+  $('.flip-container').click(function(){
+    $('.flip-container.hover').not(this).removeClass('hover');
+    $(this).toggleClass('hover');
+  });
+});
+
 $(document).ready(function(){
   // show/hide floorplan thumbnails
   $('.view-btn').click(function(){
@@ -125,22 +85,7 @@ $(document).ready(function(){
 
 
 
-	// Flip Card Functions
-  var flipFrontH = $('.flipper > .card-front').height();
 
-  $('.flipper').height(flipFrontH);
-  $('.flipper .card-back').height(flipFrontH).width(flipFrontH);
-
-  $(window).resize(function(){
-    var flipFrontH = $('.flipper > .card-front').height();
-    $('.flipper').height(flipFrontH);
-    $('.flipper .card-back').height(flipFrontH).width(flipFrontH);
-  });
-
-  $('.flip-container').click(function(){
-    $('.flip-container.hover').not(this).removeClass('hover');
-    $(this).toggleClass('hover');
-  });
 
 
 //   carouselNormalization();

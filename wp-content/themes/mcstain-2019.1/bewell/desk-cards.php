@@ -8,7 +8,7 @@
 							<div class="flip-container">
 								<div class="flipper card">
 									<div class="card-front">
-										<img src="<?php echo $_cardImage['url'] ?>" alt="BeWell Card Image" class="img-fluid">
+										<img src="<?php echo $_cardImage['url'] ?>" alt="BeWell Card Image" class="card-image img-fluid">
 									</div>
 									<div class="card-back">
 										<div class="card-back-content">

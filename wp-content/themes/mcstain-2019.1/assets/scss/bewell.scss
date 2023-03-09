@@ -5,14 +5,15 @@
 	}
 	p { font-size: 16px; line-height: 32px; }
 	.btn { font-style: normal; font-family: 'uni-regular'; border-radius: 4px; font-size: 16px; text-transform: uppercase; }
-
-	&.bewell-heroimage-section { position: relative;
-		.heroimage-container { }
-		.bewell-animated-logo { position: absolute; left: 2.5%; bottom: 5%;
-			svg { width: 325px;
-				path.bewell-letter { filter: drop-shadow(0 0 5px rgba($black,0.8)); }
-			}
+	.desktop-only { display: none; }
+	.bewell-animated-logo { margin-bottom: 0;
+		svg { width: 325px;
+			path.bewell-letter { fill: #231f20; }
 		}
+	}
+
+	&.bewell-heroimage-section { position: relative; padding-bottom: 0;
+		.heroimage-container { }
 	}
 
 	&.bewell-intro-section { padding: 2vh 0 3.5vh;
@@ -70,6 +71,26 @@
 			}
 		}
 	}
+	&.bewell-articles-section { padding-top: 0;
+		.bewell-articles-container { flex-basis: 90%;
+			h3 { text-align: center; font-size: 32px; padding-left: 15%; padding-right: 15%; margin-bottom: 30px; }
+			.bewell-article { margin-bottom: 45px;
+				.article-content {
+					.article-title { text-align: left; padding: 0; font-size: 24px; line-height: 28px; margin-bottom: 0;
+						a { color: $green; }
+					}
+					.article-time { color: $gray; }
+					p { margin: 12px 0; font-size: 16px; line-height: 28px;
+						a { color: $green;
+							&.btn { color: $white; }
+						}
+						&:last-child { margin-bottom: 25px; }
+					}
+					.btn { margin-top: 15px; }
+				}
+			}
+		}
+	}
 
 	&.bewell-communities-section {
 		.bewell-community-intro { flex-basis: 80%; text-align: center; color: $green; padding-bottom: 15px;
@@ -118,7 +139,7 @@
 		}
 		p { font-size: 16px; line-height: 32px; }
 		.btn { font-style: normal; font-family: 'uni-regular'; border-radius: 4px; text-transform: uppercase; }
-
+		.desktop-only { display: block; }
 		// bewell cards
 		&.bewell-cards-section {
 			&.desk-cards { display: block; }
@@ -216,11 +237,12 @@
 		}
 		p { font-size: 16px; line-height: 32px; }
 		.btn { font-style: normal; font-family: 'uni-regular'; border-radius: 4px; text-transform: uppercase; }
+		.bewell-animated-logo {
+			svg { width: 600px; }
+		}
 
 		&.bewell-heroimage-section {
-			.bewell-animated-logo { position: absolute; left: 2.5%; bottom: 5%;
-				svg { width: 425px; }
-			}
+
 		}
 
 		// bewell cards
@@ -247,6 +269,21 @@
 						p { padding-right: 0; }
 					}
 					.house-right { flex-basis: 55%; }
+				}
+			}
+		}
+		&.bewell-articles-section { padding-top: 0;
+			.bewell-articles-container { flex-basis: 90%; display: flex; flex-wrap: wrap; justify-content: space-between;
+				align-items: flex-start;
+				h3.green-txt { flex-grow: 1; flex-basis: 100%; }
+				.left-article,
+				.right-article { flex-basis: 100%; }
+
+				.left-article {
+					.bewell-article { flex-grow: 1; flex-basis: 100%; }
+				}
+				.right-article { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start;
+					.bewell-article { flex-basis: 48%; }
 				}
 			}
 		}
@@ -285,6 +322,21 @@
 				h2 { font-size: 48px; margin-bottom: 25px; }
 				h3 { font-size: 36px; }
 				p { padding-left: 10%; padding-right: 10%; }
+			}
+		}
+
+		&.bewell-articles-section { padding-top: 0;
+			.bewell-articles-container { flex-basis: 90%; display: flex; flex-wrap: wrap; justify-content: space-between;
+				align-items: flex-start;
+				.left-article  { flex-basis: 60%;  }
+				.right-article { flex-basis: 38%; }
+
+				.left-article {
+					.bewell-article { flex-grow: 1; flex-basis: 100%; }
+				}
+				.right-article { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start;
+					.bewell-article { flex-basis: 100%; }
+				}
 			}
 		}
 
